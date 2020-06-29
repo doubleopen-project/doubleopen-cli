@@ -1,0 +1,15 @@
+[package]
+name = "doubleopen_cli"
+version = "0.1.0"
+authors = ["HH Partners"]
+edition = "2018"
+description = "A tool for Double Open Project's automation workflow"
+license = "MIT"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+clap = { git = "https://github.com/clap-rs/clap", rev = "ca27d50ab20fcabae288f59f1d6e680fd94aa69f"}
+serde_json = "1.0"
+serde = {version = "1.0.114", features=["derive"]}
+indicatif = "0.15.0"
