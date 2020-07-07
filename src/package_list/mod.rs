@@ -2,9 +2,4 @@
 //
 // SPDX-License-Identifier: MIT
 
-#[derive(Debug)]
-pub enum FileType {
-    SrcList,
-    PackageList,
-}
-
+pub mod structs;

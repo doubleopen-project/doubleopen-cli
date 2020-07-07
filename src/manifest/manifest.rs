@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: MIT
 
 use super::structs::*;
-use crate::srclist::structs::PackageList;
+use crate::package_list::structs::PackageList;
 use std::fs::File;
 use std::io::{prelude::*, BufReader};
 

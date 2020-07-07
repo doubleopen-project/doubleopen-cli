@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: MIT
 
-use crate::srclist::structs::PackageList;
+use crate::package_list::structs::PackageList;
 use serde::Serialize;
 
 #[derive(Debug, Serialize)]

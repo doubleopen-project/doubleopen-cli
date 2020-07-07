@@ -6,6 +6,7 @@ use clap::{app_from_crate, Arg};
 use std::fs;
 mod manifest;
 mod srclist;
+mod package_list;
 use indicatif::ProgressBar;
 
 fn main() {

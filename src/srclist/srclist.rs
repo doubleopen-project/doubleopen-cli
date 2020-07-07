@@ -5,6 +5,7 @@
 use super::structs::*;
 use indicatif::ProgressBar;
 use std::{collections::HashMap, fs, path::PathBuf};
+use crate::package_list::structs::{PackageList, SourceFile, ElfFile};
 
 pub fn process_srclists(srclist_directory: &str) -> Vec<PackageList> {
     println!("Processing srclists...");
@@ -35,13 +36,7 @@ pub fn process_srclists(srclist_directory: &str) -> Vec<PackageList> {
 
         match file_type {
             FileType::SrcList => srclists.push(path.clone()),
-            FileType::PackageList => package_lists.push(PackageList {
-                name: file_name.to_str().unwrap().to_owned(),
-                path: path.to_owned(),
-                srclist: None,
-                packages: vec![],
-                elf_files: vec![],
-            }),
+            FileType::PackageList => package_lists.push(PackageList::new(file_name.to_str().unwrap().to_owned(), path.to_owned())),
         }
     }
 
@@ -55,28 +50,8 @@ pub fn process_srclists(srclist_directory: &str) -> Vec<PackageList> {
                 e.srclist = Some(srclist.clone());
 
                 let contents = fs::read_to_string(&srclist).unwrap();
-                let source_list: HashMap<String, Vec<HashMap<String, Option<String>>>> =
-                    serde_json::from_str(&contents).unwrap();
 
-                for elf_file in source_list.iter() {
-                    let elf_path = elf_file.0;
-                    let mut source_files: Vec<SourceFile> = vec![];
-                    for source_file in elf_file.1 {
-                        for source_file_2 in source_file {
-                            let sf: SourceFile = SourceFile {
-                                path: source_file_2.0.to_owned(),
-                                sha256: source_file_2.1.to_owned(),
-                            };
-                            source_files.push(sf);
-                        }
-                    }
-                    let elf: ElfFile = ElfFile {
-                        path: elf_path.to_owned(),
-                        source_files,
-                    };
-
-                    e.elf_files.push(elf);
-                }
+                process_srclist_content(&contents,  e);
             }
         }
         let contents = fs::read_to_string(&e.path).unwrap();
@@ -89,4 +64,28 @@ pub fn process_srclists(srclist_directory: &str) -> Vec<PackageList> {
     pb.finish_with_message("done");
 
     package_lists
+}
+
+fn process_srclist_content(srclist_content: &str, package_list: &mut PackageList) {
+    let source_list: HashMap<String, Vec<HashMap<String, Option<String>>>> = serde_json::from_str(srclist_content).unwrap();
+
+    for elf_file in source_list.iter() {
+        let elf_path = elf_file.0;
+        let mut source_files: Vec<SourceFile> = vec![];
+        for source_file in elf_file.1 {
+            for source_file_2 in source_file {
+                let sf: SourceFile = SourceFile {
+                    path: source_file_2.0.to_owned(),
+                    sha256: source_file_2.1.to_owned(),
+                };
+                source_files.push(sf);
+            }
+        }
+        let elf: ElfFile = ElfFile {
+            path: elf_path.to_owned(),
+            source_files,
+        };
+
+        package_list.elf_files.push(elf);
+    }
 }
