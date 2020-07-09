@@ -73,7 +73,7 @@ fn main() {
             matches.value_of("manifest"),
             matches.value_of("srclist folder"),
         ) {
-            packages = manifest::process_manifest(manifest_path);
+            packages = Package::new(manifest_path);
             packages_count = packages.len() as u64;
             package_lists = srclist::process_srclists(srclists_path);
             println!("Finding srclists for packages...");
