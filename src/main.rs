@@ -4,9 +4,10 @@
 
 use clap::{app_from_crate, Arg};
 use std::fs;
+mod fossology;
 mod manifest;
-mod srclist;
 mod package_list;
+mod srclist;
 use indicatif::ProgressBar;
 
 fn main() {
@@ -38,6 +39,22 @@ fn main() {
                 .required(false)
                 .takes_value(true),
         )
+        .arg(
+            Arg::new("fossology")
+                .long("fossology")
+                .value_name("URI")
+                .about("Fossology instance")
+                .required(false)
+                .takes_value(true),
+        )
+        .arg(
+            Arg::new("fossology token")
+                .long("token")
+                .value_name("TOKEN")
+                .about("Access token for Fossology API")
+                .required(false)
+                .takes_value(true),
+        )
         .get_matches();
 
     let mut packages = manifest::process_manifest(matches.value_of("manifest").unwrap());
@@ -52,6 +69,14 @@ fn main() {
         e.find_srclist(&package_lists);
     }
     pb.finish_with_message("done");
+
+    if let (Some(ref fossology_uri), Some(token)) = (
+        matches.value_of("fossology"),
+        matches.value_of("fossology token"),
+    ) {
+        let fossology = fossology::fossology::Fossology::new(fossology_uri, token);
+        fossology.version();
+    }
 
     if let Some(ref file) = matches.value_of("save to file") {
         println!("Saving to json...");

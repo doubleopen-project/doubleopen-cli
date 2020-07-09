@@ -13,3 +13,4 @@ clap = { git = "https://github.com/clap-rs/clap", rev = "ca27d50ab20fcabae288f59
 serde_json = "1.0"
 serde = {version = "1.0.114", features=["derive"]}
 indicatif = "0.15.0"
+reqwest = { version = "0.10", features = ["blocking", "json"] }
