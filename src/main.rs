@@ -5,12 +5,9 @@
 use clap::{app_from_crate, App, Arg};
 use std::fs;
 mod fossology;
-mod manifest;
-mod package_list;
-mod srclist;
+mod yocto;
 use indicatif::ProgressBar;
-use manifest::structs::Package;
-use package_list::structs::PackageList;
+use yocto::{package_list::PackageList, srclist, Package};
 mod utilities;
 
 fn main() {

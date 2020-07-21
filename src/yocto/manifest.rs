@@ -2,10 +2,29 @@
 //
 // SPDX-License-Identifier: MIT
 
-use super::structs::*;
-use crate::package_list::structs::PackageList;
+use super::package_list::PackageList;
+use serde::Serialize;
 use std::fs::File;
 use std::io::{prelude::*, BufReader};
+
+#[derive(Debug, Serialize)]
+pub struct Package {
+    pub name: String,
+    pub architecture: String,
+    pub version: String,
+    pub package_list: Option<PackageList>,
+}
+
+impl Default for Package {
+    fn default() -> Self {
+        Package {
+            name: String::from("DEFAULT"),
+            architecture: String::from("DEFAULT"),
+            version: String::from("DEFAULT"),
+            package_list: None,
+        }
+    }
+}
 
 impl Package {
     pub fn new(manifest_path: &str) -> Vec<Package> {

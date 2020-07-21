@@ -2,10 +2,9 @@
 //
 // SPDX-License-Identifier: MIT
 
-use super::structs::*;
+use super::package_list::{ElfFile, PackageList, SourceFile};
 use indicatif::ProgressBar;
 use std::{collections::HashMap, fs, path::PathBuf};
-use crate::package_list::structs::{PackageList, SourceFile, ElfFile};
 
 pub fn process_srclists(srclist_directory: &str) -> Vec<PackageList> {
     println!("Processing srclists...");
@@ -36,7 +35,10 @@ pub fn process_srclists(srclist_directory: &str) -> Vec<PackageList> {
 
         match file_type {
             FileType::SrcList => srclists.push(path.clone()),
-            FileType::PackageList => package_lists.push(PackageList::new(file_name.to_str().unwrap().to_owned(), path.to_owned())),
+            FileType::PackageList => package_lists.push(PackageList::new(
+                file_name.to_str().unwrap().to_owned(),
+                path.to_owned(),
+            )),
         }
     }
 
@@ -51,7 +53,7 @@ pub fn process_srclists(srclist_directory: &str) -> Vec<PackageList> {
 
                 let contents = fs::read_to_string(&srclist).unwrap();
 
-                process_srclist_content(&contents,  e);
+                process_srclist_content(&contents, e);
             }
         }
         let contents = fs::read_to_string(&e.path).unwrap();
@@ -67,7 +69,8 @@ pub fn process_srclists(srclist_directory: &str) -> Vec<PackageList> {
 }
 
 fn process_srclist_content(srclist_content: &str, package_list: &mut PackageList) {
-    let source_list: HashMap<String, Vec<HashMap<String, Option<String>>>> = serde_json::from_str(srclist_content).unwrap();
+    let source_list: HashMap<String, Vec<HashMap<String, Option<String>>>> =
+        serde_json::from_str(srclist_content).unwrap();
 
     for elf_file in source_list.iter() {
         let elf_path = elf_file.0;
@@ -88,4 +91,10 @@ fn process_srclist_content(srclist_content: &str, package_list: &mut PackageList
 
         package_list.elf_files.push(elf);
     }
+}
+
+#[derive(Debug)]
+pub enum FileType {
+    SrcList,
+    PackageList,
 }

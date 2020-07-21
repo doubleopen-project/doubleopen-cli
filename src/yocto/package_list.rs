@@ -16,7 +16,13 @@ pub struct PackageList {
 
 impl PackageList {
     pub fn new(name: String, path: PathBuf) -> Self {
-        Self { name,path, srclist: None, packages: vec![], elf_files: vec![]}
+        Self {
+            name,
+            path,
+            srclist: None,
+            packages: vec![],
+            elf_files: vec![],
+        }
     }
 }
 
