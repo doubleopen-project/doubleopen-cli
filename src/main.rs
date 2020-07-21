@@ -11,6 +11,7 @@ mod srclist;
 use indicatif::ProgressBar;
 use manifest::structs::Package;
 use package_list::structs::PackageList;
+mod utilities;
 
 fn main() {
     let matches = app_from_crate!()
@@ -59,6 +60,14 @@ fn main() {
                         .about("Access token for Fossology API")
                         .required(true)
                         .takes_value(true),
+                )
+                .arg(
+                    Arg::new("upload")
+                        .long("upload")
+                        .short('u')
+                        .value_name("DIR")
+                        .about("Directory to upload to Fossology")
+                        .takes_value(true),
                 ),
         ])
         .get_matches();
@@ -96,12 +105,16 @@ fn main() {
 
     // Process Fossology subcommand.
     if let Some(ref matches) = matches.subcommand_matches("fossology") {
-        if let (Some(ref fossology_uri), Some(token)) = (
-            matches.value_of("fossology"),
-            matches.value_of("fossology token"),
-        ) {
-            let fossology = fossology::fossology::Fossology::new(fossology_uri, token);
-            fossology.version();
+        // Setup Fossology.
+        let fossology_uri = matches.value_of("fossology").unwrap();
+        let token = matches.value_of("fossology token").unwrap();
+        let fossology = fossology::fossology::Fossology::new(fossology_uri, token);
+
+        fossology.version();
+
+        // Upload package.
+        if let Some(source_path) = matches.value_of("upload") {
+            fossology.upload_all_in_folder(&source_path);
         }
     }
 }

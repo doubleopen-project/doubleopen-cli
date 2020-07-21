@@ -16,10 +16,12 @@
         }
       },
       "args": [
-        "-m",
-        "../doubleopen/01_Identify_source_files/yocto_output/core-image-sato-qemux86-64.manifest",
-        "-f",
-        "../doubleopen/01_Identify_source_files/yocto_output/qemux86-64"
+        "fossology",
+        "http://46.101.214.238/repo/api/v1",
+        "-t",
+        "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1OTYxNTM1OTksIm5iZiI6MTU5NDMzOTIwMCwianRpIjoiTWk0MCIsInNjb3BlIjoid3JpdGUifQ.-G-VioI80GBOM1r7TohbaSPgURiO4rk9Y-zXGITrV14",
+        "-u",
+        "../downloads_test/"
       ],
       "cwd": "${workspaceFolder}"
     },
