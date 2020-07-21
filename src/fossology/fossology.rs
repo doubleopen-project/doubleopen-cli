@@ -188,13 +188,14 @@ impl Fossology {
         // Filter files already in Fossology.
         upload_objects.retain(|x| x.exists_in_fossology == false);
 
+        println!("Uploading source packages to Fossology.");
         let upload_objects_length = upload_objects.len() as u64;
         let pb = ProgressBar::new(upload_objects_length).with_style(style);
-
-        println!("Uploading source packages to Fossology.");
-        upload_objects.into_par_iter().for_each(|x| {
-            self.upload(&x.path, &4);
+        upload_objects.iter().for_each(|x| {
+            pb.set_message(&x.path);
             pb.inc(1);
+            self.upload(&x.path, &4);
         });
+        pb.finish();
     }
 }
