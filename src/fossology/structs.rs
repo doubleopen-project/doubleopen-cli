@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2020 HH Partners
+//
+// SPDX-License-Identifier: MIT
+
 use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize, Debug)]

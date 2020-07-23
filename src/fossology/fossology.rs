@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2020 HH Partners
+//
+// SPDX-License-Identifier: MIT
+
 #![deny(clippy::all)]
 use super::structs::{
     HashQueryInput, HashQueryResponse, ScheduleJobsInput, UploadDetailResponse,

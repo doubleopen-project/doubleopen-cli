@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2020 HH Partners
+//
+// SPDX-License-Identifier: MIT
+
 use sha2::{Digest, Sha256};
 use std::{fs::File, io};
 
