@@ -68,6 +68,7 @@ pub fn process_srclists(srclist_directory: &str) -> Vec<PackageList> {
     package_lists
 }
 
+/// Add information from srclist to PackageList.
 fn process_srclist_content(srclist_content: &str, package_list: &mut PackageList) {
     let source_list: HashMap<String, Vec<HashMap<String, Option<String>>>> =
         serde_json::from_str(srclist_content).unwrap();
@@ -97,4 +98,105 @@ fn process_srclist_content(srclist_content: &str, package_list: &mut PackageList
 pub enum FileType {
     SrcList,
     PackageList,
+}
+
+#[cfg(test)]
+mod tests {
+    use super::process_srclist_content;
+    use crate::yocto::package_list::{ElfFile, PackageList, SourceFile};
+
+    #[test]
+    fn srclist_content_is_correctly_parsed() {
+        let srclist_content: &str = r#"
+        {
+            "/path/to/elf/one": [
+                {
+                    "/path/to/null/source": null
+                },
+                {
+                    "/path/to/found/source": "f045c15d062121e7902877a496feb8b9f3ba1351b62233aaa4dae38d874825ba"
+                }
+            ],
+            "/path/to/elf/two": [
+                {
+                    "/source/1": "9ace381871f4a991e7da7a590bc0e20ee48d9b4df0469cc898d0158f442b7906"
+                },
+                {
+                    "/source/2": "b7979a70aa1b61a7d0bda93f5cc1c04ce7755da35bd8eef37181f9fe19de4089"
+                },
+                {
+                    "/source/3": "37515f78be386f2edad4746f2947c928f480728c56d9a94e25302ebbdaef3c96"
+                }
+            ]
+        }"#;
+        let mut package_list: PackageList = PackageList {
+            name: "Test".to_string(),
+            path: "/path/to/package-list".into(),
+            elf_files: Vec::new(),
+            srclist: Some("/path/to/srclist".into()),
+            packages: vec!["package1".to_string(), "package2".to_string()],
+        };
+
+        let expected_package_list: PackageList = PackageList {
+            name: "Test".to_string(),
+            path: "/path/to/package-list".into(),
+            elf_files: vec![
+                ElfFile {
+                    path: "/path/to/elf/one".into(),
+                    source_files: vec![
+                        SourceFile {
+                            path: "/path/to/null/source".into(),
+                            sha256: None,
+                        },
+                        SourceFile {
+                            path: "/path/to/found/source".into(),
+                            sha256: Some(
+                                "f045c15d062121e7902877a496feb8b9f3ba1351b62233aaa4dae38d874825ba"
+                                    .into(),
+                            ),
+                        },
+                    ],
+                },
+                ElfFile {
+                    path: "/path/to/elf/two".into(),
+                    source_files: vec![
+                        SourceFile {
+                            path: "/source/1".into(),
+                            sha256: Some(
+                                "9ace381871f4a991e7da7a590bc0e20ee48d9b4df0469cc898d0158f442b7906"
+                                    .into(),
+                            ),
+                        },
+                        SourceFile {
+                            path: "/source/2".into(),
+                            sha256: Some(
+                                "b7979a70aa1b61a7d0bda93f5cc1c04ce7755da35bd8eef37181f9fe19de4089"
+                                    .into(),
+                            ),
+                        },
+                        SourceFile {
+                            path: "/source/3".into(),
+                            sha256: Some(
+                                "37515f78be386f2edad4746f2947c928f480728c56d9a94e25302ebbdaef3c96"
+                                    .into(),
+                            ),
+                        },
+                    ],
+                },
+            ],
+            srclist: Some("/path/to/srclist".into()),
+            packages: vec!["package1".to_string(), "package2".to_string()],
+        };
+
+        process_srclist_content(srclist_content, &mut package_list);
+
+        assert_eq!(package_list.name, expected_package_list.name);
+        assert_eq!(package_list.path, expected_package_list.path);
+        assert_eq!(package_list.packages, expected_package_list.packages);
+        assert_eq!(package_list.srclist, expected_package_list.srclist);
+        assert!(package_list
+            .elf_files
+            .iter()
+            .all(|x| expected_package_list.elf_files.contains(x)));
+    }
 }

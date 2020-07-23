@@ -12,6 +12,7 @@ use std::{fs, thread, time};
 use time::Duration;
 
 /// Fossology instance.
+#[derive(Debug)]
 pub struct Fossology {
     /// API base uri.
     uri: String,
@@ -197,5 +198,25 @@ impl Fossology {
             self.upload(&x.path, &4);
         });
         pb.finish();
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::Fossology;
+    use reqwest::blocking::Client;
+
+    #[test]
+    fn fossology_is_created() {
+        let expected_fossology = Fossology {
+            token: "token".into(),
+            uri: "uri".into(),
+            client: Client::new(),
+        };
+
+        let fossology = Fossology::new("uri", "token");
+
+        assert_eq!(fossology.token, expected_fossology.token);
+        assert_eq!(fossology.uri, expected_fossology.uri);
     }
 }
