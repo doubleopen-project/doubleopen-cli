@@ -7,7 +7,9 @@ use std::fs;
 mod fossology;
 mod yocto;
 use indicatif::ProgressBar;
+use spdx::spdx::PackageInformation;
 use yocto::{package_list::PackageList, srclist, Package};
+mod spdx;
 mod utilities;
 
 fn main() {
@@ -90,10 +92,13 @@ fn main() {
             }
             pb.finish_with_message("done");
 
+            let mut spdx = spdx::spdx::SPDX::new("Yocto");
+            spdx.package_information = PackageInformation::from_yocto_packages(&packages);
+
             // Output to JSON
             if let Some(ref file) = matches.value_of("save to file") {
                 println!("Saving to json...");
-                let json = serde_json::to_string_pretty(&packages).unwrap();
+                let json = serde_json::to_string_pretty(&spdx).unwrap();
 
                 fs::write(file, json).expect("Unable to write file");
             }
