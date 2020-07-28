@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2020 HH Partners
+//
+// SPDX-License-Identifier: MIT
+
 use crate::yocto::Package;
 use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
@@ -205,7 +209,8 @@ impl SPDX {
 }
 
 impl PackageInformation {
-    pub fn new(name: &str, id: &i32) -> Self {
+    pub fn new(name: &str, id: &mut i32) -> Self {
+        *id += 1;
         Self {
             package_name: name.to_string(),
             package_spdx_identifier: format!("SPDXRef-{}", id),
@@ -216,6 +221,8 @@ impl PackageInformation {
     pub fn from_yocto_packages(packages: &Vec<Package>) -> Vec<Self> {
         let mut package_informations: Vec<Self> = Vec::new();
         let mut package_names: Vec<String> = Vec::new();
+        let mut package_id = 0;
+        let mut file_id = 0;
 
         for package in packages.iter() {
             if let Some(package_list) = package.package_list.clone() {
@@ -224,7 +231,8 @@ impl PackageInformation {
                     let mut file_informations: Vec<FileInformation> = Vec::new();
                     for elf_file in package_list.elf_files {
                         for source_file in elf_file.source_files {
-                            let mut file_information = FileInformation::new(&source_file.path, &1);
+                            let mut file_information =
+                                FileInformation::new(&source_file.path, &mut file_id);
                             if let Some(sha256) = source_file.sha256 {
                                 file_information.file_checksum.push(Checksum {
                                     algorithm: Algorithm::SHA256,
@@ -234,7 +242,8 @@ impl PackageInformation {
                             file_informations.push(file_information);
                         }
                     }
-                    let mut package_information = PackageInformation::new(&package_list.name, &1);
+                    let mut package_information =
+                        PackageInformation::new(&package_list.name, &mut package_id);
                     package_information.file_information = file_informations;
                     package_informations.push(package_information);
                 }
@@ -246,7 +255,8 @@ impl PackageInformation {
 }
 
 impl FileInformation {
-    pub fn new(name: &str, id: &i32) -> Self {
+    pub fn new(name: &str, id: &mut i32) -> Self {
+        *id += 1;
         Self {
             file_name: name.to_string(),
             file_spdx_identifier: format!("SPDXRef-{}", id),
