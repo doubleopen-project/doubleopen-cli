@@ -95,6 +95,8 @@ fn main() {
             let mut spdx = spdx::spdx::SPDX::new("Yocto");
             spdx.package_information = PackageInformation::from_yocto_packages(&packages);
 
+            let hashes = spdx.get_unique_hashes();
+
             // Output to JSON
             if let Some(ref file) = matches.value_of("save to file") {
                 println!("Saving to json...");

@@ -107,7 +107,7 @@ pub struct Checksum {
     pub value: String,
 }
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, PartialEq)]
 pub enum Algorithm {
     SHA1,
     SHA224,
@@ -205,6 +205,27 @@ impl SPDX {
             package_information: Vec::new(),
             other_licensing_information_detected: Vec::new(),
         }
+    }
+
+    pub fn get_unique_hashes(&self) -> Vec<String> {
+        let mut unique_hashes: Vec<String> = Vec::new();
+
+        for package_information in self.package_information.iter() {
+            for file_information in package_information.file_information.iter() {
+                if let Some(checksum) = file_information
+                    .file_checksum
+                    .iter()
+                    .find(|checksum| checksum.algorithm == Algorithm::SHA256)
+                {
+                    unique_hashes.push(checksum.value.clone());
+                }
+            }
+        }
+
+        unique_hashes.sort();
+        unique_hashes.dedup();
+
+        unique_hashes
     }
 }
 
