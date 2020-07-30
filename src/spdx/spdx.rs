@@ -2,9 +2,17 @@
 //
 // SPDX-License-Identifier: MIT
 
-use crate::yocto::Package;
+use crate::{
+    fossology::{
+        fossology::Fossology,
+        structs::{HashQueryInput, HashQueryResponse},
+    },
+    yocto::Package,
+};
 use chrono::{DateTime, Utc};
+use indicatif::ProgressBar;
 use serde::{Deserialize, Serialize};
+use std::fs;
 use uuid::Uuid;
 
 // TODO: Annotations.
@@ -226,6 +234,74 @@ impl SPDX {
         unique_hashes.dedup();
 
         unique_hashes
+    }
+
+    pub fn query_fossology_for_licenses(&mut self, fossology: &Fossology) {
+        let hashes = self.get_unique_hashes();
+
+        let input: Vec<HashQueryInput> = hashes
+            .iter()
+            .map(|hash| HashQueryInput {
+                sha256: hash.to_string(),
+            })
+            .collect();
+
+        let mut response = fossology.licenses_for_hashes(&input);
+
+        self.process_fossology_response(&mut response);
+    }
+
+    pub fn process_fossology_response(&mut self, responses: &mut Vec<HashQueryResponse>) {
+        println!("Processing Fossology response");
+        let pb = ProgressBar::new(self.package_information.len() as u64);
+
+        responses.sort_by_key(|i| i.hash.sha256.clone().unwrap());
+
+        for package_information in &mut self.package_information {
+            pb.inc(1);
+            for file_information in &mut package_information.file_information {
+                if let Some(sha256) = file_information
+                    .file_checksum
+                    .iter()
+                    .find(|checksum| checksum.algorithm == Algorithm::SHA256)
+                {
+                    if let Ok(response) = responses
+                        .binary_search_by_key(&sha256.value.to_uppercase(), |i| {
+                            i.hash.sha256.clone().unwrap().to_uppercase()
+                        })
+                    {
+                        let response = &responses[response];
+
+                        if let Some(md5) = &response.hash.md5 {
+                            file_information.file_checksum.push(Checksum {
+                                algorithm: Algorithm::MD5,
+                                value: md5.to_string(),
+                            })
+                        }
+                        if let Some(sha1) = &response.hash.sha1 {
+                            file_information.file_checksum.push(Checksum {
+                                algorithm: Algorithm::SHA1,
+                                value: sha1.to_string(),
+                            })
+                        }
+                        if let Some(findings) = &response.findings {
+                            file_information.license_information_in_file = findings.scanner.clone();
+                            if findings.conclusion.len() > 0 {
+                                file_information.concluded_license = findings.conclusion.join(" ");
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        pb.finish();
+    }
+
+    pub fn save_to_path(&self, path: &str) {
+        println!("Saving to json...");
+        let json = serde_json::to_string_pretty(&self).unwrap();
+        fs::write(path, json).expect("Unable to write file");
     }
 }
 

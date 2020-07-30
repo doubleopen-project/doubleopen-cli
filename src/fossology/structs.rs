@@ -12,8 +12,8 @@ pub struct HashQueryInput {
 #[derive(Serialize, Deserialize, Debug)]
 pub struct HashQueryResponse {
     pub hash: Hash,
-    findings: Option<Findings>,
-    uploads: Option<Vec<i32>>,
+    pub findings: Option<Findings>,
+    pub uploads: Option<Vec<i32>>,
     pub message: Option<String>,
 }
 
@@ -26,9 +26,9 @@ pub struct Hash {
 }
 
 #[derive(Serialize, Deserialize, Debug)]
-struct Findings {
-    scanner: Vec<String>,
-    conclusion: Vec<String>,
+pub struct Findings {
+    pub scanner: Vec<String>,
+    pub conclusion: Vec<String>,
 }
 
 #[derive(Serialize, Deserialize, Debug)]

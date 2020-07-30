@@ -203,6 +203,21 @@ impl Fossology {
         });
         pb.finish();
     }
+
+    /// Get licenses for a list of hashes
+    pub fn licenses_for_hashes(&self, hashes: &Vec<HashQueryInput>) -> Vec<HashQueryResponse> {
+        let response: Vec<HashQueryResponse> = self
+            .client
+            .post(&format!("{}/filesearch", self.uri))
+            .bearer_auth(&self.token)
+            .json(&hashes)
+            .send()
+            .unwrap()
+            .json()
+            .unwrap();
+
+        response
+    }
 }
 
 #[cfg(test)]
