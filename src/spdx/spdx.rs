@@ -16,6 +16,12 @@ use std::fs;
 use uuid::Uuid;
 
 // TODO: Annotations.
+/// # SPDX 2.2
+///
+/// Store information about files in SPDX files. Latest spec
+/// is currently 2.2. Can be serialized to JSON.  
+///     
+/// Spec: https://spdx.github.io/spdx-spec/
 #[derive(Serialize, Deserialize)]
 pub struct SPDX {
     pub document_creation_information: DocumentCreationInformation,
@@ -24,6 +30,9 @@ pub struct SPDX {
     pub other_licensing_information_detected: Vec<OtherLicensingInformationDetected>,
 }
 
+/// ## Document Creation Information
+///
+/// SPDX's [Document Creation Information](https://spdx.github.io/spdx-spec/2-document-creation-information/)
 #[derive(Serialize, Deserialize)]
 pub struct DocumentCreationInformation {
     pub spdx_version: String,
@@ -39,6 +48,9 @@ pub struct DocumentCreationInformation {
     pub document_comment: Option<String>,
 }
 
+/// ## Package Information
+///
+/// SPDX's [Package Information](https://spdx.github.io/spdx-spec/3-package-information/).
 #[derive(Serialize, Deserialize)]
 pub struct PackageInformation {
     pub package_name: String,
@@ -70,13 +82,19 @@ pub struct PackageInformation {
     pub file_information: Vec<FileInformation>,
 }
 
+/// ## File Information
+///
+/// SPDX's [File Information](https://spdx.github.io/spdx-spec/4-file-information/)
 #[derive(Serialize, Deserialize)]
 pub struct FileInformation {
     pub file_name: String,
     pub file_spdx_identifier: String,
     pub file_type: Option<Vec<String>>,
     pub file_checksum: Vec<Checksum>,
+    /// Store Fossology's license conclusion. Need a way to parse Fossology's
+    /// output for policy engine.
     pub concluded_license: String,
+    /// Store Fossology's scan results.
     pub license_information_in_file: Vec<String>,
     pub comments_on_license: Option<String>,
     pub copyright_text: String,
@@ -131,6 +149,8 @@ pub enum Algorithm {
 impl Default for DocumentCreationInformation {
     fn default() -> Self {
         Self {
+            // Current version is 2.2. Might need to support more verisons
+            // in the future.
             spdx_version: "SPDX-2.2".to_string(),
             data_license: "CC0-1.0".to_string(),
             spdx_identifier: "SPDXRef-DOCUMENT".to_string(),
@@ -138,6 +158,7 @@ impl Default for DocumentCreationInformation {
             spdx_document_namespace: "NOASSERTION".to_string(),
             external_document_references: None,
             license_list_version: None,
+            // TODO: Get tool name and version automatically.
             creator:
                 "Person: Jane Doe () Organization: ExampleCodeInspect () Tool: LicenseFind-1.0"
                     .to_string(),
@@ -199,6 +220,7 @@ impl Default for FileInformation {
 }
 
 impl SPDX {
+    /// Create new SPDX struct.
     pub fn new(name: &str) -> Self {
         Self {
             document_creation_information: DocumentCreationInformation {
@@ -215,6 +237,7 @@ impl SPDX {
         }
     }
 
+    /// Get unique hashes for all files in all packages of the SPDX.
     pub fn get_unique_hashes(&self) -> Vec<String> {
         let mut unique_hashes: Vec<String> = Vec::new();
 
@@ -236,9 +259,12 @@ impl SPDX {
         unique_hashes
     }
 
+    /// Get scanner results and license conclusions for the files in SPDX
+    /// found on the Fossology instance.
     pub fn query_fossology_for_licenses(&mut self, fossology: &Fossology) {
         let hashes = self.get_unique_hashes();
 
+        // Create input for the Fossology query.
         let input: Vec<HashQueryInput> = hashes
             .iter()
             .map(|hash| HashQueryInput {
@@ -251,20 +277,25 @@ impl SPDX {
         self.process_fossology_response(&mut response);
     }
 
+    /// Add information from Fossology response to the SPDX.
     pub fn process_fossology_response(&mut self, responses: &mut Vec<HashQueryResponse>) {
         println!("Processing Fossology response");
         let pb = ProgressBar::new(self.package_information.len() as u64);
 
+        // Sort response by sha256 to enable binary search.
         responses.sort_by_key(|i| i.hash.sha256.clone().unwrap());
 
+        // Loop over all the files in all packages.
         for package_information in &mut self.package_information {
             pb.inc(1);
             for file_information in &mut package_information.file_information {
+                // Get sha256 of the file.
                 if let Some(sha256) = file_information
                     .file_checksum
                     .iter()
                     .find(|checksum| checksum.algorithm == Algorithm::SHA256)
                 {
+                    // Find the corresponding item in response.
                     if let Ok(response) = responses
                         .binary_search_by_key(&sha256.value.to_uppercase(), |i| {
                             i.hash.sha256.clone().unwrap().to_uppercase()
@@ -272,20 +303,26 @@ impl SPDX {
                     {
                         let response = &responses[response];
 
+                        // Add MD5 to the file in SPDX.
                         if let Some(md5) = &response.hash.md5 {
                             file_information.file_checksum.push(Checksum {
                                 algorithm: Algorithm::MD5,
                                 value: md5.to_string(),
                             })
                         }
+
+                        // Add SHA1 to the file in SPDX.
                         if let Some(sha1) = &response.hash.sha1 {
                             file_information.file_checksum.push(Checksum {
                                 algorithm: Algorithm::SHA1,
                                 value: sha1.to_string(),
                             })
                         }
+
+                        // Add license findings to the file in SPDX.
                         if let Some(findings) = &response.findings {
                             file_information.license_information_in_file = findings.scanner.clone();
+
                             if findings.conclusion.len() > 0 {
                                 file_information.concluded_license = findings.conclusion.join(" ");
                             }
@@ -298,7 +335,8 @@ impl SPDX {
         pb.finish();
     }
 
-    pub fn save_to_path(&self, path: &str) {
+    /// Save serialized SPDX as json,
+    pub fn save_as_json(&self, path: &str) {
         println!("Saving to json...");
         let json = serde_json::to_string_pretty(&self).unwrap();
         fs::write(path, json).expect("Unable to write file");
@@ -306,6 +344,7 @@ impl SPDX {
 }
 
 impl PackageInformation {
+    /// Create new package.
     pub fn new(name: &str, id: &mut i32) -> Self {
         *id += 1;
         Self {
@@ -315,6 +354,9 @@ impl PackageInformation {
         }
     }
 
+    /// Create SPDX packages from Yocto packages.
+    // TODO: Should probably parse srclists first, then check
+    // manifest for which packages are not used.
     pub fn from_yocto_packages(packages: &Vec<Package>) -> Vec<Self> {
         let mut package_informations: Vec<Self> = Vec::new();
         let mut package_names: Vec<String> = Vec::new();
@@ -352,6 +394,7 @@ impl PackageInformation {
 }
 
 impl FileInformation {
+    /// Create new file.
     pub fn new(name: &str, id: &mut i32) -> Self {
         *id += 1;
         Self {

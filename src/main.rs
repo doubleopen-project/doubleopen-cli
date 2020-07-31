@@ -69,11 +69,11 @@ fn main() {
                         .takes_value(true),
                 )
                 .arg(
-                    Arg::new("licenses")
-                        .long("licenses")
-                        .short('l')
+                    Arg::new("spdx file")
+                        .long("spdx")
+                        .short('s')
                         .value_name("FILE")
-                        .about("Get licenses for SPDX for Fossology")
+                        .about("SPDX file to get licenses for (JSON).")
                         .takes_value(true),
                 ),
         ])
@@ -105,7 +105,7 @@ fn main() {
 
             // Output to JSON
             if let Some(ref file) = matches.value_of("save to file") {
-                spdx.save_to_path(file);
+                spdx.save_as_json(file);
             }
         }
     }
@@ -124,14 +124,15 @@ fn main() {
             fossology.upload_all_in_folder(&source_path);
         }
 
-        if let Some(spdx) = matches.value_of("licenses") {
+        // Get licenses from Fossology for spdx.
+        if let Some(spdx) = matches.value_of("spdx file") {
             let file = fs::File::open(&spdx).expect("SPDX file not found");
             let reader = BufReader::new(file);
             let mut spdx: SPDX = serde_json::from_reader(reader).unwrap();
 
             spdx.query_fossology_for_licenses(&fossology);
 
-            spdx.save_to_path("test.spdx.json");
+            spdx.save_as_json("test.spdx.json");
         }
     }
 }
