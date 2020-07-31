@@ -10,6 +10,7 @@ use crate::{
     yocto::Package,
 };
 use chrono::{DateTime, Utc};
+use fs::DirEntry;
 use indicatif::ProgressBar;
 use serde::{Deserialize, Serialize};
 use std::fs;
@@ -391,6 +392,23 @@ impl PackageInformation {
 
         package_informations
     }
+
+    pub fn new_from_pkglist(pkglist: &DirEntry, id: &mut i32) -> PackageInformation {
+        *id += 1;
+        let file_content = fs::read_to_string(pkglist.path()).unwrap();
+        PackageInformation {
+            package_name: pkglist
+                .path()
+                .file_stem()
+                .unwrap()
+                .to_str()
+                .unwrap()
+                .to_string(),
+            package_spdx_identifier: format!("SPDXRef-{}", id),
+            package_comment: Some(file_content),
+            ..Default::default()
+        }
+    }
 }
 
 impl FileInformation {
@@ -402,5 +420,12 @@ impl FileInformation {
             file_spdx_identifier: format!("SPDXRef-{}", id),
             ..Default::default()
         }
+    }
+}
+
+impl Checksum {
+    /// Create new checksum.
+    pub fn new(algorithm: Algorithm, value: String) -> Self {
+        Self { algorithm, value }
     }
 }
