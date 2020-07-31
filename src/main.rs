@@ -3,11 +3,13 @@
 // SPDX-License-Identifier: MIT
 
 use clap::{app_from_crate, App, Arg};
-use std::fs;
+use std::{fs, io::BufReader};
 mod fossology;
 mod yocto;
 use indicatif::ProgressBar;
+use spdx::spdx::{PackageInformation, SPDX};
 use yocto::{package_list::PackageList, srclist, Package};
+mod spdx;
 mod utilities;
 
 fn main() {
@@ -65,6 +67,14 @@ fn main() {
                         .value_name("DIR")
                         .about("Directory to upload to Fossology")
                         .takes_value(true),
+                )
+                .arg(
+                    Arg::new("spdx file")
+                        .long("spdx")
+                        .short('s')
+                        .value_name("FILE")
+                        .about("SPDX file to get licenses for (JSON).")
+                        .takes_value(true),
                 ),
         ])
         .get_matches();
@@ -90,12 +100,12 @@ fn main() {
             }
             pb.finish_with_message("done");
 
+            let mut spdx = spdx::spdx::SPDX::new("Yocto");
+            spdx.package_information = PackageInformation::from_yocto_packages(&packages);
+
             // Output to JSON
             if let Some(ref file) = matches.value_of("save to file") {
-                println!("Saving to json...");
-                let json = serde_json::to_string_pretty(&packages).unwrap();
-
-                fs::write(file, json).expect("Unable to write file");
+                spdx.save_as_json(file);
             }
         }
     }
@@ -112,6 +122,17 @@ fn main() {
         // Upload package.
         if let Some(source_path) = matches.value_of("upload") {
             fossology.upload_all_in_folder(&source_path);
+        }
+
+        // Get licenses from Fossology for spdx.
+        if let Some(spdx) = matches.value_of("spdx file") {
+            let file = fs::File::open(&spdx).expect("SPDX file not found");
+            let reader = BufReader::new(file);
+            let mut spdx: SPDX = serde_json::from_reader(reader).unwrap();
+
+            spdx.query_fossology_for_licenses(&fossology);
+
+            spdx.save_as_json("test.spdx.json");
         }
     }
 }

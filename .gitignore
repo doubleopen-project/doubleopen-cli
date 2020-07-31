@@ -42,4 +42,7 @@ Temporary Items
 .apdisk
 
 output.json
+output.spdx.json
+test.spdx.json
+test.response.json
 response.json
