@@ -2,12 +2,9 @@
 //
 // SPDX-License-Identifier: MIT
 
-use crate::{
-    fossology::{
-        fossology::Fossology,
-        structs::{HashQueryInput, HashQueryResponse},
-    },
-    yocto::Package,
+use crate::fossology::{
+    fossology::Fossology,
+    structs::{HashQueryInput, HashQueryResponse},
 };
 use chrono::{DateTime, Utc};
 use indicatif::ProgressBar;
@@ -353,44 +350,6 @@ impl PackageInformation {
             ..Default::default()
         }
     }
-
-    /// Create SPDX packages from Yocto packages.
-    // TODO: Should probably parse srclists first, then check
-    // manifest for which packages are not used.
-    pub fn from_yocto_packages(packages: &Vec<Package>) -> Vec<Self> {
-        let mut package_informations: Vec<Self> = Vec::new();
-        let mut package_names: Vec<String> = Vec::new();
-        let mut package_id = 0;
-        let mut file_id = 0;
-
-        for package in packages.iter() {
-            if let Some(package_list) = package.package_list.clone() {
-                if !package_names.contains(&package_list.name) {
-                    package_names.push(package_list.name.clone());
-                    let mut file_informations: Vec<FileInformation> = Vec::new();
-                    for elf_file in package_list.elf_files {
-                        for source_file in elf_file.source_files {
-                            let mut file_information =
-                                FileInformation::new(&source_file.path, &mut file_id);
-                            if let Some(sha256) = source_file.sha256 {
-                                file_information.file_checksum.push(Checksum {
-                                    algorithm: Algorithm::SHA256,
-                                    value: sha256,
-                                });
-                            }
-                            file_informations.push(file_information);
-                        }
-                    }
-                    let mut package_information =
-                        PackageInformation::new(&package_list.name, &mut package_id);
-                    package_information.file_information = file_informations;
-                    package_informations.push(package_information);
-                }
-            }
-        }
-
-        package_informations
-    }
 }
 
 impl FileInformation {
@@ -402,5 +361,12 @@ impl FileInformation {
             file_spdx_identifier: format!("SPDXRef-{}", id),
             ..Default::default()
         }
+    }
+}
+
+impl Checksum {
+    /// Create new checksum.
+    pub fn new(algorithm: Algorithm, value: String) -> Self {
+        Self { algorithm, value }
     }
 }

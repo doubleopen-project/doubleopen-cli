@@ -2,5 +2,4 @@
 //
 // SPDX-License-Identifier: MIT
 
-pub mod spdx;
-pub use spdx::*;
+pub mod yocto;
