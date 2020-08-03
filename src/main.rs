@@ -4,11 +4,9 @@
 
 use clap::{app_from_crate, App, Arg};
 use std::{fs, io::BufReader};
+mod analyze;
 mod fossology;
-mod yocto;
-use indicatif::ProgressBar;
-use spdx::spdx::{PackageInformation, SPDX};
-use yocto::{package_list::PackageList, srclist, Package};
+use spdx::SPDX;
 mod spdx;
 mod utilities;
 
@@ -79,29 +77,13 @@ fn main() {
         ])
         .get_matches();
 
-    let mut packages: Vec<Package>;
-    let packages_count: u64;
-    let package_lists: Vec<PackageList>;
-
     // Process analyze subcommand.
     if let Some(ref matches) = matches.subcommand_matches("analyze") {
         if let (Some(manifest_path), Some(srclists_path)) = (
             matches.value_of("manifest"),
             matches.value_of("srclist folder"),
         ) {
-            packages = Package::new(manifest_path);
-            packages_count = packages.len() as u64;
-            package_lists = srclist::process_srclists(srclists_path);
-            println!("Finding srclists for packages...");
-            let pb = ProgressBar::new(packages_count);
-            for e in packages.iter_mut() {
-                pb.inc(1);
-                e.find_srclist(&package_lists);
-            }
-            pb.finish_with_message("done");
-
-            let mut spdx = spdx::spdx::SPDX::new("Yocto");
-            spdx.package_information = PackageInformation::from_yocto_packages(&packages);
+            let spdx = analyze::yocto::spdx_from_pkgdata(srclists_path, manifest_path, "Yocto");
 
             // Output to JSON
             if let Some(ref file) = matches.value_of("save to file") {

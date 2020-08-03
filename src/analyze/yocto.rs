@@ -1,14 +1,18 @@
 use crate::spdx::spdx::{Algorithm, Checksum, FileInformation, PackageInformation, SPDX};
-use fs::DirEntry;
-use std::{collections::HashMap, fs};
+use fs::{DirEntry, File};
+use std::{
+    collections::HashMap,
+    fs,
+    io::{BufRead, BufReader},
+};
 
 /// Create SPDX struct from a Yocto pkgdata folder.
-pub fn spdx_from_pkgdata(path: &str, name: &str) -> SPDX {
+pub fn spdx_from_pkgdata(pkgdata_path: &str, manifest_path: &str, name: &str) -> SPDX {
     // Create SPDX struct.
     let mut spdx = SPDX::new(name);
 
     // Parse pkgdata folder.
-    let files = fs::read_dir(path).unwrap();
+    let files = fs::read_dir(pkgdata_path).unwrap();
     let mut srclists: Vec<DirEntry> = Vec::new();
     let mut pkglists: Vec<DirEntry> = Vec::new();
 
@@ -64,6 +68,7 @@ pub fn spdx_from_pkgdata(path: &str, name: &str) -> SPDX {
             for i in srclist {
                 for elf_file in i.1 {
                     for source_file in elf_file {
+                        // TODO: add to list if another file exists with same name but different hash.
                         if package
                             .file_information
                             .iter()
@@ -88,7 +93,57 @@ pub fn spdx_from_pkgdata(path: &str, name: &str) -> SPDX {
 
     spdx.package_information = packages;
 
+    filter_packages_with_manifest(&mut spdx, manifest_path);
+
     spdx
+}
+
+pub fn filter_packages_with_manifest(spdx: &mut SPDX, manifest_path: &str) {
+    let original_count = &spdx.package_information.len();
+    let manifest_packages = get_list_of_packages_from_manifest(manifest_path);
+    spdx.package_information.retain(|e| {
+        parse_comment_for_packages(&e.package_comment.clone().unwrap())
+            .iter()
+            .any(|n| manifest_packages.contains(n))
+    });
+    let final_count = &spdx.package_information.len();
+
+    println!(
+        "Filtered {} packages of original {} based on manifest. Final package count: {}",
+        original_count - final_count,
+        original_count,
+        final_count
+    )
+}
+
+pub fn parse_comment_for_packages(comment: &str) -> Vec<String> {
+    let comment = comment.split_whitespace();
+
+    comment
+        .filter_map(|word| {
+            if word.to_lowercase() == "PACKAGES:".to_lowercase() {
+                None
+            } else {
+                Some(word.to_string())
+            }
+        })
+        .collect()
+}
+
+pub fn get_list_of_packages_from_manifest(manifest_path: &str) -> Vec<String> {
+    let file = File::open(manifest_path).expect("No such file");
+    let reader = BufReader::new(file);
+    let lines = reader.lines();
+    let mut packages: Vec<String> = Vec::new();
+    for line in lines {
+        if let Ok(line) = line {
+            let mut split = line.split_whitespace();
+            let name: String = split.next().expect("error").to_string();
+            packages.push(name);
+        }
+    }
+
+    packages
 }
 
 #[cfg(test)]
@@ -101,7 +156,14 @@ mod tests {
         let mut test_pkgdata_path = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
         test_pkgdata_path.push("tests/examples/yocto/pkgdata");
 
-        let spdx = spdx_from_pkgdata(test_pkgdata_path.to_str().unwrap(), "test_spdx");
+        let mut test_manifest_path = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
+        test_manifest_path.push("tests/examples/yocto/manifest.manifest");
+
+        let spdx = spdx_from_pkgdata(
+            test_pkgdata_path.to_str().unwrap(),
+            test_manifest_path.to_str().unwrap(),
+            "test_spdx",
+        );
 
         spdx
     }
@@ -110,7 +172,7 @@ mod tests {
     fn correct_amount_of_packages_is_created() {
         let spdx = setup_spdx();
 
-        assert_eq!(spdx.package_information.len(), 3);
+        assert_eq!(spdx.package_information.len(), 2);
     }
 
     #[test]
@@ -127,10 +189,10 @@ mod tests {
     fn subpackages_are_in_comments() {
         let spdx = setup_spdx();
 
-        let dbus_wait = spdx
+        let mtdev = spdx
             .package_information
             .iter()
-            .find(|pkg| pkg.package_name == "dbus-wait")
+            .find(|pkg| pkg.package_name == "mtdev")
             .unwrap();
 
         let xset = spdx
@@ -139,7 +201,10 @@ mod tests {
             .find(|pkg| pkg.package_name == "xset")
             .unwrap();
 
-        assert_eq!(dbus_wait.package_comment.as_ref().unwrap(), "PACKAGES: dbus-wait-src dbus-wait-dbg dbus-wait-staticdev dbus-wait-dev dbus-wait-doc dbus-wait-locale dbus-wait");
+        assert_eq!(
+            mtdev.package_comment.as_ref().unwrap(),
+            "PACKAGES: mtdev-src mtdev-dbg mtdev-staticdev mtdev-dev mtdev-doc mtdev-locale mtdev"
+        );
 
         assert_eq!(
             xset.package_comment.as_ref().unwrap(),
@@ -151,13 +216,13 @@ mod tests {
     fn correct_amount_of_files() {
         let spdx = setup_spdx();
 
-        let dbus_wait = spdx
+        let xset = spdx
             .package_information
             .iter()
-            .find(|pkg| pkg.package_name == "dbus-wait")
+            .find(|pkg| pkg.package_name == "xset")
             .unwrap();
 
-        assert_eq!(dbus_wait.file_information.len(), 23)
+        assert_eq!(xset.file_information.len(), 30)
     }
 
     #[test]
@@ -171,5 +236,50 @@ mod tests {
             .unwrap();
 
         assert_eq!(mtdev.file_information.len(), 40);
+    }
+
+    #[test]
+    fn parse_comment_for_packages() {
+        let comment =
+            "PACKAGES: mtdev-src mtdev-dbg mtdev-staticdev mtdev-dev mtdev-doc mtdev-locale mtdev";
+
+        let packages = super::parse_comment_for_packages(comment);
+
+        let expected_packages: Vec<String> = vec![
+            "mtdev-src".to_string(),
+            "mtdev-dbg".to_string(),
+            "mtdev-staticdev".to_string(),
+            "mtdev-dev".to_string(),
+            "mtdev-doc".to_string(),
+            "mtdev-locale".to_string(),
+            "mtdev".to_string(),
+        ];
+
+        assert_eq!(packages, expected_packages);
+    }
+
+    #[test]
+    fn parse_manifest_for_packages() {
+        let mut test_manifest_path = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
+        test_manifest_path.push("tests/examples/yocto/manifest.manifest");
+
+        let packages =
+            super::get_list_of_packages_from_manifest(test_manifest_path.to_str().unwrap());
+
+        let expected_packages: Vec<String> = vec!["mtdev".to_string(), "xset".to_string()];
+
+        assert_eq!(packages, expected_packages)
+    }
+
+    #[test]
+    fn filter_spdx_with_manifest() {
+        let mut spdx = setup_spdx();
+
+        let mut test_manifest_path = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
+        test_manifest_path.push("tests/examples/yocto/manifest.manifest");
+
+        super::filter_packages_with_manifest(&mut spdx, test_manifest_path.to_str().unwrap());
+
+        assert_eq!(spdx.package_information.len(), 2)
     }
 }
