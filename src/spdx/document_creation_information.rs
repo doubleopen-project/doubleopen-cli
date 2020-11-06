@@ -8,6 +8,7 @@ use serde::{Deserialize, Serialize};
 pub struct DocumentCreationInformation {
     pub spdx_version: String,
     pub data_license: String,
+    #[serde(rename = "SPDXID")]
     pub spdx_identifier: String,
     pub document_name: String,
     pub spdx_document_namespace: String,

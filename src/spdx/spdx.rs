@@ -22,10 +22,15 @@ pub use super::*;
 /// Spec: https://spdx.github.io/spdx-spec/
 #[derive(Serialize, Deserialize)]
 pub struct SPDX {
+    #[serde(flatten)]
     pub document_creation_information: DocumentCreationInformation,
     // Valid SPDX?
+    #[serde(rename = "packages")]
     pub package_information: Vec<PackageInformation>,
+    #[serde(rename = "hasExtractedLicensingInfos")]
     pub other_licensing_information_detected: Vec<OtherLicensingInformationDetected>,
+    #[serde(rename = "files")]
+    pub file_information: Vec<FileInformation>,
 }
 
 impl SPDX {
@@ -43,6 +48,7 @@ impl SPDX {
             },
             package_information: Vec::new(),
             other_licensing_information_detected: Vec::new(),
+            file_information: Vec::new(),
         }
     }
 
@@ -50,15 +56,13 @@ impl SPDX {
     pub fn get_unique_hashes(&self) -> Vec<String> {
         let mut unique_hashes: Vec<String> = Vec::new();
 
-        for package_information in self.package_information.iter() {
-            for file_information in package_information.file_information.iter() {
-                if let Some(checksum) = file_information
-                    .file_checksum
-                    .iter()
-                    .find(|checksum| checksum.algorithm == Algorithm::SHA256)
-                {
-                    unique_hashes.push(checksum.value.clone());
-                }
+        for file_information in self.file_information.iter() {
+            if let Some(checksum) = file_information
+                .file_checksum
+                .iter()
+                .find(|checksum| checksum.algorithm == Algorithm::SHA256)
+            {
+                unique_hashes.push(checksum.value.clone());
             }
         }
 
@@ -89,52 +93,50 @@ impl SPDX {
     /// Add information from Fossology response to the SPDX.
     pub fn process_fossology_response(&mut self, responses: &mut Vec<HashQueryResponse>) {
         println!("Processing Fossology response");
-        let pb = ProgressBar::new(self.package_information.len() as u64);
+        let pb = ProgressBar::new(self.file_information.len() as u64);
 
         // Sort response by sha256 to enable binary search.
         responses.sort_by_key(|i| i.hash.sha256.clone().unwrap());
 
         // Loop over all the files in all packages.
-        for package_information in &mut self.package_information {
+        for file_information in &mut self.file_information {
             pb.inc(1);
-            for file_information in &mut package_information.file_information {
-                // Get sha256 of the file.
-                if let Some(sha256) = file_information
-                    .file_checksum
-                    .iter()
-                    .find(|checksum| checksum.algorithm == Algorithm::SHA256)
+            // Get sha256 of the file.
+            if let Some(sha256) = file_information
+                .file_checksum
+                .iter()
+                .find(|checksum| checksum.algorithm == Algorithm::SHA256)
+            {
+                // Find the corresponding item in response.
+                if let Ok(response) = responses
+                    .binary_search_by_key(&sha256.value.to_uppercase(), |i| {
+                        i.hash.sha256.clone().unwrap().to_uppercase()
+                    })
                 {
-                    // Find the corresponding item in response.
-                    if let Ok(response) = responses
-                        .binary_search_by_key(&sha256.value.to_uppercase(), |i| {
-                            i.hash.sha256.clone().unwrap().to_uppercase()
+                    let response = &responses[response];
+
+                    // Add MD5 to the file in SPDX.
+                    if let Some(md5) = &response.hash.md5 {
+                        file_information.file_checksum.push(Checksum {
+                            algorithm: Algorithm::MD5,
+                            value: md5.to_string(),
                         })
-                    {
-                        let response = &responses[response];
+                    }
 
-                        // Add MD5 to the file in SPDX.
-                        if let Some(md5) = &response.hash.md5 {
-                            file_information.file_checksum.push(Checksum {
-                                algorithm: Algorithm::MD5,
-                                value: md5.to_string(),
-                            })
-                        }
+                    // Add SHA1 to the file in SPDX.
+                    if let Some(sha1) = &response.hash.sha1 {
+                        file_information.file_checksum.push(Checksum {
+                            algorithm: Algorithm::SHA1,
+                            value: sha1.to_string(),
+                        })
+                    }
 
-                        // Add SHA1 to the file in SPDX.
-                        if let Some(sha1) = &response.hash.sha1 {
-                            file_information.file_checksum.push(Checksum {
-                                algorithm: Algorithm::SHA1,
-                                value: sha1.to_string(),
-                            })
-                        }
+                    // Add license findings to the file in SPDX.
+                    if let Some(findings) = &response.findings {
+                        file_information.license_information_in_file = findings.scanner.clone();
 
-                        // Add license findings to the file in SPDX.
-                        if let Some(findings) = &response.findings {
-                            file_information.license_information_in_file = findings.scanner.clone();
-
-                            if findings.conclusion.len() > 0 {
-                                file_information.concluded_license = findings.conclusion.join(" ");
-                            }
+                        if findings.conclusion.len() > 0 {
+                            file_information.concluded_license = findings.conclusion.join(" ");
                         }
                     }
                 }

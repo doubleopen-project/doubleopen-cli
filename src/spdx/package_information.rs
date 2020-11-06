@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-use super::{Checksum, FileInformation, PackageVerificationCode};
+use super::{Checksum, PackageVerificationCode};
 
 /// ## Package Information
 ///
@@ -33,7 +33,7 @@ pub struct PackageInformation {
     pub external_reference_comment: Option<String>,
     pub package_attribution_text: Option<Vec<String>>,
     // Valid SPDX?
-    pub file_information: Vec<FileInformation>,
+    pub files: Vec<String>,
 }
 
 impl Default for PackageInformation {
@@ -62,7 +62,7 @@ impl Default for PackageInformation {
             external_reference: None,
             external_reference_comment: None,
             package_attribution_text: None,
-            file_information: Vec::new(),
+            files: Vec::new(),
         }
     }
 }

@@ -56,6 +56,9 @@ pub fn spdx_from_pkgdata(pkgdata_path: &str, manifest_path: &str, name: &str) ->
 
     let mut file_id = 0;
 
+    let mut files: Vec<FileInformation> = Vec::new();
+
+    // TEMPORARY SOLUTION
     for package in &mut packages {
         if let Some(srclist) = srclists.iter().find(|srclist| {
             srclist.path().file_stem().unwrap().to_str().unwrap() == package.package_name
@@ -69,8 +72,7 @@ pub fn spdx_from_pkgdata(pkgdata_path: &str, manifest_path: &str, name: &str) ->
                 for elf_file in i.1 {
                     for source_file in elf_file {
                         // TODO: add to list if another file exists with same name but different hash.
-                        if package
-                            .file_information
+                        if files
                             .iter()
                             .find(|x| x.file_name == source_file.0)
                             .is_none()
@@ -83,7 +85,7 @@ pub fn spdx_from_pkgdata(pkgdata_path: &str, manifest_path: &str, name: &str) ->
                                     .push(Checksum::new(Algorithm::SHA256, value))
                             }
 
-                            package.file_information.push(sf);
+                            files.push(sf);
                         }
                     }
                 }
@@ -222,7 +224,7 @@ mod tests {
             .find(|pkg| pkg.package_name == "xset")
             .unwrap();
 
-        assert_eq!(xset.file_information.len(), 30)
+        assert_eq!(xset.files.len(), 30)
     }
 
     #[test]
@@ -235,7 +237,7 @@ mod tests {
             .find(|pkg| pkg.package_name == "mtdev")
             .unwrap();
 
-        assert_eq!(mtdev.file_information.len(), 40);
+        assert_eq!(mtdev.files.len(), 40);
     }
 
     #[test]

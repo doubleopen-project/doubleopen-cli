@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-use super::Checksum;
+use super::{Checksum, FileType};
 
 /// ## File Information
 ///
@@ -8,8 +8,9 @@ use super::Checksum;
 #[derive(Serialize, Deserialize)]
 pub struct FileInformation {
     pub file_name: String,
+    #[serde(rename = "SPDXID")]
     pub file_spdx_identifier: String,
-    pub file_type: Option<Vec<String>>,
+    pub file_type: Option<Vec<FileType>>,
     pub file_checksum: Vec<Checksum>,
     /// Store Fossology's license conclusion. Need a way to parse Fossology's
     /// output for policy engine.
