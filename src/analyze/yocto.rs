@@ -6,6 +6,27 @@ use std::{
     io::{BufRead, BufReader},
 };
 
+pub fn create_spdx_from_build() -> SPDX {
+    // Loop over packages in downloads.
+
+    // Get the name and hash of package from the file.
+
+    // Extract the archive to temp and add files to spdx
+    SPDX::new("NONE")
+}
+
+/// Remove packages from SPDX that aren't included in Yocto image based
+/// on the image manifest file.
+pub fn exclude_packages_with_manifest(spdx: &mut SPDX, manifest_path: &str) {
+    todo!()
+}
+
+/// Remove files from packages in SPDX file if the files weren't used to build
+/// the packages based on dwarfsrcfiles.
+pub fn exclude_files_with_srclist(spdx: &mut SPDX, pkgdata_path: &str) {
+    todo!()
+}
+
 /// Create SPDX struct from a Yocto pkgdata folder.
 pub fn spdx_from_pkgdata(pkgdata_path: &str, manifest_path: &str, name: &str) -> SPDX {
     // Create SPDX struct.

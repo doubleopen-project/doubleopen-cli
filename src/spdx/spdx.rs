@@ -6,10 +6,16 @@ use crate::fossology::{
     fossology::Fossology,
     structs::{HashQueryInput, HashQueryResponse},
 };
+use flate2::read::GzDecoder;
 use indicatif::ProgressBar;
 use serde::{Deserialize, Serialize};
-use std::fs;
+use std::{
+    fs::{self, File},
+    path::Path,
+};
+use tar::Archive;
 use uuid::Uuid;
+use walkdir::WalkDir;
 
 pub use super::*;
 
@@ -31,6 +37,10 @@ pub struct SPDX {
     pub other_licensing_information_detected: Vec<OtherLicensingInformationDetected>,
     #[serde(rename = "files")]
     pub file_information: Vec<FileInformation>,
+
+    /// Counter for creating SPDXRefs.
+    #[serde(skip_serializing)]
+    spdx_ref_counter: i32,
 }
 
 impl SPDX {
@@ -49,7 +59,56 @@ impl SPDX {
             package_information: Vec::new(),
             other_licensing_information_detected: Vec::new(),
             file_information: Vec::new(),
+            spdx_ref_counter: 0,
         }
+    }
+
+    /// Create next SPDXRef
+    pub fn spdx_ref(&mut self) -> String {
+        self.spdx_ref_counter += 1;
+        format!("SPDXRef-{}", self.spdx_ref_counter)
+    }
+
+    /// Add package from source archive to SPDX.
+    pub fn add_package_from_archive<P: AsRef<Path>>(&mut self, path_to_archive: P) {
+        let path = path_to_archive.as_ref();
+
+        // Create a temporary directory and unpack the archive there.
+        let temp_dir = tempfile::tempdir().unwrap();
+        let file = File::open(&path).unwrap();
+        let tar = GzDecoder::new(file);
+        let mut archive = Archive::new(tar);
+        archive.unpack(&temp_dir.path()).unwrap();
+
+        // Create PackageInformation based on the archive data.
+        let mut package = PackageInformation {
+            package_file_name: Some(path.file_name().unwrap().to_str().unwrap().to_owned()),
+            package_name: path.file_name().unwrap().to_str().unwrap().to_owned(),
+            package_spdx_identifier: self.spdx_ref(),
+            ..Default::default()
+        };
+
+        // Create FileInformation for all files in the source archive.
+        let mut source_files: Vec<FileInformation> = WalkDir::new(&temp_dir)
+            .into_iter()
+            .filter_map(|f| {
+                let entry = f.unwrap();
+                if entry.metadata().unwrap().is_file() {
+                    Some(FileInformation::try_from_direntry(entry, self))
+                } else {
+                    None
+                }
+            })
+            .collect();
+
+        // Add SPDX Identifiers of the source files to the package.
+        package.files = source_files
+            .iter()
+            .map(|file| file.file_spdx_identifier.clone())
+            .collect();
+
+        self.package_information.push(package);
+        self.file_information.append(&mut source_files);
     }
 
     /// Get unique hashes for all files in all packages of the SPDX.
@@ -151,5 +210,44 @@ impl SPDX {
         println!("Saving to json...");
         let json = serde_json::to_string_pretty(&self).unwrap();
         fs::write(path, json).expect("Unable to write file");
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use std::path::PathBuf;
+
+    use super::*;
+
+    #[test]
+    fn adds_correct_package_metadata_from_archive() {
+        let mut test_pkgdata_path = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
+        test_pkgdata_path.push("tests/examples/yocto/build/downloads/dbus-1.12.16.tar.gz");
+
+        let mut spdx = SPDX::new("dbus");
+
+        spdx.add_package_from_archive(&test_pkgdata_path.to_str().unwrap());
+
+        let first_package = spdx.package_information.iter().next().clone().unwrap();
+
+        assert_eq!(
+            first_package.package_file_name,
+            Some("dbus-1.12.16.tar.gz".into())
+        );
+        assert_eq!(first_package.package_name, "dbus-1.12.16.tar.gz");
+        assert_eq!(first_package.package_spdx_identifier, "SPDXRef-1")
+    }
+
+    #[test]
+    fn test_spdx_ref_generation() {
+        let mut spdx = SPDX::new("test");
+
+        let id_first = spdx.spdx_ref();
+        let id_second = spdx.spdx_ref();
+        let id_third = spdx.spdx_ref();
+
+        assert_eq!(id_first, "SPDXRef-1");
+        assert_eq!(id_second, "SPDXRef-2");
+        assert_eq!(id_third, "SPDXRef-3");
     }
 }
