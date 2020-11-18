@@ -69,6 +69,15 @@ impl SPDX {
         format!("SPDXRef-{}", self.spdx_ref_counter)
     }
 
+    pub fn find_file_by_spdx_id<'a>(
+        file_informations: &'a Vec<FileInformation>,
+        spdx_id: &str,
+    ) -> Option<&'a FileInformation> {
+        file_informations
+            .iter()
+            .find(|file| file.file_spdx_identifier.to_lowercase() == spdx_id.to_lowercase())
+    }
+
     /// Add package from source archive to SPDX.
     pub fn add_package_from_archive<P: AsRef<Path>>(&mut self, path_to_archive: P) {
         let path = path_to_archive.as_ref();
@@ -236,6 +245,28 @@ mod tests {
         );
         assert_eq!(first_package.package_name, "dbus-1.12.16.tar.gz");
         assert_eq!(first_package.package_spdx_identifier, "SPDXRef-1")
+    }
+
+    #[test]
+    fn find_correct_file_by_spdx_id() {
+        let mut spdx = SPDX::new("test");
+        spdx.file_information.push(FileInformation {
+            file_spdx_identifier: "SPDXRef-1".into(),
+            ..Default::default()
+        });
+        spdx.file_information.push(FileInformation {
+            file_spdx_identifier: "SPDXRef-2".into(),
+            file_name: "Find this".into(),
+            ..Default::default()
+        });
+        spdx.file_information.push(FileInformation {
+            file_spdx_identifier: "SPDXRef-3".into(),
+            ..Default::default()
+        });
+
+        let found_file = SPDX::find_file_by_spdx_id(&spdx.file_information, "SPDXRef-2").unwrap();
+
+        assert_eq!(found_file.file_name, "Find this")
     }
 
     #[test]

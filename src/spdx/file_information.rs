@@ -1,6 +1,5 @@
 use serde::{Deserialize, Serialize};
 
-use crate::utilities::hash256_for_path;
 use super::{Checksum, FileType, SPDX};
 
 /// ## File Information

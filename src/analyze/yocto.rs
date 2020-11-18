@@ -4,6 +4,7 @@ use std::{
     collections::HashMap,
     fs,
     io::{BufRead, BufReader},
+    path::Path,
 };
 
 pub fn create_spdx_from_build() -> SPDX {
@@ -23,8 +24,49 @@ pub fn exclude_packages_with_manifest(spdx: &mut SPDX, manifest_path: &str) {
 
 /// Remove files from packages in SPDX file if the files weren't used to build
 /// the packages based on dwarfsrcfiles.
-pub fn exclude_files_with_srclist(spdx: &mut SPDX, pkgdata_path: &str) {
-    todo!()
+pub fn exclude_files_with_srclist<P: AsRef<Path>>(
+    package: &mut PackageInformation,
+    srclist_path: P,
+    file_informations: &Vec<FileInformation>,
+) {
+    let hashes_in_srclist = hashes_from_srclist(srclist_path);
+
+    package.files.retain(|file| {
+        let file_information = SPDX::find_file_by_spdx_id(&file_informations, file).unwrap();
+
+        hashes_in_srclist.iter().any(|hash| {
+            hash.to_lowercase()
+                == file_information
+                    .file_checksum
+                    .iter()
+                    .find(|checksum| checksum.algorithm == Algorithm::SHA256)
+                    .unwrap()
+                    .value
+                    .to_lowercase()
+        })
+    });
+}
+
+/// Get all unique hashes from a srclist file produced by Yocto. 
+pub fn hashes_from_srclist<P: AsRef<Path>>(path: P) -> Vec<String> {
+    let srclist_content = fs::read_to_string(path).unwrap();
+    let srclist: HashMap<String, Vec<HashMap<String, Option<String>>>> =
+        serde_json::from_str(&srclist_content).unwrap();
+
+    let mut hashes: Vec<String> = Vec::new();
+
+    for i in srclist {
+        for elf_file in i.1 {
+            for source_file in elf_file {
+                if let Some(value) = source_file.1 {
+                    hashes.push(value);
+                }
+            }
+        }
+    }
+    hashes.sort();
+    hashes.dedup();
+    hashes
 }
 
 /// Create SPDX struct from a Yocto pkgdata folder.
@@ -171,7 +213,7 @@ pub fn get_list_of_packages_from_manifest(manifest_path: &str) -> Vec<String> {
 
 #[cfg(test)]
 mod tests {
-    use super::spdx_from_pkgdata;
+    use super::*;
     use crate::spdx::spdx::SPDX;
     use std::path::PathBuf;
 
@@ -196,6 +238,40 @@ mod tests {
         let spdx = setup_spdx();
 
         assert_eq!(spdx.package_information.len(), 2);
+    }
+
+    #[test]
+    fn get_all_unique_hashes_from_srclist() {
+        let mut srclist_path = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
+        srclist_path.push("tests/examples/yocto/build/tmp/pkgdata/dbus.srclist");
+        let hashes = hashes_from_srclist(srclist_path);
+
+        // TODO: The correct amount has not been manually checked, may want to create
+        // a proper test file.
+        assert_eq!(hashes.len(), 240)
+    }
+
+    #[test]
+    fn exclude_unused_files_with_srclist() {
+        let mut test_archive_path = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
+        test_archive_path.push("tests/examples/yocto/build/downloads/dbus-1.12.16.tar.gz");
+
+        let mut test_srclist_path = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
+        test_srclist_path.push("tests/examples/yocto/build/tmp/pkgdata/dbus.srclist");
+
+        let mut spdx = SPDX::new("dbus");
+
+        spdx.add_package_from_archive(&test_archive_path.to_str().unwrap());
+
+        assert_eq!(spdx.package_information[0].files.len(), 537);
+
+        exclude_files_with_srclist(
+            &mut spdx.package_information[0],
+            test_srclist_path,
+            &spdx.file_information,
+        );
+
+        assert_eq!(spdx.package_information[0].files.len(), 170);
     }
 
     #[test]
