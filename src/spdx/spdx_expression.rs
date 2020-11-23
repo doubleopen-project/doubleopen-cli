@@ -1,18 +1,14 @@
-use std::error::Error;
-
 use boolean_expression::Expr;
+use serde::{Deserialize, Serialize};
 
-struct SPDXExpression {
-    expression: Expr<String>,
-}
+#[derive(Serialize, Deserialize)]
+pub struct SPDXExpression(pub String);
 
 impl SPDXExpression {
-    pub fn try_from_string(expression_string: &'static str) -> Result<Self, Box<dyn std::error::Error>> {
-        let expression = parser::parse_spdx(&expression_string);
+    pub fn parse<'a>(&'a self) -> Result<Expr<String>, Box<dyn std::error::Error + 'a>> {
+        let expression = parser::parse_spdx(&self.0);
         match expression {
-            Ok(expression) => Ok(SPDXExpression {
-                expression: expression.1,
-            }),
+            Ok(expression) => Ok(expression.1),
             Err(error) => Err(error.into()),
         }
     }
@@ -24,8 +20,10 @@ mod test_spdx_expression {
 
     #[test]
     fn simple() {
-       let expression = SPDXExpression::try_from_string("MIT").unwrap();
-       assert_eq!(expression.expression, Expr::Terminal("MIT".to_string()))
+        let expression = SPDXExpression("MIT".to_string());
+        let expr = expression.parse().unwrap();
+        let expected = Expr::Terminal("MIT".into());
+        assert_eq!(expr, expected)
     }
 }
 

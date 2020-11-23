@@ -204,7 +204,7 @@ impl SPDX {
                         file_information.license_information_in_file = findings.scanner.clone();
 
                         if findings.conclusion.len() > 0 {
-                            file_information.concluded_license = findings.conclusion.join(" ");
+                            file_information.concluded_license = SPDXExpression(findings.conclusion.join(" "));
                         }
                     }
                 }

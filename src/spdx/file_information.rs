@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-use super::{Checksum, FileType, SPDX};
+use super::{Checksum, FileType, SPDX, SPDXExpression};
 
 /// ## File Information
 ///
@@ -14,7 +14,7 @@ pub struct FileInformation {
     pub file_checksum: Vec<Checksum>,
     /// Store Fossology's license conclusion. Need a way to parse Fossology's
     /// output for policy engine.
-    pub concluded_license: String,
+    pub concluded_license: SPDXExpression,
     /// Store Fossology's scan results.
     pub license_information_in_file: Vec<String>,
     pub comments_on_license: Option<String>,
@@ -33,7 +33,7 @@ impl Default for FileInformation {
             file_spdx_identifier: "NOASSERTION".to_string(),
             file_type: None,
             file_checksum: Vec::new(),
-            concluded_license: "NOASSERTION".to_string(),
+            concluded_license: SPDXExpression("NOASSERTION".to_string()),
             license_information_in_file: Vec::new(),
             comments_on_license: None,
             copyright_text: "NOASSERTION".to_string(),

@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-use super::{Checksum, PackageVerificationCode};
+use super::{Checksum, PackageVerificationCode, SPDXExpression};
 
 /// ## Package Information
 ///
@@ -19,7 +19,7 @@ pub struct PackageInformation {
     pub package_checksum: Option<Vec<Checksum>>,
     pub package_home_page: Option<String>,
     pub source_information: Option<String>,
-    pub concluded_license: String,
+    pub concluded_license: SPDXExpression,
     pub all_licenses_information_from_files: Option<Vec<String>>,
     pub declared_license: String,
     pub comments_on_license: Option<String>,
@@ -51,7 +51,7 @@ impl Default for PackageInformation {
             package_checksum: None,
             package_home_page: None,
             source_information: None,
-            concluded_license: "NOASSERTION".to_string(),
+            concluded_license: SPDXExpression("NOASSERTION".to_string()),
             all_licenses_information_from_files: None,
             declared_license: "NOASSERTION".to_string(),
             comments_on_license: None,
