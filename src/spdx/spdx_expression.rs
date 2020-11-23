@@ -5,11 +5,12 @@ use serde::{Deserialize, Serialize};
 pub struct SPDXExpression(pub String);
 
 impl SPDXExpression {
-    pub fn parse<'a>(&'a self) -> Result<Expr<String>, Box<dyn std::error::Error + 'a>> {
-        let expression = parser::parse_spdx(&self.0);
-        match expression {
-            Ok(expression) => Ok(expression.1),
-            Err(error) => Err(error.into()),
+    pub fn parse(&self) -> Result<Expr<String>, String> {
+        let expression = parser::parse_spdx(&self.0).map_err(|e| e.to_string())?;
+        if expression.0.len() == 0 {
+            Ok(expression.1)
+        } else {
+            Err("Parsing error".into())
         }
     }
 }
@@ -25,6 +26,13 @@ mod test_spdx_expression {
         let expected = Expr::Terminal("MIT".into());
         assert_eq!(expr, expected)
     }
+
+    #[test]
+    fn error() {
+        let expression = SPDXExpression("&/%/'ääö".to_string());
+        let expr = expression.parse();
+        assert_eq!(expr, Err("Parsing error".into()))
+    }
 }
 
 mod parser {
@@ -37,7 +45,7 @@ mod parser {
 
     /// Test if character is legal in SPDX license identifier.
     fn is_spdx_char(c: char) -> bool {
-        c.is_alphanumeric() || c == '.' || c == '-' || c == '+'
+        c.is_ascii_alphanumeric() || c == '.' || c == '-' || c == '+'
     }
 
     /// Parse SPDX license expression.
