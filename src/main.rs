@@ -9,6 +9,7 @@ mod fossology;
 use spdx::SPDX;
 mod spdx;
 mod utilities;
+mod policy_engine;
 
 fn main() {
     let matches = app_from_crate!()
