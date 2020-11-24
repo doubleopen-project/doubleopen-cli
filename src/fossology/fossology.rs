@@ -199,7 +199,8 @@ impl Fossology {
         upload_objects.iter().for_each(|x| {
             pb.set_message(&x.path);
             pb.inc(1);
-            self.upload(&x.path, &4);
+            // TODO: Get input from user for the correct folder.
+            self.upload(&x.path, &3);
         });
         pb.finish();
     }
