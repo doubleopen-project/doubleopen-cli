@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-use super::{Checksum, PackageVerificationCode, SPDXExpression};
+use super::{Checksum, FileInformation, PackageVerificationCode, SPDXExpression};
 
 /// ## Package Information
 ///
@@ -76,5 +76,23 @@ impl PackageInformation {
             package_spdx_identifier: format!("SPDXRef-{}", id),
             ..Default::default()
         }
+    }
+
+    /// Find all files of the package.
+    pub fn find_files_for_package<'a>(
+        &'a self,
+        files: &'a Vec<FileInformation>,
+    ) -> Vec<&'a FileInformation> {
+        self.files
+            .iter()
+            .map(|file| {
+                files
+                    .iter()
+                    .find(|file_information| &file_information.file_spdx_identifier == file)
+                    // Unwrap, the file should always exist in files.
+                    // TODO: Proper error handling.
+                    .unwrap()
+            })
+            .collect()
     }
 }

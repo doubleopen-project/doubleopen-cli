@@ -1,5 +1,7 @@
 use serde::{Deserialize, Serialize};
 
+use crate::policy_engine::policy::Policy;
+
 use super::{Checksum, FileType, SPDX, SPDXExpression};
 
 /// ## File Information
