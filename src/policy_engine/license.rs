@@ -1,7 +1,7 @@
 use serde::{Serialize, Deserialize};
 
 /// Representation of allowlisted or denylisted license in license policy.
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Debug, PartialEq, Clone)]
 pub struct License {
   /// SPDX Expression of the license.
   pub spdx_expression: String,
