@@ -7,5 +7,5 @@ pub struct License {
   pub spdx_expression: String,
 
   /// Message attached to the policy violation for the license.
-  pub message: String,
+  pub message: Option<String>,
 }

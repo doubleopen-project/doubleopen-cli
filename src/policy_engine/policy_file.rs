@@ -110,7 +110,7 @@ impl PolicyFile {
         }
     }
 
-    pub fn from_multiple_files<P: AsRef<Path>>(paths: Vec<P>) -> Self {
+    pub fn from_multiple_files<P: AsRef<Path>>(paths: &Vec<P>) -> Self {
         let mut policies: Vec<PolicyFile> = paths
             .iter()
             .map(|path| PolicyFile::from_file(&path))

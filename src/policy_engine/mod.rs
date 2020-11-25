@@ -92,7 +92,7 @@ mod test_policy_engine {
     fn create_engine() {
         let allowed_licenses: Vec<License> = vec![License {
             spdx_expression: "MIT".into(),
-            message: "Allowed license.".into(),
+            message: Some("Allowed license.".into()),
         }];
 
         let policy = Policy {
@@ -119,7 +119,7 @@ mod test_policy_engine {
         
         let allowed_licenses: Vec<License> = vec![License {
             spdx_expression: "MIT".into(),
-            message: "Allowed license.".into(),
+            message: Some("Allowed license.".into()),
         }];
 
         let policy = Policy {
