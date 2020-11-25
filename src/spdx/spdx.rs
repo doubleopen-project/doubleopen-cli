@@ -10,7 +10,9 @@ use flate2::read::GzDecoder;
 use indicatif::ProgressBar;
 use serde::{Deserialize, Serialize};
 use std::{
+    ffi::OsStr,
     fs::{self, File},
+    io::BufReader,
     path::Path,
 };
 use tar::Archive;
@@ -60,6 +62,23 @@ impl SPDX {
             other_licensing_information_detected: Vec::new(),
             file_information: Vec::new(),
             spdx_ref_counter: 0,
+        }
+    }
+
+    /// Deserialize from file. Accepts json and yaml.
+    pub fn from_file<P: AsRef<Path>>(path: P) -> Self {
+        let path = path.as_ref();
+        let file = fs::File::open(&path).expect("SPDX file not found");
+        let reader = BufReader::new(file);
+
+        match path.extension().unwrap().to_str() {
+            Some("yml") => {
+                serde_yaml::from_reader::<_, SPDX>(reader).unwrap()
+            }
+            Some("json") => {
+                serde_json::from_reader::<_, SPDX>(reader).unwrap()
+            }
+            None | Some(_) => panic!(),
         }
     }
 
@@ -204,7 +223,8 @@ impl SPDX {
                         file_information.license_information_in_file = findings.scanner.clone();
 
                         if findings.conclusion.len() > 0 {
-                            file_information.concluded_license = SPDXExpression(findings.conclusion.join(" "));
+                            file_information.concluded_license =
+                                SPDXExpression(findings.conclusion.join(" "));
                         }
                     }
                 }
@@ -280,5 +300,10 @@ mod tests {
         assert_eq!(id_first, "SPDXRef-1");
         assert_eq!(id_second, "SPDXRef-2");
         assert_eq!(id_third, "SPDXRef-3");
+    }
+
+    #[test]
+    fn deserialize_from_file() {
+       todo!() 
     }
 }

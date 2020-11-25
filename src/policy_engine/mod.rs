@@ -12,7 +12,7 @@ pub mod policy;
 pub mod policy_violation;
 
 /// Policy Engine is used to evaluate license conclusions of files against a provided policy.
-struct PolicyEngine {
+pub struct PolicyEngine {
     /// The Policy used for evaluation.
     policy: Policy,
 
@@ -22,7 +22,7 @@ struct PolicyEngine {
 
 impl PolicyEngine {
     /// Create new Engine based on Policy. Creates the required HashMap for evaluation
-    fn new(policy: Policy) -> Self {
+    pub fn new(policy: Policy) -> Self {
         let mut allowed_licenses: HashMap<String, bool> = HashMap::new();
 
         policy.licenses_allow.iter().for_each(|license| {

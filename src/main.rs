@@ -7,9 +7,12 @@ use std::{fs, io::BufReader};
 mod analyze;
 mod fossology;
 use spdx::SPDX;
+mod policy_engine;
 mod spdx;
 mod utilities;
-mod policy_engine;
+
+use policy_engine::policy::Policy;
+use policy_engine::PolicyEngine;
 
 fn main() {
     let matches = app_from_crate!()
@@ -75,6 +78,35 @@ fn main() {
                         .about("SPDX file to get licenses for (JSON).")
                         .takes_value(true),
                 ),
+            App::new("evaluate")
+                .arg(
+                    Arg::new("spdx file")
+                        .long("spdx")
+                        .short('s')
+                        .value_name("FILE")
+                        .about("SPDX Document to evaluate")
+                        .takes_value(true)
+                        .required(true),
+                )
+                .arg(
+                    Arg::new("policy")
+                        .long("policy files")
+                        .short('p')
+                        .value_name("FILES")
+                        .about("Policy files to evaluate the SPDX against.")
+                        .required(true)
+                        .multiple(true)
+                        .takes_value(true),
+                )
+                .arg(
+                    Arg::new("context")
+                        .long("context")
+                        .short('c')
+                        .value_name("STRING")
+                        .about("Context of the application for the Policy Engine.")
+                        .required(true)
+                        .takes_value(true),
+                ),
         ])
         .get_matches();
 
@@ -117,5 +149,22 @@ fn main() {
 
             spdx.save_as_json("test.spdx.json");
         }
+    }
+
+    // Process evaluate subcommand.
+    if let Some(ref matches) = matches.subcommand_matches("evaluate") {
+        let (policies, context) = (
+            matches.values_of("policy").unwrap(),
+            matches.value_of("context").unwrap(),
+        );
+
+        let policy_paths: Vec<&str> = policies.collect();
+        let policy = Policy::from_files(policy_paths, context);
+        let policy_engine = PolicyEngine::new(policy);
+
+        let spdx_path = matches.value_of("spdx").unwrap();
+        let spdx = SPDX::from_file(&spdx_path);
+
+        let result = policy_engine.evaluate_spdx(&spdx);
     }
 }

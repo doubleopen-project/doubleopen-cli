@@ -1,4 +1,4 @@
-use std::collections::HashMap;
+use std::{collections::HashMap, path::Path};
 
 use crate::spdx::{FileInformation, PackageInformation, SPDX};
 
@@ -13,5 +13,11 @@ pub struct Policy {
 
     /// Denylisted licenses.
     pub licenses_deny: Vec<License>,
+}
+
+impl Policy {
+    pub fn from_files<P: AsRef<Path>>(files: Vec<P>, context: &str) -> Self {
+       todo!() 
+    }
 }
 
