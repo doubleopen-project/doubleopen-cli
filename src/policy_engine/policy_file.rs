@@ -14,6 +14,7 @@ pub struct PolicyFile {
 }
 
 impl PolicyFile {
+    /// Parse a yaml policy file to PolicyFile struct.
     pub fn from_file<P: AsRef<Path>>(path: P) -> Self {
         let path = path.as_ref();
         let file = fs::File::open(&path).expect("Policy file not found");
@@ -21,6 +22,8 @@ impl PolicyFile {
         serde_yaml::from_reader(reader).unwrap()
     }
 
+    /// Add a policy with higher priority to a policy, adding rules from the new
+    /// policy that did not exist in the old one and overwriting conflicting rules.
     pub fn add_overriding_policy(&mut self, policy: &PolicyFile) {
         // Loop over the licenses in the new file.
         for new_license in &policy.licenses {
@@ -110,6 +113,8 @@ impl PolicyFile {
         }
     }
 
+    /// Create the struct from multiple files, with the last one being the most
+    /// prioritized.
     pub fn from_multiple_files<P: AsRef<Path>>(paths: &Vec<P>) -> Self {
         let mut policies: Vec<PolicyFile> = paths
             .iter()

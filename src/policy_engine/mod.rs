@@ -9,8 +9,9 @@ use self::{evaluation_result::EvaluationResult, policy_violation::PolicyViolatio
 pub mod evaluation_result;
 pub mod license;
 pub mod policy;
-pub mod policy_violation;
 mod policy_file;
+pub mod policy_violation;
+pub mod resolution;
 
 /// Policy Engine is used to evaluate license conclusions of files against a provided policy.
 pub struct PolicyEngine {
@@ -86,7 +87,9 @@ mod test_policy_engine {
 
     use crate::spdx::{FileInformation, PackageInformation, SPDXExpression};
 
-    use super::{PolicyEngine, license::License, policy::Policy, policy_violation::PolicyViolation};
+    use super::{
+        license::License, policy::Policy, policy_violation::PolicyViolation, PolicyEngine,
+    };
 
     #[test]
     fn create_engine() {
@@ -98,6 +101,7 @@ mod test_policy_engine {
         let policy = Policy {
             licenses_allow: allowed_licenses,
             licenses_deny: vec![],
+            resolutions: vec![]
         };
 
         let engine = PolicyEngine::new(policy.clone());
@@ -116,7 +120,7 @@ mod test_policy_engine {
         let mut file = FileInformation::new("test_file", &mut id);
 
         file.concluded_license = SPDXExpression("MIT".into());
-        
+
         let allowed_licenses: Vec<License> = vec![License {
             spdx_expression: "MIT".into(),
             message: Some("Allowed license.".into()),
@@ -125,6 +129,7 @@ mod test_policy_engine {
         let policy = Policy {
             licenses_allow: allowed_licenses,
             licenses_deny: vec![],
+            resolutions: vec![]
         };
 
         let engine = PolicyEngine::new(policy.clone());
@@ -135,12 +140,12 @@ mod test_policy_engine {
         file.concluded_license = SPDXExpression("MIT AND GPL-2.0-only".into());
 
         let result = engine.evaluate_file(&file, &package).unwrap();
-        let expected_violation = PolicyViolation { 
-          file_id: "SPDXRef-3".into(),
-          file_license: "MIT AND GPL-2.0-only".into(),
-          file_name: "test_file".into(),
-          package_id: "SPDXRef-2".into(),
-          package_name: "test_package".into()
+        let expected_violation = PolicyViolation {
+            file_id: "SPDXRef-3".into(),
+            file_license: "MIT AND GPL-2.0-only".into(),
+            file_name: "test_file".into(),
+            package_id: "SPDXRef-2".into(),
+            package_name: "test_package".into(),
         };
 
         assert_eq!(result, expected_violation);

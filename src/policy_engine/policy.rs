@@ -4,7 +4,7 @@ use crate::spdx::{FileInformation, PackageInformation, SPDX};
 
 use super::{
     evaluation_result::EvaluationResult, license::License, policy_file::PolicyFile,
-    policy_violation::PolicyViolation,
+    policy_violation::PolicyViolation, resolution::Resolution,
 };
 use serde::{Deserialize, Serialize};
 
@@ -16,14 +16,20 @@ pub struct Policy {
 
     /// Denylisted licenses.
     pub licenses_deny: Vec<License>,
+
+    /// Resolutions for rule violations.
+    pub resolutions: Vec<Resolution>,
 }
 
 impl Policy {
+    /// Creates a policy from an undefined amount of Policy Files. Provide context
+    /// of the application.
     pub fn from_files<P: AsRef<Path>>(files: Vec<P>, context: &str) -> Self {
         let combined_files = PolicyFile::from_multiple_files(&files);
         Self::from_policy_file(combined_files, context)
     }
 
+    /// Creates A policy from single PolicyFile struct based on context..
     pub fn from_policy_file(policy_file: PolicyFile, context: &str) -> Self {
         let allowed_licensens: Vec<License> = policy_file
             .licenses
@@ -61,9 +67,25 @@ impl Policy {
             })
             .collect();
 
+        let resolutions: Vec<Resolution> = policy_file
+            .resolutions
+            .iter()
+            .filter_map(|res| {
+                let find_context = res.contexts.iter().find(|ctx| ctx.as_str() == context);
+                match find_context {
+                    Some(_) => Some(Resolution {
+                        license: res.spdx_id.clone(),
+                        package: res.package.clone(),
+                        reason: res.description.clone(),
+                    }),
+                    None => None,
+                }
+            })
+            .collect();
         Policy {
             licenses_allow: allowed_licensens,
             licenses_deny: denied_licensens,
+            resolutions: resolutions,
         }
     }
 }
@@ -95,6 +117,11 @@ mod test {
             - "consumer software"
             spdx_id: GPL-2.0-only
             description: "Licensed by the author separately."
+          - package: "application-2.0.0"
+            contexts:
+            - "saas"
+            spdx_id: GPL-2.0-only
+            description: "Licensed by the author separately."
        "#;
 
         let policy_2 = r#"
@@ -120,6 +147,13 @@ mod test {
                 spdx_expression: "GPL-2.0-only".into(),
                 message: Some("No GPL in saas for this project".into()),
             }],
+            resolutions: vec![
+                Resolution {
+                    license: "GPL-2.0-only".into(),
+                    package: "application-2.0.0".into(),
+                    reason: "Licensed by the author separately.".into()
+                }
+            ],
         };
 
         assert_eq!(policy, expected_policy);
