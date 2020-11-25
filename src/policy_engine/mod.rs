@@ -10,6 +10,7 @@ pub mod evaluation_result;
 pub mod license;
 pub mod policy;
 pub mod policy_violation;
+mod policy_file;
 
 /// Policy Engine is used to evaluate license conclusions of files against a provided policy.
 pub struct PolicyEngine {
