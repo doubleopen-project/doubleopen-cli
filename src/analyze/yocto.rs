@@ -9,13 +9,40 @@ use std::{
 
 use super::AnalyzerError;
 
-pub fn create_spdx_from_build() -> SPDX {
-    // Loop over packages in downloads.
+pub fn create_spdx_from_build<P: AsRef<Path>>(
+    manifest_path: P,
+    build_directory_path: P,
+) -> Result<SPDX, AnalyzerError> {
+    // Read packages from manifest file.
+    let manifest_packages = get_list_of_packages_from_manifest(manifest_path)?;
+
+    // Get the source packages for manifest-packages from runtime reverse.
+    let mut runtime_reverse_path = build_directory_path.as_ref().to_path_buf();
+    runtime_reverse_path.push("tmp/pkgdata/qemux86-64/runtime-reverse/");
+
+    let mut runtime_reverse_files = manifest_packages
+        .iter()
+        .map(|manifest_package| {
+            let mut path = runtime_reverse_path.clone();
+            path.push(manifest_package.package_name.clone());
+            // TODO: Don't unwrap this.
+            RuntimeReverseFile::new(&path).unwrap()
+        })
+        .collect::<Vec<_>>();
+
+    // TODO: Fix to_string().
+    runtime_reverse_files.sort_by_key(|rr_file| rr_file.package_name.to_string());
+    runtime_reverse_files.dedup();
+
+    let mut spdx = SPDX::new("NONE");
+    let packages: Vec<PackageInformation> = runtime_reverse_files.iter().map(|rr_file|{
+        PackageInformation::new(&rr_file.package_name, &mut spdx.spdx_ref_counter)
+    }).collect();
 
     // Get the name and hash of package from the file.
 
     // Extract the archive to temp and add files to spdx
-    SPDX::new("NONE")
+    Ok(spdx)
 }
 
 /// Remove packages from SPDX that aren't included in Yocto image based
@@ -197,8 +224,8 @@ pub fn parse_comment_for_packages(comment: &str) -> Vec<String> {
         .collect()
 }
 
-pub fn get_list_of_packages_from_manifest(
-    manifest_path: &str,
+pub fn get_list_of_packages_from_manifest<P: AsRef<Path>>(
+    manifest_path: P,
 ) -> Result<Vec<ManifestEntry>, AnalyzerError> {
     let file = File::open(manifest_path)?;
     let reader = BufReader::new(file);
@@ -260,10 +287,20 @@ impl RuntimeReverseFile {
         let file = File::open(path)?;
         let reader = BufReader::new(file);
         let mut lines = reader.lines();
+
         let mut package_name = lines.next().unwrap()?;
-        package_name.drain(..4);
+        if package_name.starts_with("PN:") {
+            package_name.drain(..4);
+        } else {
+            return Err(AnalyzerError::ParseError("Error".into()));
+        }
+
         let mut package_version = lines.next().unwrap()?;
-        package_version.drain(..4);
+        if package_version.starts_with("PV:") {
+            package_version.drain(..4);
+        } else {
+            return Err(AnalyzerError::ParseError("Error".into()));
+        }
 
         Ok(Self {
             package_name,

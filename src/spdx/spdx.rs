@@ -44,7 +44,7 @@ pub struct SPDX {
 
     /// Counter for creating SPDXRefs.
     #[serde(skip_serializing)]
-    spdx_ref_counter: i32,
+    pub spdx_ref_counter: i32,
 }
 
 impl SPDX {
