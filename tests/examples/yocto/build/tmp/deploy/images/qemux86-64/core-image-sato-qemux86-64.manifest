@@ -1,0 +1,5 @@
+adwaita-icon-theme noarch 3.34.3
+adwaita-icon-theme-symbolic noarch 3.34.3
+alsa-utils-alsactl core2_64 1.2.1
+alsa-utils-alsamixer core2_64 1.2.1
+dbus-1 core2_64 1.12.16
