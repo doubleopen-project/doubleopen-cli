@@ -116,12 +116,14 @@ fn main() {
             matches.value_of("manifest"),
             matches.value_of("srclist folder"),
         ) {
-            let spdx = analyze::yocto::spdx_from_pkgdata(srclists_path, manifest_path, "Yocto");
+            // let spdx = analyze::yocto::spdx_from_pkgdata(srclists_path, manifest_path, "Yocto");
 
             // Output to JSON
-            if let Some(ref file) = matches.value_of("save to file") {
-                spdx.save_as_json(file);
-            }
+            // if let Some(ref file) = matches.value_of("save to file") {
+            //     spdx.save_as_json(file);
+            // 
+            todo!()
+        // }
         }
     }
 

@@ -47,7 +47,7 @@ pub fn exclude_files_with_srclist<P: AsRef<Path>>(
     });
 }
 
-/// Get all unique hashes from a srclist file produced by Yocto. 
+/// Get all unique hashes from a srclist file produced by Yocto.
 pub fn hashes_from_srclist<P: AsRef<Path>>(path: P) -> Vec<String> {
     let srclist_content = fs::read_to_string(path).unwrap();
     let srclist: HashMap<String, Vec<HashMap<String, Option<String>>>> =
@@ -70,116 +70,116 @@ pub fn hashes_from_srclist<P: AsRef<Path>>(path: P) -> Vec<String> {
 }
 
 /// Create SPDX struct from a Yocto pkgdata folder.
-pub fn spdx_from_pkgdata(pkgdata_path: &str, manifest_path: &str, name: &str) -> SPDX {
-    // Create SPDX struct.
-    let mut spdx = SPDX::new(name);
+// pub fn spdx_from_pkgdata(pkgdata_path: &str, manifest_path: &str, name: &str) -> SPDX {
+//     // Create SPDX struct.
+//     let mut spdx = SPDX::new(name);
 
-    // Parse pkgdata folder.
-    let files = fs::read_dir(pkgdata_path).unwrap();
-    let mut srclists: Vec<DirEntry> = Vec::new();
-    let mut pkglists: Vec<DirEntry> = Vec::new();
+//     // Parse pkgdata folder.
+//     let files = fs::read_dir(pkgdata_path).unwrap();
+//     let mut srclists: Vec<DirEntry> = Vec::new();
+//     let mut pkglists: Vec<DirEntry> = Vec::new();
 
-    for file in files {
-        let file = file.unwrap();
+//     for file in files {
+//         let file = file.unwrap();
 
-        let path = file.path();
+//         let path = file.path();
 
-        // Skip if directory.
-        if path.is_dir() {
-            continue;
-        }
+//         // Skip if directory.
+//         if path.is_dir() {
+//             continue;
+//         }
 
-        match path.extension() {
-            Some(extension) => match extension.to_str() {
-                Some("srclist") => srclists.push(file),
-                _ => continue,
-            },
-            None => pkglists.push(file),
-        }
-    }
+//         match path.extension() {
+//             Some(extension) => match extension.to_str() {
+//                 Some("srclist") => srclists.push(file),
+//                 _ => continue,
+//             },
+//             None => pkglists.push(file),
+//         }
+//     }
 
-    let mut package_id = 0;
+//     let mut package_id = 0;
 
-    let mut packages: Vec<PackageInformation> = pkglists
-        .iter()
-        .map(|pkglist| {
-            let mut package = PackageInformation::new(
-                pkglist.path().file_stem().unwrap().to_str().unwrap(),
-                &mut package_id,
-            );
-            package.package_comment = Some(
-                fs::read_to_string(pkglist.path())
-                    .unwrap()
-                    .trim()
-                    .to_string(),
-            );
-            package
-        })
-        .collect();
+//     let mut packages: Vec<PackageInformation> = pkglists
+//         .iter()
+//         .map(|pkglist| {
+//             let mut package = PackageInformation::new(
+//                 pkglist.path().file_stem().unwrap().to_str().unwrap(),
+//                 &mut package_id,
+//             );
+//             package.package_comment = Some(
+//                 fs::read_to_string(pkglist.path())
+//                     .unwrap()
+//                     .trim()
+//                     .to_string(),
+//             );
+//             package
+//         })
+//         .collect();
 
-    let mut file_id = 0;
+//     let mut file_id = 0;
 
-    let mut files: Vec<FileInformation> = Vec::new();
+//     let mut files: Vec<FileInformation> = Vec::new();
 
-    // TEMPORARY SOLUTION
-    for package in &mut packages {
-        if let Some(srclist) = srclists.iter().find(|srclist| {
-            srclist.path().file_stem().unwrap().to_str().unwrap() == package.package_name
-        }) {
-            let srclist_content = fs::read_to_string(srclist.path()).unwrap();
+//     // TEMPORARY SOLUTION
+//     for package in &mut packages {
+//         if let Some(srclist) = srclists.iter().find(|srclist| {
+//             srclist.path().file_stem().unwrap().to_str().unwrap() == package.package_name
+//         }) {
+//             let srclist_content = fs::read_to_string(srclist.path()).unwrap();
 
-            let srclist: HashMap<String, Vec<HashMap<String, Option<String>>>> =
-                serde_json::from_str(&srclist_content).unwrap();
+//             let srclist: HashMap<String, Vec<HashMap<String, Option<String>>>> =
+//                 serde_json::from_str(&srclist_content).unwrap();
 
-            for i in srclist {
-                for elf_file in i.1 {
-                    for source_file in elf_file {
-                        // TODO: add to list if another file exists with same name but different hash.
-                        if files
-                            .iter()
-                            .find(|x| x.file_name == source_file.0)
-                            .is_none()
-                            && !source_file.0.contains("<built-in>")
-                        {
-                            let mut sf = FileInformation::new(source_file.0.as_str(), &mut file_id);
+//             for i in srclist {
+//                 for elf_file in i.1 {
+//                     for source_file in elf_file {
+//                         // TODO: add to list if another file exists with same name but different hash.
+//                         if files
+//                             .iter()
+//                             .find(|x| x.file_name == source_file.0)
+//                             .is_none()
+//                             && !source_file.0.contains("<built-in>")
+//                         {
+//                             let mut sf = FileInformation::new(source_file.0.as_str(), &mut file_id);
 
-                            if let Some(value) = source_file.1 {
-                                sf.file_checksum
-                                    .push(Checksum::new(Algorithm::SHA256, value))
-                            }
+//                             if let Some(value) = source_file.1 {
+//                                 sf.file_checksum
+//                                     .push(Checksum::new(Algorithm::SHA256, value))
+//                             }
 
-                            files.push(sf);
-                        }
-                    }
-                }
-            }
-        }
-    }
+//                             files.push(sf);
+//                         }
+//                     }
+//                 }
+//             }
+//         }
+//     }
 
-    spdx.package_information = packages;
+//     spdx.package_information = packages;
 
-    filter_packages_with_manifest(&mut spdx, manifest_path);
+//     filter_packages_with_manifest(&mut spdx, manifest_path);
 
-    spdx
-}
+//     spdx
+// }
 
-pub fn filter_packages_with_manifest(spdx: &mut SPDX, manifest_path: &str) {
-    let original_count = &spdx.package_information.len();
-    let manifest_packages = get_list_of_packages_from_manifest(manifest_path);
-    spdx.package_information.retain(|e| {
-        parse_comment_for_packages(&e.package_comment.clone().unwrap())
-            .iter()
-            .any(|n| manifest_packages.contains(n))
-    });
-    let final_count = &spdx.package_information.len();
+// pub fn filter_packages_with_manifest(spdx: &mut SPDX, manifest_path: &str) {
+//     let original_count = &spdx.package_information.len();
+//     let manifest_packages = get_list_of_packages_from_manifest(manifest_path);
+//     spdx.package_information.retain(|e| {
+//         parse_comment_for_packages(&e.package_comment.clone().unwrap())
+//             .iter()
+//             .any(|n| manifest_packages.contains(n))
+//     });
+//     let final_count = &spdx.package_information.len();
 
-    println!(
-        "Filtered {} packages of original {} based on manifest. Final package count: {}",
-        original_count - final_count,
-        original_count,
-        final_count
-    )
-}
+//     println!(
+//         "Filtered {} packages of original {} based on manifest. Final package count: {}",
+//         original_count - final_count,
+//         original_count,
+//         final_count
+//     )
+// }
 
 pub fn parse_comment_for_packages(comment: &str) -> Vec<String> {
     let comment = comment.split_whitespace();
@@ -195,20 +195,66 @@ pub fn parse_comment_for_packages(comment: &str) -> Vec<String> {
         .collect()
 }
 
-pub fn get_list_of_packages_from_manifest(manifest_path: &str) -> Vec<String> {
+pub fn get_list_of_packages_from_manifest(manifest_path: &str) -> Vec<ManifestEntry> {
     let file = File::open(manifest_path).expect("No such file");
     let reader = BufReader::new(file);
     let lines = reader.lines();
-    let mut packages: Vec<String> = Vec::new();
+    let mut packages: Vec<ManifestEntry> = Vec::new();
     for line in lines {
         if let Ok(line) = line {
-            let mut split = line.split_whitespace();
-            let name: String = split.next().expect("error").to_string();
-            packages.push(name);
+            let entry = ManifestEntry::new(&line);
+            packages.push(entry);
         }
     }
 
     packages
+}
+
+#[derive(Clone, Debug, Default, PartialEq, Eq)]
+pub struct ManifestEntry {
+    pub package_name: String,
+    pub architecture: String,
+    pub version: String,
+}
+
+impl ManifestEntry {
+    fn new(line: &str) -> Self {
+        let mut split = line.split_whitespace();
+        let package_name = split.next().expect("Name in manifest failed").to_string();
+        let architecture = split.next().expect("Name in manifest failed").to_string();
+        let version = split.next().expect("Name in manifest failed").to_string();
+
+        Self {
+            package_name,
+            architecture,
+            version,
+        }
+    }
+
+    fn get_source_archive(runtime_reverse: &RuntimeReverseFile) {}
+}
+
+#[derive(Clone, Debug, Default, PartialEq, Eq)]
+pub struct RuntimeReverseFile {
+    package_name: String,
+    version: String,
+}
+
+impl RuntimeReverseFile {
+    pub fn new<P: AsRef<Path>>(path: P) -> Self {
+        let file = File::open(path).expect("No such file");
+        let reader = BufReader::new(file);
+        let mut lines = reader.lines();
+        let mut package_name = lines.next().unwrap().unwrap();
+        package_name.drain(..4);
+        let mut package_version = lines.next().unwrap().unwrap();
+        package_version.drain(..4);
+        
+        Self {
+            package_name,
+            version: package_version
+        }
+    }
 }
 
 #[cfg(test)]
@@ -217,28 +263,28 @@ mod tests {
     use crate::spdx::spdx::SPDX;
     use std::path::PathBuf;
 
-    fn setup_spdx() -> SPDX {
-        let mut test_pkgdata_path = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
-        test_pkgdata_path.push("tests/examples/yocto/pkgdata");
+    // fn setup_spdx() -> SPDX {
+    //     let mut test_pkgdata_path = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
+    //     test_pkgdata_path.push("tests/examples/yocto/pkgdata");
 
-        let mut test_manifest_path = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
-        test_manifest_path.push("tests/examples/yocto/manifest.manifest");
+    //     let mut test_manifest_path = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
+    //     test_manifest_path.push("tests/examples/yocto/manifest.manifest");
 
-        let spdx = spdx_from_pkgdata(
-            test_pkgdata_path.to_str().unwrap(),
-            test_manifest_path.to_str().unwrap(),
-            "test_spdx",
-        );
+    //     let spdx = spdx_from_pkgdata(
+    //         test_pkgdata_path.to_str().unwrap(),
+    //         test_manifest_path.to_str().unwrap(),
+    //         "test_spdx",
+    //     );
 
-        spdx
-    }
+    //     spdx
+    // }
 
-    #[test]
-    fn correct_amount_of_packages_is_created() {
-        let spdx = setup_spdx();
+    // #[test]
+    // fn correct_amount_of_packages_is_created() {
+    //     let spdx = setup_spdx();
 
-        assert_eq!(spdx.package_information.len(), 2);
-    }
+    //     assert_eq!(spdx.package_information.len(), 2);
+    // }
 
     #[test]
     fn get_all_unique_hashes_from_srclist() {
@@ -274,68 +320,68 @@ mod tests {
         assert_eq!(spdx.package_information[0].files.len(), 170);
     }
 
-    #[test]
-    fn spdx_is_created_correctly() {
-        let spdx = setup_spdx();
+    // #[test]
+    // fn spdx_is_created_correctly() {
+    //     let spdx = setup_spdx();
 
-        assert_eq!(
-            spdx.document_creation_information.document_name,
-            "test_spdx"
-        );
-    }
+    //     assert_eq!(
+    //         spdx.document_creation_information.document_name,
+    //         "test_spdx"
+    //     );
+    // }
 
-    #[test]
-    fn subpackages_are_in_comments() {
-        let spdx = setup_spdx();
+    // #[test]
+    // fn subpackages_are_in_comments() {
+    //     let spdx = setup_spdx();
 
-        let mtdev = spdx
-            .package_information
-            .iter()
-            .find(|pkg| pkg.package_name == "mtdev")
-            .unwrap();
+    //     let mtdev = spdx
+    //         .package_information
+    //         .iter()
+    //         .find(|pkg| pkg.package_name == "mtdev")
+    //         .unwrap();
 
-        let xset = spdx
-            .package_information
-            .iter()
-            .find(|pkg| pkg.package_name == "xset")
-            .unwrap();
+    //     let xset = spdx
+    //         .package_information
+    //         .iter()
+    //         .find(|pkg| pkg.package_name == "xset")
+    //         .unwrap();
 
-        assert_eq!(
-            mtdev.package_comment.as_ref().unwrap(),
-            "PACKAGES: mtdev-src mtdev-dbg mtdev-staticdev mtdev-dev mtdev-doc mtdev-locale mtdev"
-        );
+    //     assert_eq!(
+    //         mtdev.package_comment.as_ref().unwrap(),
+    //         "PACKAGES: mtdev-src mtdev-dbg mtdev-staticdev mtdev-dev mtdev-doc mtdev-locale mtdev"
+    //     );
 
-        assert_eq!(
-            xset.package_comment.as_ref().unwrap(),
-            "PACKAGES: xset-src xset-dbg xset-staticdev xset-dev xset-doc xset-locale xset"
-        );
-    }
+    //     assert_eq!(
+    //         xset.package_comment.as_ref().unwrap(),
+    //         "PACKAGES: xset-src xset-dbg xset-staticdev xset-dev xset-doc xset-locale xset"
+    //     );
+    // }
 
-    #[test]
-    fn correct_amount_of_files() {
-        let spdx = setup_spdx();
+    // #[test]
+    // fn correct_amount_of_files() {
+    //     let spdx = setup_spdx();
 
-        let xset = spdx
-            .package_information
-            .iter()
-            .find(|pkg| pkg.package_name == "xset")
-            .unwrap();
+    //     let xset = spdx
+    //         .package_information
+    //         .iter()
+    //         .find(|pkg| pkg.package_name == "xset")
+    //         .unwrap();
 
-        assert_eq!(xset.files.len(), 30)
-    }
+    //     assert_eq!(xset.files.len(), 30)
+    // }
 
-    #[test]
-    fn duplicate_files_are_filtered() {
-        let spdx = setup_spdx();
+    // #[test]
+    // fn duplicate_files_are_filtered() {
+    //     let spdx = setup_spdx();
 
-        let mtdev = spdx
-            .package_information
-            .iter()
-            .find(|pkg| pkg.package_name == "mtdev")
-            .unwrap();
+    //     let mtdev = spdx
+    //         .package_information
+    //         .iter()
+    //         .find(|pkg| pkg.package_name == "mtdev")
+    //         .unwrap();
 
-        assert_eq!(mtdev.files.len(), 40);
-    }
+    //     assert_eq!(mtdev.files.len(), 40);
+    // }
 
     #[test]
     fn parse_comment_for_packages() {
@@ -360,25 +406,66 @@ mod tests {
     #[test]
     fn parse_manifest_for_packages() {
         let mut test_manifest_path = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
-        test_manifest_path.push("tests/examples/yocto/manifest.manifest");
+        test_manifest_path.push("tests/examples/yocto/build/tmp/deploy/images/qemux86-64/core-image-sato-qemux86-64.manifest");
 
         let packages =
             super::get_list_of_packages_from_manifest(test_manifest_path.to_str().unwrap());
 
-        let expected_packages: Vec<String> = vec!["mtdev".to_string(), "xset".to_string()];
+        let expected_packages = vec![
+            ManifestEntry {
+                package_name: "adwaita-icon-theme".into(),
+                architecture: "noarch".into(),
+                version: "3.34.3".into(),
+            },
+            ManifestEntry {
+                package_name: "adwaita-icon-theme-symbolic".into(),
+                architecture: "noarch".into(),
+                version: "3.34.3".into(),
+            },
+            ManifestEntry {
+                package_name: "alsa-utils-alsactl".into(),
+                architecture: "core2_64".into(),
+                version: "1.2.1".into(),
+            },
+            ManifestEntry {
+                package_name: "alsa-utils-alsamixer".into(),
+                architecture: "core2_64".into(),
+                version: "1.2.1".into(),
+            },
+            ManifestEntry {
+                package_name: "dbus-1".into(),
+                architecture: "core2_64".into(),
+                version: "1.12.16".into(),
+            },
+        ];
 
         assert_eq!(packages, expected_packages)
     }
 
     #[test]
-    fn filter_spdx_with_manifest() {
-        let mut spdx = setup_spdx();
-
+    fn parse_runtime_reverse() {
         let mut test_manifest_path = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
-        test_manifest_path.push("tests/examples/yocto/manifest.manifest");
+        test_manifest_path.push("tests/examples/yocto/build/tmp/pkgdata/qemux86-64/runtime-reverse/dbus-1");
 
-        super::filter_packages_with_manifest(&mut spdx, test_manifest_path.to_str().unwrap());
+        let runtime_reverse = RuntimeReverseFile::new(&test_manifest_path);
 
-        assert_eq!(spdx.package_information.len(), 2)
+        let expected = RuntimeReverseFile {
+            package_name: "dbus".into(),
+            version: "1.12.16".into()
+        };
+        
+        assert_eq!(runtime_reverse, expected);
     }
+
+    // #[test]
+    // fn filter_spdx_with_manifest() {
+    //     let mut spdx = setup_spdx();
+
+    //     let mut test_manifest_path = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
+    //     test_manifest_path.push("tests/examples/yocto/manifest.manifest");
+
+    //     super::filter_packages_with_manifest(&mut spdx, test_manifest_path.to_str().unwrap());
+
+    //     assert_eq!(spdx.package_information.len(), 2)
+    // }
 }
