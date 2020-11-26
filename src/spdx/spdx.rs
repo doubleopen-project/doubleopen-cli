@@ -10,7 +10,6 @@ use flate2::read::GzDecoder;
 use indicatif::ProgressBar;
 use serde::{Deserialize, Serialize};
 use std::{
-    ffi::OsStr,
     fs::{self, File},
     io::BufReader,
     path::Path,
@@ -18,6 +17,8 @@ use std::{
 use tar::Archive;
 use uuid::Uuid;
 use walkdir::WalkDir;
+
+use self::Relationship;
 
 pub use super::*;
 
@@ -39,6 +40,7 @@ pub struct SPDX {
     pub other_licensing_information_detected: Vec<OtherLicensingInformationDetected>,
     #[serde(rename = "files")]
     pub file_information: Vec<FileInformation>,
+    pub relationships: Vec<Relationship>,
 
     /// Counter for creating SPDXRefs.
     #[serde(skip_serializing)]
@@ -61,6 +63,7 @@ impl SPDX {
             package_information: Vec::new(),
             other_licensing_information_detected: Vec::new(),
             file_information: Vec::new(),
+            relationships: Vec::new(),
             spdx_ref_counter: 0,
         }
     }
@@ -72,12 +75,8 @@ impl SPDX {
         let reader = BufReader::new(file);
 
         match path.extension().unwrap().to_str() {
-            Some("yml") => {
-                serde_yaml::from_reader::<_, SPDX>(reader).unwrap()
-            }
-            Some("json") => {
-                serde_json::from_reader::<_, SPDX>(reader).unwrap()
-            }
+            Some("yml") => serde_yaml::from_reader::<_, SPDX>(reader).unwrap(),
+            Some("json") => serde_json::from_reader::<_, SPDX>(reader).unwrap(),
             None | Some(_) => panic!(),
         }
     }
@@ -134,6 +133,15 @@ impl SPDX {
             .iter()
             .map(|file| file.file_spdx_identifier.clone())
             .collect();
+
+        for file in &source_files {
+            package.add_related_file(
+                &file,
+                &mut self.relationships,
+                RelationshipType::Contains,
+                None,
+            );
+        }
 
         self.package_information.push(package);
         self.file_information.append(&mut source_files);
@@ -304,6 +312,6 @@ mod tests {
 
     #[test]
     fn deserialize_from_file() {
-       todo!() 
+        todo!()
     }
 }
