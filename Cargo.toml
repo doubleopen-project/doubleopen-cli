@@ -30,6 +30,7 @@ walkdir = "2"
 boolean_expression = "0.4.1"
 nom = "6"
 serde_yaml = "0.8"
+thiserror = "1.0.22"
 
 [dev-dependencies]
 tempfile = "3.1.0"

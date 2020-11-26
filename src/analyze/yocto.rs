@@ -1,11 +1,13 @@
-use crate::spdx::spdx::{Algorithm, Checksum, FileInformation, PackageInformation, SPDX};
-use fs::{DirEntry, File};
+use crate::spdx::spdx::{Algorithm, FileInformation, PackageInformation, SPDX};
+use fs::File;
 use std::{
     collections::HashMap,
     fs,
     io::{BufRead, BufReader},
     path::Path,
 };
+
+use super::AnalyzerError;
 
 pub fn create_spdx_from_build() -> SPDX {
     // Loop over packages in downloads.
@@ -195,19 +197,21 @@ pub fn parse_comment_for_packages(comment: &str) -> Vec<String> {
         .collect()
 }
 
-pub fn get_list_of_packages_from_manifest(manifest_path: &str) -> Vec<ManifestEntry> {
-    let file = File::open(manifest_path).expect("No such file");
+pub fn get_list_of_packages_from_manifest(
+    manifest_path: &str,
+) -> Result<Vec<ManifestEntry>, AnalyzerError> {
+    let file = File::open(manifest_path)?;
     let reader = BufReader::new(file);
     let lines = reader.lines();
     let mut packages: Vec<ManifestEntry> = Vec::new();
     for line in lines {
         if let Ok(line) = line {
-            let entry = ManifestEntry::new(&line);
+            let entry = ManifestEntry::new(&line)?;
             packages.push(entry);
         }
     }
 
-    packages
+    Ok(packages)
 }
 
 #[derive(Clone, Debug, Default, PartialEq, Eq)]
@@ -218,17 +222,28 @@ pub struct ManifestEntry {
 }
 
 impl ManifestEntry {
-    fn new(line: &str) -> Self {
+    fn new(line: &str) -> Result<Self, AnalyzerError> {
         let mut split = line.split_whitespace();
-        let package_name = split.next().expect("Name in manifest failed").to_string();
-        let architecture = split.next().expect("Name in manifest failed").to_string();
-        let version = split.next().expect("Name in manifest failed").to_string();
+        let package_name = split
+            .next()
+            .ok_or_else(|| AnalyzerError::ParseError(line.into()))?
+            .to_string();
 
-        Self {
+        let architecture = split
+            .next()
+            .ok_or_else(|| AnalyzerError::ParseError(line.into()))?
+            .to_string();
+
+        let version = split
+            .next()
+            .ok_or_else(|| AnalyzerError::ParseError(line.into()))?
+            .to_string();
+
+        Ok(Self {
             package_name,
             architecture,
             version,
-        }
+        })
     }
 
     fn get_source_archive(runtime_reverse: &RuntimeReverseFile) {}
@@ -241,19 +256,19 @@ pub struct RuntimeReverseFile {
 }
 
 impl RuntimeReverseFile {
-    pub fn new<P: AsRef<Path>>(path: P) -> Self {
-        let file = File::open(path).expect("No such file");
+    pub fn new<P: AsRef<Path>>(path: P) -> Result<Self, AnalyzerError> {
+        let file = File::open(path)?;
         let reader = BufReader::new(file);
         let mut lines = reader.lines();
-        let mut package_name = lines.next().unwrap().unwrap();
+        let mut package_name = lines.next().unwrap()?;
         package_name.drain(..4);
-        let mut package_version = lines.next().unwrap().unwrap();
+        let mut package_version = lines.next().unwrap()?;
         package_version.drain(..4);
-        
-        Self {
+
+        Ok(Self {
             package_name,
-            version: package_version
-        }
+            version: package_version,
+        })
     }
 }
 
@@ -409,7 +424,8 @@ mod tests {
         test_manifest_path.push("tests/examples/yocto/build/tmp/deploy/images/qemux86-64/core-image-sato-qemux86-64.manifest");
 
         let packages =
-            super::get_list_of_packages_from_manifest(test_manifest_path.to_str().unwrap());
+            super::get_list_of_packages_from_manifest(test_manifest_path.to_str().unwrap())
+                .unwrap();
 
         let expected_packages = vec![
             ManifestEntry {
@@ -445,15 +461,16 @@ mod tests {
     #[test]
     fn parse_runtime_reverse() {
         let mut test_manifest_path = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
-        test_manifest_path.push("tests/examples/yocto/build/tmp/pkgdata/qemux86-64/runtime-reverse/dbus-1");
+        test_manifest_path
+            .push("tests/examples/yocto/build/tmp/pkgdata/qemux86-64/runtime-reverse/dbus-1");
 
-        let runtime_reverse = RuntimeReverseFile::new(&test_manifest_path);
+        let runtime_reverse = RuntimeReverseFile::new(&test_manifest_path).unwrap();
 
         let expected = RuntimeReverseFile {
             package_name: "dbus".into(),
-            version: "1.12.16".into()
+            version: "1.12.16".into(),
         };
-        
+
         assert_eq!(runtime_reverse, expected);
     }
 
