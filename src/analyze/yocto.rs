@@ -5,51 +5,10 @@ use std::{
     fs,
     io::{BufRead, BufReader},
     path::Path,
+    path::PathBuf,
 };
 
 use super::AnalyzerError;
-
-pub fn create_spdx_from_build<P: AsRef<Path>>(
-    manifest_path: P,
-    build_directory_path: P,
-) -> Result<SPDX, AnalyzerError> {
-    // Read packages from manifest file.
-    let manifest_packages = get_list_of_packages_from_manifest(manifest_path)?;
-
-    // Get the source packages for manifest-packages from runtime reverse.
-    let mut runtime_reverse_path = build_directory_path.as_ref().to_path_buf();
-    runtime_reverse_path.push("tmp/pkgdata/qemux86-64/runtime-reverse/");
-
-    let mut runtime_reverse_files = manifest_packages
-        .iter()
-        .map(|manifest_package| {
-            let mut path = runtime_reverse_path.clone();
-            path.push(manifest_package.package_name.clone());
-            // TODO: Don't unwrap this.
-            RuntimeReverseFile::new(&path).unwrap()
-        })
-        .collect::<Vec<_>>();
-
-    // TODO: Fix to_string().
-    runtime_reverse_files.sort_by_key(|rr_file| rr_file.package_name.to_string());
-    runtime_reverse_files.dedup();
-
-    let mut spdx = SPDX::new("NONE");
-    let packages: Vec<PackageInformation> = runtime_reverse_files.iter().map(|rr_file|{
-        PackageInformation::new(&rr_file.package_name, &mut spdx.spdx_ref_counter)
-    }).collect();
-
-    // Get the name and hash of package from the file.
-
-    // Extract the archive to temp and add files to spdx
-    Ok(spdx)
-}
-
-/// Remove packages from SPDX that aren't included in Yocto image based
-/// on the image manifest file.
-pub fn exclude_packages_with_manifest(spdx: &mut SPDX, manifest_path: &str) {
-    todo!()
-}
 
 /// Remove files from packages in SPDX file if the files weren't used to build
 /// the packages based on dwarfsrcfiles.
@@ -98,134 +57,9 @@ pub fn hashes_from_srclist<P: AsRef<Path>>(path: P) -> Vec<String> {
     hashes
 }
 
-/// Create SPDX struct from a Yocto pkgdata folder.
-// pub fn spdx_from_pkgdata(pkgdata_path: &str, manifest_path: &str, name: &str) -> SPDX {
-//     // Create SPDX struct.
-//     let mut spdx = SPDX::new(name);
-
-//     // Parse pkgdata folder.
-//     let files = fs::read_dir(pkgdata_path).unwrap();
-//     let mut srclists: Vec<DirEntry> = Vec::new();
-//     let mut pkglists: Vec<DirEntry> = Vec::new();
-
-//     for file in files {
-//         let file = file.unwrap();
-
-//         let path = file.path();
-
-//         // Skip if directory.
-//         if path.is_dir() {
-//             continue;
-//         }
-
-//         match path.extension() {
-//             Some(extension) => match extension.to_str() {
-//                 Some("srclist") => srclists.push(file),
-//                 _ => continue,
-//             },
-//             None => pkglists.push(file),
-//         }
-//     }
-
-//     let mut package_id = 0;
-
-//     let mut packages: Vec<PackageInformation> = pkglists
-//         .iter()
-//         .map(|pkglist| {
-//             let mut package = PackageInformation::new(
-//                 pkglist.path().file_stem().unwrap().to_str().unwrap(),
-//                 &mut package_id,
-//             );
-//             package.package_comment = Some(
-//                 fs::read_to_string(pkglist.path())
-//                     .unwrap()
-//                     .trim()
-//                     .to_string(),
-//             );
-//             package
-//         })
-//         .collect();
-
-//     let mut file_id = 0;
-
-//     let mut files: Vec<FileInformation> = Vec::new();
-
-//     // TEMPORARY SOLUTION
-//     for package in &mut packages {
-//         if let Some(srclist) = srclists.iter().find(|srclist| {
-//             srclist.path().file_stem().unwrap().to_str().unwrap() == package.package_name
-//         }) {
-//             let srclist_content = fs::read_to_string(srclist.path()).unwrap();
-
-//             let srclist: HashMap<String, Vec<HashMap<String, Option<String>>>> =
-//                 serde_json::from_str(&srclist_content).unwrap();
-
-//             for i in srclist {
-//                 for elf_file in i.1 {
-//                     for source_file in elf_file {
-//                         // TODO: add to list if another file exists with same name but different hash.
-//                         if files
-//                             .iter()
-//                             .find(|x| x.file_name == source_file.0)
-//                             .is_none()
-//                             && !source_file.0.contains("<built-in>")
-//                         {
-//                             let mut sf = FileInformation::new(source_file.0.as_str(), &mut file_id);
-
-//                             if let Some(value) = source_file.1 {
-//                                 sf.file_checksum
-//                                     .push(Checksum::new(Algorithm::SHA256, value))
-//                             }
-
-//                             files.push(sf);
-//                         }
-//                     }
-//                 }
-//             }
-//         }
-//     }
-
-//     spdx.package_information = packages;
-
-//     filter_packages_with_manifest(&mut spdx, manifest_path);
-
-//     spdx
-// }
-
-// pub fn filter_packages_with_manifest(spdx: &mut SPDX, manifest_path: &str) {
-//     let original_count = &spdx.package_information.len();
-//     let manifest_packages = get_list_of_packages_from_manifest(manifest_path);
-//     spdx.package_information.retain(|e| {
-//         parse_comment_for_packages(&e.package_comment.clone().unwrap())
-//             .iter()
-//             .any(|n| manifest_packages.contains(n))
-//     });
-//     let final_count = &spdx.package_information.len();
-
-//     println!(
-//         "Filtered {} packages of original {} based on manifest. Final package count: {}",
-//         original_count - final_count,
-//         original_count,
-//         final_count
-//     )
-// }
-
-pub fn parse_comment_for_packages(comment: &str) -> Vec<String> {
-    let comment = comment.split_whitespace();
-
-    comment
-        .filter_map(|word| {
-            if word.to_lowercase() == "PACKAGES:".to_lowercase() {
-                None
-            } else {
-                Some(word.to_string())
-            }
-        })
-        .collect()
-}
-
-pub fn get_list_of_packages_from_manifest<P: AsRef<Path>>(
-    manifest_path: P,
+pub fn get_list_of_packages_from_manifest<P: AsRef<Path>, R: AsRef<Path>>(
+    manifest_path: &P,
+    runtime_reverse_dir_path: &R,
 ) -> Result<Vec<ManifestEntry>, AnalyzerError> {
     let file = File::open(manifest_path)?;
     let reader = BufReader::new(file);
@@ -233,7 +67,7 @@ pub fn get_list_of_packages_from_manifest<P: AsRef<Path>>(
     let mut packages: Vec<ManifestEntry> = Vec::new();
     for line in lines {
         if let Ok(line) = line {
-            let entry = ManifestEntry::new(&line)?;
+            let entry = ManifestEntry::new(&line, &runtime_reverse_dir_path)?;
             packages.push(entry);
         }
     }
@@ -241,15 +75,78 @@ pub fn get_list_of_packages_from_manifest<P: AsRef<Path>>(
     Ok(packages)
 }
 
+#[derive(Debug)]
+pub struct YoctoBuild {
+    pub image_name: String,
+    pub architecture: String,
+    pub build_directory: PathBuf,
+    pub manifest_entries: Vec<ManifestEntry>,
+}
+
+impl YoctoBuild {
+    pub fn new<P: AsRef<Path>>(
+        build_directory: P,
+        manifest_file: P,
+    ) -> Result<Self, AnalyzerError> {
+        let image_name = manifest_file
+            .as_ref()
+            .file_stem()
+            .ok_or_else(|| AnalyzerError::ParseError("No manifest file name.".into()))?
+            .to_owned()
+            .into_string()
+            .map_err(|_| AnalyzerError::ParseError("test".into()))?;
+
+        let architecture = manifest_file
+            .as_ref()
+            .components()
+            .rev()
+            .nth(1)
+            .ok_or_else(|| AnalyzerError::ParseError("No architecture in path.".into()))?
+            .as_os_str()
+            .to_str()
+            .ok_or_else(|| AnalyzerError::ParseError("No architecture in path.".into()))?
+            .to_string();
+
+        let runtime_reverse_dir_path = build_directory
+            .as_ref()
+            .join("tmp/pkgdata/")
+            .join(&architecture)
+            .join("runtime-reverse");
+
+        let manifest_entries =
+            get_list_of_packages_from_manifest(&manifest_file, &runtime_reverse_dir_path)?;
+
+        Ok(Self {
+            image_name,
+            architecture,
+            build_directory: build_directory.as_ref().into(),
+            manifest_entries,
+            ..Default::default()
+        })
+    }
+}
+
+impl Default for YoctoBuild {
+    fn default() -> Self {
+        Self {
+            architecture: "DEFAULT".into(),
+            build_directory: "DEFAULT".into(),
+            image_name: "DEFAULT".into(),
+            manifest_entries: Vec::new(),
+        }
+    }
+}
+
 #[derive(Clone, Debug, Default, PartialEq, Eq)]
 pub struct ManifestEntry {
     pub package_name: String,
     pub architecture: String,
     pub version: String,
+    pub runtime_reverse: RuntimeReverse,
 }
 
 impl ManifestEntry {
-    fn new(line: &str) -> Result<Self, AnalyzerError> {
+    fn new<P: AsRef<Path>>(line: &str, build_path: P) -> Result<Self, AnalyzerError> {
         let mut split = line.split_whitespace();
         let package_name = split
             .next()
@@ -266,23 +163,28 @@ impl ManifestEntry {
             .ok_or_else(|| AnalyzerError::ParseError(line.into()))?
             .to_string();
 
+        let runtime_reverse_path = build_path
+            .as_ref()
+            .join(&package_name);
+
+        let runtime_reverse = RuntimeReverse::new(runtime_reverse_path)?;
+
         Ok(Self {
             package_name,
             architecture,
             version,
+            runtime_reverse,
         })
     }
-
-    fn get_source_archive(runtime_reverse: &RuntimeReverseFile) {}
 }
 
 #[derive(Clone, Debug, Default, PartialEq, Eq)]
-pub struct RuntimeReverseFile {
+pub struct RuntimeReverse {
     package_name: String,
     version: String,
 }
 
-impl RuntimeReverseFile {
+impl RuntimeReverse {
     pub fn new<P: AsRef<Path>>(path: P) -> Result<Self, AnalyzerError> {
         let file = File::open(path)?;
         let reader = BufReader::new(file);
@@ -315,33 +217,34 @@ mod tests {
     use crate::spdx::spdx::SPDX;
     use std::path::PathBuf;
 
-    // fn setup_spdx() -> SPDX {
-    //     let mut test_pkgdata_path = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
-    //     test_pkgdata_path.push("tests/examples/yocto/pkgdata");
+    #[test]
+    fn create_yocto() {
+        let mut manifest_path = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
+        manifest_path.push("tests/examples/yocto/build/tmp/deploy/images/qemux86-64/core-image-sato-qemux86-64.manifest");
 
-    //     let mut test_manifest_path = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
-    //     test_manifest_path.push("tests/examples/yocto/manifest.manifest");
+        let mut build_path = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
+        build_path.push("tests/examples/yocto/build");
 
-    //     let spdx = spdx_from_pkgdata(
-    //         test_pkgdata_path.to_str().unwrap(),
-    //         test_manifest_path.to_str().unwrap(),
-    //         "test_spdx",
-    //     );
+        let yocto = YoctoBuild::new(&build_path, &manifest_path).unwrap();
 
-    //     spdx
-    // }
-
-    // #[test]
-    // fn correct_amount_of_packages_is_created() {
-    //     let spdx = setup_spdx();
-
-    //     assert_eq!(spdx.package_information.len(), 2);
-    // }
+        assert_eq!(yocto.image_name, "core-image-sato-qemux86-64");
+        assert_eq!(yocto.architecture, "qemux86-64");
+        assert!(yocto
+            .build_directory
+            .ends_with("tests/examples/yocto/build"));
+        assert_eq!(yocto.manifest_entries.len(), 5);
+        assert_eq!(yocto.manifest_entries[0].runtime_reverse.package_name, "adwaita-icon-theme".to_string());
+        assert_eq!(yocto.manifest_entries[0].runtime_reverse.version, "3.34.3".to_string());
+        assert_eq!(yocto.manifest_entries[1].runtime_reverse.package_name, "adwaita-icon-theme".to_string());
+        assert_eq!(yocto.manifest_entries[1].runtime_reverse.version, "3.34.3".to_string());
+        assert_eq!(yocto.manifest_entries[2].runtime_reverse.package_name, "alsa-utils".to_string());
+        assert_eq!(yocto.manifest_entries[2].runtime_reverse.version, "1.2.1".to_string());
+    }
 
     #[test]
     fn get_all_unique_hashes_from_srclist() {
         let mut srclist_path = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
-        srclist_path.push("tests/examples/yocto/build/tmp/pkgdata/dbus.srclist");
+        srclist_path.push("tests/examples/yocto/build/tmp/pkgdata/qemux86-64/dbus.srclist");
         let hashes = hashes_from_srclist(srclist_path);
 
         // TODO: The correct amount has not been manually checked, may want to create
@@ -350,145 +253,61 @@ mod tests {
     }
 
     #[test]
-    fn exclude_unused_files_with_srclist() {
-        let mut test_archive_path = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
-        test_archive_path.push("tests/examples/yocto/build/downloads/dbus-1.12.16.tar.gz");
-
-        let mut test_srclist_path = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
-        test_srclist_path.push("tests/examples/yocto/build/tmp/pkgdata/dbus.srclist");
-
-        let mut spdx = SPDX::new("dbus");
-
-        spdx.add_package_from_archive(&test_archive_path.to_str().unwrap());
-
-        assert_eq!(spdx.package_information[0].files.len(), 537);
-
-        exclude_files_with_srclist(
-            &mut spdx.package_information[0],
-            test_srclist_path,
-            &spdx.file_information,
-        );
-
-        assert_eq!(spdx.package_information[0].files.len(), 170);
-    }
-
-    // #[test]
-    // fn spdx_is_created_correctly() {
-    //     let spdx = setup_spdx();
-
-    //     assert_eq!(
-    //         spdx.document_creation_information.document_name,
-    //         "test_spdx"
-    //     );
-    // }
-
-    // #[test]
-    // fn subpackages_are_in_comments() {
-    //     let spdx = setup_spdx();
-
-    //     let mtdev = spdx
-    //         .package_information
-    //         .iter()
-    //         .find(|pkg| pkg.package_name == "mtdev")
-    //         .unwrap();
-
-    //     let xset = spdx
-    //         .package_information
-    //         .iter()
-    //         .find(|pkg| pkg.package_name == "xset")
-    //         .unwrap();
-
-    //     assert_eq!(
-    //         mtdev.package_comment.as_ref().unwrap(),
-    //         "PACKAGES: mtdev-src mtdev-dbg mtdev-staticdev mtdev-dev mtdev-doc mtdev-locale mtdev"
-    //     );
-
-    //     assert_eq!(
-    //         xset.package_comment.as_ref().unwrap(),
-    //         "PACKAGES: xset-src xset-dbg xset-staticdev xset-dev xset-doc xset-locale xset"
-    //     );
-    // }
-
-    // #[test]
-    // fn correct_amount_of_files() {
-    //     let spdx = setup_spdx();
-
-    //     let xset = spdx
-    //         .package_information
-    //         .iter()
-    //         .find(|pkg| pkg.package_name == "xset")
-    //         .unwrap();
-
-    //     assert_eq!(xset.files.len(), 30)
-    // }
-
-    // #[test]
-    // fn duplicate_files_are_filtered() {
-    //     let spdx = setup_spdx();
-
-    //     let mtdev = spdx
-    //         .package_information
-    //         .iter()
-    //         .find(|pkg| pkg.package_name == "mtdev")
-    //         .unwrap();
-
-    //     assert_eq!(mtdev.files.len(), 40);
-    // }
-
-    #[test]
-    fn parse_comment_for_packages() {
-        let comment =
-            "PACKAGES: mtdev-src mtdev-dbg mtdev-staticdev mtdev-dev mtdev-doc mtdev-locale mtdev";
-
-        let packages = super::parse_comment_for_packages(comment);
-
-        let expected_packages: Vec<String> = vec![
-            "mtdev-src".to_string(),
-            "mtdev-dbg".to_string(),
-            "mtdev-staticdev".to_string(),
-            "mtdev-dev".to_string(),
-            "mtdev-doc".to_string(),
-            "mtdev-locale".to_string(),
-            "mtdev".to_string(),
-        ];
-
-        assert_eq!(packages, expected_packages);
-    }
-
-    #[test]
     fn parse_manifest_for_packages() {
         let mut test_manifest_path = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
         test_manifest_path.push("tests/examples/yocto/build/tmp/deploy/images/qemux86-64/core-image-sato-qemux86-64.manifest");
 
+        let mut runtime_reverse_dir_path = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
+        runtime_reverse_dir_path.push("tests/examples/yocto/build/tmp/pkgdata/qemux86-64/runtime-reverse/");
+
         let packages =
-            super::get_list_of_packages_from_manifest(test_manifest_path.to_str().unwrap())
-                .unwrap();
+            super::get_list_of_packages_from_manifest(&test_manifest_path, &runtime_reverse_dir_path).unwrap();
 
         let expected_packages = vec![
             ManifestEntry {
                 package_name: "adwaita-icon-theme".into(),
                 architecture: "noarch".into(),
                 version: "3.34.3".into(),
+                runtime_reverse: RuntimeReverse {
+                    package_name: "adwaita-icon-theme".into(),
+                    version: "3.34.3".into()
+                }
             },
             ManifestEntry {
                 package_name: "adwaita-icon-theme-symbolic".into(),
                 architecture: "noarch".into(),
                 version: "3.34.3".into(),
+                runtime_reverse: RuntimeReverse {
+                    package_name: "adwaita-icon-theme".into(),
+                    version: "3.34.3".into()
+                }
             },
             ManifestEntry {
                 package_name: "alsa-utils-alsactl".into(),
                 architecture: "core2_64".into(),
                 version: "1.2.1".into(),
+                runtime_reverse: RuntimeReverse {
+                    package_name: "alsa-utils".into(),
+                    version: "1.2.1".into()
+                }
             },
             ManifestEntry {
                 package_name: "alsa-utils-alsamixer".into(),
                 architecture: "core2_64".into(),
                 version: "1.2.1".into(),
+                runtime_reverse: RuntimeReverse {
+                    package_name: "alsa-utils".into(),
+                    version: "1.2.1".into()
+                }
             },
             ManifestEntry {
                 package_name: "dbus-1".into(),
                 architecture: "core2_64".into(),
                 version: "1.12.16".into(),
+                runtime_reverse: RuntimeReverse {
+                    package_name: "dbus".into(),
+                    version: "1.12.16".into()
+                }
             },
         ];
 
@@ -501,25 +320,13 @@ mod tests {
         test_manifest_path
             .push("tests/examples/yocto/build/tmp/pkgdata/qemux86-64/runtime-reverse/dbus-1");
 
-        let runtime_reverse = RuntimeReverseFile::new(&test_manifest_path).unwrap();
+        let runtime_reverse = RuntimeReverse::new(&test_manifest_path).unwrap();
 
-        let expected = RuntimeReverseFile {
+        let expected = RuntimeReverse {
             package_name: "dbus".into(),
             version: "1.12.16".into(),
         };
 
         assert_eq!(runtime_reverse, expected);
     }
-
-    // #[test]
-    // fn filter_spdx_with_manifest() {
-    //     let mut spdx = setup_spdx();
-
-    //     let mut test_manifest_path = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
-    //     test_manifest_path.push("tests/examples/yocto/manifest.manifest");
-
-    //     super::filter_packages_with_manifest(&mut spdx, test_manifest_path.to_str().unwrap());
-
-    //     assert_eq!(spdx.package_information.len(), 2)
-    // }
 }

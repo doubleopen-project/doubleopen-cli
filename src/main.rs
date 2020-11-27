@@ -2,6 +2,7 @@
 //
 // SPDX-License-Identifier: MIT
 
+use analyze::yocto::YoctoBuild;
 use clap::{app_from_crate, App, Arg};
 use std::{fs, io::BufReader};
 mod analyze;
@@ -19,7 +20,7 @@ fn main() {
         .subcommands(vec![
             App::new("analyze")
                 .arg(
-                    Arg::new("manifest")
+                    Arg::new("manifest file")
                         .short('m')
                         .long("manifest")
                         .value_name("FILE")
@@ -28,11 +29,11 @@ fn main() {
                         .takes_value(true),
                 )
                 .arg(
-                    Arg::new("srclist folder")
-                        .short('f')
-                        .long("folder")
+                    Arg::new("build directory")
+                        .short('b')
+                        .long("build")
                         .value_name("FOLDER")
-                        .about("Folder including srclist files")
+                        .about("Yocto build directory")
                         .required(true)
                         .takes_value(true),
                 )
@@ -112,11 +113,12 @@ fn main() {
 
     // Process analyze subcommand.
     if let Some(ref matches) = matches.subcommand_matches("analyze") {
-        if let (Some(manifest_path), Some(srclists_path)) = (
-            matches.value_of("manifest"),
+        if let (Some(manifest_file), Some(build_directory)) = (
+            matches.value_of("manifest file"),
             matches.value_of("srclist folder"),
         ) {
-            // let spdx = analyze::yocto::spdx_from_pkgdata(srclists_path, manifest_path, "Yocto");
+            // TODO: Don't unwrap.
+            let yocto_build = YoctoBuild::new(&build_directory, &manifest_file).unwrap();
 
             // Output to JSON
             // if let Some(ref file) = matches.value_of("save to file") {
