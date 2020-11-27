@@ -1,7 +1,10 @@
-use crate::spdx::spdx::{Algorithm, FileInformation, PackageInformation, SPDX};
+use crate::{
+    spdx::spdx::{Algorithm, FileInformation, PackageInformation, SPDX},
+    utilities::hash256_for_path,
+};
+use compress_tools::{uncompress_archive, Ownership};
 use flate2::read::GzDecoder;
 use fs::File;
-use tar::Archive;
 use std::{
     collections::HashMap,
     fs,
@@ -9,6 +12,8 @@ use std::{
     path::Path,
     path::PathBuf,
 };
+use tar::Archive;
+use walkdir::WalkDir;
 
 use super::AnalyzerError;
 
@@ -78,15 +83,15 @@ pub fn get_list_of_packages_from_manifest<P: AsRef<Path>, R: AsRef<Path>>(
 }
 
 #[derive(Debug)]
-pub struct YoctoBuild<'yocto> {
+pub struct YoctoBuild {
     pub image_name: String,
     pub architecture: String,
     pub build_directory: PathBuf,
     pub manifest_entries: Vec<ManifestEntry>,
-    pub source_packages: Vec<YoctoSourcePackage<'yocto>>,
+    pub source_packages: Vec<YoctoSourcePackage>,
 }
 
-impl<'yocto> YoctoBuild<'yocto> {
+impl YoctoBuild {
     pub fn new<P: AsRef<Path>>(
         build_directory: P,
         manifest_file: P,
@@ -141,7 +146,7 @@ impl<'yocto> YoctoBuild<'yocto> {
     }
 }
 
-impl<'yocto> Default for YoctoBuild<'yocto> {
+impl Default for YoctoBuild {
     fn default() -> Self {
         Self {
             architecture: "DEFAULT".into(),
@@ -259,25 +264,36 @@ impl RuntimeReverse {
 }
 
 #[derive(Debug)]
-pub struct YoctoSourcePackage<'yocto> {
-    package_name: &'yocto str,
-    package_version: &'yocto str,
-    source_archive_path: &'yocto Path,
-    source_files: Vec<YoctoSourceFile<'yocto>>,
+pub struct YoctoSourcePackage {
+    package_name: String,
+    package_version: String,
+    source_archive_path: PathBuf,
+    source_files: Vec<YoctoSourceFile>,
 }
 
-impl<'yocto> YoctoSourcePackage<'yocto> {
+impl YoctoSourcePackage {
     pub fn new(
-        package_name: &'yocto str,
-        package_version: &'yocto str,
-        source_archive_path: &'yocto Path,
+        package_name: String,
+        package_version: String,
+        source_archive_path: PathBuf,
     ) -> Self {
         // Create a temporary directory and unpack the archive there.
         let temp_dir = tempfile::tempdir().unwrap();
         let file = File::open(&source_archive_path).unwrap();
-        let tar = GzDecoder::new(file);
-        let mut archive = Archive::new(tar);
-        archive.unpack(&temp_dir.path()).unwrap();
+        uncompress_archive(file, temp_dir.path(), Ownership::Ignore);
+        let mut source_files: Vec<YoctoSourceFile> = WalkDir::new(&temp_dir)
+            .into_iter()
+            .filter_map(|f| {
+                let entry = f.unwrap();
+                if entry.metadata().unwrap().is_file() {
+                    let filename = entry.file_name().to_string_lossy();
+                    let sha256 = hash256_for_path(entry.path());
+                    Some(YoctoSourceFile { filename: filename.to_string(), sha256 })
+                } else {
+                    None
+                }
+            })
+            .collect();
         Self {
             package_name,
             package_version,
@@ -288,8 +304,8 @@ impl<'yocto> YoctoSourcePackage<'yocto> {
 }
 
 #[derive(Debug)]
-pub struct YoctoSourceFile<'yocto> {
-    filename: &'yocto str,
+pub struct YoctoSourceFile {
+    filename: String,
     sha256: String,
 }
 
@@ -450,5 +466,23 @@ mod tests {
         };
 
         assert_eq!(runtime_reverse, expected);
+    }
+
+    #[test]
+    fn archives_are_extracted() {
+        let mut source_archive = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
+        source_archive.push("tests/examples/yocto/build/downloads/dbus-1.12.16.tar.gz");
+        let package = YoctoSourcePackage::new("dbus".into(), "1.12.16".into(), source_archive);
+        assert_eq!(package.source_files.len(), 537);
+
+        let mut source_archive = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
+        source_archive.push("tests/examples/yocto/build/downloads/adwaita-icon-theme-3.34.3.tar.xz");
+        let package = YoctoSourcePackage::new("dbus".into(), "1.12.16".into(), source_archive);
+        assert_eq!(package.source_files.len(), 3070);
+
+        let mut source_archive = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
+        source_archive.push("tests/examples/yocto/build/downloads/bison-3.5.3.tar.xz");
+        let package = YoctoSourcePackage::new("dbus".into(), "1.12.16".into(), source_archive);
+        assert_eq!(package.source_files.len(), 1109);
     }
 }
