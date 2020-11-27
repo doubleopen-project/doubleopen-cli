@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: MIT
 
-use analyze::yocto::YoctoBuild;
+use analyze::yocto::Yocto;
 use clap::{app_from_crate, App, Arg};
 use std::{fs, io::BufReader};
 mod analyze;
@@ -118,14 +118,14 @@ fn main() {
             matches.value_of("srclist folder"),
         ) {
             // TODO: Don't unwrap.
-            let yocto_build = YoctoBuild::new(&build_directory, &manifest_file).unwrap();
+            let yocto_build = Yocto::new(&build_directory, &manifest_file).unwrap();
 
             // Output to JSON
             // if let Some(ref file) = matches.value_of("save to file") {
             //     spdx.save_as_json(file);
-            // 
+            //
             todo!()
-        // }
+            // }
         }
     }
 

@@ -6,9 +6,12 @@ pub mod yocto;
 
 #[derive(Debug, thiserror::Error)]
 pub enum AnalyzerError {
-  #[error(transparent)]
-  FileError(#[from] std::io::Error),
+    #[error(transparent)]
+    FileError(#[from] std::io::Error),
 
-  #[error("parsing failed")]
-  ParseError(String),
+    #[error("parsing failed")]
+    ParseError(String),
+
+    #[error("extracting failed")]
+    CompressError(#[from] compress_tools::Error),
 }
