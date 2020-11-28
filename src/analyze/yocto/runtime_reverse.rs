@@ -53,7 +53,7 @@ impl RuntimeReverse {
                 .file_name()
                 .to_str()
                 .expect("Archive not found.")
-                .starts_with(&self.package_name)
+                .starts_with(&name_version)
                 && download
                     .path()
                     .extension()
