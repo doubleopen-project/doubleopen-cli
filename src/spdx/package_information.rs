@@ -90,8 +90,8 @@ impl PackageInformation {
         comment: Option<String>,
     ) {
         let relationship = Relationship::new(
-            self.package_spdx_identifier.to_string(),
-            file.file_spdx_identifier.to_string(),
+            &self.package_spdx_identifier,
+            &file.file_spdx_identifier,
             relationship_type,
             comment,
         );

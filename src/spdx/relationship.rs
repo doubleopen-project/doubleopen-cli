@@ -10,14 +10,14 @@ pub struct Relationship {
 
 impl Relationship {
     pub fn new(
-        spdx_element_id: String,
-        related_spdx_element: String,
+        spdx_element_id: &str,
+        related_spdx_element: &str,
         relationship_type: RelationshipType,
         comment: Option<String>,
     ) -> Self {
         Self {
-            spdx_element_id,
-            related_spdx_element,
+            spdx_element_id: spdx_element_id.to_string(),
+            related_spdx_element: related_spdx_element.to_string(),
             relationship_type,
             comment,
         }

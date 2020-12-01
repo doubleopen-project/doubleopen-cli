@@ -1,4 +1,7 @@
-use crate::spdx::spdx::{Algorithm, FileInformation, PackageInformation, SPDX};
+use crate::spdx::{
+    spdx::{Algorithm, FileInformation, PackageInformation, SPDX},
+    Checksum, Relationship, RelationshipType,
+};
 use fs::File;
 use std::{
     collections::HashMap,
@@ -146,21 +149,36 @@ impl Yocto {
     }
 
     fn create_source_packages(&mut self) -> Result<(), AnalyzerError> {
-        let unique_reverserd_packages = self.get_unique_reversed_packages();
+        let unique_reversed_packages = self.get_unique_reversed_packages();
 
-        self.source_packages = unique_reverserd_packages
+        let source_packages = unique_reversed_packages
             .iter()
-            .map(|reversed_package| {
-                YoctoSourcePackage::new(
-                    reversed_package.package_name.clone(),
-                    reversed_package.version.clone(),
-                    reversed_package
-                        .find_source_archive(&self.build_directory)
-                        .expect("Can't find source archive."),
-                )
-                .expect("Can't create source package.")
+            .filter_map(|reversed_package| {
+                let source_archive_path = &reversed_package
+                    .find_source_archive(&self.build_directory)
+                    .ok();
+                match source_archive_path {
+                    Some(path) => YoctoSourcePackage::new(
+                        reversed_package.package_name.clone(),
+                        reversed_package.version.clone(),
+                        path.clone(),
+                    )
+                    .ok(),
+                    None => {
+                        println!(
+                            "No source archive for package {}-{}",
+                            &reversed_package.package_name, &reversed_package.version
+                        );
+                        None
+                    }
+                }
             })
             .collect::<Vec<_>>();
+
+        for source_package in source_packages {
+            self.source_packages.push(source_package);
+        }
+
         Ok(())
     }
 }
@@ -175,6 +193,38 @@ impl Default for Yocto {
             source_packages: Vec::new(),
             manifest_path: "DEFAULT".into(),
         }
+    }
+}
+
+impl From<Yocto> for SPDX {
+    fn from(yocto: Yocto) -> SPDX {
+        let mut spdx = SPDX::new(&yocto.image_name);
+
+        for package in yocto.source_packages {
+            let mut spdx_package =
+                PackageInformation::new(&package.package_name, &mut spdx.spdx_ref_counter);
+            spdx_package.package_version = Some(package.package_version);
+            for file in package.source_files {
+                let mut spdx_file =
+                    FileInformation::new(&file.filename, &mut spdx.spdx_ref_counter);
+                spdx_file
+                    .file_checksum
+                    .push(Checksum::new(Algorithm::SHA256, &file.sha256));
+
+                let relationship = Relationship::new(
+                    &spdx_package.package_spdx_identifier,
+                    &spdx_file.file_spdx_identifier,
+                    RelationshipType::Contains,
+                    None,
+                );
+                spdx.file_information.push(spdx_file);
+                spdx.relationships.push(relationship);
+            }
+
+            spdx.package_information.push(spdx_package)
+        }
+
+        spdx
     }
 }
 
@@ -223,6 +273,10 @@ mod tests {
             yocto.manifest_entries[2].runtime_reverse.version,
             "1.2.1".to_string()
         );
+
+        assert_eq!(yocto.source_packages.len(), 3);
+        assert_eq!(yocto.source_packages[0].package_name, "adwaita-icon-theme");
+        assert_eq!(yocto.source_packages[0].source_files.len(), 3070);
     }
 
     #[test]
@@ -311,26 +365,5 @@ mod tests {
         };
 
         assert_eq!(runtime_reverse, expected);
-    }
-
-    #[test]
-    fn archives_are_extracted() {
-        let mut source_archive = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
-        source_archive.push("tests/examples/yocto/build/downloads/dbus-1.12.16.tar.gz");
-        let package = YoctoSourcePackage::new("dbus".into(), "1.12.16".into(), source_archive)
-            .expect("tar.gz");
-        assert_eq!(package.source_files.len(), 537);
-
-        let mut source_archive = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
-        source_archive.push("tests/examples/yocto/build/downloads/alsa-utils-1.2.1.tar.bz2");
-        let package = YoctoSourcePackage::new("alsa-utils".into(), "1.2.1".into(), source_archive)
-            .expect("tar.xz");
-        assert_eq!(package.source_files.len(), 285);
-
-        let mut source_archive = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
-        source_archive.push("tests/examples/yocto/build/downloads/bison-3.5.3.tar.xz");
-        let package = YoctoSourcePackage::new("dbus".into(), "1.12.16".into(), source_archive)
-            .expect("tar.xz");
-        assert_eq!(package.source_files.len(), 1109);
     }
 }

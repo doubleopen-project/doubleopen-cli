@@ -12,8 +12,8 @@ pub struct Checksum {
 
 impl Checksum {
     /// Create new checksum.
-    pub fn new(algorithm: Algorithm, value: String) -> Self {
-        Self { algorithm, value }
+    pub fn new(algorithm: Algorithm, value: &str) -> Self {
+        Self { algorithm, value: value.to_string() }
     }
 
     pub fn try_sha256_from_path<P: AsRef<Path>>(path: P) -> Self {

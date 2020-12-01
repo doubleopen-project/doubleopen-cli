@@ -38,12 +38,12 @@ fn main() {
                         .takes_value(true),
                 )
                 .arg(
-                    Arg::new("save to file")
+                    Arg::new("output")
                         .short('o')
                         .long("output")
                         .value_name("FILE")
                         .about("Save package info to file")
-                        .required(false)
+                        .required(true)
                         .takes_value(true),
                 ),
             App::new("fossology")
@@ -112,20 +112,16 @@ fn main() {
         .get_matches();
 
     // Process analyze subcommand.
-    if let Some(ref matches) = matches.subcommand_matches("analyze") {
-        if let (Some(manifest_file), Some(build_directory)) = (
-            matches.value_of("manifest file"),
-            matches.value_of("srclist folder"),
+    if let Some(ref matches_analyze) = matches.subcommand_matches("analyze") {
+        if let (Some(manifest_file), Some(build_directory), Some(output_path)) = (
+            matches_analyze.value_of("manifest file"),
+            matches_analyze.value_of("build directory"),
+            matches_analyze.value_of("output"),
         ) {
             // TODO: Don't unwrap.
             let yocto_build = Yocto::new(&build_directory, &manifest_file).unwrap();
-
-            // Output to JSON
-            // if let Some(ref file) = matches.value_of("save to file") {
-            //     spdx.save_as_json(file);
-            //
-            todo!()
-            // }
+            let spdx: SPDX = yocto_build.into();
+            spdx.save_as_json(output_path);
         }
     }
 

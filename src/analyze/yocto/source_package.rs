@@ -50,6 +50,31 @@ impl YoctoSourcePackage {
 
 #[derive(Debug)]
 pub struct YoctoSourceFile {
-    filename: String,
-    sha256: String,
+    pub filename: String,
+    pub sha256: String,
+}
+#[cfg(test)]
+mod test_super {
+    use super::*;
+
+    #[test]
+    fn archives_are_extracted() {
+        let mut source_archive = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
+        source_archive.push("tests/examples/yocto/build/downloads/dbus-1.12.16.tar.gz");
+        let package = YoctoSourcePackage::new("dbus".into(), "1.12.16".into(), source_archive)
+            .expect("tar.gz");
+        assert_eq!(package.source_files.len(), 537);
+
+        let mut source_archive = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
+        source_archive.push("tests/examples/yocto/build/downloads/alsa-utils-1.2.1.tar.bz2");
+        let package = YoctoSourcePackage::new("alsa-utils".into(), "1.2.1".into(), source_archive)
+            .expect("tar.xz");
+        assert_eq!(package.source_files.len(), 285);
+
+        let mut source_archive = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
+        source_archive.push("tests/examples/yocto/build/downloads/bison-3.5.3.tar.xz");
+        let package = YoctoSourcePackage::new("dbus".into(), "1.12.16".into(), source_archive)
+            .expect("tar.xz");
+        assert_eq!(package.source_files.len(), 1109);
+    }
 }
