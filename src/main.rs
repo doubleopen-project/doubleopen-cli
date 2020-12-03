@@ -11,6 +11,8 @@ use spdx::SPDX;
 mod policy_engine;
 mod spdx;
 mod utilities;
+#[macro_use]
+extern crate pest_derive;
 
 use policy_engine::policy::Policy;
 use policy_engine::PolicyEngine;

@@ -1,9 +1,8 @@
 use std::{convert::TryFrom, fs::File, path::PathBuf};
 
 use compress_tools::{uncompress_archive, Ownership};
-use nom::{IResult, bytes::complete::is_not, character::complete::char, error::ErrorKind, error::ParseError, sequence::delimited, bytes::complete::tag};
 use walkdir::WalkDir;
-
+extern crate pest;
 use crate::{analyze::AnalyzerError, utilities::hash256_for_path};
 
 #[derive(Debug)]
@@ -53,21 +52,11 @@ pub struct SrcURI {
     locations: Vec<SourceLocation>,
 }
 
-impl SrcURI {
-    pub fn parse(input: &str) -> Result<Self, AnalyzerError> {
-        fn parse_multiline<'a, E: ParseError<&'a str>>(
-            input: &'a str,
-        ) -> IResult<&'a str, &'a str, E> {
-            delimited(tag(r#"""#), is_not("\""), tag(r#"""#))(input)
-        }
+#[derive(Parser)]
+#[grammar = "analyze/yocto/recipe.pest"]
+pub struct RecipeParser {}
 
-        let inner = parse_multiline::<(&str, ErrorKind)>(input)
-            .map_err(|err| AnalyzerError::ParseError(err.to_string()))?;
-
-        dbg!(inner);
-        todo!()
-    }
-}
+impl SrcURI {}
 
 /// Locations for sources in SRC_URI in a Yocto recipe. Reference https://docs.yoctoproject.org/ref-manual/ref-variables.html#term-SRC_URI.
 #[derive(Debug, PartialEq)]
@@ -135,6 +124,7 @@ pub struct YoctoSourceFile {
 #[cfg(test)]
 mod test_super {
     use super::*;
+    use crate::analyze::yocto::source_package::pest::Parser;
 
     #[test]
     fn archives_are_extracted() {
@@ -186,7 +176,7 @@ mod test_super {
            file://dbus-1.init \
            file://clear-guid_from_server-if-send_negotiate_unix_f.patch \
            file://CVE-2020-12049.patch \
-"#;
+""#;
 
         let expected_locations = vec![
             SourceLocation::HTTPS(
@@ -198,17 +188,19 @@ mod test_super {
             SourceLocation::File("CVE-2020-12049.patch".into()),
         ];
 
-        let parsed = SrcURI::parse(src_uri).unwrap();
-    }
+        let parsed = RecipeParser::parse(Rule::src_uris, &src_uri).unwrap();
+        let mut locations: Vec<SourceLocation> = vec![];
+        for pair in parsed {
+            for inner_pair in pair.into_inner() {
+                match inner_pair.as_rule() {
+                    Rule::uri => {
+                        locations.push(SourceLocation::try_from(inner_pair.as_str()).unwrap())
+                    }
+                    _ => println!("Hello"),
+                }
+            }
+        }
 
-    #[test]
-    fn parse_inner() {
-        let src_uri = r#"https://dbus.freedesktop.org/releases/dbus/dbus-${PV}.tar.gz \
-           file://tmpdir.patch \
-           file://dbus-1.init \
-           file://clear-guid_from_server-if-send_negotiate_unix_f.patch \
-           file://CVE-2020-12049.patch \
-"#;
-        let parsed = SrcURI::parse(src_uri).unwrap();
+        assert_eq!(locations, expected_locations);
     }
 }
