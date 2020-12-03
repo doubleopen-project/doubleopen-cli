@@ -1,7 +1,5 @@
 use std::{
     fs::read_to_string,
-    fs::File,
-    io::{BufRead, BufReader},
     path::{Path, PathBuf},
 };
 
@@ -30,25 +28,6 @@ impl RuntimeReverse {
                 .ok_or(AnalyzerError::ParseError(
                     "No PV in runtime reverse.".into(),
                 ))?;
-        // let mut package_name = lines.next().unwrap()?;
-        // if package_name.starts_with("PN:") {
-        //     package_name.drain(..4);
-        // } else {
-        //     return Err(AnalyzerError::ParseError(format!(
-        //         "No 'PN' in {}",
-        //         &path.as_ref().to_str().unwrap()
-        //     )));
-        // }
-
-        // let mut package_version = lines.next().unwrap()?;
-        // if package_version.starts_with("PV:") {
-        //     package_version.drain(..4);
-        // } else {
-        //     return Err(AnalyzerError::ParseError(format!(
-        //         "No 'PV' in {}",
-        //         &path.as_ref().to_str().unwrap()
-        //     )));
-        // }
 
         Ok(Self {
             package_name: package_name[4..].to_string(),
