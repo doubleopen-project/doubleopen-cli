@@ -29,7 +29,11 @@ impl YoctoSourcePackage {
             .filter_map(|f| {
                 let entry = f.unwrap();
                 if entry.metadata().unwrap().is_file() {
-                    let filename = entry.file_name().to_string_lossy();
+                    let filename = entry
+                        .path()
+                        .strip_prefix(&temp_dir.path())
+                        .expect("Should always be extracted here.")
+                        .to_string_lossy();
                     let sha256 = hash256_for_path(entry.path());
                     Some(YoctoSourceFile {
                         filename: filename.to_string(),
@@ -88,8 +92,6 @@ pub struct SrcURI {
 #[grammar = "analyze/yocto/recipe.pest"]
 pub struct RecipeParser {}
 
-impl SrcURI {}
-
 /// Locations for sources in SRC_URI in a Yocto recipe. Reference https://docs.yoctoproject.org/ref-manual/ref-variables.html#term-SRC_URI.
 #[derive(Debug, PartialEq)]
 pub enum SourceLocation {
@@ -113,6 +115,7 @@ pub enum SourceLocation {
 impl TryFrom<&str> for SourceLocation {
     type Error = AnalyzerError;
 
+    /// Try to parse SourceLocation from a URI in a recipe file.
     fn try_from(value: &str) -> Result<Self, Self::Error> {
         let mut split = value.split("://");
         let protocol = split.next().ok_or(AnalyzerError::ParseError(format!(

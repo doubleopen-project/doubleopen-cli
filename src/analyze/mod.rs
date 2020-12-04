@@ -1,3 +1,5 @@
+use std::path::StripPrefixError;
+
 use nom::error::ErrorKind;
 
 // SPDX-FileCopyrightText: 2020 HH Partners
