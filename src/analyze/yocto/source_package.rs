@@ -4,6 +4,7 @@ use compress_tools::{uncompress_archive, Ownership};
 use walkdir::WalkDir;
 extern crate pest;
 use crate::{analyze::AnalyzerError, utilities::hash256_for_path};
+use pest::{iterators::Pair, Parser};
 
 #[derive(Debug)]
 pub struct YoctoSourcePackage {
@@ -48,8 +49,39 @@ impl YoctoSourcePackage {
     }
 }
 
+#[derive(Debug)]
+pub struct Recipe {
+    pub src_uri: SrcURI,
+}
+
+impl Recipe {
+    pub fn parse(input: &str) -> Result<Recipe, AnalyzerError> {
+        let file: Pair<Rule> = RecipeParser::parse(Rule::file, &input)
+            .expect("Unsuccesful parse")
+            .next()
+            .unwrap();
+
+        let mut locations: Vec<SourceLocation> = Vec::new();
+
+        for rule in file.into_inner() {
+            match rule.as_rule() {
+                Rule::src_uris => {
+                    for inner_rule in rule.into_inner() {
+                        locations.push(SourceLocation::try_from(inner_rule.as_str())?)
+                    }
+                }
+                _ => {}
+            }
+        }
+        Ok(Recipe {
+            src_uri: SrcURI { locations },
+        })
+    }
+}
+
+#[derive(Debug)]
 pub struct SrcURI {
-    locations: Vec<SourceLocation>,
+    pub locations: Vec<SourceLocation>,
 }
 
 #[derive(Parser)]
@@ -123,6 +155,8 @@ pub struct YoctoSourceFile {
 }
 #[cfg(test)]
 mod test_super {
+    use std::fs::read_to_string;
+
     use super::*;
     use crate::analyze::yocto::source_package::pest::Parser;
 
@@ -202,5 +236,16 @@ mod test_super {
         }
 
         assert_eq!(locations, expected_locations);
+    }
+
+    #[test]
+    fn parse_recipe() {
+        let mut recipe_path = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
+        recipe_path.push("tests/examples/yocto/meta/recipes-core/dbus/dbus_1.12.16.bb");
+
+        let input = read_to_string(&recipe_path).unwrap();
+
+        let recipe = Recipe::parse(&input).unwrap();
+        dbg!(recipe);
     }
 }

@@ -1,4 +1,5 @@
-char = { ASCII_ALPHANUMERIC | ":" | "/" | "." | "-" | "$" | "{" | "}" | "_"}
+char = { ASCII_ALPHANUMERIC | ":" | "/" | "." | "-" | "$" | "{" | "}" | "_" }
 WHITESPACE = _{ " " | "\n" | "\t" }
 uri = @{ char+ }
-src_uris = { "SRC_URI" ~ "=" ~ "\"" ~ uri ~ ("\\"? ~ uri ~ "\\"?)* ~ "\""  }
+src_uris = {  "SRC_URI" ~ "=" ~ "\"" ~ uri ~ ("\\"? ~ uri ~ "\\"?)* ~ "\""  }
+file = { SOI ~ (src_uris | ANY)* ~ EOI }
