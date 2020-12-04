@@ -1,4 +1,8 @@
-use std::{convert::TryFrom, fs::File, path::PathBuf};
+use std::{
+    convert::TryFrom,
+    fs::File,
+    path::{Path, PathBuf},
+};
 
 use compress_tools::{uncompress_archive, Ownership};
 use walkdir::WalkDir;
@@ -56,10 +60,16 @@ impl YoctoSourcePackage {
 #[derive(Debug)]
 pub struct Recipe {
     pub src_uri: SrcURI,
+    pub package_name: String,
+    pub package_version: String,
 }
 
 impl Recipe {
-    pub fn parse(input: &str) -> Result<Recipe, AnalyzerError> {
+    pub fn parse(
+        input: &str,
+        package_name: &str,
+        package_version: &str,
+    ) -> Result<Recipe, AnalyzerError> {
         let file: Pair<Rule> = RecipeParser::parse(Rule::file, &input)
             .expect("Unsuccesful parse")
             .next()
@@ -71,15 +81,30 @@ impl Recipe {
             match rule.as_rule() {
                 Rule::src_uris => {
                     for inner_rule in rule.into_inner() {
-                        locations.push(SourceLocation::try_from(inner_rule.as_str())?)
+                        locations.push(SourceLocation::try_from(
+                            inner_rule
+                                .as_str()
+                                .replace("${PN}", package_name)
+                                .replace("${PV}", package_version)
+                                .as_str(),
+                        )?)
                     }
                 }
                 _ => {}
             }
         }
+
         Ok(Recipe {
+            package_name: package_name.to_owned(),
+            package_version: package_version.to_owned(),
             src_uri: SrcURI { locations },
         })
+    }
+
+    pub fn collect_source_files(&self) {
+        for location in &self.src_uri.locations {
+            dbg!(location);
+        }
     }
 }
 
@@ -110,6 +135,21 @@ pub enum SourceLocation {
     SSH(String),
     SVN(String),
     NPM(String),
+}
+
+impl SourceLocation {
+    pub fn path_to_source<P: AsRef<Path>>(&self, path_to_recipe: P, package_name: &str) -> PathBuf {
+        let path_to_recipe = path_to_recipe.as_ref();
+        let path_to_source = match self {
+            SourceLocation::File(path) => path_to_recipe
+                .parent()
+                .expect("Should always have a parent.")
+                .join(package_name)
+                .join(path),
+            _ => unreachable!(),
+        };
+        path_to_source
+    }
 }
 
 impl TryFrom<&str> for SourceLocation {
@@ -248,7 +288,28 @@ mod test_super {
 
         let input = read_to_string(&recipe_path).unwrap();
 
-        let recipe = Recipe::parse(&input).unwrap();
+        let recipe = Recipe::parse(&input, "dbus", "1-12-16").unwrap();
         dbg!(recipe);
+    }
+
+    #[test]
+    fn find_source_location() {
+        let mut recipe_path = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
+        recipe_path.push("tests/examples/yocto/meta/recipes-core/dbus/dbus_1.12.16.bb");
+
+        let source_location = SourceLocation::File("tmpdir.patch".into());
+        assert!(source_location
+            .path_to_source(recipe_path, "dbus")
+            .ends_with("meta/recipes-core/dbus/dbus/tmpdir.patch"));
+    }
+
+    #[test]
+    fn collect_source_files_of_recipe() {
+        let mut recipe_path = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
+        recipe_path.push("tests/examples/yocto/meta/recipes-core/dbus/dbus_1.12.16.bb");
+        let input = read_to_string(&recipe_path).unwrap();
+        let recipe = Recipe::parse(&input, "dbus", "1.12.16").unwrap();
+
+        recipe.collect_source_files();
     }
 }
