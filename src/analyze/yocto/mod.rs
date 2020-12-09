@@ -151,7 +151,7 @@ impl Yocto {
             .map(|manifest_entry| &manifest_entry.runtime_reverse)
             .collect();
 
-        runtime_reverses.sort_by_key(|&rr| &rr.package_name);
+        runtime_reverses.sort_by_key(|&rr| &rr.name);
         runtime_reverses.dedup();
         runtime_reverses
     }
@@ -176,12 +176,12 @@ impl Yocto {
         let source_packages = unique_reversed_packages
             .iter()
             .filter_map(|reversed_package| {
-                debug!("Finding source archive for {}-{}.", reversed_package.package_name, reversed_package.version);
+                debug!("Finding source archive for {}-{}.", reversed_package.name, reversed_package.version);
                 let source_archive_path =
-                    &reversed_package.find_source_files(&work_directories).ok();
+                    &reversed_package.find_work_folder(&work_directories).ok();
                 match source_archive_path {
                     Some(path) => YoctoSourcePackage::new(
-                        reversed_package.package_name.clone(),
+                        reversed_package.name.clone(),
                         reversed_package.version.clone(),
                         path.clone(),
                     )
@@ -189,7 +189,7 @@ impl Yocto {
                     None => {
                         error!(
                             "No source archive for package {}-{}",
-                            &reversed_package.package_name, &reversed_package.version
+                            &reversed_package.name, &reversed_package.version
                         );
                         None
                     }
@@ -290,7 +290,7 @@ mod tests {
             .ends_with("tests/examples/yocto/build"));
         assert_eq!(yocto.manifest_entries.len(), 5);
         assert_eq!(
-            yocto.manifest_entries[0].runtime_reverse.package_name,
+            yocto.manifest_entries[0].runtime_reverse.name,
             "adwaita-icon-theme".to_string()
         );
         assert_eq!(
@@ -298,7 +298,7 @@ mod tests {
             "3.34.3".to_string()
         );
         assert_eq!(
-            yocto.manifest_entries[1].runtime_reverse.package_name,
+            yocto.manifest_entries[1].runtime_reverse.name,
             "adwaita-icon-theme".to_string()
         );
         assert_eq!(
@@ -306,7 +306,7 @@ mod tests {
             "3.34.3".to_string()
         );
         assert_eq!(
-            yocto.manifest_entries[2].runtime_reverse.package_name,
+            yocto.manifest_entries[2].runtime_reverse.name,
             "alsa-utils".to_string()
         );
         assert_eq!(
@@ -346,9 +346,10 @@ mod tests {
                 architecture: "noarch".into(),
                 version: "3.34.3".into(),
                 runtime_reverse: RuntimeReverse {
-                    package_name: "adwaita-icon-theme".into(),
+                    name: "adwaita-icon-theme".into(),
                     version: "3.34.3".into(),
-                    package_revision: "r0".into(),
+                    revision: "r0".into(),
+                    edition: None
                 },
             },
             ManifestEntry {
@@ -356,9 +357,10 @@ mod tests {
                 architecture: "noarch".into(),
                 version: "3.34.3".into(),
                 runtime_reverse: RuntimeReverse {
-                    package_name: "adwaita-icon-theme".into(),
+                    name: "adwaita-icon-theme".into(),
                     version: "3.34.3".into(),
-                    package_revision: "r0".into(),
+                    revision: "r0".into(),
+                    edition: None
                 },
             },
             ManifestEntry {
@@ -366,9 +368,10 @@ mod tests {
                 architecture: "core2_64".into(),
                 version: "1.2.1".into(),
                 runtime_reverse: RuntimeReverse {
-                    package_name: "alsa-utils".into(),
+                    name: "alsa-utils".into(),
                     version: "1.2.1".into(),
-                    package_revision: "r0".into(),
+                    revision: "r0".into(),
+                    edition: None
                 },
             },
             ManifestEntry {
@@ -376,9 +379,10 @@ mod tests {
                 architecture: "core2_64".into(),
                 version: "1.2.1".into(),
                 runtime_reverse: RuntimeReverse {
-                    package_name: "alsa-utils".into(),
+                    name: "alsa-utils".into(),
                     version: "1.2.1".into(),
-                    package_revision: "r0".into(),
+                    revision: "r0".into(),
+                    edition: None
                 },
             },
             ManifestEntry {
@@ -386,9 +390,10 @@ mod tests {
                 architecture: "core2_64".into(),
                 version: "1.12.16".into(),
                 runtime_reverse: RuntimeReverse {
-                    package_name: "dbus".into(),
+                    name: "dbus".into(),
                     version: "1.12.16".into(),
-                    package_revision: "r0".into(),
+                    revision: "r0".into(),
+                    edition: None
                 },
             },
         ];
@@ -405,9 +410,10 @@ mod tests {
         let runtime_reverse = RuntimeReverse::new(&test_manifest_path).unwrap();
 
         let expected = RuntimeReverse {
-            package_name: "dbus".into(),
+            name: "dbus".into(),
             version: "1.12.16".into(),
-            package_revision: "r0".into(),
+            revision: "r0".into(),
+            edition: None
         };
 
         assert_eq!(runtime_reverse, expected);

@@ -48,7 +48,7 @@ impl YoctoSourcePackage {
                         }
                     }
                     Err(_) => {
-                        error!("No source for {}-{}", package_name, package_version);
+                        error!("No source for {}-{} at {}", package_name, package_version, source_files_path.display());
                         None
                     }
                 }
