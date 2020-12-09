@@ -1,0 +1,13 @@
+PN: libsamplerate0
+PV: 0.1.9
+PR: r1
+PKGV: 0.1.9
+PKGR: r1
+LICENSE: BSD-2-Clause
+DESCRIPTION_libsamplerate0-doc: Audio Sample Rate Conversion library.  This package contains documentation.
+SUMMARY_libsamplerate0-doc: Audio Sample Rate Conversion library - Documentation files
+SECTION_libsamplerate0-doc: doc
+PKG_libsamplerate0-doc: libsamplerate0-doc
+FILES_libsamplerate0-doc: /usr/share/doc /usr/share/man /usr/share/info /usr/share/gtk-doc             /usr/share/gnome/help
+FILES_INFO: {"/usr/share/doc/libsamplerate0-dev/html/SRC.css": 1494, "/usr/share/doc/libsamplerate0-dev/html/SRC.png": 22775, "/usr/share/doc/libsamplerate0-dev/html/api.html": 3953, "/usr/share/doc/libsamplerate0-dev/html/api_callback.html": 5708, "/usr/share/doc/libsamplerate0-dev/html/api_full.html": 6266, "/usr/share/doc/libsamplerate0-dev/html/api_misc.html": 7856, "/usr/share/doc/libsamplerate0-dev/html/api_simple.html": 4447, "/usr/share/doc/libsamplerate0-dev/html/download.html": 2412, "/usr/share/doc/libsamplerate0-dev/html/faq.html": 13383, "/usr/share/doc/libsamplerate0-dev/html/history.html": 3357, "/usr/share/doc/libsamplerate0-dev/html/index.html": 3987, "/usr/share/doc/libsamplerate0-dev/html/license.html": 2125, "/usr/share/doc/libsamplerate0-dev/html/lists.html": 2493, "/usr/share/doc/libsamplerate0-dev/html/quality.html": 6389, "/usr/share/doc/libsamplerate0-dev/html/win32.html": 4936}
+PKGSIZE_libsamplerate0-doc: 91581

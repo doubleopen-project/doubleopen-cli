@@ -1,0 +1,13 @@
+PN: gcc-runtime
+PV: 9.3.0
+PR: r0
+PKGV: 9.3.0
+PKGR: r0
+LICENSE: GPL-3.0-with-GCC-exception
+DESCRIPTION: Runtime libraries from GCC.
+SUMMARY_libstdc++-staticdev: GNU standard C++ library - static development files
+SECTION: devel
+PKG_libstdc++-staticdev: libstdc++-staticdev
+FILES_libstdc++-staticdev:     /usr/lib/libstdc++*.a     /usr/lib/libsupc++.a 
+FILES_INFO: {"/usr/lib/libstdc++.a": 39681572, "/usr/lib/libstdc++fs.a": 11855584, "/usr/lib/libsupc++.a": 1476228}
+PKGSIZE_libstdc++-staticdev: 53013384

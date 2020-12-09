@@ -1,0 +1,15 @@
+#!/bin/sh
+
+# Install passwd.master and group.master to sysconfdir
+install -d -m 755 /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/recipe-sysroot/etc
+for i in passwd group; do
+	install -p -m 644 /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/recipe-sysroot/usr/share/base-passwd/$i.master 		/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/recipe-sysroot/etc/$i
+done
+
+# Run any useradd postinsts
+for script in /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/recipe-sysroot/usr/bin/postinst-useradd-*; do
+	if [ -f $script ]; then
+		$script
+	fi
+done
+

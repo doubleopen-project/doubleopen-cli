@@ -1,0 +1,20 @@
+PN: zlib
+PV: 1.2.11
+PR: r0
+PKGV: 1.2.11
+PKGR: r0
+LICENSE: Zlib
+DESCRIPTION_zlib-ptest: Zlib is a general-purpose, patent-free, lossless data compression library which is used by many different programs.  This package contains a test directory /usr/lib/zlib/ptest for package test purposes.
+SUMMARY_zlib-ptest: Zlib Compression Library - Package test files
+RDEPENDS_zlib-ptest: make zlib (>= 1.2.11) glibc (>= 2.31+git0+6fdf971c9d)
+RPROVIDES_zlib-ptest:  zlib-ptest (=1.2.11)
+RRECOMMENDS_zlib-ptest:  ptest-runner
+SECTION_zlib-ptest: devel
+PKG_zlib-ptest: libz-ptest
+ALLOW_EMPTY_zlib-ptest: 1
+FILES_zlib-ptest:  /usr/lib/zlib/ptest
+FILES_INFO: {"/usr/lib/zlib/ptest/examplesh": 18408, "/usr/lib/zlib/ptest/run-ptest": 85}
+FILERDEPENDSFLIST_zlib-ptest: /usr/lib/zlib/ptest/examplesh /usr/lib/zlib/ptest/run-ptest
+FILERDEPENDS_/usr/lib/zlib/ptest/examplesh_zlib-ptest:  libz.so.1(ZLIB_1.2.0.2)(64bit) libc.so.6(GLIBC_2.3.4)(64bit) libc.so.6(GLIBC_2.4)(64bit) libc.so.6(GLIBC_2.2.5)(64bit) libz.so.1()(64bit) libc.so.6()(64bit) rtld(GNU_HASH)
+FILERDEPENDS_/usr/lib/zlib/ptest/run-ptest_zlib-ptest:  /bin/sh
+PKGSIZE_zlib-ptest: 18493

@@ -1,0 +1,11 @@
+prefix=${pcfiledir}/../../../usr
+exec_prefix=${pcfiledir}/../../../usr
+libdir=${pcfiledir}/../../../usr/lib
+includedir=${pcfiledir}/../../../usr/include
+
+Name: XCB DRI2
+Description: XCB DRI2 Extension
+Version: 1.13.1
+Requires.private: xcb
+Libs: -L${libdir} -lxcb-dri2
+Cflags: -I${includedir}

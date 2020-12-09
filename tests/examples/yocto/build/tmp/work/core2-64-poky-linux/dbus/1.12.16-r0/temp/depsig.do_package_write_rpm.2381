@@ -1,0 +1,14 @@
+OEOuthashBasic
+1
+SSTATE_PKGSPEC=sstate:dbus:core2-64-poky-linux:1.12.16:r0:core2-64:3:
+task=package_write_rpm
+drwxrwxr-x       root       root                                                                                       .
+drwxr-xr-x       root       root                                                                                       ./deploy-rpms
+drwxr-xr-x       root       root                                                                                       ./deploy-rpms/core2_64
+-rw-r--r--       root       root               139608 f265ace4cea7bdddb0ba47d626a295e781bf886bda98b7b2fa25d86b96c84ecb ./deploy-rpms/core2_64/dbus-1-1.12.16-r0.core2_64.rpm
+-rw-r--r--       root       root               653640 273628ebad88b5d5171d8d99b88ca9cb4e5e635e28cc3b47073acdd030f28585 ./deploy-rpms/core2_64/dbus-dbg-1.12.16-r0.core2_64.rpm
+-rw-r--r--       root       root                38764 451c13aa6cebdcc686fe6df8b5d78c3c421578f488ac44078e3a3250fe417f59 ./deploy-rpms/core2_64/dbus-dev-1.12.16-r0.core2_64.rpm
+-rw-r--r--       root       root                93252 9e7a6e16af9ad0c50544fd95e6cfea255ca921803dd8cf6dd3c43fdbb6779521 ./deploy-rpms/core2_64/dbus-doc-1.12.16-r0.core2_64.rpm
+-rw-r--r--       root       root                 6036 2667ab3764a30764537c0a840281ddf75094f0b2945cb10a6d2191d0430aa94e ./deploy-rpms/core2_64/dbus-ptest-1.12.16-r0.core2_64.rpm
+-rw-r--r--       root       root               492300 4d0b9516818bc885a5e55038c5dd833189b488e83fbad073f592688baba65893 ./deploy-rpms/core2_64/dbus-src-1.12.16-r0.core2_64.rpm
+-rw-r--r--       root       root               126336 75283a9afd1cf40edbb8ce0f046524e1b526207c22452f8913ffa919d80f2315 ./deploy-rpms/core2_64/libdbus-1-3-1.12.16-r0.core2_64.rpm

@@ -1,0 +1,199 @@
+#!/bin/sh
+
+# Emit a useful diagnostic if something fails:
+bb_exit_handler() {
+    ret=$?
+    case $ret in
+    0)  ;;
+    *)  case $BASH_VERSION in
+        "") echo "WARNING: exit code $ret from a shell command.";;
+        *)  echo "WARNING: ${BASH_SOURCE[0]}:${BASH_LINENO[0]} exit $ret from '$BASH_COMMAND'";;
+        esac
+        exit $ret
+    esac
+}
+trap 'bb_exit_handler' 0
+set -e
+export AR="x86_64-poky-linux-gcc-ar"
+export AS="x86_64-poky-linux-as  "
+export BUILD_AR="ar"
+export BUILD_AS="as "
+export BUILD_CC="gcc "
+export BUILD_CCLD="gcc "
+export BUILD_CFLAGS="-isystem/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot-native/usr/include -O2 -pipe"
+export BUILD_CPP="gcc  -E"
+export BUILD_CPPFLAGS="-isystem/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot-native/usr/include"
+export BUILD_CXX="g++ "
+export BUILD_CXXFLAGS="-isystem/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot-native/usr/include -O2 -pipe"
+export BUILD_FC="gfortran "
+export BUILD_LD="ld "
+export BUILD_LDFLAGS="-L/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot-native/usr/lib                         -L/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot-native/lib                         -Wl,--enable-new-dtags                         -Wl,-rpath-link,/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot-native/usr/lib                         -Wl,-rpath-link,/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot-native/lib                         -Wl,-rpath,/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot-native/usr/lib                         -Wl,-rpath,/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot-native/lib                         -Wl,-O1 -Wl,--allow-shlib-undefined -Wl,--dynamic-linker=/home/hhpartners/yocto/build/tmp/sysroots-uninative/x86_64-linux/lib/ld-linux-x86-64.so.2"
+export BUILD_NM="nm"
+export BUILD_RANLIB="ranlib"
+export BUILD_STRIP="strip"
+export CC="x86_64-poky-linux-gcc  -m64 -march=core2 -mtune=core2 -msse3 -mfpmath=sse -fstack-protector-strong  -D_FORTIFY_SOURCE=2 -Wformat -Wformat-security -Werror=format-security --sysroot=/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot"
+export CCLD="x86_64-poky-linux-gcc  -m64 -march=core2 -mtune=core2 -msse3 -mfpmath=sse -fstack-protector-strong  -D_FORTIFY_SOURCE=2 -Wformat -Wformat-security -Werror=format-security --sysroot=/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot"
+export CC_FOR_BUILD="gcc "
+export CFLAGS=" -O2 -pipe -g -feliminate-unused-debug-types -fmacro-prefix-map=/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0=/usr/src/debug/dbus/1.12.16-r0                      -fdebug-prefix-map=/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0=/usr/src/debug/dbus/1.12.16-r0                      -fdebug-prefix-map=/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot=                      -fdebug-prefix-map=/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot-native= "
+export CFLAGS_FOR_BUILD="-isystem/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot-native/usr/include -O2 -pipe"
+export CONFIG_SITE="/home/hhpartners/yocto/meta/site/endian-little /home/hhpartners/yocto/meta/site/common-linux /home/hhpartners/yocto/meta/site/common-glibc /home/hhpartners/yocto/meta/site/x86_64-linux /home/hhpartners/yocto/meta/site/common "
+export CPP="x86_64-poky-linux-gcc -E --sysroot=/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot  -m64 -march=core2 -mtune=core2 -msse3 -mfpmath=sse -fstack-protector-strong  -D_FORTIFY_SOURCE=2 -Wformat -Wformat-security -Werror=format-security"
+export CPPFLAGS=""
+export CPPFLAGS_FOR_BUILD="-isystem/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot-native/usr/include"
+export CPP_FOR_BUILD="gcc  -E"
+export CXX="x86_64-poky-linux-g++  -m64 -march=core2 -mtune=core2 -msse3 -mfpmath=sse -fstack-protector-strong  -D_FORTIFY_SOURCE=2 -Wformat -Wformat-security -Werror=format-security --sysroot=/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot"
+export CXXFLAGS=" -O2 -pipe -g -feliminate-unused-debug-types -fmacro-prefix-map=/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0=/usr/src/debug/dbus/1.12.16-r0                      -fdebug-prefix-map=/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0=/usr/src/debug/dbus/1.12.16-r0                      -fdebug-prefix-map=/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot=                      -fdebug-prefix-map=/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot-native=  -fvisibility-inlines-hidden"
+export CXXFLAGS_FOR_BUILD="-isystem/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot-native/usr/include -O2 -pipe"
+export CXX_FOR_BUILD="g++ "
+unset DISTRO
+export FC="x86_64-poky-linux-gfortran  -m64 -march=core2 -mtune=core2 -msse3 -mfpmath=sse -fstack-protector-strong  -D_FORTIFY_SOURCE=2 -Wformat -Wformat-security -Werror=format-security --sysroot=/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot"
+export GETTEXTDATADIRS=":/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot/usr/share/gettext"
+export GIT_CEILING_DIRECTORIES="/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0"
+export HOME="/home/hhpartners"
+export LC_ALL="en_US.UTF-8"
+export LD="x86_64-poky-linux-ld --sysroot=/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot  "
+export LDFLAGS="-Wl,-O1 -Wl,--hash-style=gnu -Wl,--as-needed -fstack-protector-strong -Wl,-z,relro,-z,now"
+export LDFLAGS_FOR_BUILD="-L/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot-native/usr/lib                         -L/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot-native/lib                         -Wl,--enable-new-dtags                         -Wl,-rpath-link,/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot-native/usr/lib                         -Wl,-rpath-link,/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot-native/lib                         -Wl,-rpath,/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot-native/usr/lib                         -Wl,-rpath,/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot-native/lib                         -Wl,-O1 -Wl,--allow-shlib-undefined -Wl,--dynamic-linker=/home/hhpartners/yocto/build/tmp/sysroots-uninative/x86_64-linux/lib/ld-linux-x86-64.so.2"
+export LD_FOR_BUILD="ld "
+export LOGNAME="hhpartners"
+unset MACHINE
+export MAKE="make"
+export NM="x86_64-poky-linux-nm"
+export OBJCOPY="x86_64-poky-linux-objcopy"
+export OBJDUMP="x86_64-poky-linux-objdump"
+export PATH="/home/hhpartners/yocto/build/tmp/sysroots-uninative/x86_64-linux/usr/bin:/home/hhpartners/yocto/scripts:/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot-native/usr/bin/x86_64-poky-linux:/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot/usr/bin/crossscripts:/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot-native/usr/sbin:/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot-native/usr/bin:/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot-native/sbin:/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot-native/bin:/home/hhpartners/yocto/bitbake/bin:/home/hhpartners/yocto/build/tmp/hosttools"
+export PERL_HASH_SEED="0"
+export PKG_CONFIG_DIR="/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot/usr/lib/pkgconfig"
+export PKG_CONFIG_DISABLE_UNINSTALLED="yes"
+export PKG_CONFIG_LIBDIR="/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot/usr/lib/pkgconfig"
+export PKG_CONFIG_PATH="/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot/usr/lib/pkgconfig:/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot/usr/share/pkgconfig"
+export PKG_CONFIG_SYSROOT_DIR="/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot"
+export PKG_CONFIG_SYSTEM_INCLUDE_PATH="/usr/include"
+export PKG_CONFIG_SYSTEM_LIBRARY_PATH="/lib:/usr/lib"
+export PSEUDO_DISABLED="0"
+export PSEUDO_LOCALSTATEDIR="/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/pseudo/"
+export PSEUDO_NOSYMLINKEXP="1"
+export PSEUDO_PASSWD="/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot:/home/hhpartners/yocto/build/tmp/sysroots-components/x86_64/pseudo-native"
+export PSEUDO_PREFIX="/home/hhpartners/yocto/build/tmp/sysroots-components/x86_64/pseudo-native/usr"
+export PYTHONHASHSEED="0"
+export RANLIB="x86_64-poky-linux-gcc-ranlib"
+export READELF="x86_64-poky-linux-readelf"
+unset SHELL
+export SOURCE_DATE_EPOCH="1560082153"
+export STRINGS="x86_64-poky-linux-strings"
+export STRIP="x86_64-poky-linux-strip"
+unset TARGET_ARCH
+export TERM="xterm-256color"
+export TZ="UTC"
+export USER="hhpartners"
+export base_bindir="/bin"
+export base_libdir="/lib"
+export base_prefix=""
+export base_sbindir="/sbin"
+export bindir="/usr/bin"
+export datadir="/usr/share"
+export docdir="/usr/share/doc"
+export exec_prefix="/usr"
+export includedir="/usr/include"
+export infodir="/usr/share/info"
+export libdir="/usr/lib"
+export libexecdir="/usr/libexec"
+export localstatedir="/var"
+export lt_cv_sys_lib_dlsearch_path_spec="/usr/lib /lib"
+export mandir="/usr/share/man"
+export nonarch_base_libdir="/lib"
+export nonarch_libdir="/usr/lib"
+export oldincludedir="/usr/include"
+export prefix="/usr"
+export sbindir="/usr/sbin"
+export servicedir="/srv"
+export sharedstatedir="/com"
+export sysconfdir="/etc"
+export systemd_system_unitdir="/lib/systemd/system"
+export systemd_unitdir="/lib/systemd"
+export systemd_user_unitdir="/usr/lib/systemd/user"
+
+do_install() {
+	autotools_do_install
+
+	if true; then
+		install -d /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/image/etc/init.d
+		sed 's:@bindir@:/usr/bin:' < /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/dbus-1.init >/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/dbus-1.init.sh
+		install -m 0755 /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/dbus-1.init.sh /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/image/etc/init.d/dbus-1
+		install -d /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/image/etc/default/volatiles
+		echo "d messagebus messagebus 0755 /var/run/dbus none" \
+		     > /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/image/etc/default/volatiles/99_dbus
+	fi
+
+	if false; then
+		for i in dbus.target.wants sockets.target.wants multi-user.target.wants; do \
+			install -d /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/image/lib/systemd/system/$i; done
+		install -m 0644 /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/build/bus/dbus.service /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/build/bus/dbus.socket /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/image/lib/systemd/system/
+		ln -fs ../dbus.socket /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/image/lib/systemd/system/dbus.target.wants/dbus.socket
+		ln -fs ../dbus.socket /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/image/lib/systemd/system/sockets.target.wants/dbus.socket
+		ln -fs ../dbus.service /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/image/lib/systemd/system/multi-user.target.wants/dbus.service
+	fi
+
+
+	mkdir -p /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/image/var/lib/dbus
+
+	chown messagebus:messagebus /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/image/var/lib/dbus
+
+	chown root:messagebus /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/image/usr/libexec/dbus-daemon-launch-helper
+	chmod 4755 /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/image/usr/libexec/dbus-daemon-launch-helper
+
+	# Remove Red Hat initscript
+	rm -rf /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/image/etc/rc.d
+
+	# Remove empty testexec directory as we don't build tests
+	rm -rf /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/image/usr/lib/dbus-1.0/test
+
+	# Remove /var/run as it is created on startup
+	rm -rf /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/image/var/run
+}
+
+autotools_do_install() {
+	oe_runmake 'DESTDIR=/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/image' install
+	# Info dir listing isn't interesting at this point so remove it if it exists.
+	if [ -e "/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/image/usr/share/info/dir" ]; then
+		rm -f /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/image/usr/share/info/dir
+	fi
+}
+
+oe_runmake() {
+	oe_runmake_call "$@" || die "oe_runmake failed"
+}
+
+oe_runmake_call() {
+	bbnote make -j 8  "$@"
+	make -j 8  "$@"
+}
+
+die() {
+	bbfatal_log "$*"
+}
+
+bbnote() {
+	if [ -p /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/temp/fifo.8849 ] ; then
+		printf "%b\0" "bbnote $*" > /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/temp/fifo.8849
+	else
+		echo "NOTE: $*"
+	fi
+}
+
+bbfatal_log() {
+	if [ -p /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/temp/fifo.8849 ] ; then
+		printf "%b\0" "bbfatal_log $*" > /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/temp/fifo.8849
+	else
+		echo "ERROR: $*"
+	fi
+	exit 1
+}
+
+cd '/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/build'
+do_install
+
+# cleanup
+ret=$?
+trap '' 0
+exit $ret

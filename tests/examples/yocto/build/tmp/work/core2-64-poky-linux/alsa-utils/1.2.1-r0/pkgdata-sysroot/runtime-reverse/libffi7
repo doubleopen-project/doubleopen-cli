@@ -1,0 +1,20 @@
+PN: libffi
+PV: 3.3
+PR: r0
+PKGV: 3.3
+PKGR: r0
+LICENSE: MIT
+DESCRIPTION: The `libffi' library provides a portable, high level programming interface to various calling conventions.  This allows a programmer to call any function specified by a call interface description at run time. FFI stands for Foreign Function Interface.  A foreign function interface is the popular name for the interface that allows code written in one language to call code written in another language.  The `libffi' library really only provides the lowest, machine dependent layer of a fully featured foreign function interface.  A layer must exist above `libffi' that handles type conversions for values passed between the two languages.
+SUMMARY: A portable foreign function interface library
+RDEPENDS_libffi: glibc (>= 2.31+git0+6fdf971c9d)
+RPROVIDES_libffi:  libffi (=3.3)
+SECTION: base
+PKG_libffi: libffi7
+FILES_libffi: /usr/bin/* /usr/sbin/* /usr/libexec/* /usr/lib/lib*.so.*             /etc /com /var             /bin/* /sbin/*             /lib/*.so.*             /lib/udev /usr/lib/udev             /lib/udev /usr/lib/udev             /usr/share/libffi /usr/lib/libffi/*             /usr/share/pixmaps /usr/share/applications             /usr/share/idl /usr/share/omf /usr/share/sounds             /usr/lib/bonobo/servers
+FILES_INFO: {"/usr/lib/libffi.so.7": 15, "/usr/lib/libffi.so.7.1.0": 43032}
+pkg_postinst_libffi: #!/bin/sh\nset -e\nif [ x"$D" = "x" ]; then\n\tif [ -x /sbin/ldconfig ]; then /sbin/ldconfig ; fi\nfi\n
+FILERPROVIDESFLIST_libffi: /usr/lib/libffi.so.7.1.0
+FILERPROVIDES_/usr/lib/libffi.so.7.1.0_libffi:  libffi.so.7(LIBFFI_BASE_7.0)(64bit) libffi.so.7(LIBFFI_BASE_7.1)(64bit) libffi.so.7(LIBFFI_BASE_7.1)(64bit) libffi.so.7(LIBFFI_COMPLEX_7.0)(64bit) libffi.so.7(LIBFFI_COMPLEX_7.0)(64bit) libffi.so.7(LIBFFI_CLOSURE_7.0)(64bit) libffi.so.7(LIBFFI_CLOSURE_7.0)(64bit) libffi.so.7(LIBFFI_GO_CLOSURE_7.0)(64bit) libffi.so.7(LIBFFI_GO_CLOSURE_7.0)(64bit) libffi.so.7()(64bit)
+FILERDEPENDSFLIST_libffi: /usr/lib/libffi.so.7.1.0
+FILERDEPENDS_/usr/lib/libffi.so.7.1.0_libffi:  libc.so.6(GLIBC_2.14)(64bit) libc.so.6(GLIBC_2.7)(64bit) libc.so.6(GLIBC_2.4)(64bit) libc.so.6(GLIBC_2.2.5)(64bit) libc.so.6()(64bit) rtld(GNU_HASH)
+PKGSIZE_libffi: 43047

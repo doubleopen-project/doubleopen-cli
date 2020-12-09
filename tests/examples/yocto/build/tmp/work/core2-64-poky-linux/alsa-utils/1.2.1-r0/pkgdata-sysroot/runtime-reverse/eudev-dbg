@@ -1,0 +1,15 @@
+PN: eudev
+PV: 3.2.9
+PR: r0
+PKGV: 3.2.9
+PKGR: r0
+LICENSE: GPLv2.0+ & LGPL-2.1+
+DESCRIPTION_eudev-dbg: eudev is a fork of systemd's udev.  This package contains ELF symbols and related sources for debugging purposes.
+SUMMARY_eudev-dbg: eudev is a fork of systemd's udev - Debugging files
+RRECOMMENDS_eudev-dbg: glibc-dbg libkmod-dbg util-linux-libblkid-dbg
+SECTION_eudev-dbg: devel
+PKG_eudev-dbg: eudev-dbg
+ALLOW_EMPTY_eudev-dbg: 1
+FILES_eudev-dbg: /usr/lib/debug /usr/lib/debug-static /usr/src/debug
+FILES_INFO: {"/lib/.debug/libudev.so.1.6.3": 715896, "/lib/udev/.debug/ata_id": 433624, "/lib/udev/.debug/cdrom_id": 495056, "/lib/udev/.debug/collect": 424136, "/lib/udev/.debug/mtd_probe": 18488, "/lib/udev/.debug/scsi_id": 481808, "/lib/udev/.debug/v4l_id": 267208, "/sbin/.debug/udevd": 1260800, "/usr/bin/.debug/udevadm": 1334608, "/usr/libexec/.debug/udevadm": 1334608}
+PKGSIZE_eudev-dbg: 5431624

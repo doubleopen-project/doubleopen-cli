@@ -1,0 +1,21 @@
+PN: ncurses
+PV: 6.2
+PR: r0
+PKGV: 6.2
+PKGR: r0
+LICENSE: MIT
+DESCRIPTION_ncurses-dev: SVr4 and XSI-Curses compatible curses library and terminfo tools including tic, infocmp, captoinfo. Supports color, multiple highlights, forms-drawing characters, and automatic recognition of keypad and function-key sequences. Extensions include resizable windows and mouse support on both xterm and Linux console using the gpm library.  This package contains symbolic links, header files, and related items necessary for software development.
+SUMMARY_ncurses-dev: The New Curses library - Development files
+RDEPENDS_ncurses-dev: ncurses (= 6.2-r0) ncurses-libform ncurses-libformw ncurses-libmenu ncurses-libmenuw ncurses-libpanel ncurses-libpanelw ncurses-libtic ncurses-libticw ncurses-libtinfo
+RRECOMMENDS_ncurses-dev: glibc-dev ncurses-libform-dev ncurses-libformw-dev ncurses-libmenu-dev ncurses-libmenuw-dev ncurses-libncurses-dev ncurses-libncursesw-dev ncurses-libpanel-dev ncurses-libpanelw-dev ncurses-libtic-dev ncurses-libticw-dev ncurses-libtinfo-dev ncurses-terminfo-base-dev update-alternatives-opkg-dev
+SECTION_ncurses-dev: devel
+PKG_ncurses-dev: ncurses-dev
+ALLOW_EMPTY_ncurses-dev: 1
+FILES_ncurses-dev: /usr/include /lib/lib*.so /usr/lib/lib*.so /usr/lib/*.la                 /usr/lib/*.o /usr/lib/pkgconfig /usr/share/pkgconfig                 /usr/share/aclocal /lib/*.o                 /usr/lib/ncurses/*.la /lib/*.la                 /usr/lib/cmake /usr/share/cmake /usr/bin/*-config
+FILES_INFO: {"/usr/bin/ncurses5-config": 173, "/usr/bin/ncurses6-config": 173, "/usr/bin/ncursesw5-config": 175, "/usr/bin/ncursesw6-config": 175, "/usr/include/curses-64.h": 100249, "/usr/include/curses.h": 879, "/usr/include/cursesapp.h": 6878, "/usr/include/cursesf.h": 28021, "/usr/include/cursesm.h": 19874, "/usr/include/cursesp.h": 8722, "/usr/include/cursesw.h": 49871, "/usr/include/cursslk.h": 7407, "/usr/include/eti.h": 2969, "/usr/include/etip.h": 9775, "/usr/include/form.h": 18811, "/usr/include/menu.h": 12275, "/usr/include/nc_tparm.h": 4240, "/usr/include/ncurses.h": 8, "/usr/include/ncurses_dll.h": 4522, "/usr/include/panel.h": 4201, "/usr/include/term.h": 40447, "/usr/include/term_entry.h": 9096, "/usr/include/termcap.h": 3471, "/usr/include/tic.h": 14830, "/usr/include/unctrl.h": 3177, "/usr/lib/libcurses.so": 13, "/usr/lib/libform.so": 12, "/usr/lib/libformw.so": 13, "/usr/lib/libmenu.so": 12, "/usr/lib/libmenuw.so": 13, "/usr/lib/libncurses.so": 62, "/usr/lib/libncursesw.so": 63, "/usr/lib/libpanel.so": 13, "/usr/lib/libpanelw.so": 14, "/usr/lib/libtermcap.so": 46, "/usr/lib/libtic.so": 11, "/usr/lib/libticw.so": 12, "/usr/lib/libtinfo.so": 23, "/usr/lib/pkgconfig/form.pc": 469, "/usr/lib/pkgconfig/formw.pc": 454, "/usr/lib/pkgconfig/menu.pc": 469, "/usr/lib/pkgconfig/menuw.pc": 454, "/usr/lib/pkgconfig/ncurses++.pc": 498, "/usr/lib/pkgconfig/ncurses++w.pc": 486, "/usr/lib/pkgconfig/ncurses.pc": 469, "/usr/lib/pkgconfig/ncursesw.pc": 453, "/usr/lib/pkgconfig/panel.pc": 471, "/usr/lib/pkgconfig/panelw.pc": 456, "/usr/lib/pkgconfig/tic.pc": 467, "/usr/lib/pkgconfig/ticw.pc": 452, "/usr/lib/pkgconfig/tinfo.pc": 458}
+FILERDEPENDSFLIST_ncurses-dev: /usr/bin/ncurses5-config /usr/bin/ncurses6-config /usr/bin/ncursesw5-config /usr/bin/ncursesw6-config
+FILERDEPENDS_/usr/bin/ncurses5-config_ncurses-dev:  /bin/sh
+FILERDEPENDS_/usr/bin/ncurses6-config_ncurses-dev:  /bin/sh
+FILERDEPENDS_/usr/bin/ncursesw5-config_ncurses-dev:  /bin/sh
+FILERDEPENDS_/usr/bin/ncursesw6-config_ncurses-dev:  /bin/sh
+PKGSIZE_ncurses-dev: 356782

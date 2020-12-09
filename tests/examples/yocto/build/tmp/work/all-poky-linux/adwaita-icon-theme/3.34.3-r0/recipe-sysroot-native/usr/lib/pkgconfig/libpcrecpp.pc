@@ -1,0 +1,12 @@
+# Package Information for pkg-config
+
+prefix=${pcfiledir}/../../../usr
+exec_prefix=${pcfiledir}/../../../usr
+libdir=${pcfiledir}/../../../usr/lib
+includedir=${pcfiledir}/../../../usr/include
+
+Name: libpcrecpp
+Description: PCRECPP - C++ wrapper for PCRE
+Version: 8.44
+Libs: -L${libdir} -lpcre -lpcrecpp
+Cflags: -I${includedir} 

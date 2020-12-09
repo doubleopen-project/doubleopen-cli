@@ -1,0 +1,14 @@
+PN: libpthread-stubs
+PV: 0.4
+PR: r0
+PKGV: 0.4
+PKGR: r0
+LICENSE: MIT
+DESCRIPTION_libpthread-stubs-staticdev: This library provides weak aliases for pthread functions not provided in libc or otherwise available by default.  This package contains static libraries for software development.
+SUMMARY_libpthread-stubs-staticdev: Library that provides weak aliases for pthread functions - Development files (Static Libraries)
+RDEPENDS_libpthread-stubs-staticdev: libpthread-stubs-dev (= 0.4-r0)
+SECTION_libpthread-stubs-staticdev: devel
+PKG_libpthread-stubs-staticdev: libpthread-stubs-staticdev
+FILES_libpthread-stubs-staticdev: /usr/lib/*.a /lib/*.a /usr/lib/libpthread-stubs/*.a
+FILES_INFO: {}
+PKGSIZE_libpthread-stubs-staticdev: 0

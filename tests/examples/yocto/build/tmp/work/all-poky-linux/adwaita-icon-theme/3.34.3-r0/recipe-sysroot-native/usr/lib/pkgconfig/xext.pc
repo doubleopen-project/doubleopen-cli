@@ -1,0 +1,12 @@
+prefix=${pcfiledir}/../../../usr
+exec_prefix=${pcfiledir}/../../../usr
+libdir=${pcfiledir}/../../../usr/lib
+includedir=${pcfiledir}/../../../usr/include
+
+Name: Xext
+Description: Misc X Extension Library
+Version: 1.3.4
+Requires: xextproto
+Requires.private: x11
+Cflags: -I${includedir}
+Libs: -L${libdir} -lXext

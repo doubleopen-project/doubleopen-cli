@@ -1,0 +1,15 @@
+PN: libxdmcp
+PE: 1
+PV: 1.1.3
+PR: r0
+PKGE: 1
+PKGV: 1.1.3
+PKGR: r0
+LICENSE: MIT-style
+DESCRIPTION_libxdmcp-doc: The purpose of the X Display Manager Control Protocol (XDMCP) is to provide a uniform mechanism for an autonomous display to request login service from a remote host. An X terminal (screen, keyboard, mouse, processor, network interface) is a prime example of an autonomous display.  This package contains documentation.
+SUMMARY_libxdmcp-doc: XDMCP: X Display Manager Control Protocol library - Documentation files
+SECTION_libxdmcp-doc: doc
+PKG_libxdmcp-doc: libxdmcp-doc
+FILES_libxdmcp-doc: /usr/share/doc /usr/share/man /usr/share/info /usr/share/gtk-doc             /usr/share/gnome/help
+FILES_INFO: {"/usr/share/doc/libXdmcp/xdmcp.xml": 99136}
+PKGSIZE_libxdmcp-doc: 99136

@@ -1,0 +1,15 @@
+PN: shadow
+PV: 4.8.1
+PR: r0
+PKGV: 4.8.1
+PKGR: r0
+LICENSE: BSD | Artistic-1.0
+DESCRIPTION_shadow-locale-sv: Tools to change and administer password and group data.  This package contains language translation files for the sv locale.
+SUMMARY_shadow-locale-sv: Tools to change and administer password and group data - sv translations
+RPROVIDES_shadow-locale-sv: shadow-locale sv-translation
+RRECOMMENDS_shadow-locale-sv: virtual-locale-sv
+SECTION: base/utils
+PKG_shadow-locale-sv: shadow-locale-sv
+FILES_shadow-locale-sv: /usr/share/locale/sv
+FILES_INFO: {"/usr/share/locale/sv/LC_MESSAGES/shadow.mo": 54826}
+PKGSIZE_shadow-locale-sv: 54826

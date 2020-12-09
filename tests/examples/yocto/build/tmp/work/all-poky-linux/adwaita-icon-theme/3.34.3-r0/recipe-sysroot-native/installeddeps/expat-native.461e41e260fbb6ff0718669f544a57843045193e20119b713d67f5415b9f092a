@@ -1,0 +1,16 @@
+recipe-sysroot-native/sysroot-providers/expat-native
+recipe-sysroot-native/usr/include/expat.h
+recipe-sysroot-native/usr/include/expat_external.h
+recipe-sysroot-native/usr/include/expat_config.h
+recipe-sysroot-native/usr/bin/xmlwf
+recipe-sysroot-native/usr/lib/libexpat.so.1.6.11
+recipe-sysroot-native/usr/lib/libexpat.so
+recipe-sysroot-native/usr/lib/libexpat.so.1
+recipe-sysroot-native/usr/lib/pkgconfig/expat.pc
+recipe-sysroot-native/usr/lib/pkgconfig/
+recipe-sysroot-native/sysroot-providers/
+recipe-sysroot-native/usr/include/
+recipe-sysroot-native/usr/share/
+recipe-sysroot-native/usr/lib/
+recipe-sysroot-native/usr/bin/
+recipe-sysroot-native/usr/

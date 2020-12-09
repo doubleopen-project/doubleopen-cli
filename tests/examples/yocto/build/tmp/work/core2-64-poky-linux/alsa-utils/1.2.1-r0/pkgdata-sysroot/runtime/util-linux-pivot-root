@@ -1,0 +1,20 @@
+PN: util-linux
+PV: 2.35.1
+PR: r0
+PKGV: 2.35.1
+PKGR: r0
+LICENSE: GPLv2+ & LGPLv2.1+ & BSD-3-Clause & BSD-4-Clause
+DESCRIPTION_util-linux-pivot-root: util-linux pivot-root
+SUMMARY_util-linux-pivot-root: util-linux pivot-root
+RDEPENDS_util-linux-pivot-root: update-alternatives-opkg glibc (>= 2.31+git0+6fdf971c9d)
+SECTION: base
+PKG_util-linux-pivot-root: util-linux-pivot-root
+FILES_util-linux-pivot-root: /sbin/pivot_root.util-linux
+FILES_INFO: {"/sbin/pivot_root.util-linux": 14384}
+pkg_postinst_util-linux-pivot-root: #!/bin/sh\nset -e\n\tupdate-alternatives --install /sbin/pivot_root pivot_root /sbin/pivot_root.util-linux 80\n
+pkg_prerm_util-linux-pivot-root: #!/bin/sh\nset -e\n\tupdate-alternatives --remove  pivot_root /sbin/pivot_root.util-linux\n
+FILERPROVIDESFLIST_util-linux-pivot-root:  /sbin/pivot@underscore@root.util-linux
+FILERPROVIDES_/sbin/pivot@underscore@root.util-linux_util-linux-pivot-root:  /sbin/pivot_root
+FILERDEPENDSFLIST_util-linux-pivot-root: /sbin/pivot@underscore@root.util-linux
+FILERDEPENDS_/sbin/pivot@underscore@root.util-linux_util-linux-pivot-root:  libc.so.6(GLIBC_2.3.4)(64bit) libc.so.6(GLIBC_2.2.5)(64bit) libc.so.6()(64bit) rtld(GNU_HASH)
+PKGSIZE_util-linux-pivot-root: 14384

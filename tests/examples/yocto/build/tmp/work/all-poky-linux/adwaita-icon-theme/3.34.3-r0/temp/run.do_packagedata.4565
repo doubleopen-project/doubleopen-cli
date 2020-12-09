@@ -1,0 +1,7 @@
+def do_packagedata(d):
+    src = d.expand("${PKGDESTWORK}")
+    dest = d.expand("${WORKDIR}/pkgdata-pdata-input")
+    oe.path.copyhardlinktree(src, dest)
+
+do_packagedata(d)
+

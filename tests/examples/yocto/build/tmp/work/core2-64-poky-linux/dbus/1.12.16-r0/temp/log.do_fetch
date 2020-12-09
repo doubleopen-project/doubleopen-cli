@@ -1,0 +1,73 @@
+DEBUG: Executing python function extend_recipe_sysroot
+NOTE: Direct dependencies are []
+NOTE: Installed into sysroot: []
+NOTE: Skipping as already exists in sysroot: []
+DEBUG: Python function extend_recipe_sysroot finished
+DEBUG: Executing python function do_fetch
+DEBUG: Executing python function base_do_fetch
+DEBUG: Searching for tmpdir.patch in paths:
+    /home/hhpartners/yocto/meta/recipes-core/dbus/dbus-1.12.16/poky
+    /home/hhpartners/yocto/meta/recipes-core/dbus/dbus/poky
+    /home/hhpartners/yocto/meta/recipes-core/dbus/files/poky
+    /home/hhpartners/yocto/meta/recipes-core/dbus/dbus-1.12.16/qemux86-64
+    /home/hhpartners/yocto/meta/recipes-core/dbus/dbus/qemux86-64
+    /home/hhpartners/yocto/meta/recipes-core/dbus/files/qemux86-64
+    /home/hhpartners/yocto/meta/recipes-core/dbus/dbus-1.12.16/qemuall
+    /home/hhpartners/yocto/meta/recipes-core/dbus/dbus/qemuall
+    /home/hhpartners/yocto/meta/recipes-core/dbus/files/qemuall
+    /home/hhpartners/yocto/meta/recipes-core/dbus/dbus-1.12.16/x86-64
+    /home/hhpartners/yocto/meta/recipes-core/dbus/dbus/x86-64
+    /home/hhpartners/yocto/meta/recipes-core/dbus/files/x86-64
+    /home/hhpartners/yocto/meta/recipes-core/dbus/dbus-1.12.16/
+    /home/hhpartners/yocto/meta/recipes-core/dbus/dbus/
+    /home/hhpartners/yocto/meta/recipes-core/dbus/files/
+DEBUG: Searching for dbus-1.init in paths:
+    /home/hhpartners/yocto/meta/recipes-core/dbus/dbus-1.12.16/poky
+    /home/hhpartners/yocto/meta/recipes-core/dbus/dbus/poky
+    /home/hhpartners/yocto/meta/recipes-core/dbus/files/poky
+    /home/hhpartners/yocto/meta/recipes-core/dbus/dbus-1.12.16/qemux86-64
+    /home/hhpartners/yocto/meta/recipes-core/dbus/dbus/qemux86-64
+    /home/hhpartners/yocto/meta/recipes-core/dbus/files/qemux86-64
+    /home/hhpartners/yocto/meta/recipes-core/dbus/dbus-1.12.16/qemuall
+    /home/hhpartners/yocto/meta/recipes-core/dbus/dbus/qemuall
+    /home/hhpartners/yocto/meta/recipes-core/dbus/files/qemuall
+    /home/hhpartners/yocto/meta/recipes-core/dbus/dbus-1.12.16/x86-64
+    /home/hhpartners/yocto/meta/recipes-core/dbus/dbus/x86-64
+    /home/hhpartners/yocto/meta/recipes-core/dbus/files/x86-64
+    /home/hhpartners/yocto/meta/recipes-core/dbus/dbus-1.12.16/
+    /home/hhpartners/yocto/meta/recipes-core/dbus/dbus/
+    /home/hhpartners/yocto/meta/recipes-core/dbus/files/
+DEBUG: Searching for clear-guid_from_server-if-send_negotiate_unix_f.patch in paths:
+    /home/hhpartners/yocto/meta/recipes-core/dbus/dbus-1.12.16/poky
+    /home/hhpartners/yocto/meta/recipes-core/dbus/dbus/poky
+    /home/hhpartners/yocto/meta/recipes-core/dbus/files/poky
+    /home/hhpartners/yocto/meta/recipes-core/dbus/dbus-1.12.16/qemux86-64
+    /home/hhpartners/yocto/meta/recipes-core/dbus/dbus/qemux86-64
+    /home/hhpartners/yocto/meta/recipes-core/dbus/files/qemux86-64
+    /home/hhpartners/yocto/meta/recipes-core/dbus/dbus-1.12.16/qemuall
+    /home/hhpartners/yocto/meta/recipes-core/dbus/dbus/qemuall
+    /home/hhpartners/yocto/meta/recipes-core/dbus/files/qemuall
+    /home/hhpartners/yocto/meta/recipes-core/dbus/dbus-1.12.16/x86-64
+    /home/hhpartners/yocto/meta/recipes-core/dbus/dbus/x86-64
+    /home/hhpartners/yocto/meta/recipes-core/dbus/files/x86-64
+    /home/hhpartners/yocto/meta/recipes-core/dbus/dbus-1.12.16/
+    /home/hhpartners/yocto/meta/recipes-core/dbus/dbus/
+    /home/hhpartners/yocto/meta/recipes-core/dbus/files/
+DEBUG: Searching for CVE-2020-12049.patch in paths:
+    /home/hhpartners/yocto/meta/recipes-core/dbus/dbus-1.12.16/poky
+    /home/hhpartners/yocto/meta/recipes-core/dbus/dbus/poky
+    /home/hhpartners/yocto/meta/recipes-core/dbus/files/poky
+    /home/hhpartners/yocto/meta/recipes-core/dbus/dbus-1.12.16/qemux86-64
+    /home/hhpartners/yocto/meta/recipes-core/dbus/dbus/qemux86-64
+    /home/hhpartners/yocto/meta/recipes-core/dbus/files/qemux86-64
+    /home/hhpartners/yocto/meta/recipes-core/dbus/dbus-1.12.16/qemuall
+    /home/hhpartners/yocto/meta/recipes-core/dbus/dbus/qemuall
+    /home/hhpartners/yocto/meta/recipes-core/dbus/files/qemuall
+    /home/hhpartners/yocto/meta/recipes-core/dbus/dbus-1.12.16/x86-64
+    /home/hhpartners/yocto/meta/recipes-core/dbus/dbus/x86-64
+    /home/hhpartners/yocto/meta/recipes-core/dbus/files/x86-64
+    /home/hhpartners/yocto/meta/recipes-core/dbus/dbus-1.12.16/
+    /home/hhpartners/yocto/meta/recipes-core/dbus/dbus/
+    /home/hhpartners/yocto/meta/recipes-core/dbus/files/
+DEBUG: Python function base_do_fetch finished
+DEBUG: Python function do_fetch finished

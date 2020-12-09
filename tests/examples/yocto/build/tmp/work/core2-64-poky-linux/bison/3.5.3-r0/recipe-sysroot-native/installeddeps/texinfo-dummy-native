@@ -1,0 +1,14 @@
+recipe-sysroot-native/sysroot-providers/texinfo-dummy-native
+recipe-sysroot-native/bin/install-info
+recipe-sysroot-native/bin/pod2texi
+recipe-sysroot-native/bin/ginstall-info
+recipe-sysroot-native/bin/pdftexi2dvi
+recipe-sysroot-native/bin/texi2dvi
+recipe-sysroot-native/bin/texindex
+recipe-sysroot-native/bin/texi2pdf
+recipe-sysroot-native/bin/makeinfo
+recipe-sysroot-native/bin/texi2any
+recipe-sysroot-native/bin/update-info-dir
+recipe-sysroot-native/bin/txixml2texi
+recipe-sysroot-native/sysroot-providers/
+recipe-sysroot-native/bin/

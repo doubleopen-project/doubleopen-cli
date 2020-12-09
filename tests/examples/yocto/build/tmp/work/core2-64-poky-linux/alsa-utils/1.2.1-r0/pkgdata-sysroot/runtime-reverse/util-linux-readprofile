@@ -1,0 +1,20 @@
+PN: util-linux
+PV: 2.35.1
+PR: r0
+PKGV: 2.35.1
+PKGR: r0
+LICENSE: GPLv2+ & LGPLv2.1+ & BSD-3-Clause & BSD-4-Clause
+DESCRIPTION_util-linux-readprofile: util-linux readprofile
+SUMMARY_util-linux-readprofile: util-linux readprofile
+RDEPENDS_util-linux-readprofile: update-alternatives-opkg glibc (>= 2.31+git0+6fdf971c9d)
+SECTION: base
+PKG_util-linux-readprofile: util-linux-readprofile
+FILES_util-linux-readprofile: /usr/sbin/readprofile.util-linux
+FILES_INFO: {"/usr/sbin/readprofile.util-linux": 22616}
+pkg_postinst_util-linux-readprofile: #!/bin/sh\nset -e\n\tupdate-alternatives --install /usr/sbin/readprofile readprofile /usr/sbin/readprofile.util-linux 80\n
+pkg_prerm_util-linux-readprofile: #!/bin/sh\nset -e\n\tupdate-alternatives --remove  readprofile /usr/sbin/readprofile.util-linux\n
+FILERPROVIDESFLIST_util-linux-readprofile:  /usr/sbin/readprofile.util-linux
+FILERPROVIDES_/usr/sbin/readprofile.util-linux_util-linux-readprofile:  /usr/sbin/readprofile
+FILERDEPENDSFLIST_util-linux-readprofile: /usr/sbin/readprofile.util-linux
+FILERDEPENDS_/usr/sbin/readprofile.util-linux_util-linux-readprofile:  libc.so.6(GLIBC_2.3.4)(64bit) libc.so.6(GLIBC_2.7)(64bit) libc.so.6(GLIBC_2.4)(64bit) libc.so.6(GLIBC_2.2.5)(64bit) libc.so.6()(64bit) rtld(GNU_HASH)
+PKGSIZE_util-linux-readprofile: 22616

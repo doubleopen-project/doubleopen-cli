@@ -1,0 +1,20 @@
+PN: util-linux
+PV: 2.35.1
+PR: r0
+PKGV: 2.35.1
+PKGR: r0
+LICENSE: GPLv2+ & LGPLv2.1+ & BSD-3-Clause & BSD-4-Clause
+DESCRIPTION_util-linux-uuidgen: util-linux uuidgen
+SUMMARY_util-linux-uuidgen: util-linux uuidgen
+RDEPENDS_util-linux-uuidgen: update-alternatives-opkg glibc (>= 2.31+git0+6fdf971c9d) util-linux-libuuid (>= 2.35.1)
+SECTION: base
+PKG_util-linux-uuidgen: util-linux-uuidgen
+FILES_util-linux-uuidgen: /usr/bin/uuidgen.util-linux
+FILES_INFO: {"/usr/bin/uuidgen.util-linux": 14384}
+pkg_postinst_util-linux-uuidgen: #!/bin/sh\nset -e\n\tupdate-alternatives --install /usr/bin/uuidgen uuidgen /usr/bin/uuidgen.util-linux 80\n
+pkg_prerm_util-linux-uuidgen: #!/bin/sh\nset -e\n\tupdate-alternatives --remove  uuidgen /usr/bin/uuidgen.util-linux\n
+FILERPROVIDESFLIST_util-linux-uuidgen:  /usr/bin/uuidgen.util-linux
+FILERPROVIDES_/usr/bin/uuidgen.util-linux_util-linux-uuidgen:  /usr/bin/uuidgen
+FILERDEPENDSFLIST_util-linux-uuidgen: /usr/bin/uuidgen.util-linux
+FILERDEPENDS_/usr/bin/uuidgen.util-linux_util-linux-uuidgen:  libc.so.6(GLIBC_2.3.4)(64bit) libc.so.6(GLIBC_2.4)(64bit) libc.so.6(GLIBC_2.2.5)(64bit) libuuid.so.1(UUID_2.31)(64bit) libuuid.so.1(UUID_1.0)(64bit) libuuid.so.1()(64bit) libc.so.6()(64bit) rtld(GNU_HASH)
+PKGSIZE_util-linux-uuidgen: 14384

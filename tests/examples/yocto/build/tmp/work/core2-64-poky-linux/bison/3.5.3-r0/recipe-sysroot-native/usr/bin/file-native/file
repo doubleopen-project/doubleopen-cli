@@ -1,0 +1,4 @@
+#!/bin/bash
+realpath=`readlink -fn $0`
+realdir=`dirname $realpath`
+exec -a `dirname $realpath`/file `dirname $realpath`/file.real --magic-file $realdir/../../../usr/share/misc/magic.mgc "$@"

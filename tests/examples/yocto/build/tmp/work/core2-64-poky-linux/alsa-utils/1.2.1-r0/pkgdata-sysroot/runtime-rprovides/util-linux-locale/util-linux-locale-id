@@ -1,0 +1,15 @@
+PN: util-linux
+PV: 2.35.1
+PR: r0
+PKGV: 2.35.1
+PKGR: r0
+LICENSE: GPLv2+ & LGPLv2.1+ & BSD-3-Clause & BSD-4-Clause
+DESCRIPTION_util-linux-locale-id: Util-linux includes a suite of basic system administration utilities commonly found on most Linux systems.  Some of the more important utilities include disk partitioning, kernel message management, filesystem creation, and system login.  This package contains language translation files for the id locale.
+SUMMARY_util-linux-locale-id: A suite of basic system administration utilities - id translations
+RPROVIDES_util-linux-locale-id: util-linux-locale id-translation
+RRECOMMENDS_util-linux-locale-id: virtual-locale-id
+SECTION: base
+PKG_util-linux-locale-id: util-linux-locale-id
+FILES_util-linux-locale-id: /usr/share/locale/id
+FILES_INFO: {"/usr/share/locale/id/LC_MESSAGES/util-linux.mo": 47744}
+PKGSIZE_util-linux-locale-id: 47744

@@ -1,0 +1,14 @@
+PN: libxcb
+PV: 1.13.1
+PR: r0
+PKGV: 1.13.1
+PKGR: r0
+LICENSE: MIT
+DESCRIPTION_libxcb-staticdev: The X protocol C-language Binding (XCB) is a replacement for Xlib featuring a small footprint, latency hiding, direct access to the protocol, improved threading support, and extensibility.  This package contains static libraries for software development.
+SUMMARY_libxcb-staticdev: XCB: The X protocol C binding library - Development files (Static Libraries)
+RDEPENDS_libxcb-staticdev: libxcb-dev (= 1.13.1-r0)
+SECTION_libxcb-staticdev: devel
+PKG_libxcb-staticdev: libxcb-staticdev
+FILES_libxcb-staticdev: /usr/lib/*.a /lib/*.a /usr/lib/libxcb/*.a
+FILES_INFO: {}
+PKGSIZE_libxcb-staticdev: 0

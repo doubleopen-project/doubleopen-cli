@@ -1,0 +1,15 @@
+PN: shadow
+PV: 4.8.1
+PR: r0
+PKGV: 4.8.1
+PKGR: r0
+LICENSE: BSD | Artistic-1.0
+DESCRIPTION_shadow-locale-it: Tools to change and administer password and group data.  This package contains language translation files for the it locale.
+SUMMARY_shadow-locale-it: Tools to change and administer password and group data - it translations
+RPROVIDES_shadow-locale-it: shadow-locale it-translation
+RRECOMMENDS_shadow-locale-it: virtual-locale-it
+SECTION: base/utils
+PKG_shadow-locale-it: shadow-locale-it
+FILES_shadow-locale-it: /usr/share/locale/it
+FILES_INFO: {"/usr/share/locale/it/LC_MESSAGES/shadow.mo": 21482}
+PKGSIZE_shadow-locale-it: 21482

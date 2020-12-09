@@ -1,0 +1,15 @@
+PN: alsa-utils
+PV: 1.2.1
+PR: r0
+PKGV: 1.2.1
+PKGR: r0
+LICENSE: GPLv2+
+DESCRIPTION_alsa-utils-locale-fr: ALSA sound utilities.  This package contains language translation files for the fr locale.
+SUMMARY_alsa-utils-locale-fr: ALSA sound utilities - fr translations
+RPROVIDES_alsa-utils-locale-fr: alsa-utils-locale fr-translation
+RRECOMMENDS_alsa-utils-locale-fr: virtual-locale-fr
+SECTION: console/utils
+PKG_alsa-utils-locale-fr: alsa-utils-locale-fr
+FILES_alsa-utils-locale-fr: /usr/share/locale/fr
+FILES_INFO: {"/usr/share/locale/fr/LC_MESSAGES/alsa-utils.mo": 23334}
+PKGSIZE_alsa-utils-locale-fr: 23334

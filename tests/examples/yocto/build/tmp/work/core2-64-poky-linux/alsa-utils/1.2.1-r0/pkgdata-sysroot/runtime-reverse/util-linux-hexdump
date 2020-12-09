@@ -1,0 +1,20 @@
+PN: util-linux
+PV: 2.35.1
+PR: r0
+PKGV: 2.35.1
+PKGR: r0
+LICENSE: GPLv2+ & LGPLv2.1+ & BSD-3-Clause & BSD-4-Clause
+DESCRIPTION_util-linux-hexdump: util-linux hexdump
+SUMMARY_util-linux-hexdump: util-linux hexdump
+RDEPENDS_util-linux-hexdump: update-alternatives-opkg glibc (>= 2.31+git0+6fdf971c9d) ncurses-libtinfo (>= 6.2)
+SECTION: base
+PKG_util-linux-hexdump: util-linux-hexdump
+FILES_util-linux-hexdump: /usr/bin/hexdump.util-linux
+FILES_INFO: {"/usr/bin/hexdump.util-linux": 55352}
+pkg_postinst_util-linux-hexdump: #!/bin/sh\nset -e\n\tupdate-alternatives --install /usr/bin/hexdump hexdump /usr/bin/hexdump.util-linux 80\n
+pkg_prerm_util-linux-hexdump: #!/bin/sh\nset -e\n\tupdate-alternatives --remove  hexdump /usr/bin/hexdump.util-linux\n
+FILERPROVIDESFLIST_util-linux-hexdump:  /usr/bin/hexdump.util-linux
+FILERPROVIDES_/usr/bin/hexdump.util-linux_util-linux-hexdump:  /usr/bin/hexdump
+FILERDEPENDSFLIST_util-linux-hexdump: /usr/bin/hexdump.util-linux
+FILERDEPENDS_/usr/bin/hexdump.util-linux_util-linux-hexdump:  libc.so.6(GLIBC_2.3)(64bit) libc.so.6(GLIBC_2.7)(64bit) libc.so.6(GLIBC_2.14)(64bit) libc.so.6(GLIBC_2.8)(64bit) libc.so.6(GLIBC_2.4)(64bit) libc.so.6(GLIBC_2.3.4)(64bit) libc.so.6(GLIBC_2.2.5)(64bit) libtinfo.so.5()(64bit) libc.so.6()(64bit) rtld(GNU_HASH)
+PKGSIZE_util-linux-hexdump: 55352

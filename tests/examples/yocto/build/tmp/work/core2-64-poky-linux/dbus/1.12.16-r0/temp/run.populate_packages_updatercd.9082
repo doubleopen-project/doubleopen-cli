@@ -1,0 +1,55 @@
+def populate_packages_updatercd(d):
+    def update_rcd_auto_depend(pkg):
+        import subprocess
+        import os
+        path = d.expand("${D}${INIT_D_DIR}/${INITSCRIPT_NAME}")
+        if not os.path.exists(path):
+            return
+        statement = "grep -q -w '/etc/init.d/functions' %s" % path
+        if subprocess.call(statement, shell=True) == 0:
+            mlprefix = d.getVar('MLPREFIX') or ""
+            d.appendVar('RDEPENDS_' + pkg, ' %sinitd-functions' % (mlprefix))
+
+    def update_rcd_package(pkg):
+        bb.debug(1, 'adding update-rc.d calls to postinst/prerm/postrm for %s' % pkg)
+
+        localdata = bb.data.createCopy(d)
+        overrides = localdata.getVar("OVERRIDES")
+        localdata.setVar("OVERRIDES", "%s:%s" % (pkg, overrides))
+
+        update_rcd_auto_depend(pkg)
+
+        postinst = d.getVar('pkg_postinst_%s' % pkg)
+        if not postinst:
+            postinst = '#!/bin/sh\n'
+        postinst += localdata.getVar('updatercd_postinst')
+        d.setVar('pkg_postinst_%s' % pkg, postinst)
+
+        prerm = d.getVar('pkg_prerm_%s' % pkg)
+        if not prerm:
+            prerm = '#!/bin/sh\n'
+        prerm += localdata.getVar('updatercd_prerm')
+        d.setVar('pkg_prerm_%s' % pkg, prerm)
+
+        postrm = d.getVar('pkg_postrm_%s' % pkg)
+        if not postrm:
+                postrm = '#!/bin/sh\n'
+        postrm += localdata.getVar('updatercd_postrm')
+        d.setVar('pkg_postrm_%s' % pkg, postrm)
+
+        d.appendVar('RRECOMMENDS_' + pkg, " ${MLPREFIX}${UPDATERCD}")
+
+    # Check that this class isn't being inhibited (generally, by
+    # systemd.bbclass) before doing any work.
+    if not d.getVar("INHIBIT_UPDATERCD_BBCLASS"):
+        pkgs = d.getVar('INITSCRIPT_PACKAGES')
+        if pkgs == None:
+            pkgs = d.getVar('UPDATERCPN')
+            packages = (d.getVar('PACKAGES') or "").split()
+            if not pkgs in packages and packages != []:
+                pkgs = packages[0]
+        for pkg in pkgs.split():
+            update_rcd_package(pkg)
+
+populate_packages_updatercd(d)
+

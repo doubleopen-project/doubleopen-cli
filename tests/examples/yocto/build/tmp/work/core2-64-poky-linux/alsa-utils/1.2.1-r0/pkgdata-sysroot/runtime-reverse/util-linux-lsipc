@@ -1,0 +1,16 @@
+PN: util-linux
+PV: 2.35.1
+PR: r0
+PKGV: 2.35.1
+PKGR: r0
+LICENSE: GPLv2+ & LGPLv2.1+ & BSD-3-Clause & BSD-4-Clause
+DESCRIPTION_util-linux-lsipc: util-linux lsipc
+SUMMARY_util-linux-lsipc: util-linux lsipc
+RDEPENDS_util-linux-lsipc: glibc (>= 2.31+git0+6fdf971c9d) util-linux-libsmartcols (>= 2.35.1)
+SECTION: base
+PKG_util-linux-lsipc: util-linux-lsipc
+FILES_util-linux-lsipc: /usr/bin/lsipc
+FILES_INFO: {"/usr/bin/lsipc": 92200}
+FILERDEPENDSFLIST_util-linux-lsipc: /usr/bin/lsipc
+FILERDEPENDS_/usr/bin/lsipc_util-linux-lsipc:  libsmartcols.so.1(SMARTCOLS_2.27)(64bit) libsmartcols.so.1(SMARTCOLS_2.25)(64bit) libc.so.6(GLIBC_2.3)(64bit) libc.so.6(GLIBC_2.14)(64bit) libc.so.6(GLIBC_2.8)(64bit) libc.so.6(GLIBC_2.4)(64bit) libc.so.6(GLIBC_2.7)(64bit) libc.so.6(GLIBC_2.3.4)(64bit) libc.so.6(GLIBC_2.2.5)(64bit) libsmartcols.so.1()(64bit) libc.so.6()(64bit) rtld(GNU_HASH)
+PKGSIZE_util-linux-lsipc: 92200

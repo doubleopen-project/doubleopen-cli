@@ -1,0 +1,8 @@
+prefix=/usr
+libdir=${prefix}/lib
+includedir=${prefix}/include
+
+Name: scrnsaverproto
+Description: scrnsaverproto headers
+Version: 1.2.2
+Cflags: -I${includedir}

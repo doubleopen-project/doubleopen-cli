@@ -1,0 +1,7 @@
+prefix=${pcfiledir}/../../../usr
+exec_prefix=${pcfiledir}/../../../usr
+data_dir=${pcfiledir}/../../../usr/share/gtk-doc/data
+
+Name: gtk-doc
+Description: API documentation generator
+Version: 1.32

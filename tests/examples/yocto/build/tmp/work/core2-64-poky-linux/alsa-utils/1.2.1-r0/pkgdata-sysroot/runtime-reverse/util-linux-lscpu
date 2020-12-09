@@ -1,0 +1,16 @@
+PN: util-linux
+PV: 2.35.1
+PR: r0
+PKGV: 2.35.1
+PKGR: r0
+LICENSE: GPLv2+ & LGPLv2.1+ & BSD-3-Clause & BSD-4-Clause
+DESCRIPTION_util-linux-lscpu: util-linux lscpu
+SUMMARY_util-linux-lscpu: util-linux lscpu
+RDEPENDS_util-linux-lscpu: glibc (>= 2.31+git0+6fdf971c9d) util-linux-libsmartcols (>= 2.35.1)
+SECTION: base
+PKG_util-linux-lscpu: util-linux-lscpu
+FILES_util-linux-lscpu: /usr/bin/lscpu
+FILES_INFO: {"/usr/bin/lscpu": 100392}
+FILERDEPENDSFLIST_util-linux-lscpu: /usr/bin/lscpu
+FILERDEPENDS_/usr/bin/lscpu_util-linux-lscpu:  libsmartcols.so.1(SMARTCOLS_2.27)(64bit) libsmartcols.so.1(SMARTCOLS_2.25)(64bit) libc.so.6(GLIBC_2.11)(64bit) libc.so.6(GLIBC_2.14)(64bit) libc.so.6(GLIBC_2.8)(64bit) libc.so.6(GLIBC_2.6)(64bit) libc.so.6(GLIBC_2.4)(64bit) libc.so.6(GLIBC_2.7)(64bit) libc.so.6(GLIBC_2.3.4)(64bit) libc.so.6(GLIBC_2.2.5)(64bit) libc.so.6(GLIBC_2.3)(64bit) libsmartcols.so.1()(64bit) libc.so.6()(64bit) rtld(GNU_HASH)
+PKGSIZE_util-linux-lscpu: 100392

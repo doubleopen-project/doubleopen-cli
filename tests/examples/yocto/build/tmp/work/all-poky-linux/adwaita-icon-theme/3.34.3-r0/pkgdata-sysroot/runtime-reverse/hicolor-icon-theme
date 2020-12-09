@@ -1,0 +1,13 @@
+PN: hicolor-icon-theme
+PV: 0.17
+PR: r0
+PKGV: 0.17
+PKGR: r0
+LICENSE: GPLv2
+DESCRIPTION: The hicolor-icon-theme package contains a default fallback theme for implementations of the icon theme specification.
+SUMMARY: Default icon theme that all icon themes automatically inherit from
+SECTION: base
+PKG_hicolor-icon-theme: hicolor-icon-theme
+FILES_hicolor-icon-theme: /usr/bin/* /usr/sbin/* /usr/libexec/* /usr/lib/lib*.so.*             /etc /com /var             /bin/* /sbin/*             /lib/*.so.*             /lib/udev /usr/lib/udev             /lib/udev /usr/lib/udev             /usr/share/hicolor-icon-theme /usr/lib/hicolor-icon-theme/*             /usr/share/pixmaps /usr/share/applications             /usr/share/idl /usr/share/omf /usr/share/sounds             /usr/lib/bonobo/servers /usr/share/icons
+FILES_INFO: {"/usr/share/icons/hicolor/index.theme": 55507}
+PKGSIZE_hicolor-icon-theme: 55507

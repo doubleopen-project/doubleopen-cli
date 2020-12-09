@@ -1,0 +1,15 @@
+PN: libsamplerate0
+PV: 0.1.9
+PR: r1
+PKGV: 0.1.9
+PKGR: r1
+LICENSE: BSD-2-Clause
+DESCRIPTION_libsamplerate0-dbg: Audio Sample Rate Conversion library.  This package contains ELF symbols and related sources for debugging purposes.
+SUMMARY_libsamplerate0-dbg: Audio Sample Rate Conversion library - Debugging files
+RRECOMMENDS_libsamplerate0-dbg: glibc-dbg libsndfile1-dbg
+SECTION_libsamplerate0-dbg: devel
+PKG_libsamplerate0-dbg: libsamplerate0-dbg
+ALLOW_EMPTY_libsamplerate0-dbg: 1
+FILES_libsamplerate0-dbg: /usr/lib/debug /usr/lib/debug-static /usr/src/debug
+FILES_INFO: {"/usr/bin/.debug/sndfile-resample": 30104, "/usr/lib/.debug/libsamplerate.so.0.1.8": 91720}
+PKGSIZE_libsamplerate0-dbg: 121824

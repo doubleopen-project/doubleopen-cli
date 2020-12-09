@@ -1,0 +1,13 @@
+PN: hicolor-icon-theme
+PV: 0.17
+PR: r0
+PKGV: 0.17
+PKGR: r0
+LICENSE: GPLv2
+DESCRIPTION: The hicolor-icon-theme package contains a default fallback theme for implementations of the icon theme specification.
+SUMMARY: Default icon theme that all icon themes automatically inherit from
+SECTION: base
+PKG_hicolor-icon-theme-locale: hicolor-icon-theme-locale
+FILES_hicolor-icon-theme-locale: /usr/share/locale
+FILES_INFO: {}
+PKGSIZE_hicolor-icon-theme-locale: 0

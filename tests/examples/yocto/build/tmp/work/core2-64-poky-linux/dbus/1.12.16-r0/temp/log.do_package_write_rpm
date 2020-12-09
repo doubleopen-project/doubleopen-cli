@@ -1,0 +1,216 @@
+DEBUG: Executing python function sstate_task_prefunc
+DEBUG: Python function sstate_task_prefunc finished
+DEBUG: Executing python function extend_recipe_sysroot
+NOTE: Direct dependencies are ['virtual:native:/home/hhpartners/yocto/meta/recipes-devtools/rpm/rpm_4.14.2.1.bb:do_populate_sysroot', 'virtual:native:/home/hhpartners/yocto/meta/recipes-extended/shadow/shadow_4.8.1.bb:do_populate_sysroot', 'virtual:native:/home/hhpartners/yocto/meta/recipes-devtools/pseudo/pseudo_git.bb:do_populate_sysroot', 'virtual:native:/home/hhpartners/yocto/meta/recipes-core/update-rc.d/update-rc.d_0.8.bb:do_populate_sysroot']
+NOTE: Installed into sysroot: ['update-rc.d-native']
+NOTE: Skipping as already exists in sysroot: ['rpm-native', 'shadow-native', 'pseudo-native', 'quilt-native', 'xz-native', 'gettext-minimal-native', 'autoconf-native', 'bzip2-native', 'python3-native', 'perl-native', 'pkgconfig-native', 'dbus-native', 'file-native', 'openssl-native', 'popt-native', 'libarchive-native', 'gnu-config-native', 'libtool-native', 'db-native', 'automake-native', 'elfutils-native', 'patch-native', 'm4-native', 'texinfo-dummy-native', 'readline-native', 'gdbm-native', 'util-linux-native', 'libnsl2-native', 'sqlite3-native', 'libtirpc-native', 'libffi-native', 'zlib-native', 'expat-native', 'e2fsprogs-native', 'lzo-native', 'attr-native', 'ncurses-native', 'libcap-ng-native', 'libpcre2-native']
+DEBUG: Python function extend_recipe_sysroot finished
+DEBUG: Executing python function do_package_write_rpm
+DEBUG: Executing python function read_subpackage_metadata
+DEBUG: Python function read_subpackage_metadata finished
+DEBUG: Executing python function do_package_rpm
+DEBUG: Executing python function write_specfile
+NOTE: Creating RPM package for dbus-src
+NOTE: libexpat-dbg rprovides expat-dbg, not replacing the latter
+NOTE: libc6-dbg rprovides glibc-dbg, not replacing the latter
+NOTE: Creating RPM package for dbus-dbg
+NOTE: package name mapping done: glibc -> libc6
+NOTE: dbus-1 rprovides dbus, not replacing the latter
+NOTE: Creating RPM package for libdbus-1-3
+NOTE: Not creating empty RPM package for dbus-staticdev
+NOTE: package name mapping done: dbus -> dbus-1
+NOTE: package name mapping done: dbus-lib -> libdbus-1-3
+NOTE: package name mapping done: glibc -> libc6
+NOTE: libexpat-dev rprovides expat-dev, not replacing the latter
+NOTE: libc6-dev rprovides glibc-dev, not replacing the latter
+NOTE: Creating RPM package for dbus-dev
+NOTE: Creating RPM package for dbus-doc
+NOTE: Not creating empty RPM package for dbus-locale
+NOTE: package name mapping done: dbus-lib -> libdbus-1-3
+NOTE: package name mapping done: expat -> libexpat1
+NOTE: package name mapping done: glibc -> libc6
+NOTE: package name mapping done: libx11 -> libx11-6
+NOTE: Creating RPM package for dbus-1
+NOTE: Creating empty RPM package for dbus-ptest
+DEBUG: Python function write_specfile finished
+DEBUG: PKGWRITEDIR: /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/deploy-rpms/core2_64
+DEBUG: Executing shell function BUILDSPEC
+Building target platforms: core2_64-poky-linux
+Building for target core2_64-poky-linux
+Processing files: dbus-src-1.12.16-r0.core2_64
+warning: Deprecated external dependency generator is used!
+Finding  Provides: 
+Finding  Requires(interp): 
+Finding  Requires(rpmlib): 
+Finding  Requires(verify): 
+Finding  Requires(pre): 
+Finding  Requires(post): 
+Finding  Requires(preun): 
+Finding  Requires(postun): 
+Finding  Requires(pretrans): 
+Finding  Requires(posttrans): 
+Finding  Requires: 
+Finding  Conflicts: 
+Finding  Obsoletes: 
+Finding  Recommends: 
+Finding  Suggests: 
+Finding  Supplements: 
+Finding  Enhances: 
+Provides: dbus-src = 1.12.16-r0
+Requires(rpmlib): rpmlib(CompressedFileNames) <= 3.0.4-1 rpmlib(FileDigests) <= 4.6.0-1 rpmlib(PayloadFilesHavePrefix) <= 4.0-1
+Processing files: dbus-dbg-1.12.16-r0.core2_64
+warning: Deprecated external dependency generator is used!
+Finding  Provides: 
+Finding  Requires(interp): 
+Finding  Requires(rpmlib): 
+Finding  Requires(verify): 
+Finding  Requires(pre): 
+Finding  Requires(post): 
+Finding  Requires(preun): 
+Finding  Requires(postun): 
+Finding  Requires(pretrans): 
+Finding  Requires(posttrans): 
+Finding  Requires: 
+Finding  Conflicts: 
+Finding  Obsoletes: 
+Finding  Recommends: 
+Finding  Suggests: 
+Finding  Supplements: 
+Finding  Enhances: 
+Provides: dbus-dbg = 1.12.16-r0
+Requires(rpmlib): rpmlib(CompressedFileNames) <= 3.0.4-1 rpmlib(FileDigests) <= 4.6.0-1 rpmlib(PayloadFilesHavePrefix) <= 4.0-1
+Recommends: dbus-lib-dbg expat-dbg glibc-dbg libx11-dbg
+Processing files: libdbus-1-3-1.12.16-r0.core2_64
+warning: Deprecated external dependency generator is used!
+Finding  Provides: 
+Finding  Requires(interp): 
+Finding  Requires(rpmlib): 
+Finding  Requires(verify): 
+Finding  Requires(pre): 
+Finding  Requires(post): 
+Finding  Requires(preun): 
+Finding  Requires(postun): 
+Finding  Requires(pretrans): 
+Finding  Requires(posttrans): 
+Finding  Requires: 
+Finding  Conflicts: 
+Finding  Obsoletes: 
+Finding  Recommends: 
+Finding  Suggests: 
+Finding  Supplements: 
+Finding  Enhances: 
+Provides: dbus-lib = 1.12.16 libdbus-1-3 = 1.12.16-r0 libdbus-1.so.3()(64bit) libdbus-1.so.3(LIBDBUS_1_3)(64bit) libdbus-1.so.3(LIBDBUS_PRIVATE_1.12.16)(64bit)
+Requires(interp): /bin/sh
+Requires(rpmlib): rpmlib(CompressedFileNames) <= 3.0.4-1 rpmlib(FileDigests) <= 4.6.0-1 rpmlib(PayloadFilesHavePrefix) <= 4.0-1
+Requires(post): /bin/sh libc.so.6()(64bit) libc.so.6(GLIBC_2.10)(64bit) libc.so.6(GLIBC_2.14)(64bit) libc.so.6(GLIBC_2.17)(64bit) libc.so.6(GLIBC_2.2.5)(64bit) libc.so.6(GLIBC_2.3.4)(64bit) libc.so.6(GLIBC_2.4)(64bit) libc6 >= 2.31+git0+6fdf971c9d libpthread.so.0()(64bit) libpthread.so.0(GLIBC_2.2.5)(64bit) libpthread.so.0(GLIBC_2.3.2)(64bit) libpthread.so.0(GLIBC_2.3.3)(64bit) rtld(GNU_HASH)
+Recommends: dbus
+Processing files: dbus-dev-1.12.16-r0.core2_64
+warning: Deprecated external dependency generator is used!
+Finding  Provides: 
+Finding  Requires(interp): 
+Finding  Requires(rpmlib): 
+Finding  Requires(verify): 
+Finding  Requires(pre): 
+Finding  Requires(post): 
+Finding  Requires(preun): 
+Finding  Requires(postun): 
+Finding  Requires(pretrans): 
+Finding  Requires(posttrans): 
+Finding  Requires: 
+Finding  Conflicts: 
+Finding  Obsoletes: 
+Finding  Recommends: 
+Finding  Suggests: 
+Finding  Supplements: 
+Finding  Enhances: 
+Provides: dbus-dev = 1.12.16-r0
+Requires(rpmlib): rpmlib(CompressedFileNames) <= 3.0.4-1 rpmlib(FileDigests) <= 4.6.0-1 rpmlib(PayloadFilesHavePrefix) <= 4.0-1
+Recommends: autoconf-archive-dev base-files-dev base-passwd-dev dbus-lib-dev dbus-test-ptest-dev expat-dev glibc-dev initd-functions-dev initscripts-dev libsm-dev libx11-dev shadow-dev shadow-sysroot-dev update-rc.d-dev
+Processing files: dbus-doc-1.12.16-r0.core2_64
+warning: Deprecated external dependency generator is used!
+Finding  Provides: 
+Finding  Requires(interp): 
+Finding  Requires(rpmlib): 
+Finding  Requires(verify): 
+Finding  Requires(pre): 
+Finding  Requires(post): 
+Finding  Requires(preun): 
+Finding  Requires(postun): 
+Finding  Requires(pretrans): 
+Finding  Requires(posttrans): 
+Finding  Requires: 
+Finding  Conflicts: 
+Finding  Obsoletes: 
+Finding  Recommends: 
+Finding  Suggests: 
+Finding  Supplements: 
+Finding  Enhances: 
+Provides: dbus-doc = 1.12.16-r0
+Requires(rpmlib): rpmlib(CompressedFileNames) <= 3.0.4-1 rpmlib(FileDigests) <= 4.6.0-1 rpmlib(PayloadFilesHavePrefix) <= 4.0-1
+Processing files: dbus-1-1.12.16-r0.core2_64
+warning: Deprecated external dependency generator is used!
+Finding  Provides: 
+Finding  Requires(interp): 
+Finding  Requires(rpmlib): 
+Finding  Requires(verify): 
+Finding  Requires(pre): 
+Finding  Requires(post): 
+Finding  Requires(preun): 
+Finding  Requires(postun): 
+Finding  Requires(pretrans): 
+Finding  Requires(posttrans): 
+Finding  Requires: 
+Finding  Conflicts: 
+Finding  Obsoletes: 
+Finding  Recommends: 
+Finding  Suggests: 
+Finding  Supplements: 
+Finding  Enhances: 
+Provides: config(dbus-1) = 1.12.16-r0 dbus = 1.12.16 dbus-1 = 1.12.16-r0 dbus-x11
+Requires(interp): /bin/sh /bin/sh /bin/sh /bin/sh
+Requires(rpmlib): rpmlib(CompressedFileNames) <= 3.0.4-1 rpmlib(FileDigests) <= 4.6.0-1 rpmlib(PayloadFilesHavePrefix) <= 4.0-1
+Requires(pre): /bin/sh /bin/sh base-files base-passwd initd-functions libX11.so.6()(64bit) libc.so.6()(64bit) libc.so.6(GLIBC_2.14)(64bit) libc.so.6(GLIBC_2.15)(64bit) libc.so.6(GLIBC_2.2.5)(64bit) libc.so.6(GLIBC_2.3.2)(64bit) libc.so.6(GLIBC_2.3.4)(64bit) libc.so.6(GLIBC_2.4)(64bit) libc.so.6(GLIBC_2.8)(64bit) libc.so.6(GLIBC_2.9)(64bit) libc6 >= 2.31+git0+6fdf971c9d libdbus-1-3 >= 1.12.16 libdbus-1.so.3()(64bit) libdbus-1.so.3(LIBDBUS_1_3)(64bit) libdbus-1.so.3(LIBDBUS_PRIVATE_1.12.16)(64bit) libexpat.so.1()(64bit) libexpat1 >= 2.2.9 libpthread.so.0()(64bit) libpthread.so.0(GLIBC_2.2.5)(64bit) libx11-6 >= 1.6.9 rtld(GNU_HASH) shadow
+Requires(post): /bin/sh /bin/sh base-files base-passwd initd-functions libX11.so.6()(64bit) libc.so.6()(64bit) libc.so.6(GLIBC_2.14)(64bit) libc.so.6(GLIBC_2.15)(64bit) libc.so.6(GLIBC_2.2.5)(64bit) libc.so.6(GLIBC_2.3.2)(64bit) libc.so.6(GLIBC_2.3.4)(64bit) libc.so.6(GLIBC_2.4)(64bit) libc.so.6(GLIBC_2.8)(64bit) libc.so.6(GLIBC_2.9)(64bit) libc6 >= 2.31+git0+6fdf971c9d libdbus-1-3 >= 1.12.16 libdbus-1.so.3()(64bit) libdbus-1.so.3(LIBDBUS_1_3)(64bit) libdbus-1.so.3(LIBDBUS_PRIVATE_1.12.16)(64bit) libexpat.so.1()(64bit) libexpat1 >= 2.2.9 libpthread.so.0()(64bit) libpthread.so.0(GLIBC_2.2.5)(64bit) libx11-6 >= 1.6.9 rtld(GNU_HASH) shadow
+Requires(preun): /bin/sh /bin/sh base-files base-passwd initd-functions libX11.so.6()(64bit) libc.so.6()(64bit) libc.so.6(GLIBC_2.14)(64bit) libc.so.6(GLIBC_2.15)(64bit) libc.so.6(GLIBC_2.2.5)(64bit) libc.so.6(GLIBC_2.3.2)(64bit) libc.so.6(GLIBC_2.3.4)(64bit) libc.so.6(GLIBC_2.4)(64bit) libc.so.6(GLIBC_2.8)(64bit) libc.so.6(GLIBC_2.9)(64bit) libc6 >= 2.31+git0+6fdf971c9d libdbus-1-3 >= 1.12.16 libdbus-1.so.3()(64bit) libdbus-1.so.3(LIBDBUS_1_3)(64bit) libdbus-1.so.3(LIBDBUS_PRIVATE_1.12.16)(64bit) libexpat.so.1()(64bit) libexpat1 >= 2.2.9 libpthread.so.0()(64bit) libpthread.so.0(GLIBC_2.2.5)(64bit) libx11-6 >= 1.6.9 rtld(GNU_HASH) shadow
+Requires(postun): /bin/sh /bin/sh base-files base-passwd initd-functions libX11.so.6()(64bit) libc.so.6()(64bit) libc.so.6(GLIBC_2.14)(64bit) libc.so.6(GLIBC_2.15)(64bit) libc.so.6(GLIBC_2.2.5)(64bit) libc.so.6(GLIBC_2.3.2)(64bit) libc.so.6(GLIBC_2.3.4)(64bit) libc.so.6(GLIBC_2.4)(64bit) libc.so.6(GLIBC_2.8)(64bit) libc.so.6(GLIBC_2.9)(64bit) libc6 >= 2.31+git0+6fdf971c9d libdbus-1-3 >= 1.12.16 libdbus-1.so.3()(64bit) libdbus-1.so.3(LIBDBUS_1_3)(64bit) libdbus-1.so.3(LIBDBUS_PRIVATE_1.12.16)(64bit) libexpat.so.1()(64bit) libexpat1 >= 2.2.9 libpthread.so.0()(64bit) libpthread.so.0(GLIBC_2.2.5)(64bit) libx11-6 >= 1.6.9 rtld(GNU_HASH) shadow
+Obsoletes: dbus-x11
+Recommends: update-rc.d
+Processing files: dbus-ptest-1.12.16-r0.core2_64
+Checking for unpackaged file(s): /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot-native/usr/bin/../../usr/lib/rpm/check-files /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/package
+Finished binary package job, result 0, filename (null)
+Finished binary package job, result 0, filename (null)
+Finished binary package job, result 0, filename (null)
+Wrote: /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/deploy-rpms/core2_64/dbus-ptest-1.12.16-r0.core2_64.rpm
+Finished binary package job, result 0, filename /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/deploy-rpms/core2_64/dbus-ptest-1.12.16-r0.core2_64.rpm
+Wrote: /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/deploy-rpms/core2_64/dbus-doc-1.12.16-r0.core2_64.rpm
+Finished binary package job, result 0, filename /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/deploy-rpms/core2_64/dbus-doc-1.12.16-r0.core2_64.rpm
+Wrote: /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/deploy-rpms/core2_64/dbus-dev-1.12.16-r0.core2_64.rpm
+Finished binary package job, result 0, filename /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/deploy-rpms/core2_64/dbus-dev-1.12.16-r0.core2_64.rpm
+Wrote: /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/deploy-rpms/core2_64/libdbus-1-3-1.12.16-r0.core2_64.rpm
+Finished binary package job, result 0, filename /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/deploy-rpms/core2_64/libdbus-1-3-1.12.16-r0.core2_64.rpm
+Wrote: /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/deploy-rpms/core2_64/dbus-1-1.12.16-r0.core2_64.rpm
+Finished binary package job, result 0, filename /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/deploy-rpms/core2_64/dbus-1-1.12.16-r0.core2_64.rpm
+Wrote: /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/deploy-rpms/core2_64/dbus-dbg-1.12.16-r0.core2_64.rpm
+Finished binary package job, result 0, filename /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/deploy-rpms/core2_64/dbus-dbg-1.12.16-r0.core2_64.rpm
+Wrote: /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/deploy-rpms/core2_64/dbus-src-1.12.16-r0.core2_64.rpm
+Finished binary package job, result 0, filename /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/deploy-rpms/core2_64/dbus-src-1.12.16-r0.core2_64.rpm
+DEBUG: Shell function BUILDSPEC finished
+DEBUG: Python function do_package_rpm finished
+DEBUG: Python function do_package_write_rpm finished
+DEBUG: Executing python function sstate_task_postfunc
+NOTE: Using umask 0o002 (not 22) for sstate packaging
+DEBUG: Preparing tree /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/deploy-rpms for packaging at /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/sstate-build-package_write_rpm/deploy-rpms
+DEBUG: Executing python function sstate_hardcode_path
+NOTE: Removing hardcoded paths from sstate package: 'find /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/sstate-build-package_write_rpm/ \( -name "*.la" -o -name "*-config" -o -name "*_config" -o -name "postinst-*" \) -type f | xargs grep -l -e '/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot' -e '/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot-native' -e '/home/hhpartners/yocto/build/tmp/hosttools' -e '/home/hhpartners/yocto/build/tmp/sysroots-components/x86_64/pseudo-native' -e '/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/pseudo/' -e '/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/temp/fifo.2381' | tee /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/sstate-build-package_write_rpm/fixmepath | xargs --no-run-if-empty sed -i -e 's:/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot-native:FIXMESTAGINGDIRHOST:g' -e 's:/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot:FIXMESTAGINGDIRTARGET:g' -e 's:/home/hhpartners/yocto/build/tmp/hosttools:FIXME_HOSTTOOLS_DIR:g' -e 's:/home/hhpartners/yocto/build/tmp/sysroots-components/x86_64/pseudo-native:FIXME_PSEUDO_SYSROOT:g' -e 's:/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/pseudo/:FIXME_PSEUDO_LOCALSTATEDIR:g' -e 's:/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/temp/fifo.2381:FIXME_LOGFIFO:g''
+DEBUG: Python function sstate_hardcode_path finished
+DEBUG: Executing python function sstate_report_unihash
+DEBUG: Reported task eff95274f4765c1d0676983dbc426eb513028f9d46243a1dda2961aab7678abc as unihash eff95274f4765c1d0676983dbc426eb513028f9d46243a1dda2961aab7678abc to unix:///home/hhpartners/yocto/build/hashserve.sock
+DEBUG: Python function sstate_report_unihash finished
+DEBUG: Executing shell function sstate_create_package
+DEBUG: Shell function sstate_create_package finished
+DEBUG: Executing python function sstate_hardcode_path_unpack
+DEBUG: Python function sstate_hardcode_path_unpack finished
+DEBUG: Executing python function uninative_changeinterp
+DEBUG: Python function uninative_changeinterp finished
+DEBUG: Staging files from /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/deploy-rpms to /home/hhpartners/yocto/build/tmp/deploy/rpm
+DEBUG: Python function sstate_task_postfunc finished

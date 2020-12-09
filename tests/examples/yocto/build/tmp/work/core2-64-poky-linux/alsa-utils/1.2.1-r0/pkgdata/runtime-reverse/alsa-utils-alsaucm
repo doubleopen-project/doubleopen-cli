@@ -1,0 +1,16 @@
+PN: alsa-utils
+PV: 1.2.1
+PR: r0
+PKGV: 1.2.1
+PKGR: r0
+LICENSE: GPLv2+
+DESCRIPTION: ALSA sound utilities.
+SUMMARY_alsa-utils-alsaucm: ALSA Use Case Manager
+RDEPENDS_alsa-utils-alsaucm: alsa-lib (>= 1.2.1.2) glibc (>= 2.31+git0+6fdf971c9d)
+SECTION: console/utils
+PKG_alsa-utils-alsaucm: alsa-utils-alsaucm
+FILES_alsa-utils-alsaucm: /usr/bin/alsaucm */udev/rules.d/89-alsa-ucm.rules */*/udev/rules.d/89-alsa-ucm.rules
+FILES_INFO: {"/lib/udev/rules.d/89-alsa-ucm.rules": 256, "/usr/bin/alsaucm": 18840}
+FILERDEPENDSFLIST_alsa-utils-alsaucm: /usr/bin/alsaucm
+FILERDEPENDS_/usr/bin/alsaucm_alsa-utils-alsaucm:  libpthread.so.0(GLIBC_2.2.5)(64bit) libasound.so.2(ALSA_0.9)(64bit) libc.so.6(GLIBC_2.4)(64bit) libc.so.6(GLIBC_2.2.5)(64bit) libc.so.6(GLIBC_2.3.4)(64bit) libasound.so.2()(64bit) libpthread.so.0()(64bit) libc.so.6()(64bit) rtld(GNU_HASH)
+PKGSIZE_alsa-utils-alsaucm: 19096

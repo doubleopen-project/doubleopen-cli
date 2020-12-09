@@ -1,0 +1,15 @@
+PN: shadow
+PV: 4.8.1
+PR: r0
+PKGV: 4.8.1
+PKGR: r0
+LICENSE: BSD | Artistic-1.0
+DESCRIPTION_shadow-locale-ja: Tools to change and administer password and group data.  This package contains language translation files for the ja locale.
+SUMMARY_shadow-locale-ja: Tools to change and administer password and group data - ja translations
+RPROVIDES_shadow-locale-ja: shadow-locale ja-translation
+RRECOMMENDS_shadow-locale-ja: virtual-locale-ja
+SECTION: base/utils
+PKG_shadow-locale-ja: shadow-locale-ja
+FILES_shadow-locale-ja: /usr/share/locale/ja
+FILES_INFO: {"/usr/share/locale/ja/LC_MESSAGES/shadow.mo": 71948}
+PKGSIZE_shadow-locale-ja: 71948

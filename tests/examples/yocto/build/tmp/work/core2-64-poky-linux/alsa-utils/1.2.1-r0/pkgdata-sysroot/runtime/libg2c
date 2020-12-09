@@ -1,0 +1,13 @@
+PN: gcc-runtime
+PV: 9.3.0
+PR: r0
+PKGV: 9.3.0
+PKGR: r0
+LICENSE: GPL-3.0-with-GCC-exception
+DESCRIPTION: Runtime libraries from GCC.
+SUMMARY_libg2c: Companion runtime library for g77
+SECTION: devel
+PKG_libg2c: libg2c
+FILES_libg2c: /usr/lib/libg2c.so.*
+FILES_INFO: {}
+PKGSIZE_libg2c: 0

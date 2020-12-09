@@ -1,0 +1,13 @@
+recipe-sysroot-native/sysroot-providers/mpfr-native
+recipe-sysroot-native/usr/include/mpfr.h
+recipe-sysroot-native/usr/include/mpf2mpfr.h
+recipe-sysroot-native/usr/lib/libmpfr.so.6
+recipe-sysroot-native/usr/lib/libmpfr.so
+recipe-sysroot-native/usr/lib/libmpfr.so.6.0.2
+recipe-sysroot-native/usr/lib/pkgconfig/mpfr.pc
+recipe-sysroot-native/usr/lib/pkgconfig/
+recipe-sysroot-native/sysroot-providers/
+recipe-sysroot-native/usr/include/
+recipe-sysroot-native/usr/share/
+recipe-sysroot-native/usr/lib/
+recipe-sysroot-native/usr/

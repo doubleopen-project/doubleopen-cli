@@ -1,0 +1,16 @@
+PN: libsamplerate0
+PV: 0.1.9
+PR: r1
+PKGV: 0.1.9
+PKGR: r1
+LICENSE: BSD-2-Clause
+DESCRIPTION_libsamplerate0-dev: Audio Sample Rate Conversion library.  This package contains symbolic links, header files, and related items necessary for software development.
+SUMMARY_libsamplerate0-dev: Audio Sample Rate Conversion library - Development files
+RDEPENDS_libsamplerate0-dev: libsamplerate0 (= 0.1.9-r1)
+RRECOMMENDS_libsamplerate0-dev: libsndfile1-dev glibc-dev
+SECTION_libsamplerate0-dev: devel
+PKG_libsamplerate0-dev: libsamplerate0-dev
+ALLOW_EMPTY_libsamplerate0-dev: 1
+FILES_libsamplerate0-dev: /usr/include /lib/lib*.so /usr/lib/lib*.so /usr/lib/*.la                 /usr/lib/*.o /usr/lib/pkgconfig /usr/share/pkgconfig                 /usr/share/aclocal /lib/*.o                 /usr/lib/libsamplerate0/*.la /lib/*.la                 /usr/lib/cmake /usr/share/cmake
+FILES_INFO: {"/usr/include/samplerate.h": 4754, "/usr/lib/libsamplerate.so": 22, "/usr/lib/pkgconfig/samplerate.pc": 222}
+PKGSIZE_libsamplerate0-dev: 4998

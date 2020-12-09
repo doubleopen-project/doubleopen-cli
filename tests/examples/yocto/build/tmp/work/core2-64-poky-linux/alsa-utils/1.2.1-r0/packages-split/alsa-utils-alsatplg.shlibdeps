@@ -1,0 +1,3 @@
+alsa-lib (>= 1.2.1.2)
+glibc (>= 2.31+git0+6fdf971c9d)
+libatopology (>= 1.2.1.2)

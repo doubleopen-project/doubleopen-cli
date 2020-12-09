@@ -1,0 +1,14 @@
+recipe-sysroot-native/sysroot-providers/zlib-native
+recipe-sysroot-native/usr/include/zlib.h
+recipe-sysroot-native/usr/include/zconf.h
+recipe-sysroot-native/usr/lib/libz.so.1
+recipe-sysroot-native/usr/lib/libz.so.1.2.11
+recipe-sysroot-native/usr/lib/libz.so
+recipe-sysroot-native/usr/lib/libz.a
+recipe-sysroot-native/usr/lib/pkgconfig/zlib.pc
+recipe-sysroot-native/usr/lib/pkgconfig/
+recipe-sysroot-native/sysroot-providers/
+recipe-sysroot-native/usr/include/
+recipe-sysroot-native/usr/share/
+recipe-sysroot-native/usr/lib/
+recipe-sysroot-native/usr/

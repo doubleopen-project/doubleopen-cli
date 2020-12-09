@@ -1,0 +1,13 @@
+prefix=${pcfiledir}/../../../usr
+exec_prefix=${pcfiledir}/../../../usr
+libdir=${pcfiledir}/../../../usr/lib
+includedir=${pcfiledir}/../../../usr/include
+targets=x11
+
+Name: GDK
+Description: GTK+ Drawing Kit
+Version: 3.24.14
+Requires: pango pangocairo gdk-pixbuf-2.0 >= 2.30.0 cairo >= 1.14.0 cairo-gobject >= 1.14.0
+Requires.private: gio-unix-2.0 >= 2.57.2 fontconfig x11 xext xi xrandr xcursor xfixes xcomposite xdamage   cairo-xlib    fribidi >= 0.19.7
+Libs: -L${libdir} -lgdk-3 
+Cflags: -I${includedir}/gtk-3.0 

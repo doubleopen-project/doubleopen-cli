@@ -1,0 +1,15 @@
+PN: shadow
+PV: 4.8.1
+PR: r0
+PKGV: 4.8.1
+PKGR: r0
+LICENSE: BSD | Artistic-1.0
+DESCRIPTION_shadow-locale-dz: Tools to change and administer password and group data.  This package contains language translation files for the dz locale.
+SUMMARY_shadow-locale-dz: Tools to change and administer password and group data - dz translations
+RPROVIDES_shadow-locale-dz: shadow-locale dz-translation
+RRECOMMENDS_shadow-locale-dz: virtual-locale-dz
+SECTION: base/utils
+PKG_shadow-locale-dz: shadow-locale-dz
+FILES_shadow-locale-dz: /usr/share/locale/dz
+FILES_INFO: {"/usr/share/locale/dz/LC_MESSAGES/shadow.mo": 33102}
+PKGSIZE_shadow-locale-dz: 33102

@@ -1,0 +1,60 @@
+OEOuthashBasic
+1
+SSTATE_PKGSPEC=sstate:bison:core2-64-poky-linux:3.5.3:r0:core2-64:3:
+task=package_write_rpm
+drwxrwxr-x       root       root                                                                                       .
+drwxr-xr-x       root       root                                                                                       ./deploy-rpms
+drwxr-xr-x       root       root                                                                                       ./deploy-rpms/core2_64
+-rw-r--r--       root       root               300848 2316906a53d07a2bd8f58f65ee61acac70d6f5b43e5685891b72f7808642ae61 ./deploy-rpms/core2_64/bison-3.5.3-r0.core2_64.rpm
+-rw-r--r--       root       root               518672 043d3cc7c7c8016e5697a9a79bd0bc017989c5d5ac284fa0951168b3d12b2e96 ./deploy-rpms/core2_64/bison-dbg-3.5.3-r0.core2_64.rpm
+-rw-r--r--       root       root                 8052 f1403b3ccb3e959dccf4cf4ce07907da04c5e2b76da16b53d12be85a0983d7f7 ./deploy-rpms/core2_64/bison-dev-3.5.3-r0.core2_64.rpm
+-rw-r--r--       root       root               211352 80db92798194ce04fd8c4fd8138fc8a5722586127375c95a8dc0ef973a9a7e17 ./deploy-rpms/core2_64/bison-doc-3.5.3-r0.core2_64.rpm
+-rw-r--r--       root       root                 7752 eeaf78122345c16bd29188308277307e6c4340f8187aa346c0df22afa47e0606 ./deploy-rpms/core2_64/bison-locale-af-3.5.3-r0.core2_64.rpm
+-rw-r--r--       root       root                 7824 5571b657643bd223aa6dc0e670b409074c003baefddb4a0e688cad791f2e5994 ./deploy-rpms/core2_64/bison-locale-ast-3.5.3-r0.core2_64.rpm
+-rw-r--r--       root       root                 7896 f58f43637339c1d6e2c2ad8959124b0d6d1517f65a34a8d0388960db21878869 ./deploy-rpms/core2_64/bison-locale-be-3.5.3-r0.core2_64.rpm
+-rw-r--r--       root       root                17848 8814acfccb89c40bc7b4b33ba8b9a8e99dc81054d73c902c0927e31d87bc0640 ./deploy-rpms/core2_64/bison-locale-bg-3.5.3-r0.core2_64.rpm
+-rw-r--r--       root       root                12472 b30c0f6fa17761eecc7d4511c0366848ae3b6f31c7723309a3f32da4cc7674b6 ./deploy-rpms/core2_64/bison-locale-ca-3.5.3-r0.core2_64.rpm
+-rw-r--r--       root       root                 8128 d9c05716d66c07cfefb771b6da2a023387def2f261e984fb1683f6b49f0d445b ./deploy-rpms/core2_64/bison-locale-cs-3.5.3-r0.core2_64.rpm
+-rw-r--r--       root       root                13108 f8455426fe144d3eb15ec79b4187fa17e0c50b7cab6cc2c4653d74a5feeb7dec ./deploy-rpms/core2_64/bison-locale-da-3.5.3-r0.core2_64.rpm
+-rw-r--r--       root       root                16796 686b79f80a5ac5fe8b9da3a9051c125122cde9cc25d36c3a908db8a16cf63b5e ./deploy-rpms/core2_64/bison-locale-de-3.5.3-r0.core2_64.rpm
+-rw-r--r--       root       root                13524 96ef5dcb29f0bf1216bd911ef50ced9e16423b4bde852a7051867bf8ddfb085a ./deploy-rpms/core2_64/bison-locale-el-3.5.3-r0.core2_64.rpm
+-rw-r--r--       root       root                16380 7f5fb69582e823438884d284313659c6b3075afc1705b8154baa7f9abcd38b25 ./deploy-rpms/core2_64/bison-locale-eo-3.5.3-r0.core2_64.rpm
+-rw-r--r--       root       root                12748 919cd7e82b47a988130e1d53762482695fc5fba93c717bff31a9c9c3e59757e5 ./deploy-rpms/core2_64/bison-locale-es-3.5.3-r0.core2_64.rpm
+-rw-r--r--       root       root                15936 e60e74c6834abd11d5d9265c53b9288f70f36b2dc7abb58594edb2712200931c ./deploy-rpms/core2_64/bison-locale-et-3.5.3-r0.core2_64.rpm
+-rw-r--r--       root       root                 7812 4ddb643d06d3a035120abb1a3c1e25977294885fa1391a2a41136f0f7381912a ./deploy-rpms/core2_64/bison-locale-eu-3.5.3-r0.core2_64.rpm
+-rw-r--r--       root       root                13484 7ce8ca72e8e91a4edc000fdf94fbaccece00b1fec06f79b9fc547361921552ca ./deploy-rpms/core2_64/bison-locale-fi-3.5.3-r0.core2_64.rpm
+-rw-r--r--       root       root                16832 cb68c44d21954e4d37cd2f80cfd031f42688e628c30fc502e9ef228985570f14 ./deploy-rpms/core2_64/bison-locale-fr-3.5.3-r0.core2_64.rpm
+-rw-r--r--       root       root                12860 0421b6f135acefd68561f97c14804a24b255bcf1e76967eab4f71df133b0155c ./deploy-rpms/core2_64/bison-locale-ga-3.5.3-r0.core2_64.rpm
+-rw-r--r--       root       root                 8420 9c05db43024459faad142a9f9ac31d5892916ec83c292e29be580931b1290617 ./deploy-rpms/core2_64/bison-locale-gl-3.5.3-r0.core2_64.rpm
+-rw-r--r--       root       root                11860 b9dafc0911f75dcd2bbf74f79adf515f1e13914afb4ababc7e2ac1a33a8553a4 ./deploy-rpms/core2_64/bison-locale-hr-3.5.3-r0.core2_64.rpm
+-rw-r--r--       root       root                 8588 96121cc916ea8242986295a93345b6daf942edd08bac189540463f7577bfc946 ./deploy-rpms/core2_64/bison-locale-hu-3.5.3-r0.core2_64.rpm
+-rw-r--r--       root       root                 7768 b4e2bac92909fd0653f8a0d25d43fa37bcfb53a4a7c01783a0f31f841be45dcc ./deploy-rpms/core2_64/bison-locale-ia-3.5.3-r0.core2_64.rpm
+-rw-r--r--       root       root                10176 80f5ed138882a6429d01f3344c0d038ceb41edf3394b5527256cb42a80435446 ./deploy-rpms/core2_64/bison-locale-id-3.5.3-r0.core2_64.rpm
+-rw-r--r--       root       root                10812 acb72abd1df8d87f3d2595b4f472e160ebd88af65f453e94c3b58e202005d52c ./deploy-rpms/core2_64/bison-locale-it-3.5.3-r0.core2_64.rpm
+-rw-r--r--       root       root                16628 0f663892da35f9626e4bc6d109cef7faa9e13cebec741db34cc5d2fcebc57504 ./deploy-rpms/core2_64/bison-locale-ja-3.5.3-r0.core2_64.rpm
+-rw-r--r--       root       root                 7896 209107ec3c17b40525c1eb5a8d33430b30204e2f2e724baad4ea0f9d5f08572e ./deploy-rpms/core2_64/bison-locale-ko-3.5.3-r0.core2_64.rpm
+-rw-r--r--       root       root                 7880 7601b8c03e6f279e1df9fef4603a3772dc32bdf1a236206660a715cdc511aad9 ./deploy-rpms/core2_64/bison-locale-ky-3.5.3-r0.core2_64.rpm
+-rw-r--r--       root       root                 7856 4df9fe03cc156797d3c52ff63f846135127f6751f4f89a9bcaf8fde0a18ad00d ./deploy-rpms/core2_64/bison-locale-lt-3.5.3-r0.core2_64.rpm
+-rw-r--r--       root       root                 7868 7b0caa43ae411754db21a6ffa7da5cdad8fa82048dee4a68ac69c5ebb20ba3cc ./deploy-rpms/core2_64/bison-locale-lv-3.5.3-r0.core2_64.rpm
+-rw-r--r--       root       root                12160 df90247467f322e3e19cd8b396bdcfb71e9b7258fc25465f335a2dd21be45bd0 ./deploy-rpms/core2_64/bison-locale-ms-3.5.3-r0.core2_64.rpm
+-rw-r--r--       root       root                10052 0b97c7486042fa6f577475a89976ff6442c034584cb9e616b670357e953b7e57 ./deploy-rpms/core2_64/bison-locale-nb-3.5.3-r0.core2_64.rpm
+-rw-r--r--       root       root                13752 0dc7803d57256e56e0cf3c1f6b9ab3f26d86fbf843623a073005ac99603c1d95 ./deploy-rpms/core2_64/bison-locale-nl-3.5.3-r0.core2_64.rpm
+-rw-r--r--       root       root                13512 dd4c64f810952723444c99f0ef3f5ba963132a3c107db3e01405c71e78ab13f4 ./deploy-rpms/core2_64/bison-locale-pl-3.5.3-r0.core2_64.rpm
+-rw-r--r--       root       root                15660 9767b553ebc58f8220dc6f16cdbaf3c8d22e1da53e28f3f6725672b88f869ff6 ./deploy-rpms/core2_64/bison-locale-pt-3.5.3-r0.core2_64.rpm
+-rw-r--r--       root       root                16672 0d4b5b67d3ef664f43ed0250a2cbb2c0660d80f1552eafa666fc87ab4ff40306 ./deploy-rpms/core2_64/bison-locale-pt-br-3.5.3-r0.core2_64.rpm
+-rw-r--r--       root       root                 9896 836a3054f8df451b6a47e557435aea10bb57aefdbce917ba0715214b191e6919 ./deploy-rpms/core2_64/bison-locale-ro-3.5.3-r0.core2_64.rpm
+-rw-r--r--       root       root                12056 fd16f5b5af1d1868ca50b9c1aec43ca9af78e78dcc9a5c91aa4c2ef097455177 ./deploy-rpms/core2_64/bison-locale-ru-3.5.3-r0.core2_64.rpm
+-rw-r--r--       root       root                 7596 5aa8b29aec3f95e857fd0fc7caec9123f3d189522090e2dd104fe19a0914a5f7 ./deploy-rpms/core2_64/bison-locale-rw-3.5.3-r0.core2_64.rpm
+-rw-r--r--       root       root                 7812 121c0748bd516945efab531dfafd55b4c371ce6d4b045d3a6039ff82394a5fc8 ./deploy-rpms/core2_64/bison-locale-sk-3.5.3-r0.core2_64.rpm
+-rw-r--r--       root       root                 8512 fd0569f9a2fcceb59c0000cd8b0fc6eaa8b913958f5d39cd18e031af497d5984 ./deploy-rpms/core2_64/bison-locale-sl-3.5.3-r0.core2_64.rpm
+-rw-r--r--       root       root                 7812 5c50452a87f43716ecc0c20c829d22ba64a14a77233b2396d443d7971ee1b623 ./deploy-rpms/core2_64/bison-locale-sq-3.5.3-r0.core2_64.rpm
+-rw-r--r--       root       root                13356 7e705044e2b4197a06a182855664cb0625d44c3efa3b71da13fd1fcd0686a7e0 ./deploy-rpms/core2_64/bison-locale-sr-3.5.3-r0.core2_64.rpm
+-rw-r--r--       root       root                16428 63d54e7de7e212d7cca438e0a1f1ced7a3aa825db97b895cd888ec78a3ec30a3 ./deploy-rpms/core2_64/bison-locale-sv-3.5.3-r0.core2_64.rpm
+-rw-r--r--       root       root                 7944 04f7ff6f75f9cd33d7f98c21dea9f1f041bdae730318f9645767e83de592e070 ./deploy-rpms/core2_64/bison-locale-th-3.5.3-r0.core2_64.rpm
+-rw-r--r--       root       root                12808 73172865f7ffe9fc2757bce80054bd6bc638e6b94a07a2a35377b03136c61859 ./deploy-rpms/core2_64/bison-locale-tr-3.5.3-r0.core2_64.rpm
+-rw-r--r--       root       root                18108 41fcc6178030ddbb4497d224aa05ac1d856c6e43de98adef816c86f7ff4003b3 ./deploy-rpms/core2_64/bison-locale-uk-3.5.3-r0.core2_64.rpm
+-rw-r--r--       root       root                13428 df9e6c0f54cb4aade717e6d182b5a24b2b662e2b79f6d256314ccf1738a05afc ./deploy-rpms/core2_64/bison-locale-vi-3.5.3-r0.core2_64.rpm
+-rw-r--r--       root       root                12876 ccc07cd433bd3e63f7bae1d823e2331bf9db90ab02c7a15681b02579f5eeb5d0 ./deploy-rpms/core2_64/bison-locale-zh-cn-3.5.3-r0.core2_64.rpm
+-rw-r--r--       root       root                16556 f98f2fb41d44b433016da0726e3968935fcb82248556bcd3305d3d41703ebdd2 ./deploy-rpms/core2_64/bison-locale-zh-tw-3.5.3-r0.core2_64.rpm
+-rw-r--r--       root       root               335436 61a4f9752acd49350cfde31ecc6baf900a2ad8e66adfdf75837beddd99a2a127 ./deploy-rpms/core2_64/bison-src-3.5.3-r0.core2_64.rpm
+-rw-r--r--       root       root                10020 6b13227f7155f09c99f1e8d8e88c06d1405fdb80807475325addc789ba8de0e2 ./deploy-rpms/core2_64/bison-staticdev-3.5.3-r0.core2_64.rpm

@@ -1,0 +1,15 @@
+PN: libice
+PE: 1
+PV: 1.0.10
+PR: r0
+PKGE: 1
+PKGV: 1.0.10
+PKGR: r0
+LICENSE: MIT-style
+DESCRIPTION: The Inter-Client Exchange (ICE) protocol provides a generic framework for building protocols on top of reliable, byte-stream transport connections. It provides basic mechanisms for setting up and shutting down connections, for performing authentication, for negotiating versions, and for reporting errors. 
+SUMMARY: ICE: Inter-Client Exchange library
+SECTION: x11/libs
+PKG_libice-locale: libice-locale
+FILES_libice-locale: /usr/share/locale
+FILES_INFO: {}
+PKGSIZE_libice-locale: 0

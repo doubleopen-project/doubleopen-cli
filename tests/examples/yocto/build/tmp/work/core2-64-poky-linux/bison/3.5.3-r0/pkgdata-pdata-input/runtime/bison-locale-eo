@@ -1,0 +1,15 @@
+PN: bison
+PV: 3.5.3
+PR: r0
+PKGV: 3.5.3
+PKGR: r0
+LICENSE: GPLv3
+DESCRIPTION_bison-locale-eo: Bison is a general-purpose parser generator that converts an annotated context-free grammar into an LALR(1) or GLR parser for that grammar.  Bison is upward compatible with Yacc: all properly-written Yacc grammars ought to work with Bison with no change. Anyone familiar with Yacc should be able to use Bison with little trouble.  This package contains language translation files for the eo locale.
+SUMMARY_bison-locale-eo: GNU Project parser generator (yacc replacement) - eo translations
+RPROVIDES_bison-locale-eo: bison-locale eo-translation
+RRECOMMENDS_bison-locale-eo: virtual-locale-eo
+SECTION: devel
+PKG_bison-locale-eo: bison-locale-eo
+FILES_bison-locale-eo: /usr/share/locale/eo
+FILES_INFO: {"/usr/share/locale/eo/LC_MESSAGES/bison-gnulib.mo": 3455, "/usr/share/locale/eo/LC_MESSAGES/bison-runtime.mo": 1371, "/usr/share/locale/eo/LC_MESSAGES/bison.mo": 24540}
+PKGSIZE_bison-locale-eo: 29366

@@ -1,0 +1,13 @@
+PN: libvorbis
+PV: 1.3.6
+PR: r0
+PKGV: 1.3.6
+PKGR: r0
+LICENSE: BSD-3-Clause
+DESCRIPTION: Ogg Vorbis is a high-quality lossy audio codec that is free of intellectual property restrictions. libvorbis is the main vorbis codec library.
+SUMMARY: Ogg Vorbis Audio Codec
+SECTION: libs
+PKG_libvorbis-locale: libvorbis-locale
+FILES_libvorbis-locale: /usr/share/locale
+FILES_INFO: {}
+PKGSIZE_libvorbis-locale: 0

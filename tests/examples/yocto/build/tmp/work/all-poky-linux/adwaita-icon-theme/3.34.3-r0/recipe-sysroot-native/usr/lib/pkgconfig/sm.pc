@@ -1,0 +1,12 @@
+prefix=${pcfiledir}/../../../usr
+exec_prefix=${pcfiledir}/../../../usr
+libdir=${pcfiledir}/../../../usr/lib
+includedir=${pcfiledir}/../../../usr/include
+
+Name: SM
+Description: X Session Management Library
+Version: 1.2.3
+Requires:
+Requires.private: ice xproto
+Cflags: -I${includedir}
+Libs: -L${libdir} -lSM

@@ -1,0 +1,17 @@
+PN: xtrans
+PE: 1
+PV: 1.4.0
+PR: r0
+PKGE: 1
+PKGV: 1.4.0
+PKGR: r0
+LICENSE: MIT & MIT-style
+DESCRIPTION_xtrans-dev: The X Transport Interface is intended to combine all system and transport specific code into a single place.  This API should be used by all libraries, clients and servers of the X Window System. Use of this API should allow the addition of new types of transports and support for new platforms without making any changes to the source except in the X Transport Interface code.  This package contains symbolic links, header files, and related items necessary for software development.
+SUMMARY_xtrans-dev: XTrans: X Transport library - Development files
+RRECOMMENDS_xtrans-dev: util-macros-dev
+SECTION_xtrans-dev: devel
+PKG_xtrans-dev: xtrans-dev
+ALLOW_EMPTY_xtrans-dev: 1
+FILES_xtrans-dev: /usr/include /lib/lib*.so /usr/lib/lib*.so /usr/lib/*.la                 /usr/lib/*.o /usr/lib/pkgconfig /usr/share/pkgconfig                 /usr/share/aclocal /lib/*.o                 /usr/lib/xtrans/*.la /lib/*.la                 /usr/lib/cmake /usr/share/cmake
+FILES_INFO: {"/usr/include/X11/Xtrans/Xtrans.c": 29462, "/usr/include/X11/Xtrans/Xtrans.h": 8785, "/usr/include/X11/Xtrans/Xtransint.h": 10158, "/usr/include/X11/Xtrans/Xtranslcl.c": 55410, "/usr/include/X11/Xtrans/Xtranssock.c": 62655, "/usr/include/X11/Xtrans/Xtransutil.c": 14937, "/usr/include/X11/Xtrans/transport.c": 2876, "/usr/share/aclocal/xtrans.m4": 6537, "/usr/share/pkgconfig/xtrans.pc": 213}
+PKGSIZE_xtrans-dev: 191033

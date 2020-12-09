@@ -1,0 +1,20 @@
+PN: libxcb
+PV: 1.13.1
+PR: r0
+PKGV: 1.13.1
+PKGR: r0
+LICENSE: MIT
+DESCRIPTION_libxcb-xfixes: XCB library module for xfixes
+SUMMARY_libxcb-xfixes: XCB library module for xfixes
+RDEPENDS_libxcb-xfixes: libxcb (>= 1.13.1) glibc (>= 2.31+git0+6fdf971c9d) libxau (>= 1.0.9) libxdmcp (>= 1.1.3)
+RPROVIDES_libxcb-xfixes:  libxcb-xfixes (=1.13.1)
+SECTION: x11/libs
+PKG_libxcb-xfixes: libxcb-xfixes0
+FILES_libxcb-xfixes: /usr/lib/libxcb-xfixes.so.0 /usr/lib/libxcb-xfixes.so.0.0.0
+FILES_INFO: {"/usr/lib/libxcb-xfixes.so.0": 22, "/usr/lib/libxcb-xfixes.so.0.0.0": 34728}
+pkg_postinst_libxcb-xfixes: #!/bin/sh\nset -e\nif [ x"$D" = "x" ]; then\n\tif [ -x /sbin/ldconfig ]; then /sbin/ldconfig ; fi\nfi\n
+FILERPROVIDESFLIST_libxcb-xfixes: /usr/lib/libxcb-xfixes.so.0.0.0
+FILERPROVIDES_/usr/lib/libxcb-xfixes.so.0.0.0_libxcb-xfixes:  libxcb-xfixes.so.0()(64bit)
+FILERDEPENDSFLIST_libxcb-xfixes: /usr/lib/libxcb-xfixes.so.0.0.0
+FILERDEPENDS_/usr/lib/libxcb-xfixes.so.0.0.0_libxcb-xfixes:  libc.so.6(GLIBC_2.2.5)(64bit) libc.so.6(GLIBC_2.4)(64bit) libxcb.so.1()(64bit) libXau.so.6()(64bit) libXdmcp.so.6()(64bit) libc.so.6()(64bit) rtld(GNU_HASH)
+PKGSIZE_libxcb-xfixes: 34750

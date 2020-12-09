@@ -1,0 +1,15 @@
+recipe-sysroot/sysroot-providers/libcap-ng
+recipe-sysroot/usr/share/aclocal/cap-ng.m4
+recipe-sysroot/usr/include/cap-ng.h
+recipe-sysroot/usr/lib/libcap-ng.so
+recipe-sysroot/usr/lib/pkgconfig/libcap-ng.pc
+recipe-sysroot/lib/libcap-ng.so.0
+recipe-sysroot/lib/libcap-ng.so.0.0.0
+recipe-sysroot/usr/lib/pkgconfig/
+recipe-sysroot/usr/share/aclocal/
+recipe-sysroot/sysroot-providers/
+recipe-sysroot/usr/include/
+recipe-sysroot/usr/share/
+recipe-sysroot/usr/lib/
+recipe-sysroot/lib/
+recipe-sysroot/usr/

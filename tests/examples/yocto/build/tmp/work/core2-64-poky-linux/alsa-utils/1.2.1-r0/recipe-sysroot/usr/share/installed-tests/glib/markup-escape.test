@@ -1,0 +1,4 @@
+[Test]
+Type=session
+Exec=/usr/libexec/installed-tests/glib/markup-escape
+Output=TAP

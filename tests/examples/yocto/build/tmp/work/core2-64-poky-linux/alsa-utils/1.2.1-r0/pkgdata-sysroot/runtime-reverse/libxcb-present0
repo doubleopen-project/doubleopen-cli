@@ -1,0 +1,20 @@
+PN: libxcb
+PV: 1.13.1
+PR: r0
+PKGV: 1.13.1
+PKGR: r0
+LICENSE: MIT
+DESCRIPTION_libxcb-present: XCB library module for present
+SUMMARY_libxcb-present: XCB library module for present
+RDEPENDS_libxcb-present: libxcb (>= 1.13.1) glibc (>= 2.31+git0+6fdf971c9d) libxau (>= 1.0.9) libxdmcp (>= 1.1.3)
+RPROVIDES_libxcb-present:  libxcb-present (=1.13.1)
+SECTION: x11/libs
+PKG_libxcb-present: libxcb-present0
+FILES_libxcb-present: /usr/lib/libxcb-present.so.0 /usr/lib/libxcb-present.so.0.0.0
+FILES_INFO: {"/usr/lib/libxcb-present.so.0": 23, "/usr/lib/libxcb-present.so.0.0.0": 14248}
+pkg_postinst_libxcb-present: #!/bin/sh\nset -e\nif [ x"$D" = "x" ]; then\n\tif [ -x /sbin/ldconfig ]; then /sbin/ldconfig ; fi\nfi\n
+FILERPROVIDESFLIST_libxcb-present: /usr/lib/libxcb-present.so.0.0.0
+FILERPROVIDES_/usr/lib/libxcb-present.so.0.0.0_libxcb-present:  libxcb-present.so.0()(64bit)
+FILERDEPENDSFLIST_libxcb-present: /usr/lib/libxcb-present.so.0.0.0
+FILERDEPENDS_/usr/lib/libxcb-present.so.0.0.0_libxcb-present:  libc.so.6(GLIBC_2.2.5)(64bit) libc.so.6(GLIBC_2.4)(64bit) libxcb.so.1()(64bit) libXau.so.6()(64bit) libXdmcp.so.6()(64bit) libc.so.6()(64bit) rtld(GNU_HASH)
+PKGSIZE_libxcb-present: 14271

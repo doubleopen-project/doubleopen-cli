@@ -1,0 +1,20 @@
+PN: ncurses
+PV: 6.2
+PR: r0
+PKGV: 6.2
+PKGR: r0
+LICENSE: MIT
+DESCRIPTION_ncurses-libform: ncurses form library
+SUMMARY_ncurses-libform: ncurses form library
+RDEPENDS_ncurses-libform: glibc (>= 2.31+git0+6fdf971c9d) ncurses-libncurses (>= 6.2) ncurses-libtinfo (>= 6.2)
+RPROVIDES_ncurses-libform:  ncurses-libform (=6.2)
+SECTION: libs
+PKG_ncurses-libform: libform5
+FILES_ncurses-libform: /usr/lib/libform.so.5 /usr/lib/libform.so.5.9
+FILES_INFO: {"/usr/lib/libform.so.5": 14, "/usr/lib/libform.so.5.9": 64600}
+pkg_postinst_ncurses-libform: #!/bin/sh\nset -e\nif [ x"$D" = "x" ]; then\n\tif [ -x /sbin/ldconfig ]; then /sbin/ldconfig ; fi\nfi\n
+FILERPROVIDESFLIST_ncurses-libform: /usr/lib/libform.so.5.9
+FILERPROVIDES_/usr/lib/libform.so.5.9_ncurses-libform:  libform.so.5()(64bit)
+FILERDEPENDSFLIST_ncurses-libform: /usr/lib/libform.so.5.9
+FILERDEPENDS_/usr/lib/libform.so.5.9_ncurses-libform:  libc.so.6(GLIBC_2.7)(64bit) libc.so.6(GLIBC_2.3.4)(64bit) libc.so.6(GLIBC_2.4)(64bit) libc.so.6(GLIBC_2.2.5)(64bit) libc.so.6(GLIBC_2.3)(64bit) libncurses.so.5()(64bit) libtinfo.so.5()(64bit) libc.so.6()(64bit) rtld(GNU_HASH)
+PKGSIZE_ncurses-libform: 64614

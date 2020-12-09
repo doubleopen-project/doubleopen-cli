@@ -1,0 +1,13 @@
+PN: libcap-ng
+PV: 0.7.10
+PR: r0
+PKGV: 0.7.10
+PKGR: r0
+LICENSE: GPLv2+ & LGPLv2.1+
+DESCRIPTION_libcap-ng-src: The libcap-ng library is intended to make programming with POSIX capabilities much easier than the traditional libcap library.  This package contains sources for debugging purposes.
+SUMMARY_libcap-ng-src: An alternate posix capabilities library - Source files
+SECTION_libcap-ng-src: devel
+PKG_libcap-ng-src: libcap-ng-src
+FILES_libcap-ng-src: /usr/src/debug
+FILES_INFO: {"/usr/src/debug/libcap-ng/0.7.10-r0/libcap-ng-0.7.10/src/cap-ng.c": 24446, "/usr/src/debug/libcap-ng/0.7.10-r0/libcap-ng-0.7.10/src/cap-ng.h": 3198, "/usr/src/debug/libcap-ng/0.7.10-r0/libcap-ng-0.7.10/src/captab.h": 2624, "/usr/src/debug/libcap-ng/0.7.10-r0/libcap-ng-0.7.10/src/lookup_table.c": 3509, "/usr/src/debug/libcap-ng/0.7.10-r0/libcap-ng-0.7.10/utils/captest.c": 6971, "/usr/src/debug/libcap-ng/0.7.10-r0/libcap-ng-0.7.10/utils/filecap.c": 5502, "/usr/src/debug/libcap-ng/0.7.10-r0/libcap-ng-0.7.10/utils/netcap.c": 11035, "/usr/src/debug/libcap-ng/0.7.10-r0/libcap-ng-0.7.10/utils/proc-llist.c": 2301, "/usr/src/debug/libcap-ng/0.7.10-r0/libcap-ng-0.7.10/utils/proc-llist.h": 1973, "/usr/src/debug/libcap-ng/0.7.10-r0/libcap-ng-0.7.10/utils/pscap.c": 5215}
+PKGSIZE_libcap-ng-src: 66774

@@ -1,0 +1,13 @@
+PN: libogg
+PV: 1.3.4
+PR: r0
+PKGV: 1.3.4
+PKGR: r0
+LICENSE: BSD-3-Clause
+DESCRIPTION_libogg-src: libogg is the bitstream and framing library for the Ogg project. It provides functions which are necessary to codec libraries like libvorbis.  This package contains sources for debugging purposes.
+SUMMARY_libogg-src: Ogg bitstream and framing libary - Source files
+SECTION_libogg-src: devel
+PKG_libogg-src: libogg-src
+FILES_libogg-src: /usr/src/debug
+FILES_INFO: {"/usr/src/debug/libogg/1.3.4-r0/build/include/ogg/config_types.h": 538, "/usr/src/debug/libogg/1.3.4-r0/libogg-1.3.4/include/ogg/ogg.h": 8373, "/usr/src/debug/libogg/1.3.4-r0/libogg-1.3.4/src/bitwise.c": 30216, "/usr/src/debug/libogg/1.3.4-r0/libogg-1.3.4/src/crctable.h": 23902, "/usr/src/debug/libogg/1.3.4-r0/libogg-1.3.4/src/framing.c": 66300}
+PKGSIZE_libogg-src: 129329

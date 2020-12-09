@@ -1,0 +1,10 @@
+recipe-sysroot-native/sysroot-providers/util-macros-native
+recipe-sysroot-native/usr/share/aclocal/xorg-macros.m4
+recipe-sysroot-native/usr/share/util-macros/INSTALL
+recipe-sysroot-native/usr/share/pkgconfig/xorg-macros.pc
+recipe-sysroot-native/usr/share/util-macros/
+recipe-sysroot-native/usr/share/pkgconfig/
+recipe-sysroot-native/usr/share/aclocal/
+recipe-sysroot-native/sysroot-providers/
+recipe-sysroot-native/usr/share/
+recipe-sysroot-native/usr/

@@ -1,0 +1,7 @@
+OEOuthashBasic
+1
+SSTATE_PKGSPEC=sstate:bison:core2-64-poky-linux:3.5.3:r0:core2-64:3:
+task=deploy_source_date_epoch
+drwxrwxr-x                                                                                       .
+drwxrwxr-x                                                                                       ./deploy-source-date-epoch
+-rw-r--r--                   10 651ee2cd659020e00014557d7c570fcc0094ff94059486053a81b66de9e64276 ./deploy-source-date-epoch/__source_date_epoch.txt

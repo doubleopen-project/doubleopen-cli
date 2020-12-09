@@ -1,0 +1,5 @@
+recipe-sysroot-native/sysroot-providers/ninja-native
+recipe-sysroot-native/usr/bin/ninja
+recipe-sysroot-native/sysroot-providers/
+recipe-sysroot-native/usr/bin/
+recipe-sysroot-native/usr/

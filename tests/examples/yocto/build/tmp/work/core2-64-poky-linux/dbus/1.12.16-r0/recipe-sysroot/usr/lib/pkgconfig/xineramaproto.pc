@@ -1,0 +1,8 @@
+prefix=/usr
+libdir=${prefix}/lib
+includedir=${prefix}/include
+
+Name: xineramaproto
+Description: xineramaproto headers
+Version: 1.2.1
+Cflags: -I${includedir}

@@ -1,0 +1,9 @@
+recipe-sysroot-native/sysroot-providers/gnu-config-native
+recipe-sysroot-native/usr/share/gnu-config/config.guess
+recipe-sysroot-native/usr/share/gnu-config/config.sub
+recipe-sysroot-native/usr/bin/gnu-configize
+recipe-sysroot-native/usr/share/gnu-config/
+recipe-sysroot-native/sysroot-providers/
+recipe-sysroot-native/usr/share/
+recipe-sysroot-native/usr/bin/
+recipe-sysroot-native/usr/

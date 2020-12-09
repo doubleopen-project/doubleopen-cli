@@ -1,0 +1,14 @@
+recipe-sysroot/sysroot-providers/libsndfile1
+recipe-sysroot/usr/include/sndfile.hh
+recipe-sysroot/usr/include/sndfile-64.h
+recipe-sysroot/usr/include/sndfile.h
+recipe-sysroot/usr/lib/libsndfile.so.1.0.28
+recipe-sysroot/usr/lib/libsndfile.so.1
+recipe-sysroot/usr/lib/libsndfile.so
+recipe-sysroot/usr/lib/pkgconfig/sndfile.pc
+recipe-sysroot/usr/lib/pkgconfig/
+recipe-sysroot/sysroot-providers/
+recipe-sysroot/usr/include/
+recipe-sysroot/usr/share/
+recipe-sysroot/usr/lib/
+recipe-sysroot/usr/

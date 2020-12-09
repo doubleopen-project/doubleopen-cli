@@ -1,0 +1,11 @@
+prefix=${pcfiledir}/../../../usr
+exec_prefix=${pcfiledir}/../../../usr
+libdir=${pcfiledir}/../../../usr/lib
+includedir=${pcfiledir}/../../../usr/include
+
+Name: XCB XFree86-DRI
+Description: XCB XFree86-DRI Extension
+Version: 1.13.1
+Requires.private: xcb
+Libs: -L${libdir} -lxcb-xf86dri
+Cflags: -I${includedir}

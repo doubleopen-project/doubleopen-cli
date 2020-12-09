@@ -1,0 +1,13 @@
+PN: xcb-proto
+PV: 1.13
+PR: r0
+PKGV: 1.13
+PKGR: r0
+LICENSE: MIT
+DESCRIPTION_xcb-proto-src: Function prototypes for the X protocol C-language Binding (XCB).  XCB is a replacement for Xlib featuring a small footprint, latency hiding, direct access to the protocol, improved threading support, and extensibility.  This package contains sources for debugging purposes.
+SUMMARY_xcb-proto-src: XCB: The X protocol C binding headers - Source files
+SECTION_xcb-proto-src: devel
+PKG_xcb-proto-src: xcb-proto-src
+FILES_xcb-proto-src: /usr/src/debug
+FILES_INFO: {}
+PKGSIZE_xcb-proto-src: 0

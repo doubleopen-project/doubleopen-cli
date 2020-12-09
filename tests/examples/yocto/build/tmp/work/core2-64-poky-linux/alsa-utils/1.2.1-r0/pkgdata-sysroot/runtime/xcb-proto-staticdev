@@ -1,0 +1,14 @@
+PN: xcb-proto
+PV: 1.13
+PR: r0
+PKGV: 1.13
+PKGR: r0
+LICENSE: MIT
+DESCRIPTION_xcb-proto-staticdev: Function prototypes for the X protocol C-language Binding (XCB).  XCB is a replacement for Xlib featuring a small footprint, latency hiding, direct access to the protocol, improved threading support, and extensibility.  This package contains static libraries for software development.
+SUMMARY_xcb-proto-staticdev: XCB: The X protocol C binding headers - Development files (Static Libraries)
+RDEPENDS_xcb-proto-staticdev: xcb-proto-dev (= 1.13-r0)
+SECTION_xcb-proto-staticdev: devel
+PKG_xcb-proto-staticdev: xcb-proto-staticdev
+FILES_xcb-proto-staticdev: /usr/lib/*.a /lib/*.a /usr/lib/xcb-proto/*.a
+FILES_INFO: {}
+PKGSIZE_xcb-proto-staticdev: 0

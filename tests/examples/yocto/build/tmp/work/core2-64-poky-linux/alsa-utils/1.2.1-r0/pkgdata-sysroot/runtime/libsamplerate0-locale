@@ -1,0 +1,13 @@
+PN: libsamplerate0
+PV: 0.1.9
+PR: r1
+PKGV: 0.1.9
+PKGR: r1
+LICENSE: BSD-2-Clause
+DESCRIPTION: Audio Sample Rate Conversion library.
+SUMMARY: Audio Sample Rate Conversion library
+SECTION: libs
+PKG_libsamplerate0-locale: libsamplerate0-locale
+FILES_libsamplerate0-locale: /usr/share/locale
+FILES_INFO: {}
+PKGSIZE_libsamplerate0-locale: 0

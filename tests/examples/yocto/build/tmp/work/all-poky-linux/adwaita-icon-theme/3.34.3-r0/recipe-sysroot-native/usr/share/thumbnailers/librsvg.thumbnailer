@@ -1,0 +1,4 @@
+[Thumbnailer Entry]
+TryExec=/home/hhpartners/yocto/build/tmp/work/all-poky-linux/adwaita-icon-theme/3.34.3-r0/recipe-sysroot-native/usr/bin/gdk-pixbuf-thumbnailer
+Exec=/home/hhpartners/yocto/build/tmp/work/all-poky-linux/adwaita-icon-theme/3.34.3-r0/recipe-sysroot-native/usr/bin/gdk-pixbuf-thumbnailer -s %s %u %o
+MimeType=image/svg+xml;image/svg+xml-compressed;

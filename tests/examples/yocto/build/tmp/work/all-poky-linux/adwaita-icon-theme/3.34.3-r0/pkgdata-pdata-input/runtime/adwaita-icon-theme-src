@@ -1,0 +1,13 @@
+PN: adwaita-icon-theme
+PV: 3.34.3
+PR: r0
+PKGV: 3.34.3
+PKGR: r0
+LICENSE: LGPL-3.0 | CC-BY-SA-3.0
+DESCRIPTION_adwaita-icon-theme-src: GTK+ icon theme.  This package contains sources for debugging purposes.
+SUMMARY_adwaita-icon-theme-src: GTK+ icon theme - Source files
+SECTION_adwaita-icon-theme-src: devel
+PKG_adwaita-icon-theme-src: adwaita-icon-theme-src
+FILES_adwaita-icon-theme-src: /usr/src/debug
+FILES_INFO: {}
+PKGSIZE_adwaita-icon-theme-src: 0

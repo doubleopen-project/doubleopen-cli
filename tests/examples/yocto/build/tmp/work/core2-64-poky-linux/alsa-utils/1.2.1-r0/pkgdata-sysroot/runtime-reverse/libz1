@@ -1,0 +1,20 @@
+PN: zlib
+PV: 1.2.11
+PR: r0
+PKGV: 1.2.11
+PKGR: r0
+LICENSE: Zlib
+DESCRIPTION: Zlib is a general-purpose, patent-free, lossless data compression library which is used by many different programs.
+SUMMARY: Zlib Compression Library
+RDEPENDS_zlib: glibc (>= 2.31+git0+6fdf971c9d)
+RPROVIDES_zlib:  zlib (=1.2.11)
+SECTION: libs
+PKG_zlib: libz1
+FILES_zlib: /usr/bin/* /usr/sbin/* /usr/libexec/* /usr/lib/lib*.so.*             /etc /com /var             /bin/* /sbin/*             /lib/*.so.*             /lib/udev /usr/lib/udev             /lib/udev /usr/lib/udev             /usr/share/zlib /usr/lib/zlib/*             /usr/share/pixmaps /usr/share/applications             /usr/share/idl /usr/share/omf /usr/share/sounds             /usr/lib/bonobo/servers
+FILES_INFO: {"/lib/libz.so.1": 14, "/lib/libz.so.1.2.11": 100312}
+pkg_postinst_zlib: #!/bin/sh\nset -e\nif [ x"$D" = "x" ]; then\n\tif [ -x /sbin/ldconfig ]; then /sbin/ldconfig ; fi\nfi\n
+FILERPROVIDESFLIST_zlib: /lib/libz.so.1.2.11
+FILERPROVIDES_/lib/libz.so.1.2.11_zlib:  libz.so.1(ZLIB_1.2.0)(64bit) libz.so.1(ZLIB_1.2.0.2)(64bit) libz.so.1(ZLIB_1.2.0.2)(64bit) libz.so.1(ZLIB_1.2.0.8)(64bit) libz.so.1(ZLIB_1.2.0.8)(64bit) libz.so.1(ZLIB_1.2.2)(64bit) libz.so.1(ZLIB_1.2.2)(64bit) libz.so.1(ZLIB_1.2.2.3)(64bit) libz.so.1(ZLIB_1.2.2.3)(64bit) libz.so.1(ZLIB_1.2.2.4)(64bit) libz.so.1(ZLIB_1.2.2.4)(64bit) libz.so.1(ZLIB_1.2.3.3)(64bit) libz.so.1(ZLIB_1.2.3.3)(64bit) libz.so.1(ZLIB_1.2.3.4)(64bit) libz.so.1(ZLIB_1.2.3.4)(64bit) libz.so.1(ZLIB_1.2.3.5)(64bit) libz.so.1(ZLIB_1.2.3.5)(64bit) libz.so.1(ZLIB_1.2.5.1)(64bit) libz.so.1(ZLIB_1.2.5.1)(64bit) libz.so.1(ZLIB_1.2.5.2)(64bit) libz.so.1(ZLIB_1.2.5.2)(64bit) libz.so.1(ZLIB_1.2.7.1)(64bit) libz.so.1(ZLIB_1.2.7.1)(64bit) libz.so.1(ZLIB_1.2.9)(64bit) libz.so.1(ZLIB_1.2.9)(64bit) libz.so.1()(64bit)
+FILERDEPENDSFLIST_zlib: /lib/libz.so.1.2.11
+FILERDEPENDS_/lib/libz.so.1.2.11_zlib:  libc.so.6(GLIBC_2.14)(64bit) libc.so.6(GLIBC_2.4)(64bit) libc.so.6(GLIBC_2.2.5)(64bit) libc.so.6(GLIBC_2.3.4)(64bit) libc.so.6()(64bit) rtld(GNU_HASH)
+PKGSIZE_zlib: 100326

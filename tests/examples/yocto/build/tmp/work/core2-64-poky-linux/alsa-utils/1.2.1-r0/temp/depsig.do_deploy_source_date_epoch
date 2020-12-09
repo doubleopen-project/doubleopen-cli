@@ -1,0 +1,7 @@
+OEOuthashBasic
+1
+SSTATE_PKGSPEC=sstate:alsa-utils:core2-64-poky-linux:1.2.1:r0:core2-64:3:
+task=deploy_source_date_epoch
+drwxrwxr-x                                                                                       .
+drwxrwxr-x                                                                                       ./deploy-source-date-epoch
+-rw-r--r--                   10 b65a211e67daa089c8b59342071decdde74ab1e6eec4724c1ce59daa64e939da ./deploy-source-date-epoch/__source_date_epoch.txt

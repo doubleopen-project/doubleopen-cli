@@ -1,0 +1,13 @@
+PN: bash-completion
+PV: 2.10
+PR: r0
+PKGV: 2.10
+PKGR: r0
+LICENSE: GPLv2
+DESCRIPTION_bash-completion-src: Programmable Completion for Bash 4.  This package contains sources for debugging purposes.
+SUMMARY_bash-completion-src: Programmable Completion for Bash 4 - Source files
+SECTION_bash-completion-src: devel
+PKG_bash-completion-src: bash-completion-src
+FILES_bash-completion-src: /usr/src/debug
+FILES_INFO: {}
+PKGSIZE_bash-completion-src: 0

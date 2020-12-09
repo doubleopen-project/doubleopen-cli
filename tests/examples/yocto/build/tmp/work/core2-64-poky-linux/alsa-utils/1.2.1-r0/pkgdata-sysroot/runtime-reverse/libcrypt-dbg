@@ -1,0 +1,16 @@
+PN: libxcrypt
+PV: 4.4.15
+PR: r0
+PKGV: 4.4.15
+PKGR: r0
+LICENSE: LGPLv2.1
+DESCRIPTION_libxcrypt-dbg: Forked code from glibc libary to extract only crypto part.  This package contains ELF symbols and related sources for debugging purposes.
+SUMMARY_libxcrypt-dbg: Extended cryptographic library (from glibc) - Debugging files
+RPROVIDES_libxcrypt-dbg:  libxcrypt-dbg (=4.4.15)
+RRECOMMENDS_libxcrypt-dbg: glibc-dbg
+SECTION_libxcrypt-dbg: devel
+PKG_libxcrypt-dbg: libcrypt-dbg
+ALLOW_EMPTY_libxcrypt-dbg: 1
+FILES_libxcrypt-dbg: /usr/lib/debug /usr/lib/debug-static /usr/src/debug
+FILES_INFO: {"/usr/lib/.debug/libcrypt.so.2.0.0": 698616}
+PKGSIZE_libxcrypt-dbg: 698616

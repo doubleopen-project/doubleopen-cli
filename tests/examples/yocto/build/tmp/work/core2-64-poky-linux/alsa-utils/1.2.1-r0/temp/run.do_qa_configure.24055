@@ -1,0 +1,118 @@
+def do_qa_configure(d):
+    import subprocess
+
+    ###########################################################################
+    # Check config.log for cross compile issues
+    ###########################################################################
+
+    configs = []
+    workdir = d.getVar('WORKDIR')
+
+    skip = (d.getVar('INSANE_SKIP') or "").split()
+    skip_configure_unsafe = False
+    if 'configure-unsafe' in skip:
+        bb.note("Recipe %s skipping qa checking: configure-unsafe" % d.getVar('PN'))
+        skip_configure_unsafe = True
+
+    if bb.data.inherits_class('autotools', d) and not skip_configure_unsafe:
+        bb.note("Checking autotools environment for common misconfiguration")
+        for root, dirs, files in os.walk(workdir):
+            statement = "grep -q -F -e 'CROSS COMPILE Badness:' -e 'is unsafe for cross-compilation' %s" % \
+                        os.path.join(root,"config.log")
+            if "config.log" in files:
+                if subprocess.call(statement, shell=True) == 0:
+                    error_msg = """This autoconf log indicates errors, it looked at host include and/or library paths while determining system capabilities.
+Rerun configure task after fixing this."""
+                    package_qa_handle_error("configure-unsafe", error_msg, d)
+
+            if "configure.ac" in files:
+                configs.append(os.path.join(root,"configure.ac"))
+            if "configure.in" in files:
+                configs.append(os.path.join(root, "configure.in"))
+
+    ###########################################################################
+    # Check gettext configuration and dependencies are correct
+    ###########################################################################
+
+    skip_configure_gettext = False
+    if 'configure-gettext' in skip:
+        bb.note("Recipe %s skipping qa checking: configure-gettext" % d.getVar('PN'))
+        skip_configure_gettext = True
+
+    cnf = d.getVar('EXTRA_OECONF') or ""
+    if not ("gettext" in d.getVar('P') or "gcc-runtime" in d.getVar('P') or \
+            "--disable-nls" in cnf or skip_configure_gettext):
+        ml = d.getVar("MLPREFIX") or ""
+        if bb.data.inherits_class('cross-canadian', d):
+            gt = "nativesdk-gettext"
+        else:
+            gt = "gettext-native"
+        deps = bb.utils.explode_deps(d.getVar('DEPENDS') or "")
+        if gt not in deps:
+            for config in configs:
+                gnu = "grep \"^[[:space:]]*AM_GNU_GETTEXT\" %s >/dev/null" % config
+                if subprocess.call(gnu, shell=True) == 0:
+                    error_msg = "AM_GNU_GETTEXT used but no inherit gettext"
+                    package_qa_handle_error("configure-gettext", error_msg, d)
+
+    ###########################################################################
+    # Check unrecognised configure options (with a white list)
+    ###########################################################################
+    if bb.data.inherits_class("autotools", d) or bb.data.inherits_class("meson", d):
+        bb.note("Checking configure output for unrecognised options")
+        try:
+            if bb.data.inherits_class("autotools", d):
+                flag = "WARNING: unrecognized options:"
+                log = os.path.join(d.getVar('B'), 'config.log')
+            if bb.data.inherits_class("meson", d):
+                flag = "WARNING: Unknown options:"
+                log = os.path.join(d.getVar('T'), 'log.do_configure')
+            output = subprocess.check_output(['grep', '-F', flag, log]).decode("utf-8").replace(', ', ' ').replace('"', '')
+            options = set()
+            for line in output.splitlines():
+                options |= set(line.partition(flag)[2].split())
+            whitelist = set(d.getVar("UNKNOWN_CONFIGURE_WHITELIST").split())
+            options -= whitelist
+            if options:
+                pn = d.getVar('PN')
+                error_msg = pn + ": configure was passed unrecognised options: " + " ".join(options)
+                package_qa_handle_error("unknown-configure-option", error_msg, d)
+        except subprocess.CalledProcessError:
+            pass
+
+    # Check invalid PACKAGECONFIG
+    pkgconfig = (d.getVar("PACKAGECONFIG") or "").split()
+    if pkgconfig:
+        pkgconfigflags = d.getVarFlags("PACKAGECONFIG") or {}
+        for pconfig in pkgconfig:
+            if pconfig not in pkgconfigflags:
+                pn = d.getVar('PN')
+                error_msg = "%s: invalid PACKAGECONFIG: %s" % (pn, pconfig)
+                package_qa_handle_error("invalid-packageconfig", error_msg, d)
+
+    qa_sane = d.getVar("QA_SANE")
+    if not qa_sane:
+        bb.fatal("Fatal QA errors found, failing task.")
+
+do_qa_configure(d)
+
+def package_qa_handle_error(error_class, error_msg, d):
+    if error_class in (d.getVar("ERROR_QA") or "").split():
+        package_qa_write_error(error_class, error_msg, d)
+        bb.error("QA Issue: %s [%s]" % (error_msg, error_class))
+        d.setVar("QA_SANE", False)
+        return False
+    elif error_class in (d.getVar("WARN_QA") or "").split():
+        package_qa_write_error(error_class, error_msg, d)
+        bb.warn("QA Issue: %s [%s]" % (error_msg, error_class))
+    else:
+        bb.note("QA Issue: %s [%s]" % (error_msg, error_class))
+    return True
+
+def package_qa_write_error(type, error, d):
+    logfile = d.getVar('QA_LOGFILE')
+    if logfile:
+        p = d.getVar('P')
+        with open(logfile, "a+") as f:
+            f.write("%s: %s [%s]\n" % (p, error, type))
+

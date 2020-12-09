@@ -1,0 +1,15 @@
+PN: util-linux
+PV: 2.35.1
+PR: r0
+PKGV: 2.35.1
+PKGR: r0
+LICENSE: GPLv2+ & LGPLv2.1+ & BSD-3-Clause & BSD-4-Clause
+DESCRIPTION_util-linux-locale-ca: Util-linux includes a suite of basic system administration utilities commonly found on most Linux systems.  Some of the more important utilities include disk partitioning, kernel message management, filesystem creation, and system login.  This package contains language translation files for the ca locale.
+SUMMARY_util-linux-locale-ca: A suite of basic system administration utilities - ca translations
+RPROVIDES_util-linux-locale-ca: util-linux-locale ca-translation
+RRECOMMENDS_util-linux-locale-ca: virtual-locale-ca
+SECTION: base
+PKG_util-linux-locale-ca: util-linux-locale-ca
+FILES_util-linux-locale-ca: /usr/share/locale/ca
+FILES_INFO: {"/usr/share/locale/ca/LC_MESSAGES/util-linux.mo": 36595}
+PKGSIZE_util-linux-locale-ca: 36595

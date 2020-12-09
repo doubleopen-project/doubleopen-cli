@@ -1,0 +1,14 @@
+PN: bash-completion
+PV: 2.10
+PR: r0
+PKGV: 2.10
+PKGR: r0
+LICENSE: GPLv2
+DESCRIPTION: Programmable Completion for Bash 4.
+SUMMARY: Programmable Completion for Bash 4
+RDEPENDS_bash-completion: bash
+SECTION: console/utils
+PKG_bash-completion: bash-completion
+FILES_bash-completion: /usr/bin/* /usr/sbin/* /usr/libexec/* /usr/lib/lib*.so.*             /etc /com /var             /bin/* /sbin/*             /lib/*.so.*             /lib/udev /usr/lib/udev             /lib/udev /usr/lib/udev             /usr/share/bash-completion /usr/lib/bash-completion/*             /usr/share/pixmaps /usr/share/applications             /usr/share/idl /usr/share/omf /usr/share/sounds             /usr/lib/bonobo/servers
+FILES_INFO: {"/etc/bash_completion": 45, "/etc/profile.d/bash_completion.sh": 729, "/usr/share/bash-completion/bash_completion": 74302}
+PKGSIZE_bash-completion: 75076

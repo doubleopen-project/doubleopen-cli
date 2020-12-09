@@ -1,0 +1,25 @@
+PN: opkg-utils
+PV: 0.4.2
+PR: r0
+PKGV: 0.4.2
+PKGR: r0
+LICENSE: GPLv2+
+DESCRIPTION: Additional utilities for the opkg package manager.
+SUMMARY: Additional utilities for the opkg package manager
+RDEPENDS_opkg-utils: bash python3 python3-compression python3-crypt python3-fcntl python3-io python3-logging python3-math python3-pickle python3-shell python3-stringold
+SECTION: base
+PKG_opkg-utils: opkg-utils
+FILES_opkg-utils: /usr/bin/* /usr/sbin/* /usr/libexec/* /usr/lib/lib*.so.*             /etc /com /var             /bin/* /sbin/*             /lib/*.so.*             /lib/udev /usr/lib/udev             /lib/udev /usr/lib/udev             /usr/share/opkg-utils /usr/lib/opkg-utils/*             /usr/share/pixmaps /usr/share/applications             /usr/share/idl /usr/share/omf /usr/share/sounds             /usr/lib/bonobo/servers
+FILES_INFO: {"/usr/bin/arfile.py": 4382, "/usr/bin/opkg-build": 10269, "/usr/bin/opkg-buildpackage": 5410, "/usr/bin/opkg-compare-indexes": 1556, "/usr/bin/opkg-diff": 260, "/usr/bin/opkg-extract-file": 1052, "/usr/bin/opkg-list-fields": 337, "/usr/bin/opkg-make-index": 10490, "/usr/bin/opkg-show-deps": 2896, "/usr/bin/opkg-unbuild": 839, "/usr/bin/opkg.py": 21660}
+FILERDEPENDSFLIST_opkg-utils: /usr/bin/opkg-build /usr/bin/opkg-buildpackage /usr/bin/opkg-compare-indexes /usr/bin/opkg-diff /usr/bin/opkg-extract-file /usr/bin/opkg-list-fields /usr/bin/opkg-make-index /usr/bin/opkg-show-deps /usr/bin/opkg-unbuild /usr/bin/opkg.py
+FILERDEPENDS_/usr/bin/opkg-build_opkg-utils:  /bin/bash
+FILERDEPENDS_/usr/bin/opkg-buildpackage_opkg-utils:  /bin/sh
+FILERDEPENDS_/usr/bin/opkg-compare-indexes_opkg-utils:  /usr/bin/env
+FILERDEPENDS_/usr/bin/opkg-diff_opkg-utils:  /bin/sh
+FILERDEPENDS_/usr/bin/opkg-extract-file_opkg-utils:  /bin/sh
+FILERDEPENDS_/usr/bin/opkg-list-fields_opkg-utils:  /usr/bin/env
+FILERDEPENDS_/usr/bin/opkg-make-index_opkg-utils:  /usr/bin/env
+FILERDEPENDS_/usr/bin/opkg-show-deps_opkg-utils:  /usr/bin/env
+FILERDEPENDS_/usr/bin/opkg-unbuild_opkg-utils:  /usr/bin/env
+FILERDEPENDS_/usr/bin/opkg.py_opkg-utils:  /usr/bin/env
+PKGSIZE_opkg-utils: 59151

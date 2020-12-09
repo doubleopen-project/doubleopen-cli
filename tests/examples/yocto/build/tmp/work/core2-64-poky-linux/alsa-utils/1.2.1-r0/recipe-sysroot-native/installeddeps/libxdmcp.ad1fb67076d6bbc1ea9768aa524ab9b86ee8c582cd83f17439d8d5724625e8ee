@@ -1,0 +1,14 @@
+recipe-sysroot/sysroot-providers/xdmcp
+recipe-sysroot/sysroot-providers/libxdmcp
+recipe-sysroot/usr/include/X11/Xdmcp.h
+recipe-sysroot/usr/lib/libXdmcp.so.6
+recipe-sysroot/usr/lib/libXdmcp.so.6.0.0
+recipe-sysroot/usr/lib/libXdmcp.so
+recipe-sysroot/usr/lib/pkgconfig/xdmcp.pc
+recipe-sysroot/usr/lib/pkgconfig/
+recipe-sysroot/sysroot-providers/
+recipe-sysroot/usr/include/X11/
+recipe-sysroot/usr/include/
+recipe-sysroot/usr/share/
+recipe-sysroot/usr/lib/
+recipe-sysroot/usr/

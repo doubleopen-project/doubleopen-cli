@@ -1,0 +1,15 @@
+PN: shadow
+PV: 4.8.1
+PR: r0
+PKGV: 4.8.1
+PKGR: r0
+LICENSE: BSD | Artistic-1.0
+DESCRIPTION_shadow-locale-sq: Tools to change and administer password and group data.  This package contains language translation files for the sq locale.
+SUMMARY_shadow-locale-sq: Tools to change and administer password and group data - sq translations
+RPROVIDES_shadow-locale-sq: shadow-locale sq-translation
+RRECOMMENDS_shadow-locale-sq: virtual-locale-sq
+SECTION: base/utils
+PKG_shadow-locale-sq: shadow-locale-sq
+FILES_shadow-locale-sq: /usr/share/locale/sq
+FILES_INFO: {"/usr/share/locale/sq/LC_MESSAGES/shadow.mo": 1027}
+PKGSIZE_shadow-locale-sq: 1027

@@ -1,0 +1,20 @@
+PN: util-linux
+PV: 2.35.1
+PR: r0
+PKGV: 2.35.1
+PKGR: r0
+LICENSE: GPLv2+ & LGPLv2.1+ & BSD-3-Clause & BSD-4-Clause
+DESCRIPTION_util-linux-mountpoint: util-linux mountpoint
+SUMMARY_util-linux-mountpoint: util-linux mountpoint
+RDEPENDS_util-linux-mountpoint: update-alternatives-opkg glibc (>= 2.31+git0+6fdf971c9d) util-linux-libmount (>= 2.35.1)
+SECTION: base
+PKG_util-linux-mountpoint: util-linux-mountpoint
+FILES_util-linux-mountpoint: /bin/mountpoint.util-linux
+FILES_INFO: {"/bin/mountpoint.util-linux": 18480}
+pkg_postinst_util-linux-mountpoint: #!/bin/sh\nset -e\n\tupdate-alternatives --install /bin/mountpoint mountpoint /bin/mountpoint.util-linux 80\n
+pkg_prerm_util-linux-mountpoint: #!/bin/sh\nset -e\n\tupdate-alternatives --remove  mountpoint /bin/mountpoint.util-linux\n
+FILERPROVIDESFLIST_util-linux-mountpoint:  /bin/mountpoint.util-linux
+FILERPROVIDES_/bin/mountpoint.util-linux_util-linux-mountpoint:  /bin/mountpoint
+FILERDEPENDSFLIST_util-linux-mountpoint: /bin/mountpoint.util-linux
+FILERDEPENDS_/bin/mountpoint.util-linux_util-linux-mountpoint:  libmount.so.1(MOUNT_2.19)(64bit) libmount.so.1(MOUNT_2.24)(64bit) libc.so.6(GLIBC_2.4)(64bit) libc.so.6(GLIBC_2.3.4)(64bit) libc.so.6(GLIBC_2.2.5)(64bit) libmount.so.1()(64bit) libc.so.6()(64bit) rtld(GNU_HASH)
+PKGSIZE_util-linux-mountpoint: 18480

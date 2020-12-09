@@ -1,0 +1,18 @@
+PN: libxau
+PE: 1
+PV: 1.0.9
+PR: r0
+PKGE: 1
+PKGV: 1.0.9
+PKGR: r0
+LICENSE: MIT-style
+DESCRIPTION_libxau-dev: libxau provides the main interfaces to the X11 authorisation handling, which controls authorisation for X connections, both client-side and server-side.  This package contains symbolic links, header files, and related items necessary for software development.
+SUMMARY_libxau-dev: Xau: X Authority Database library - Development files
+RDEPENDS_libxau-dev: libxau (= 1:1.0.9-r0)
+RRECOMMENDS_libxau-dev: util-macros-dev xorgproto-dev glibc-dev
+SECTION_libxau-dev: devel
+PKG_libxau-dev: libxau-dev
+ALLOW_EMPTY_libxau-dev: 1
+FILES_libxau-dev: /usr/include /lib/lib*.so /usr/lib/lib*.so /usr/lib/*.la                 /usr/lib/*.o /usr/lib/pkgconfig /usr/share/pkgconfig                 /usr/share/aclocal /lib/*.o                 /usr/lib/libxau/*.la /lib/*.la                 /usr/lib/cmake /usr/share/cmake
+FILES_INFO: {"/usr/include/X11/Xauth.h": 3817, "/usr/lib/libXau.so": 15, "/usr/lib/pkgconfig/xau.pc": 212}
+PKGSIZE_libxau-dev: 4044

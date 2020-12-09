@@ -1,0 +1,20 @@
+PN: libxcb
+PV: 1.13.1
+PR: r0
+PKGV: 1.13.1
+PKGR: r0
+LICENSE: MIT
+DESCRIPTION_libxcb-shm: XCB library module for shm
+SUMMARY_libxcb-shm: XCB library module for shm
+RDEPENDS_libxcb-shm: libxcb (>= 1.13.1) glibc (>= 2.31+git0+6fdf971c9d) libxau (>= 1.0.9) libxdmcp (>= 1.1.3)
+RPROVIDES_libxcb-shm:  libxcb-shm (=1.13.1)
+SECTION: x11/libs
+PKG_libxcb-shm: libxcb-shm0
+FILES_libxcb-shm: /usr/lib/libxcb-shm.so.0 /usr/lib/libxcb-shm.so.0.0.0
+FILES_INFO: {"/usr/lib/libxcb-shm.so.0": 19, "/usr/lib/libxcb-shm.so.0.0.0": 14248}
+pkg_postinst_libxcb-shm: #!/bin/sh\nset -e\nif [ x"$D" = "x" ]; then\n\tif [ -x /sbin/ldconfig ]; then /sbin/ldconfig ; fi\nfi\n
+FILERPROVIDESFLIST_libxcb-shm: /usr/lib/libxcb-shm.so.0.0.0
+FILERPROVIDES_/usr/lib/libxcb-shm.so.0.0.0_libxcb-shm:  libxcb-shm.so.0()(64bit)
+FILERDEPENDSFLIST_libxcb-shm: /usr/lib/libxcb-shm.so.0.0.0
+FILERDEPENDS_/usr/lib/libxcb-shm.so.0.0.0_libxcb-shm:  libc.so.6(GLIBC_2.2.5)(64bit) libc.so.6(GLIBC_2.4)(64bit) libxcb.so.1()(64bit) libXau.so.6()(64bit) libXdmcp.so.6()(64bit) libc.so.6()(64bit) rtld(GNU_HASH)
+PKGSIZE_libxcb-shm: 14267

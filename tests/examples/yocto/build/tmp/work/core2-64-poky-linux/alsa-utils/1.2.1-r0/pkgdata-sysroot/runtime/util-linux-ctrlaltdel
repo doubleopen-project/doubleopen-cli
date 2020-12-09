@@ -1,0 +1,16 @@
+PN: util-linux
+PV: 2.35.1
+PR: r0
+PKGV: 2.35.1
+PKGR: r0
+LICENSE: GPLv2+ & LGPLv2.1+ & BSD-3-Clause & BSD-4-Clause
+DESCRIPTION_util-linux-ctrlaltdel: util-linux ctrlaltdel
+SUMMARY_util-linux-ctrlaltdel: util-linux ctrlaltdel
+RDEPENDS_util-linux-ctrlaltdel: glibc (>= 2.31+git0+6fdf971c9d)
+SECTION: base
+PKG_util-linux-ctrlaltdel: util-linux-ctrlaltdel
+FILES_util-linux-ctrlaltdel: /sbin/ctrlaltdel
+FILES_INFO: {"/sbin/ctrlaltdel": 38952}
+FILERDEPENDSFLIST_util-linux-ctrlaltdel: /sbin/ctrlaltdel
+FILERDEPENDS_/sbin/ctrlaltdel_util-linux-ctrlaltdel:  libc.so.6(GLIBC_2.3)(64bit) libc.so.6(GLIBC_2.8)(64bit) libc.so.6(GLIBC_2.7)(64bit) libc.so.6(GLIBC_2.4)(64bit) libc.so.6(GLIBC_2.3.4)(64bit) libc.so.6(GLIBC_2.2.5)(64bit) libc.so.6()(64bit) rtld(GNU_HASH)
+PKGSIZE_util-linux-ctrlaltdel: 38952

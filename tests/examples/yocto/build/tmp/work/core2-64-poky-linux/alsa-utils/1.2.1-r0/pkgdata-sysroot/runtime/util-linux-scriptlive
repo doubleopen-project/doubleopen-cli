@@ -1,0 +1,16 @@
+PN: util-linux
+PV: 2.35.1
+PR: r0
+PKGV: 2.35.1
+PKGR: r0
+LICENSE: GPLv2+ & LGPLv2.1+ & BSD-3-Clause & BSD-4-Clause
+DESCRIPTION_util-linux-scriptlive: util-linux scriptlive
+SUMMARY_util-linux-scriptlive: util-linux scriptlive
+RDEPENDS_util-linux-scriptlive: glibc (>= 2.31+git0+6fdf971c9d)
+SECTION: base
+PKG_util-linux-scriptlive: util-linux-scriptlive
+FILES_util-linux-scriptlive: /usr/bin/scriptlive
+FILES_INFO: {"/usr/bin/scriptlive": 51240}
+FILERDEPENDSFLIST_util-linux-scriptlive: /usr/bin/scriptlive
+FILERDEPENDS_/usr/bin/scriptlive_util-linux-scriptlive:  libutil.so.1(GLIBC_2.2.5)(64bit) libc.so.6(GLIBC_2.3)(64bit) libc.so.6(GLIBC_2.8)(64bit) libc.so.6(GLIBC_2.14)(64bit) libc.so.6(GLIBC_2.4)(64bit) libc.so.6(GLIBC_2.17)(64bit) libc.so.6(GLIBC_2.7)(64bit) libc.so.6(GLIBC_2.3.4)(64bit) libc.so.6(GLIBC_2.2.5)(64bit) libutil.so.1()(64bit) libc.so.6()(64bit) rtld(GNU_HASH)
+PKGSIZE_util-linux-scriptlive: 51240

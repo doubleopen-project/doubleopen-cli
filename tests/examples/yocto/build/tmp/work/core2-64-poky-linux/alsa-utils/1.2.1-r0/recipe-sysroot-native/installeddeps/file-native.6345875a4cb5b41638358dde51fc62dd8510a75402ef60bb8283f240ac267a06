@@ -1,0 +1,17 @@
+recipe-sysroot-native/sysroot-providers/file-replacement-native
+recipe-sysroot-native/sysroot-providers/file-native
+recipe-sysroot-native/usr/share/misc/magic.mgc
+recipe-sysroot-native/usr/include/magic.h
+recipe-sysroot-native/usr/bin/file-native/file
+recipe-sysroot-native/usr/bin/file-native/file.real
+recipe-sysroot-native/usr/lib/libmagic.so
+recipe-sysroot-native/usr/lib/libmagic.so.1
+recipe-sysroot-native/usr/lib/libmagic.so.1.0.0
+recipe-sysroot-native/usr/bin/file-native/
+recipe-sysroot-native/sysroot-providers/
+recipe-sysroot-native/usr/share/misc/
+recipe-sysroot-native/usr/include/
+recipe-sysroot-native/usr/share/
+recipe-sysroot-native/usr/lib/
+recipe-sysroot-native/usr/bin/
+recipe-sysroot-native/usr/

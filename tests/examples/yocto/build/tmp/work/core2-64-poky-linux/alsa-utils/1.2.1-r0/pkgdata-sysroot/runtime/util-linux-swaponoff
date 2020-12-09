@@ -1,0 +1,14 @@
+PN: util-linux
+PV: 2.35.1
+PR: r0
+PKGV: 2.35.1
+PKGR: r0
+LICENSE: GPLv2+ & LGPLv2.1+ & BSD-3-Clause & BSD-4-Clause
+DESCRIPTION: Util-linux includes a suite of basic system administration utilities commonly found on most Linux systems.  Some of the more important utilities include disk partitioning, kernel message management, filesystem creation, and system login.
+SUMMARY: A suite of basic system administration utilities
+RDEPENDS_util-linux-swaponoff: util-linux-swapoff util-linux-swapon
+SECTION: base
+PKG_util-linux-swaponoff: util-linux-swaponoff
+ALLOW_EMPTY_util-linux-swaponoff: 1
+FILES_INFO: {}
+PKGSIZE_util-linux-swaponoff: 0

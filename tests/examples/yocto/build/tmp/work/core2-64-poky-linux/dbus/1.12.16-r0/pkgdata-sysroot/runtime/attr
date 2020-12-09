@@ -1,0 +1,22 @@
+PN: attr
+PV: 2.4.48
+PR: r0
+PKGV: 2.4.48
+PKGR: r0
+LICENSE_attr: GPLv2+
+DESCRIPTION: Utilities for manipulating filesystem extended attributes.
+SUMMARY: Utilities for manipulating filesystem extended attributes
+RDEPENDS_attr: update-alternatives-opkg glibc (>= 2.31+git0+6fdf971c9d) libattr (>= 2.4.48)
+SECTION: libs
+PKG_attr: attr
+FILES_attr: /usr/bin/* /usr/sbin/* /usr/libexec/* /usr/lib/lib*.so.*             /etc /com /var             /bin/* /sbin/*             /lib/*.so.*             /lib/udev /usr/lib/udev             /lib/udev /usr/lib/udev             /usr/share/attr /usr/lib/attr/*             /usr/share/pixmaps /usr/share/applications             /usr/share/idl /usr/share/omf /usr/share/sounds             /usr/lib/bonobo/servers
+FILES_INFO: {"/etc/xattr.conf": 642, "/usr/bin/attr": 14288, "/usr/bin/getfattr": 23032, "/usr/bin/setfattr.attr": 18696}
+pkg_postinst_attr: #!/bin/sh\nset -e\n\tupdate-alternatives --install /usr/bin/setfattr setfattr /usr/bin/setfattr.attr 100\n
+pkg_prerm_attr: #!/bin/sh\nset -e\n\tupdate-alternatives --remove  setfattr /usr/bin/setfattr.attr\n
+FILERPROVIDESFLIST_attr:  /usr/bin/setfattr.attr
+FILERPROVIDES_/usr/bin/setfattr.attr_attr:  /usr/bin/setfattr
+FILERDEPENDSFLIST_attr: /usr/bin/attr /usr/bin/getfattr /usr/bin/setfattr.attr
+FILERDEPENDS_/usr/bin/attr_attr:  libc.so.6(GLIBC_2.3.4)(64bit) libc.so.6(GLIBC_2.4)(64bit) libc.so.6(GLIBC_2.2.5)(64bit) libattr.so.1(ATTR_1.2)(64bit) libattr.so.1(ATTR_1.0)(64bit) libattr.so.1()(64bit) libc.so.6()(64bit) rtld(GNU_HASH)
+FILERDEPENDS_/usr/bin/getfattr_attr:  libc.so.6(GLIBC_2.3.4)(64bit) libc.so.6(GLIBC_2.4)(64bit) libc.so.6(GLIBC_2.3)(64bit) libc.so.6(GLIBC_2.2.5)(64bit) libc.so.6()(64bit) rtld(GNU_HASH)
+FILERDEPENDS_/usr/bin/setfattr.attr_attr:  libc.so.6(GLIBC_2.3.4)(64bit) libc.so.6(GLIBC_2.3)(64bit) libc.so.6(GLIBC_2.4)(64bit) libc.so.6(GLIBC_2.2.5)(64bit) libc.so.6()(64bit) rtld(GNU_HASH)
+PKGSIZE_attr: 56658

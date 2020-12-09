@@ -1,0 +1,13 @@
+recipe-sysroot-native/sysroot-providers/pixman-native
+recipe-sysroot-native/usr/include/pixman-1/pixman.h
+recipe-sysroot-native/usr/include/pixman-1/pixman-version.h
+recipe-sysroot-native/usr/lib/libpixman-1.so
+recipe-sysroot-native/usr/lib/libpixman-1.so.0
+recipe-sysroot-native/usr/lib/libpixman-1.so.0.38.4
+recipe-sysroot-native/usr/lib/pkgconfig/pixman-1.pc
+recipe-sysroot-native/usr/include/pixman-1/
+recipe-sysroot-native/usr/lib/pkgconfig/
+recipe-sysroot-native/sysroot-providers/
+recipe-sysroot-native/usr/include/
+recipe-sysroot-native/usr/lib/
+recipe-sysroot-native/usr/

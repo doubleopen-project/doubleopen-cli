@@ -1,0 +1,14 @@
+recipe-sysroot-native/sysroot-providers/libxfixes-native
+recipe-sysroot-native/usr/include/X11/extensions/Xfixes.h
+recipe-sysroot-native/usr/lib/libXfixes.so
+recipe-sysroot-native/usr/lib/libXfixes.so.3
+recipe-sysroot-native/usr/lib/libXfixes.so.3.1.0
+recipe-sysroot-native/usr/lib/pkgconfig/xfixes.pc
+recipe-sysroot-native/usr/include/X11/extensions/
+recipe-sysroot-native/usr/lib/pkgconfig/
+recipe-sysroot-native/sysroot-providers/
+recipe-sysroot-native/usr/include/X11/
+recipe-sysroot-native/usr/include/
+recipe-sysroot-native/usr/share/
+recipe-sysroot-native/usr/lib/
+recipe-sysroot-native/usr/

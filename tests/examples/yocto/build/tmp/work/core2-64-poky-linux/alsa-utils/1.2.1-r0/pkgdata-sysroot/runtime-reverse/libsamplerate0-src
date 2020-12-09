@@ -1,0 +1,13 @@
+PN: libsamplerate0
+PV: 0.1.9
+PR: r1
+PKGV: 0.1.9
+PKGR: r1
+LICENSE: BSD-2-Clause
+DESCRIPTION_libsamplerate0-src: Audio Sample Rate Conversion library.  This package contains sources for debugging purposes.
+SUMMARY_libsamplerate0-src: Audio Sample Rate Conversion library - Source files
+SECTION_libsamplerate0-src: devel
+PKG_libsamplerate0-src: libsamplerate0-src
+FILES_libsamplerate0-src: /usr/src/debug
+FILES_INFO: {"/usr/src/debug/libsamplerate0/0.1.9-r1/libsamplerate-0.1.9/examples/sndfile-resample.c": 8851, "/usr/src/debug/libsamplerate0/0.1.9-r1/libsamplerate-0.1.9/src/common.h": 3658, "/usr/src/debug/libsamplerate0/0.1.9-r1/libsamplerate-0.1.9/src/fastest_coeffs.h": 72064, "/usr/src/debug/libsamplerate0/0.1.9-r1/libsamplerate-0.1.9/src/high_qual_coeffs.h": 9187070, "/usr/src/debug/libsamplerate0/0.1.9-r1/libsamplerate-0.1.9/src/mid_qual_coeffs.h": 606435, "/usr/src/debug/libsamplerate0/0.1.9-r1/libsamplerate-0.1.9/src/samplerate.c": 13393, "/usr/src/debug/libsamplerate0/0.1.9-r1/libsamplerate-0.1.9/src/samplerate.h": 4754, "/usr/src/debug/libsamplerate0/0.1.9-r1/libsamplerate-0.1.9/src/src_linear.c": 5779, "/usr/src/debug/libsamplerate0/0.1.9-r1/libsamplerate-0.1.9/src/src_sinc.c": 38625, "/usr/src/debug/libsamplerate0/0.1.9-r1/libsamplerate-0.1.9/src/src_zoh.c": 5273}
+PKGSIZE_libsamplerate0-src: 9945902

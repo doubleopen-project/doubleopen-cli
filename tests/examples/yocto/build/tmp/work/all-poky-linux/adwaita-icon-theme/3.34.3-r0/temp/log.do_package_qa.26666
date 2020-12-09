@@ -1,0 +1,33 @@
+DEBUG: Executing python function sstate_task_prefunc
+DEBUG: Python function sstate_task_prefunc finished
+DEBUG: Executing python function extend_recipe_sysroot
+NOTE: Direct dependencies are ['virtual:native:/home/hhpartners/yocto/meta/recipes-devtools/pseudo/pseudo_git.bb:do_populate_sysroot']
+NOTE: Installed into sysroot: []
+NOTE: Skipping as already exists in sysroot: ['pseudo-native', 'patch-native', 'xz-native', 'quilt-native', 'autoconf-native', 'gnu-config-native', 'libtool-native', 'automake-native', 'attr-native', 'gettext-minimal-native', 'm4-native', 'texinfo-dummy-native']
+DEBUG: Python function extend_recipe_sysroot finished
+DEBUG: Executing python function do_package_qa
+NOTE: DO PACKAGE QA
+DEBUG: Executing python function read_subpackage_metadata
+DEBUG: Python function read_subpackage_metadata finished
+NOTE: Checking Package: adwaita-icon-theme-src
+NOTE: Checking Package: adwaita-icon-theme-cursors
+NOTE: Checking Package: adwaita-icon-theme-hires
+NOTE: Checking Package: adwaita-icon-theme
+NOTE: Checking Package: adwaita-icon-theme-symbolic-hires
+NOTE: Checking Package: adwaita-icon-theme-symbolic
+NOTE: DONE with PACKAGE QA
+DEBUG: Python function do_package_qa finished
+DEBUG: Executing python function sstate_task_postfunc
+DEBUG: Executing python function sstate_hardcode_path
+NOTE: Removing hardcoded paths from sstate package: 'find /home/hhpartners/yocto/build/tmp/work/all-poky-linux/adwaita-icon-theme/3.34.3-r0/sstate-build-package_qa/ \( -name "*.la" -o -name "*-config" -o -name "*_config" -o -name "postinst-*" \) -type f | xargs grep -l -e '/home/hhpartners/yocto/build/tmp/work/all-poky-linux/adwaita-icon-theme/3.34.3-r0/recipe-sysroot' -e '/home/hhpartners/yocto/build/tmp/work/all-poky-linux/adwaita-icon-theme/3.34.3-r0/recipe-sysroot-native' -e '/home/hhpartners/yocto/build/tmp/hosttools' | tee /home/hhpartners/yocto/build/tmp/work/all-poky-linux/adwaita-icon-theme/3.34.3-r0/sstate-build-package_qa/fixmepath | xargs --no-run-if-empty sed -i -e 's:/home/hhpartners/yocto/build/tmp/work/all-poky-linux/adwaita-icon-theme/3.34.3-r0/recipe-sysroot-native:FIXMESTAGINGDIRHOST:g' -e 's:/home/hhpartners/yocto/build/tmp/work/all-poky-linux/adwaita-icon-theme/3.34.3-r0/recipe-sysroot:FIXMESTAGINGDIRTARGET:g' -e 's:/home/hhpartners/yocto/build/tmp/hosttools:FIXME_HOSTTOOLS_DIR:g''
+DEBUG: Python function sstate_hardcode_path finished
+DEBUG: Executing python function sstate_report_unihash
+DEBUG: Reported task bd141060ac3777ac75613cd3b57609e7cbe169c2bf92f44a070e1ddbed2a393b as unihash bd141060ac3777ac75613cd3b57609e7cbe169c2bf92f44a070e1ddbed2a393b to unix:///home/hhpartners/yocto/build/hashserve.sock
+DEBUG: Python function sstate_report_unihash finished
+DEBUG: Executing shell function sstate_create_package
+DEBUG: Shell function sstate_create_package finished
+DEBUG: Executing python function sstate_hardcode_path_unpack
+DEBUG: Python function sstate_hardcode_path_unpack finished
+DEBUG: Executing python function uninative_changeinterp
+DEBUG: Python function uninative_changeinterp finished
+DEBUG: Python function sstate_task_postfunc finished

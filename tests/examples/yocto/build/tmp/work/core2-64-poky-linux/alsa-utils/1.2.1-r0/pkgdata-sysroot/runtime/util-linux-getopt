@@ -1,0 +1,20 @@
+PN: util-linux
+PV: 2.35.1
+PR: r0
+PKGV: 2.35.1
+PKGR: r0
+LICENSE: GPLv2+ & LGPLv2.1+ & BSD-3-Clause & BSD-4-Clause
+DESCRIPTION_util-linux-getopt: util-linux getopt
+SUMMARY_util-linux-getopt: util-linux getopt
+RDEPENDS_util-linux-getopt: update-alternatives-opkg glibc (>= 2.31+git0+6fdf971c9d)
+SECTION: base
+PKG_util-linux-getopt: util-linux-getopt
+FILES_util-linux-getopt: /bin/getopt.util-linux
+FILES_INFO: {"/bin/getopt.util-linux": 22576}
+pkg_postinst_util-linux-getopt: #!/bin/sh\nset -e\n\tupdate-alternatives --install /bin/getopt getopt /bin/getopt.util-linux 80\n
+pkg_prerm_util-linux-getopt: #!/bin/sh\nset -e\n\tupdate-alternatives --remove  getopt /bin/getopt.util-linux\n
+FILERPROVIDESFLIST_util-linux-getopt:  /bin/getopt.util-linux
+FILERPROVIDES_/bin/getopt.util-linux_util-linux-getopt:  /bin/getopt
+FILERDEPENDSFLIST_util-linux-getopt: /bin/getopt.util-linux
+FILERDEPENDS_/bin/getopt.util-linux_util-linux-getopt:  libc.so.6(GLIBC_2.3)(64bit) libc.so.6(GLIBC_2.3.4)(64bit) libc.so.6(GLIBC_2.4)(64bit) libc.so.6(GLIBC_2.2.5)(64bit) libc.so.6()(64bit) rtld(GNU_HASH)
+PKGSIZE_util-linux-getopt: 22576

@@ -1,0 +1,20 @@
+PN: libxcrypt
+PV: 4.4.15
+PR: r0
+PKGV: 4.4.15
+PKGR: r0
+LICENSE: LGPLv2.1
+DESCRIPTION: Forked code from glibc libary to extract only crypto part.
+SUMMARY: Extended cryptographic library (from glibc)
+RDEPENDS_libxcrypt: glibc (>= 2.31+git0+6fdf971c9d)
+RPROVIDES_libxcrypt:  libxcrypt (=4.4.15)
+SECTION: libs
+PKG_libxcrypt: libcrypt2
+FILES_libxcrypt: /usr/lib/libcrypt*.so.*                /usr/lib/libcrypt-*.so                /usr/lib/libowcrypt*.so.*                /usr/lib/libowcrypt-*.so 
+FILES_INFO: {"/usr/lib/libcrypt.so.2": 17, "/usr/lib/libcrypt.so.2.0.0": 202648}
+pkg_postinst_libxcrypt: #!/bin/sh\nset -e\nif [ x"$D" = "x" ]; then\n\tif [ -x /sbin/ldconfig ]; then /sbin/ldconfig ; fi\nfi\n
+FILERPROVIDESFLIST_libxcrypt: /usr/lib/libcrypt.so.2.0.0
+FILERPROVIDES_/usr/lib/libcrypt.so.2.0.0_libxcrypt:  libcrypt.so.2(XCRYPT_2.0)(64bit) libcrypt.so.2(XCRYPT_4.3)(64bit) libcrypt.so.2(XCRYPT_4.3)(64bit) libcrypt.so.2(XCRYPT_4.4)(64bit) libcrypt.so.2(XCRYPT_4.4)(64bit) libcrypt.so.2()(64bit)
+FILERDEPENDSFLIST_libxcrypt: /usr/lib/libcrypt.so.2.0.0
+FILERDEPENDS_/usr/lib/libcrypt.so.2.0.0_libxcrypt:  libc.so.6(GLIBC_2.14)(64bit) libc.so.6(GLIBC_2.4)(64bit) libc.so.6(GLIBC_2.25)(64bit) libc.so.6(GLIBC_2.2.5)(64bit) libc.so.6(GLIBC_2.3.4)(64bit) libc.so.6()(64bit) rtld(GNU_HASH)
+PKGSIZE_libxcrypt: 202665

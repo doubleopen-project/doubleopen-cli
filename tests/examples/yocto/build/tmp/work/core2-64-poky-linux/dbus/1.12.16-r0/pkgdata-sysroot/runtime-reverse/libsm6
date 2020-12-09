@@ -1,0 +1,22 @@
+PN: libsm
+PE: 1
+PV: 1.2.3
+PR: r0
+PKGE: 1
+PKGV: 1.2.3
+PKGR: r0
+LICENSE: MIT-style
+DESCRIPTION: The Session Management Library (SMlib) is a low-level \\"C\\" language interface to XSMP.  The purpose of the X Session Management Protocol (XSMP) is to provide a uniform mechanism for users to save and restore their sessions.  A session is a group of clients, each of which has a particular state.
+SUMMARY: SM: Session Management library
+RDEPENDS_libsm: glibc (>= 2.31+git0+6fdf971c9d) libice (>= 1.0.10)
+RPROVIDES_libsm:  libsm (=1.2.3)
+SECTION: x11/libs
+PKG_libsm: libsm6
+FILES_libsm: /usr/bin/* /usr/sbin/* /usr/libexec/* /usr/lib/lib*.so.*             /etc /com /var             /bin/* /sbin/*             /lib/*.so.*             /lib/udev /usr/lib/udev             /lib/udev /usr/lib/udev             /usr/share/libsm /usr/lib/libsm/*             /usr/share/pixmaps /usr/share/applications             /usr/share/idl /usr/share/omf /usr/share/sounds             /usr/lib/bonobo/servers
+FILES_INFO: {"/usr/lib/libSM.so.6": 14, "/usr/lib/libSM.so.6.0.1": 38736}
+pkg_postinst_libsm: #!/bin/sh\nset -e\nif [ x"$D" = "x" ]; then\n\tif [ -x /sbin/ldconfig ]; then /sbin/ldconfig ; fi\nfi\n
+FILERPROVIDESFLIST_libsm: /usr/lib/libSM.so.6.0.1
+FILERPROVIDES_/usr/lib/libSM.so.6.0.1_libsm:  libSM.so.6()(64bit)
+FILERDEPENDSFLIST_libsm: /usr/lib/libSM.so.6.0.1
+FILERDEPENDS_/usr/lib/libSM.so.6.0.1_libsm:  libc.so.6(GLIBC_2.3.4)(64bit) libc.so.6(GLIBC_2.14)(64bit) libc.so.6(GLIBC_2.4)(64bit) libc.so.6(GLIBC_2.2.5)(64bit) libICE.so.6()(64bit) libc.so.6()(64bit) rtld(GNU_HASH)
+PKGSIZE_libsm: 38750

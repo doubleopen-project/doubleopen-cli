@@ -1,0 +1,20 @@
+PN: util-linux
+PV: 2.35.1
+PR: r0
+PKGV: 2.35.1
+PKGR: r0
+LICENSE: GPLv2+ & LGPLv2.1+ & BSD-3-Clause & BSD-4-Clause
+DESCRIPTION_util-linux-libblkid: util-linux libblkid
+SUMMARY_util-linux-libblkid: util-linux libblkid
+RDEPENDS_util-linux-libblkid: glibc (>= 2.31+git0+6fdf971c9d)
+RPROVIDES_util-linux-libblkid:  util-linux-libblkid (=2.35.1)
+SECTION: base
+PKG_util-linux-libblkid: libblkid1
+FILES_util-linux-libblkid: /lib/libblkid.so.1 /lib/libblkid.so.1.1.0
+FILES_INFO: {"/lib/libblkid.so.1": 17, "/lib/libblkid.so.1.1.0": 326600}
+pkg_postinst_util-linux-libblkid: #!/bin/sh\nset -e\nif [ x"$D" = "x" ]; then\n\tif [ -x /sbin/ldconfig ]; then /sbin/ldconfig ; fi\nfi\n
+FILERPROVIDESFLIST_util-linux-libblkid: /lib/libblkid.so.1.1.0
+FILERPROVIDES_/lib/libblkid.so.1.1.0_util-linux-libblkid:  libblkid.so.1(BLKID_1.0)(64bit) libblkid.so.1(BLKID_2.15)(64bit) libblkid.so.1(BLKID_2.15)(64bit) libblkid.so.1(BLKID_2.17)(64bit) libblkid.so.1(BLKID_2.17)(64bit) libblkid.so.1(BLKID_2.18)(64bit) libblkid.so.1(BLKID_2.18)(64bit) libblkid.so.1(BLKID_2.20)(64bit) libblkid.so.1(BLKID_2.20)(64bit) libblkid.so.1(BLKID_2.21)(64bit) libblkid.so.1(BLKID_2.21)(64bit) libblkid.so.1(BLKID_2.23)(64bit) libblkid.so.1(BLKID_2.23)(64bit) libblkid.so.1(BLKID_2.25)(64bit) libblkid.so.1(BLKID_2.25)(64bit) libblkid.so.1(BLKID_2.30)(64bit) libblkid.so.1(BLKID_2.30)(64bit) libblkid.so.1(BLKID_2_31)(64bit) libblkid.so.1(BLKID_2_31)(64bit) libblkid.so.1()(64bit)
+FILERDEPENDSFLIST_util-linux-libblkid: /lib/libblkid.so.1.1.0
+FILERDEPENDS_/lib/libblkid.so.1.1.0_util-linux-libblkid:  ld-linux-x86-64.so.2(GLIBC_2.3)(64bit) libc.so.6(GLIBC_2.25)(64bit) libc.so.6(GLIBC_2.14)(64bit) libc.so.6(GLIBC_2.3)(64bit) libc.so.6(GLIBC_2.8)(64bit) libc.so.6(GLIBC_2.4)(64bit) libc.so.6(GLIBC_2.17)(64bit) libc.so.6(GLIBC_2.7)(64bit) libc.so.6(GLIBC_2.3.4)(64bit) libc.so.6(GLIBC_2.2.5)(64bit) libc.so.6()(64bit) ld-linux-x86-64.so.2()(64bit) rtld(GNU_HASH)
+PKGSIZE_util-linux-libblkid: 326617

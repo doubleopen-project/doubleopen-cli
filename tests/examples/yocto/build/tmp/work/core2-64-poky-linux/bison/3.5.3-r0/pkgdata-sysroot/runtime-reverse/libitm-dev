@@ -1,0 +1,15 @@
+PN: gcc-runtime
+PV: 9.3.0
+PR: r0
+PKGV: 9.3.0
+PKGR: r0
+LICENSE: GPL-3.0-with-GCC-exception
+DESCRIPTION: Runtime libraries from GCC.
+SUMMARY_libitm-dev: GNU transactional memory support library - development files
+RDEPENDS_libitm-dev: libitm
+RRECOMMENDS_libitm-dev: libgcc-dev glibc-dev
+SECTION: devel
+PKG_libitm-dev: libitm-dev
+FILES_libitm-dev:     /usr/lib/libitm.so     /usr/lib/libitm.la     /usr/lib/libitm.spec 
+FILES_INFO: {"/usr/lib/libitm.so": 15, "/usr/lib/libitm.spec": 162}
+PKGSIZE_libitm-dev: 177

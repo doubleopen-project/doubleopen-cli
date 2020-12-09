@@ -1,0 +1,16 @@
+PN: util-linux
+PV: 2.35.1
+PR: r0
+PKGV: 2.35.1
+PKGR: r0
+LICENSE: GPLv2+ & LGPLv2.1+ & BSD-3-Clause & BSD-4-Clause
+DESCRIPTION_util-linux-ldattach: util-linux ldattach
+SUMMARY_util-linux-ldattach: util-linux ldattach
+RDEPENDS_util-linux-ldattach: glibc (>= 2.31+git0+6fdf971c9d)
+SECTION: base
+PKG_util-linux-ldattach: util-linux-ldattach
+FILES_util-linux-ldattach: /usr/sbin/ldattach
+FILES_INFO: {"/usr/sbin/ldattach": 34856}
+FILERDEPENDSFLIST_util-linux-ldattach: /usr/sbin/ldattach
+FILERDEPENDS_/usr/sbin/ldattach_util-linux-ldattach:  libc.so.6(GLIBC_2.3)(64bit) libc.so.6(GLIBC_2.8)(64bit) libc.so.6(GLIBC_2.14)(64bit) libc.so.6(GLIBC_2.4)(64bit) libc.so.6(GLIBC_2.3.4)(64bit) libc.so.6(GLIBC_2.2.5)(64bit) libc.so.6()(64bit) rtld(GNU_HASH)
+PKGSIZE_util-linux-ldattach: 34856

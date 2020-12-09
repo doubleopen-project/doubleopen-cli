@@ -1,0 +1,13 @@
+PN: bash-completion
+PV: 2.10
+PR: r0
+PKGV: 2.10
+PKGR: r0
+LICENSE: GPLv2
+DESCRIPTION_bash-completion-doc: Programmable Completion for Bash 4.  This package contains documentation.
+SUMMARY_bash-completion-doc: Programmable Completion for Bash 4 - Documentation files
+SECTION_bash-completion-doc: doc
+PKG_bash-completion-doc: bash-completion-doc
+FILES_bash-completion-doc: /usr/share/doc /usr/share/man /usr/share/info /usr/share/gtk-doc             /usr/share/gnome/help
+FILES_INFO: {}
+PKGSIZE_bash-completion-doc: 0

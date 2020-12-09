@@ -1,0 +1,15 @@
+PN: shadow
+PV: 4.8.1
+PR: r0
+PKGV: 4.8.1
+PKGR: r0
+LICENSE: BSD | Artistic-1.0
+DESCRIPTION_shadow-locale-kk: Tools to change and administer password and group data.  This package contains language translation files for the kk locale.
+SUMMARY_shadow-locale-kk: Tools to change and administer password and group data - kk translations
+RPROVIDES_shadow-locale-kk: shadow-locale kk-translation
+RRECOMMENDS_shadow-locale-kk: virtual-locale-kk
+SECTION: base/utils
+PKG_shadow-locale-kk: shadow-locale-kk
+FILES_shadow-locale-kk: /usr/share/locale/kk
+FILES_INFO: {"/usr/share/locale/kk/LC_MESSAGES/shadow.mo": 83766}
+PKGSIZE_shadow-locale-kk: 83766

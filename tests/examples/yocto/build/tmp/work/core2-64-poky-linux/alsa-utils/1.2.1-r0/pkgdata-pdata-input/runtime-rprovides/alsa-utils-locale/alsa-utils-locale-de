@@ -1,0 +1,15 @@
+PN: alsa-utils
+PV: 1.2.1
+PR: r0
+PKGV: 1.2.1
+PKGR: r0
+LICENSE: GPLv2+
+DESCRIPTION_alsa-utils-locale-de: ALSA sound utilities.  This package contains language translation files for the de locale.
+SUMMARY_alsa-utils-locale-de: ALSA sound utilities - de translations
+RPROVIDES_alsa-utils-locale-de: alsa-utils-locale de-translation
+RRECOMMENDS_alsa-utils-locale-de: virtual-locale-de
+SECTION: console/utils
+PKG_alsa-utils-locale-de: alsa-utils-locale-de
+FILES_alsa-utils-locale-de: /usr/share/locale/de
+FILES_INFO: {"/usr/share/locale/de/LC_MESSAGES/alsa-utils.mo": 24794}
+PKGSIZE_alsa-utils-locale-de: 24794

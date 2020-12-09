@@ -1,0 +1,7 @@
+alsa-lib (>= 1.2.1.2)
+glibc (>= 2.31+git0+6fdf971c9d)
+ncurses-libformw (>= 6.2)
+ncurses-libmenuw (>= 6.2)
+ncurses-libncursesw (>= 6.2)
+ncurses-libpanelw (>= 6.2)
+ncurses-libtinfo (>= 6.2)

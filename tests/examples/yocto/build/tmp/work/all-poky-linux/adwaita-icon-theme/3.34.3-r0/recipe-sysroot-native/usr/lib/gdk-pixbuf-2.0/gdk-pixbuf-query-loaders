@@ -1,0 +1,5 @@
+#!/bin/bash
+realpath=`readlink -fn $0`
+realdir=`dirname $realpath`
+export XDG_DATA_DIRS=$realdir/../../../usr/share GDK_PIXBUF_MODULE_FILE=$realdir/../../../usr/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache GDK_PIXBUF_MODULEDIR=$realdir/../../../usr/lib/gdk-pixbuf-2.0/2.10.0/loaders
+exec -a "$0" $realdir/gdk-pixbuf-query-loaders.real "$@"

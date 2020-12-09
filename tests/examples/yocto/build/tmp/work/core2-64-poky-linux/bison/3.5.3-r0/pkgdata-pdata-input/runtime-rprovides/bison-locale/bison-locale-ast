@@ -1,0 +1,15 @@
+PN: bison
+PV: 3.5.3
+PR: r0
+PKGV: 3.5.3
+PKGR: r0
+LICENSE: GPLv3
+DESCRIPTION_bison-locale-ast: Bison is a general-purpose parser generator that converts an annotated context-free grammar into an LALR(1) or GLR parser for that grammar.  Bison is upward compatible with Yacc: all properly-written Yacc grammars ought to work with Bison with no change. Anyone familiar with Yacc should be able to use Bison with little trouble.  This package contains language translation files for the ast locale.
+SUMMARY_bison-locale-ast: GNU Project parser generator (yacc replacement) - ast translations
+RPROVIDES_bison-locale-ast: bison-locale ast-translation
+RRECOMMENDS_bison-locale-ast: virtual-locale-ast
+SECTION: devel
+PKG_bison-locale-ast: bison-locale-ast
+FILES_bison-locale-ast: /usr/share/locale/ast
+FILES_INFO: {"/usr/share/locale/ast/LC_MESSAGES/bison-runtime.mo": 1393}
+PKGSIZE_bison-locale-ast: 1393

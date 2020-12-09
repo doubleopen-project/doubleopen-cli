@@ -1,0 +1,20 @@
+PN: util-linux
+PV: 2.35.1
+PR: r0
+PKGV: 2.35.1
+PKGR: r0
+LICENSE: GPLv2+ & LGPLv2.1+ & BSD-3-Clause & BSD-4-Clause
+DESCRIPTION_util-linux-chrt: util-linux chrt
+SUMMARY_util-linux-chrt: util-linux chrt
+RDEPENDS_util-linux-chrt: update-alternatives-opkg glibc (>= 2.31+git0+6fdf971c9d)
+SECTION: base
+PKG_util-linux-chrt: util-linux-chrt
+FILES_util-linux-chrt: /usr/bin/chrt.util-linux
+FILES_INFO: {"/usr/bin/chrt.util-linux": 38960}
+pkg_postinst_util-linux-chrt: #!/bin/sh\nset -e\n\tupdate-alternatives --install /usr/bin/chrt chrt /usr/bin/chrt.util-linux 80\n
+pkg_prerm_util-linux-chrt: #!/bin/sh\nset -e\n\tupdate-alternatives --remove  chrt /usr/bin/chrt.util-linux\n
+FILERPROVIDESFLIST_util-linux-chrt:  /usr/bin/chrt.util-linux
+FILERPROVIDES_/usr/bin/chrt.util-linux_util-linux-chrt:  /usr/bin/chrt
+FILERDEPENDSFLIST_util-linux-chrt: /usr/bin/chrt.util-linux
+FILERDEPENDS_/usr/bin/chrt.util-linux_util-linux-chrt:  libc.so.6(GLIBC_2.3)(64bit) libc.so.6(GLIBC_2.8)(64bit) libc.so.6(GLIBC_2.7)(64bit) libc.so.6(GLIBC_2.14)(64bit) libc.so.6(GLIBC_2.4)(64bit) libc.so.6(GLIBC_2.3.4)(64bit) libc.so.6(GLIBC_2.2.5)(64bit) libc.so.6()(64bit) rtld(GNU_HASH)
+PKGSIZE_util-linux-chrt: 38960

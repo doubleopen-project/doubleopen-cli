@@ -1,0 +1,15 @@
+PN: base-files
+PV: 3.0.14
+PR: r89
+PKGV: 3.0.14
+PKGR: r89
+LICENSE: GPLv2
+DESCRIPTION: The base-files package creates the basic system directory structure and provides a small set of key configuration files for the system.
+SUMMARY: Miscellaneous files for the base system
+SECTION: base
+PKG_base-files: base-files
+FILES_base-files: /
+CONFFILES_base-files: /etc/fstab /etc/hostname /etc/hosts /etc/shells /etc/motd /etc/nsswitch.conf /etc/profile
+FILES_INFO: {"/etc/fstab": 650, "/etc/host.conf": 26, "/etc/hostname": 11, "/etc/hosts": 258, "/etc/issue": 51, "/etc/issue.net": 48, "/etc/motd": 0, "/etc/mtab": 12, "/etc/nsswitch.conf": 465, "/etc/profile": 984, "/etc/shells": 42, "/etc/skel/.bashrc": 410, "/etc/skel/.profile": 241, "/var/lock": 11}
+pkg_preinst_base-files: set -e\n    #!/bin/sh -e\n    if [ x"$D" = "x" ]; then\n        if [ -h "/var/lock" ]; then\n            # Remove the symbolic link\n            rm -f /var/lock\n        fi\n\n        if [ -h "/run" ]; then\n            # Remove the symbolic link\n            rm -f /run\n        fi\n    fi\n
+PKGSIZE_base-files: 3209

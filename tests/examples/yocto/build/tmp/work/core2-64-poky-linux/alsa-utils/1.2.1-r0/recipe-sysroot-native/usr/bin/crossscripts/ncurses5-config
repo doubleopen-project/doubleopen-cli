@@ -1,0 +1,4 @@
+#!/bin/sh
+echo 'ERROR: /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/recipe-sysroot-native/usr/bin/ncurses5-config should not be used, use an alternative such as pkg-config' >&2
+echo '--should-not-have-used-/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/recipe-sysroot-native/usr/bin/ncurses5-config'
+exit 1

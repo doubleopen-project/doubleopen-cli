@@ -1,0 +1,636 @@
+OEOuthashBasic
+1
+SSTATE_PKGSPEC=sstate:dbus:core2-64-poky-linux:1.12.16:r0:core2-64:3:
+task=package
+drwxrwxr-x       root       root                                                                                       .
+drwxr-xr-x       root       root                                                                                       ./package
+drwxr-xr-x       root       root                                                                                       ./package/etc
+drwxr-xr-x       root       root                                                                                       ./package/etc/dbus-1
+-rw-r--r--       root       root                  838 2218b9313dc6d2e07d85751f318124cc5138787358ae1039703321cf6b35602a ./package/etc/dbus-1/session.conf
+-rw-r--r--       root       root                  833 a6f50dc70ef082a110dcdb164579cd2af221b90226c5e0aca237edcad98a1c26 ./package/etc/dbus-1/system.conf
+drwxr-xr-x       root       root                                                                                       ./package/etc/default
+drwxr-xr-x       root       root                                                                                       ./package/etc/default/volatiles
+-rw-r--r--       root       root                   48 fde4eeb5167cb673b6b823b9bab42adc0582116ddb985005f64d07ae28cb6f93 ./package/etc/default/volatiles/99_dbus
+drwxr-xr-x       root       root                                                                                       ./package/etc/init.d
+-rwxr-xr-x       root       root                 2893 a318ecad27c77fec43a15743d72fd82d098976957326b4e7b97129481520fccd ./package/etc/init.d/dbus-1
+drwxr-xr-x       root       root                                                                                       ./package/usr
+drwxr-xr-x       root       root                                                                                       ./package/usr/bin
+-rwxr-xr-x       root       root                14304 7508270af960c6845e600864f3c709d056b52c12ed38e5fd7012e1cc38ce2c72 ./package/usr/bin/dbus-cleanup-sockets
+-rwxr-xr-x       root       root               223688 acd4188da6f6b97c22449c1ee4195e6985806bd81d3e801347f724f7bb5c6fd4 ./package/usr/bin/dbus-daemon
+-rwxr-xr-x       root       root                30680 a4b88ff310485172e2db654c1c5e8fd04f6d2948d4c8a4218ab73fe9dc123edf ./package/usr/bin/dbus-launch
+-rwxr-xr-x       root       root                30688 5ccb29db8f9c8a11370d2eb217922b575a599e61e3891d93fe42b141cd487246 ./package/usr/bin/dbus-monitor
+-rwxr-xr-x       root       root                14304 fa7eacffefb92e205d0872418de288b9a8ea972e5bfeb0d6ca81b9d2d4937829 ./package/usr/bin/dbus-run-session
+-rwxr-xr-x       root       root                30680 8945c49cb927e1d552954a235921a787eb70888367645955ff5acea0c34e4d33 ./package/usr/bin/dbus-send
+-rwxr-xr-x       root       root                26672 093525c8724dbe28e3b8c4cbecf372d11e0a2ed9ce25afb5aed22d507dd8eb1b ./package/usr/bin/dbus-test-tool
+-rwxr-xr-x       root       root                14320 e94eaa82006fe87275dddb3bfcd9e992669b2086fbdfd06b0127b4a53e60f520 ./package/usr/bin/dbus-update-activation-environment
+-rwxr-xr-x       root       root                14296 66de5bd23945d7217b35bedb13e8532a770d987ab362afcd2973541884709e2f ./package/usr/bin/dbus-uuidgen
+drwxr-xr-x       root       root                                                                                       ./package/usr/bin/.debug
+-rwxr-xr-x       root       root                28576 0a95e69128c81f2fa308ae297ebc103215515d9007d1c0505af8904afb7939e7 ./package/usr/bin/.debug/dbus-cleanup-sockets
+-rwxr-xr-x       root       root               788880 8e8fa626441594fef6fe69dd941a011a657de5aa93c7f5be5eb0c596235372b3 ./package/usr/bin/.debug/dbus-daemon
+-rwxr-xr-x       root       root                95024 44ab75aa81354b4bf6b019bfbae1b9d7665e1185b341af9cbff4660a42db53ee ./package/usr/bin/.debug/dbus-launch
+-rwxr-xr-x       root       root                74912 1db413488d4f535c996bad7cf7e5bed21cba76e1f4a04b26f7dcf7cef81f5b52 ./package/usr/bin/.debug/dbus-monitor
+-rwxr-xr-x       root       root                26560 e143978463753d0164a5d1fae2906d02773d4c43624ca9ac8a68794733e7663c ./package/usr/bin/.debug/dbus-run-session
+-rwxr-xr-x       root       root                78920 c465c23fbc18ca30db484e41b43d7fd2c6c685e229b59a4d50480ebbd2699487 ./package/usr/bin/.debug/dbus-send
+-rwxr-xr-x       root       root                49928 4ca28c40635dbc5f1663c53c25cd3906eebdf6df5c26d5307596a5cb7d2c36d5 ./package/usr/bin/.debug/dbus-test-tool
+-rwxr-xr-x       root       root                29376 0ee0525ba291f1e06c397e064db69a25c867dbe1c4652d0cde7a8f5a3eca946b ./package/usr/bin/.debug/dbus-update-activation-environment
+-rwxr-xr-x       root       root                17272 a8e424f021961f6a717f2e46399d883e0713efb7e9cd66a6de5ff81383134641 ./package/usr/bin/.debug/dbus-uuidgen
+drwxr-xr-x       root       root                                                                                       ./package/usr/include
+drwxr-xr-x       root       root                                                                                       ./package/usr/include/dbus-1.0
+drwxr-xr-x       root       root                                                                                       ./package/usr/include/dbus-1.0/dbus
+-rw-r--r--       root       root                 2812 fe4e79d9d37d9d059ac8cb92a1422182f49c4b8663ed197e14f208ccac8d1be2 ./package/usr/include/dbus-1.0/dbus/dbus-address.h
+-rw-r--r--       root       root                 3472 bcf380f9218ec2748ce7bdd54d559cc540ef3482977ce792e4c83ba385b6ce4b ./package/usr/include/dbus-1.0/dbus/dbus-bus.h
+-rw-r--r--       root       root                27020 0d16029774286caae011468a0c23c1d50617bad45596f60aa44a467d44630928 ./package/usr/include/dbus-1.0/dbus/dbus-connection.h
+-rw-r--r--       root       root                 2911 5a7fa01d17c2bfef306c602e6dbbdc61b1dbf88af2dc409acc9dd18cc44b5e01 ./package/usr/include/dbus-1.0/dbus/dbus-errors.h
+-rw-r--r--       root       root                 6757 ceeb17a032fd7cefe33c8dd208e6f67ec02f15d71818d18a77a5dd1a473e7791 ./package/usr/include/dbus-1.0/dbus/dbus-macros.h
+-rw-r--r--       root       root                 1963 fcf307c698e138c34891cf578ea16a4804484a6a8d1fb5c5923b15707c11ed5f ./package/usr/include/dbus-1.0/dbus/dbus-memory.h
+-rw-r--r--       root       root                15005 196776a67c0cdb19be0671d3b8be7b290ed74ebde13cfca8a8784b2b942d3909 ./package/usr/include/dbus-1.0/dbus/dbus-message.h
+-rw-r--r--       root       root                 1813 3df90d610e4fce407012e7dd38ae2dc961a65948f438b7228fb7bee6e4400637 ./package/usr/include/dbus-1.0/dbus/dbus-misc.h
+-rw-r--r--       root       root                 3811 5766678273a015408580b429338753cf63ae2585bacf9f9d26216793b0b6e26f ./package/usr/include/dbus-1.0/dbus/dbus-pending-call.h
+-rw-r--r--       root       root                23642 487276d16b7daafc0612aefd1997f9f3a2dfbd337874a9f8f98a55c7b7cd802e ./package/usr/include/dbus-1.0/dbus/dbus-protocol.h
+-rw-r--r--       root       root                 5414 85fe2fcca2aae6dd8c27fcfefb4171fff02a82e76fa0a51638dc3cd36df3c7d3 ./package/usr/include/dbus-1.0/dbus/dbus-server.h
+-rw-r--r--       root       root                 5394 6ff95a016e1008b9eac7603ac6876f95ae2113f3bc7aa62015d291e0bbc757fc ./package/usr/include/dbus-1.0/dbus/dbus-shared.h
+-rw-r--r--       root       root                 3049 57ab18d9645f944744bbccdd9c3a8b96525a092f5d580861c8d7c4fa8dd67102 ./package/usr/include/dbus-1.0/dbus/dbus-signature.h
+-rw-r--r--       root       root                 2359 84bf3b915af641566b86038b1c695211192a6d711f8e8b21375cf452b23bbd2d ./package/usr/include/dbus-1.0/dbus/dbus-syntax.h
+-rw-r--r--       root       root                 8507 2f7dfe9689b1790cf3f975edfd09b60d7ac76f16eb43e7a1270795449af772d6 ./package/usr/include/dbus-1.0/dbus/dbus-threads.h
+-rw-r--r--       root       root                 4145 86cf3d4e660eec46c80fd2e4dff4a1e133895eed333fc00d92f13dfe38d88760 ./package/usr/include/dbus-1.0/dbus/dbus-types.h
+-rw-r--r--       root       root                 3963 78711e83fd3d1e6bf681217a93d073ea065d9a0394a88276a28e23c821d0c351 ./package/usr/include/dbus-1.0/dbus/dbus.h
+drwxr-xr-x       root       root                                                                                       ./package/usr/lib
+lrwxrwxrwx       root       root                                                                                       ./package/usr/lib/libdbus-1.so -> libdbus-1.so.3.19.11
+lrwxrwxrwx       root       root                                                                                       ./package/usr/lib/libdbus-1.so.3 -> libdbus-1.so.3.19.11
+-rwxr-xr-x       root       root               338048 8e7ea45c9bcf0afd292bba8604951eecfa5d63e45810390999401778a67278d2 ./package/usr/lib/libdbus-1.so.3.19.11
+drwxr-xr-x       root       root                                                                                       ./package/usr/lib/.debug
+-rwxr-xr-x       root       root              1210432 b73b70db98dc3a220529b571add69ef51c7b8537402c770cf97208cc1681f136 ./package/usr/lib/.debug/libdbus-1.so.3.19.11
+drwxr-xr-x       root       root                                                                                       ./package/usr/lib/cmake
+drwxr-xr-x       root       root                                                                                       ./package/usr/lib/cmake/DBus1
+-rw-r--r--       root       root                 2883 9e637d86d9dc3691d31890154289541c46289a45956d049bad52b27ad656ff71 ./package/usr/lib/cmake/DBus1/DBus1Config.cmake
+-rw-r--r--       root       root                  367 5740acbb6335c4479e300933ef10c6e3734268f9f35b6b7789566f7bb2ca6ace ./package/usr/lib/cmake/DBus1/DBus1ConfigVersion.cmake
+drwxr-xr-x       root       root                                                                                       ./package/usr/lib/dbus-1.0
+drwxr-xr-x       root       root                                                                                       ./package/usr/lib/dbus-1.0/include
+drwxr-xr-x       root       root                                                                                       ./package/usr/lib/dbus-1.0/include/dbus
+-rw-r--r--       root       root                 2052 a290c49c73f093e5839979abf29fa52cbe257fc53223ec0c4f08dcb1a9deb25f ./package/usr/lib/dbus-1.0/include/dbus/dbus-arch-deps.h
+drwxr-xr-x       root       root                                                                                       ./package/usr/lib/pkgconfig
+-rw-r--r--       root       root                  607 5afd16bd76475fff5d49d783ff3c06085f8fbbf8cc8b37c09f5fa010e919b00e ./package/usr/lib/pkgconfig/dbus-1.pc
+drwxr-xr-x       root       root                                                                                       ./package/usr/lib/systemd
+drwxr-xr-x       root       root                                                                                       ./package/usr/lib/systemd/user
+-rw-r--r--       root       root                  360 19d7b51e1e6da255346ac6acbf95627baf14c324e84ee841d90fab98bcc0e994 ./package/usr/lib/systemd/user/dbus.service
+-rw-r--r--       root       root                  174 eb9bcc798c347ea00544ca79f3ca07f3f6bd675235c9d73a42b6dcc9fd16a927 ./package/usr/lib/systemd/user/dbus.socket
+drwxr-xr-x       root       root                                                                                       ./package/usr/lib/systemd/user/sockets.target.wants
+lrwxrwxrwx       root       root                                                                                       ./package/usr/lib/systemd/user/sockets.target.wants/dbus.socket -> ../dbus.socket
+drwxr-xr-x       root       root                                                                                       ./package/usr/libexec
+-rwsr-xr-x       root messagebus                63592 f128dd006ce9a6d97536762b4a886bb2b789be6b513551c28a4e237bb4f91c1e ./package/usr/libexec/dbus-daemon-launch-helper
+drwxr-xr-x       root       root                                                                                       ./package/usr/libexec/.debug
+-rwxr-xr-x       root       root               212616 9675cbe3a4ab1daccff99b970d5167ec04958ab6a70c69365f449e732729f31c ./package/usr/libexec/.debug/dbus-daemon-launch-helper
+drwxr-xr-x       root       root                                                                                       ./package/usr/share
+drwxr-xr-x       root       root                                                                                       ./package/usr/share/dbus-1
+-rw-r--r--       root       root                 3561 206f009ddcf909422f3651c687b4623a5780fb7486c6d650e5332f57c00d6be1 ./package/usr/share/dbus-1/session.conf
+-rw-r--r--       root       root                 5692 7be0905f2d3ab89b7a04b5b02bdf0f3e1a8c13b6d66aa2bb5e18a2fe32020dab ./package/usr/share/dbus-1/system.conf
+drwxr-xr-x       root       root                                                                                       ./package/usr/share/dbus-1/services
+drwxr-xr-x       root       root                                                                                       ./package/usr/share/dbus-1/session.d
+drwxr-xr-x       root       root                                                                                       ./package/usr/share/dbus-1/system-services
+drwxr-xr-x       root       root                                                                                       ./package/usr/share/dbus-1/system.d
+drwxr-xr-x       root       root                                                                                       ./package/usr/share/doc
+drwxr-xr-x       root       root                                                                                       ./package/usr/share/doc/dbus
+-rw-r--r--       root       root                78762 552d5d0582db3aa6f180eae85f97e822eebc6938b07d84e1a2063ab85ff3f3d7 ./package/usr/share/doc/dbus/diagram.png
+-rw-r--r--       root       root                33892 7f30f1cc7d95526b8627253fac66e3db2748260dcd6a483a6937e6970510004e ./package/usr/share/doc/dbus/diagram.svg
+-rw-r--r--       root       root                 3175 adf91f1eed77db6e0ea41a0c21da7bf3641e6640dcd0524885e4a53ea3dc6537 ./package/usr/share/doc/dbus/system-activation.txt
+drwxr-xr-x       root       root                                                                                       ./package/usr/share/doc/dbus/examples
+-rw-r--r--       root       root                 3924 c74450ed315eda77216755a229481cf32b4d503af50da5efe9b52dfe502a166c ./package/usr/share/doc/dbus/examples/GetAllMatchRules.py
+-rw-r--r--       root       root                  606 bb28ae81173a9caa079522dca4c04d12d82e0436143cd3341e9d57e58795ed80 ./package/usr/share/doc/dbus/examples/example-session-disable-stats.conf
+-rw-r--r--       root       root                  572 9ea39f6528786751c4d74df78e821c01427f164bdc1c006d0dc4139263a7f1db ./package/usr/share/doc/dbus/examples/example-system-enable-stats.conf
+drwxr-xr-x       root       root                                                                                       ./package/usr/share/xml
+drwxr-xr-x       root       root                                                                                       ./package/usr/share/xml/dbus-1
+-rw-r--r--       root       root                 1907 9403dd9564b4568d62ca9004d40e2d0c1141ad2a1274d50e97bac66f98cc739d ./package/usr/share/xml/dbus-1/busconfig.dtd
+-rw-r--r--       root       root                 1226 be73d84e8f764478f78be388385eaa7a3e4c86d314f9d68934f2c7be8b0d25bf ./package/usr/share/xml/dbus-1/introspect.dtd
+drwxr-xr-x       root       root                                                                                       ./package/usr/src
+drwxr-xr-x       root       root                                                                                       ./package/usr/src/debug
+drwxr-xr-x       root       root                                                                                       ./package/usr/src/debug/dbus
+drwxr-xr-x       root       root                                                                                       ./package/usr/src/debug/dbus/1.12.16-r0
+drwxr-xr-x       root       root                                                                                       ./package/usr/src/debug/dbus/1.12.16-r0/build
+drwxr-xr-x       root       root                                                                                       ./package/usr/src/debug/dbus/1.12.16-r0/build/dbus
+-rw-r--r--       root       root                 2052 a290c49c73f093e5839979abf29fa52cbe257fc53223ec0c4f08dcb1a9deb25f ./package/usr/src/debug/dbus/1.12.16-r0/build/dbus/dbus-arch-deps.h
+drwxr-xr-x       root       root                                                                                       ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16
+drwxr-xr-x       root       root                                                                                       ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/bus
+-rw-r--r--       root       root                 3201 6bb5234975241bd7b5fb559967a27405051bf949eab513647c0343728a979fab ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/bus/activation-helper-bin.c
+-rw-r--r--       root       root                14340 5c58b4bad040aff6a9d6e42f060c01e5df73d95dd7ec9378974e0ea6196f074f ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/bus/activation-helper.c
+-rw-r--r--       root       root                 1215 09ea41c11afdf051edf11b75e7df1a300ff1c2ffc9b8bf375d0f13f79ea2483c ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/bus/activation-helper.h
+-rw-r--r--       root       root                82268 edc28fe88bc86d4a207f16975cbe6c2cf60dc9a583f29a2d4b845f6f28064132 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/bus/activation.c
+-rw-r--r--       root       root                 2873 b9490a9a6d390cd295c2c312efec5a3c7e9541e64ad1c219b0fedc85b1462cc9 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/bus/activation.h
+-rw-r--r--       root       root                32011 1c3dcbe16330d60e6a2bc283ee2bfb0e88d8c4d74f3cd2094545aa6f285a7681 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/bus/apparmor.c
+-rw-r--r--       root       root                 3240 5844717de0b07bb6989130f8faeddd50c25aaa6c88225fdd9ea00b6306318117 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/bus/apparmor.h
+-rw-r--r--       root       root                 5167 069f6e4b8f82817e229424abdbc9b7669df4ea85326dbdd44df324d77a2395e2 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/bus/audit.c
+-rw-r--r--       root       root                 1105 b63b44e3980574fe9ba61a3a721f836bd74f171d19912d459ef08ba69d2a5e76 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/bus/audit.h
+-rw-r--r--       root       root                52175 f8f6a3ef57aa2633a73fdf11f9e8114a5360d2520746fdbe497b210834b11873 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/bus/bus.c
+-rw-r--r--       root       root                 9941 27cd24a65ccb9cd40b94041ff611c5bd8c725644be19e62863433c785764d50b ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/bus/bus.h
+-rw-r--r--       root       root                 8453 2e85a2e018e9a9af768303b57f6f6b49e3342ebf7936e57ea9f476f803a0bb2c ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/bus/config-loader-expat.c
+-rw-r--r--       root       root                 4863 4a4a9793ddbaa0d036bb26d9e5280752c2f54b62058366c35c076ad244a2359e ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/bus/config-parser-common.c
+-rw-r--r--       root       root                 1841 54eff52fabcba7e9842f5b00578b8b574a9996f96c02c838405356e7bcd0b9e6 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/bus/config-parser-common.h
+-rw-r--r--       root       root                19978 cda7691bd1396a1c4bdd9ac931bba2f3516cdb2ae66c3d463afafbf1a09309bf ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/bus/config-parser-trivial.c
+-rw-r--r--       root       root                 3596 294bfffcc50d33b4ddac4cc8625c40f4ae669f471d1cc614ff214ab45564be59 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/bus/config-parser-trivial.h
+-rw-r--r--       root       root               113121 c03e1bd6b0804ca850e02c89e304c7e7ab4d2734463145758214e7d39d3e920e ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/bus/config-parser.c
+-rw-r--r--       root       root                 5232 7318b2d5396e266556fcf0dcbce2486742c048f926b04d9e6bf0e8da6a2774e9 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/bus/config-parser.h
+-rw-r--r--       root       root                81547 e0648118dc99234e295b785816043bafdf462876287a18cae349aca447241c48 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/bus/connection.c
+-rw-r--r--       root       root                11357 cd0c5752a6adb713cccc392a6d0dbef5fd6b2f9c85c9354516353f17554f9812 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/bus/connection.h
+-rw-r--r--       root       root                19858 724742f9f23f6db66cdc7b390907bd89d86b7d5d1c97d8d8cd5bb5189b62e534 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/bus/desktop-file.c
+-rw-r--r--       root       root                 2242 db5318f1922dc147ac30eaaab8d9e1b160078729f2608adcb741cbfdf0de8342 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/bus/desktop-file.h
+-rw-r--r--       root       root                 7629 c63eb66a5a1be686097443912db03b8ed4a1b304e11380a6e5a078c5a679f8a0 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/bus/dir-watch-inotify.c
+-rw-r--r--       root       root                 1406 50cacfc70e8ddb44516d6cbd1351df588e87b17203af504a39e3d453346a7cd6 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/bus/dir-watch.h
+-rw-r--r--       root       root               150832 b987cc9845a203a53e631f3190c54b542e6f8fa3aa2cbac13e2aac3d7d62605f ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/bus/dispatch.c
+-rw-r--r--       root       root                 1551 16e12b4a6e51fca3678a425a05e5514034282c82f4ce727d07e98ed120ea0223 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/bus/dispatch.h
+-rw-r--r--       root       root                92255 664b0821ff6fb369afc54c51ca3da7c0ec96b4423616cc16341c3e6ee7515e6f ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/bus/driver.c
+-rw-r--r--       root       root                 3274 6f05a6757842b184bcabefef405396f6f9e16ddc1ce7ff4eb605f47ac79b8f7e ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/bus/driver.h
+-rw-r--r--       root       root                10223 df58b2b4de4701972541dc556747855e749c635aa280b32e6745ee0afa790791 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/bus/expirelist.c
+-rw-r--r--       root       root                 3657 24ea444aa9ba3adadff18833802930930d5135830c9d8f876638ae5c902df221 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/bus/expirelist.h
+-rw-r--r--       root       root                19969 f05d52d09b2513c41a4eb494c2dc99a5a6f472c84014385e7f59105d07c69726 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/bus/main.c
+-rw-r--r--       root       root                39478 512f842dd2d3d0dcc97b04a6df71c6a7183ed822f655db87ca7e859aa393032f ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/bus/policy.c
+-rw-r--r--       root       root                 7405 a947477a3726d78a90c95411b666c8200f0f80f445ee50004ba81b0ef7799ba1 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/bus/policy.h
+-rw-r--r--       root       root                24854 64b7c018ed2ae00a1c157b183217800e83b2da450efe97aaee285cfa86781428 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/bus/selinux.c
+-rw-r--r--       root       root                 2760 1b82b6d6581f150bbb772e2ef97dd9d09d5eb05f8c9654e59a2efc9cab139ca0 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/bus/selinux.h
+-rw-r--r--       root       root                36698 1ba49f995f2ea4b6ffdfa34c33dde224c6efd3469880bcdec85f88cc49da9f2d ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/bus/services.c
+-rw-r--r--       root       root                 5755 58f51ee2f29025a631b623c5c5f643ba5385d6f56e0a4b55244e71e83f4054ca ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/bus/services.h
+-rw-r--r--       root       root                81474 d442904ee289e41873f25020372dfc8cb5a76985a6b6fbe835e16ded0c57e210 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/bus/signals.c
+-rw-r--r--       root       root                 5402 f2ffc03ae0441b9ee2dc0f9cfdab007321e3abfd41dff4cc58721ca469534b9c ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/bus/signals.h
+-rw-r--r--       root       root                11130 64ba83e80bb6e91909946e2f37efbde4a8e63521b95706ece68accd084a8788d ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/bus/stats.c
+-rw-r--r--       root       root                 1579 388751e4c765ac5e5ee02aae15daca7c05ccacab03e6a04d8af551b88dad5643 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/bus/utils.c
+-rw-r--r--       root       root                 1369 2798832e322beb1e7d1f323758807cf043d6623ceb2441ce3687d3fdbd629314 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/bus/utils.h
+drwxr-xr-x       root       root                                                                                       ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus
+-rw-r--r--       root       root                20889 8aba8c57fd002011751b500b553b9f75a778f77a625669fd1224cb5b1c04db58 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-address.c
+-rw-r--r--       root       root                 2812 fe4e79d9d37d9d059ac8cb92a1422182f49c4b8663ed197e14f208ccac8d1be2 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-address.h
+-rw-r--r--       root       root                10290 74e05d20fda125d6428fb870c1a9a1c6bbe6360eb01469ff60dc1a738eb93572 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-asv-util.c
+-rw-r--r--       root       root                 2939 2f26e55d2f06f30edade6a3e9d3fbf131539129d2c83956edb18d173edf32299 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-asv-util.h
+-rw-r--r--       root       root                81873 dcb5a3957115aa949d6ae163805369d9e58301a39bde0760e8ed50e5bc9d7759 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-auth.c
+-rw-r--r--       root       root                 4562 bb7bd6816113289926d74f1f9e5ab084bcc0dd09370647fffc15f00f8412871f ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-auth.h
+-rw-r--r--       root       root                51255 339191e480c116b0c8bc26d88f629dee75034c9d638bcb72972668cfce2fe84b ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-bus.c
+-rw-r--r--       root       root                 3472 bcf380f9218ec2748ce7bdd54d559cc540ef3482977ce792e4c83ba385b6ce4b ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-bus.h
+-rw-r--r--       root       root                 8728 ed3cb68884e782c64ccd23a25e9df5d43143c12b909b5e468f093503daa7cb82 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-connection-internal.h
+-rw-r--r--       root       root               219165 4b7a8893b3d05daa95eb575e3d648dbcbf723b948ad70c6c6a15187f19e116e3 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-connection.c
+-rw-r--r--       root       root                27020 0d16029774286caae011468a0c23c1d50617bad45596f60aa44a467d44630928 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-connection.h
+-rw-r--r--       root       root                17535 bb2cc5de301628819d552c89fde0e38734453e0877dccf4346ce546088204b56 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-credentials.c
+-rw-r--r--       root       root                 5340 c94f9e40324c1e78adf745f611b221eb6b0cd2bb65e58b1f12c35a1d4fa0c6fa ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-credentials.h
+-rw-r--r--       root       root                13319 b8d50a2afaf7a3ce3cccc3430be6737be20025df8dc9e5dae856565eed848167 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-dataslot.c
+-rw-r--r--       root       root                 3849 26307d3a088eecbbdd2efc431730612d704a582b50e26933eb5cb3e3e6a311da ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-dataslot.h
+-rw-r--r--       root       root                11647 7da4c35a30e41f9925b4a42716e4aff6f268bc9560af54f1ee4ce7e4bb54b865 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-errors.c
+-rw-r--r--       root       root                 2911 5a7fa01d17c2bfef306c602e6dbbdc61b1dbf88af2dc409acc9dd18cc44b5e01 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-errors.h
+-rw-r--r--       root       root                11260 100de061abf31eb98ba4e33e7e57c7ada674afed94a0907aa4fd2db6e7b74f0e ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-file-unix.c
+-rw-r--r--       root       root                 2310 d56da7b5f4fd2a6da8734338b2135723d2ddd95773f2c0a8a327d5dd23b67a7b ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-file.h
+-rw-r--r--       root       root                55553 70d5ec42a02c46e3dd27406d97a7ab1e426dafca40a2a2c82b5f43268a4240a9 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-hash.c
+-rw-r--r--       root       root                 8535 b0007914e4aadfeffcb7883bceefa9802c120299f51755184c7ba5b0118daa94 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-hash.h
+-rw-r--r--       root       root                26738 287600736404eeae0e529646baba5b9b35b66423e1fd738afd29951db1923a3e ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-internals.c
+-rw-r--r--       root       root                16351 c72ff3ffc7897107f036554c97299b59e497b370d82aced4af5d61940562ee02 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-internals.h
+-rw-r--r--       root       root                31187 8a9af7658ffd7658592f468365bbf9c874adb4e7a2b0aa25cb6c82177f9b4841 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-keyring.c
+-rw-r--r--       root       root                 2213 98e29cd0f6b90fe6bff2229dfb029324c20715642e49f3ecef4cf02d2ed20de0 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-keyring.h
+-rw-r--r--       root       root                30937 b400131a2cd9af9421e10704e565f551a02ab6f4990bcaf70904185bb304ba46 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-list.c
+-rw-r--r--       root       root                 5211 f4cfc10bc3311a5f8f669ba5fa036a0311e192f028a4476538768f4d8ab2f16f ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-list.h
+-rw-r--r--       root       root                23740 9e11ad1f0320e342950ef339f3f37f557d63fb67fc7e8e887116a30aeecf6a2d ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-mainloop.c
+-rw-r--r--       root       root                 2755 439efc01d41c8fc3bda8dee404f3beb097575d37681b4b088e45851a975e5a7d ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-mainloop.h
+-rw-r--r--       root       root                61576 1237bedb2e24205df84007fbf204270d7383688275e12ec78632da905b61f371 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-marshal-basic.c
+-rw-r--r--       root       root                11758 ef9f37298e35968951fd77b306e476cb088e0a5caa52a5ca7aadaf741640f9b5 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-marshal-basic.h
+-rw-r--r--       root       root                 7615 8d81d61e31e36f77c74836b7026380ad312540c6dd68406fe565075a2721ff62 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-marshal-byteswap.c
+-rw-r--r--       root       root                 1515 dd89f0d22976415d4c8f107d5852b7e6e2f66458be72033bc215f7cbb90b4039 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-marshal-byteswap.h
+-rw-r--r--       root       root                46694 119a9c721b7f9be9ef28dc08fe74ccd69b3f5d0cdd24d72b124905dce5246dbc ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-marshal-header.c
+-rw-r--r--       root       root                 7171 f78bbd1cf07903ebf1c24b133a08af2c861db3d09bc00cb0602a3dba12ddbff5 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-marshal-header.h
+-rw-r--r--       root       root                96034 c3bccdeae638b5e9c1752b22d9569e4979c2700a5848b6f7edb471041f6b2a6b ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-marshal-recursive.c
+-rw-r--r--       root       root                10725 1064ea5bc848020001c86051d4a0e7fb9b60d13cfe3151e2e97b7c7e324a3d7f ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-marshal-recursive.h
+-rw-r--r--       root       root                41113 1c5b211ce536d2d113b5cbfbaa7a9c4fb015355206f21ef3ff49cad0d6cc309d ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-marshal-validate.c
+-rw-r--r--       root       root                 8978 137234f3901e7e283b0e7eb627fe65633dd0b76f22299647ce27c1534b3dcaf9 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-marshal-validate.h
+-rw-r--r--       root       root                24164 c66aea01baf2132b168c1f58e8b1011b7fa7d54ab26bd154766738336977b9eb ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-memory.c
+-rw-r--r--       root       root                 1963 fcf307c698e138c34891cf578ea16a4804484a6a8d1fb5c5923b15707c11ed5f ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-memory.h
+-rw-r--r--       root       root                16482 259288e4d8a6bae5b9af957b1907836aa7e0f2142d8fb9a2313ead57d3f82983 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-mempool.c
+-rw-r--r--       root       root                 1903 f0976cdbace2046efb051a8aa2ea558d15f458e944e33a2a35aef3b1f8ceaaa8 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-mempool.h
+-rw-r--r--       root       root                 7051 8e05ed779d1930c5eb1ae7b3128db6e6fea2d4f4a4299ce4855657af6bf73b3a ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-message-internal.h
+-rw-r--r--       root       root                 5089 baf26a7ddcaa79caed5f0198d3891e9b730189f4b73202e94be10b090c6bf457 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-message-private.h
+-rw-r--r--       root       root                58760 620091675f234c796ce7653aba3d07d0aaaf83be26acec2cd836a762febc4129 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-message-util.c
+-rw-r--r--       root       root               170360 3c6fd662329e31f40f0b336056e5f6a9c7f526975f93642cfd9701a5bd8141b8 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-message.c
+-rw-r--r--       root       root                15005 196776a67c0cdb19be0671d3b8be7b290ed74ebde13cfca8a8784b2b942d3909 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-message.h
+-rw-r--r--       root       root                 9458 a9077c09af6815f6a32321df9ab74ab8a06c999c3ae63a1a7b1b098596c87b32 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-misc.c
+-rw-r--r--       root       root                 1813 3df90d610e4fce407012e7dd38ae2dc961a65948f438b7228fb7bee6e4400637 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-misc.h
+-rw-r--r--       root       root                14260 04d7ace5d9c1488d9ee1c9c207dfd90fe9390a38d2e4d75f63dc99042951daf0 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-nonce.c
+-rw-r--r--       root       root                 2371 a3a58b4f9043afa75752d051ca6a36968700754578911d3a3012707d0681c0c9 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-nonce.h
+-rw-r--r--       root       root                73261 27c8a7fa58b2c6acef905472b495630531786af0a2d41975304abda338e41dda ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-object-tree.c
+-rw-r--r--       root       root                 3204 8c782e7c25b40f01b3b3e91ffd42d561ab9cf5879ddc61223cacbd4bcce41bd3 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-object-tree.h
+-rw-r--r--       root       root                 4010 81fd5cf5d5b6000fbcfa423dd50389e860ebd4fd00a363a76fe57499fb04f10f ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-pending-call-internal.h
+-rw-r--r--       root       root                24995 b587314a4449082574d682d44fa5d2a429e65fdace5ce7dfe63d6971c4295410 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-pending-call.c
+-rw-r--r--       root       root                 3811 5766678273a015408580b429338753cf63ae2585bacf9f9d26216793b0b6e26f ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-pending-call.h
+-rw-r--r--       root       root                 2336 e583810776b3bccf1948504ea7f8f9842b01375cb3828c696cb9e78655225be3 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-pipe-unix.c
+-rw-r--r--       root       root                 2047 b4cf4f819846db81519b31e00c2a0e4913d3793af9771d2602eefe4eba51e3f9 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-pipe.c
+-rw-r--r--       root       root                 2368 58b5e22f25c7f1f91929ec531dcfb9f999f6935c37b93e731931553a6816a207 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-pipe.h
+-rw-r--r--       root       root                 9060 42781b51ccba85647dd313a3c00b241c6e5d6060258bc421cdc869121a4795e0 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-resources.c
+-rw-r--r--       root       root                 2509 0d66f6e205fcc8ff5d8668bf2688c381dae85d6a855b8c42c26dd490f3d13bd5 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-resources.h
+-rw-r--r--       root       root                 7335 c13351911348e09726e0676da511a85de365bfe494ff8d83e1928d83c21e6378 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-server-protected.h
+-rw-r--r--       root       root                17476 fb957da1a936c1db23011f55ec108eb343de3fd13001c21271ffb5fdfa9493ae ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-server-socket.c
+-rw-r--r--       root       root                 2566 595baa47f27de696b8fe3989ee8f790880f2408d4d4bf389d10cd33771406ade ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-server-socket.h
+-rw-r--r--       root       root                11556 19142cdbd3f50868c7dbe872aad4b521888591ffd585752c20e0105e578cabba ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-server-unix.c
+-rw-r--r--       root       root                36164 4d22e87408392c81093db0b75b39cc5aa035d4536a31ef1a7b8681d23ff6ff19 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-server.c
+-rw-r--r--       root       root                 5414 85fe2fcca2aae6dd8c27fcfefb4171fff02a82e76fa0a51638dc3cd36df3c7d3 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-server.h
+-rw-r--r--       root       root                30474 86bca32cd95e63624f776ee3934c87f65caf525e86fc362fad1942146575d74a ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-sha.c
+-rw-r--r--       root       root                 1885 249770631a798f0f135eb2116bf9999ec1a5adc3188bbb7bbd84818f1f020b1c ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-sha.h
+-rw-r--r--       root       root                 5394 6ff95a016e1008b9eac7603ac6876f95ae2113f3bc7aa62015d291e0bbc757fc ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-shared.h
+-rw-r--r--       root       root                17633 52b20c02dcf8967dc2e6227dcc1a8b61ded5f458d18233036805eb0039b4bff5 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-shell.c
+-rw-r--r--       root       root                 1365 d313edafa68e14c980251d2a40c23dc7c9195a9a57de5557ca72831c0f489d55 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-shell.h
+-rw-r--r--       root       root                19761 a8d6c28c52b3948602d09250239a7d08dab50b7afa06dac18be894fc88539c52 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-signature.c
+-rw-r--r--       root       root                 3049 57ab18d9645f944744bbccdd9c3a8b96525a092f5d580861c8d7c4fa8dd67102 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-signature.h
+-rw-r--r--       root       root                 9563 dacaa684d6accc6f3e9e0d67dfbae63caaa6e50dc4ef5b49d20f76a1d85886ae ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-socket-set-epoll.c
+-rw-r--r--       root       root                 8860 34f6340429668803551d1d9dd99be73b375f9bba026e4109e214ec920a2bb667 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-socket-set-poll.c
+-rw-r--r--       root       root                 1313 b3a0d4a3c9571892f1883958e7c8f7ebb76c59e060fc734f978ea125d38c6f73 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-socket-set.c
+-rw-r--r--       root       root                 3893 0e28ae0c346cf481d3d51a17d19fb3811c9ce78739110da7aa8cbe02c01e7a77 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-socket-set.h
+-rw-r--r--       root       root                42765 2f7b4de560c42cde09c987b00cfb237465614e271d54843c436542c5131f7c36 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-spawn.c
+-rw-r--r--       root       root                 3814 64e31df2cadc6cafb7e7785eba2bc9e93ad30ba96384cf011c85147b7c89516a ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-spawn.h
+-rw-r--r--       root       root                 4498 a83c4224086238ad666267434fb0ef5a1cc4ebf47bffcae15c068c0a41834cfb ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-string-private.h
+-rw-r--r--       root       root                31524 1fca4d96136b9a9af0e3edb0b1f6e2c9d7db8e3d6508b27916a1335c0737ae98 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-string-util.c
+-rw-r--r--       root       root                71421 a8a1d0ecafac57b6f433bd49d78ab0c63c6dcb5a5ba6601377095fcebea4e34f ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-string.c
+-rw-r--r--       root       root                21883 6c44ff09073b2d6b07a604e0b3dc819f6155cec8ae7191e7b1bcb0235897a006 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-string.h
+-rw-r--r--       root       root                10199 8c8038a7ca6a08089651fe2efc1054bea0d3a810b18b2b47e8234bf59a5de4fd ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-syntax.c
+-rw-r--r--       root       root                 2359 84bf3b915af641566b86038b1c695211192a6d711f8e8b21375cf452b23bbd2d ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-syntax.h
+-rw-r--r--       root       root                 8171 df961e3182807c9efacd5157b2067c5befd87f9e28d11ea626322da8daf4180a ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-sysdeps-pthread.c
+-rw-r--r--       root       root               130328 958319baa9453de2c44205c434d3e2e0ffebc1f4a359297a3f3c620b159433e1 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-sysdeps-unix.c
+-rw-r--r--       root       root                 6184 65552a8d18abf226764882951b3fd3770bcc3309ef79203df275114af152a4f5 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-sysdeps-unix.h
+-rw-r--r--       root       root                40675 046b0b75a3cdba2388c2939af99ebd2157a3339ff96fadefda72fdef0b33c0af ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-sysdeps-util-unix.c
+-rw-r--r--       root       root                 5405 e1ba22829a744495d041e442dc5d9b9734d29c0e62272b9ee9bc0abcf3eda9cb ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-sysdeps-util.c
+-rw-r--r--       root       root                18052 abee5da6de86f1b9ab9a8094ebf3fd0e5d68fc1d12b13783d25f8db95764096f ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-sysdeps.c
+-rw-r--r--       root       root                26277 4ed7f414a3b5c4ddaaba3498f93e364eb3f5f07d0507071beb089e72c487c9f6 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-sysdeps.h
+-rw-r--r--       root       root                 4095 bc359be736b490ee6c6c1e868f1c1607a882ff127da839f8169e58506e81d9b7 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-threads-internal.h
+-rw-r--r--       root       root                10939 c77cd024bf1cdc1c1c35852113968b61632ff330b1580270150e016b950c1ce2 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-threads.c
+-rw-r--r--       root       root                 8507 2f7dfe9689b1790cf3f975edfd09b60d7ac76f16eb43e7a1270795449af772d6 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-threads.h
+-rw-r--r--       root       root                14955 929fe30111445567dde1710e7065c52a79471161e07bb7d1be9cff82692ca3e1 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-timeout.c
+-rw-r--r--       root       root                 3401 5d69477010260f96ee837b8112d1785a8a31c4568705645a48b871c2c9042c19 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-timeout.h
+-rw-r--r--       root       root                 6481 e978a10a5111a83aae5414e030d7f6453f3a0228f9dbbe8871de1b0819e55703 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-transport-protected.h
+-rw-r--r--       root       root                49484 7d0c2e8d95e0ec1a95e6d4adecc29d968e7583bc87a6b19a7bdc93bc3ba0c162 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-transport-socket.c
+-rw-r--r--       root       root                 2109 cbe7fbccc8eaf54bc881587860f81e1bced333a8180ae6f164b1e46c4580a819 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-transport-socket.h
+-rw-r--r--       root       root                12292 18254f3666395a4008161e77cbb58ab9066a9b42117680841cb3e02670f83296 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-transport-unix.c
+-rw-r--r--       root       root                48132 53c22680cf22d60bff1ff4b530689570c89a573dcd53b5fde7e40d99b7e551b3 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-transport.c
+-rw-r--r--       root       root                 8192 8d6e6193f16d348d4378e81b11f3efae8776655f47674a1b4a2d7f8b6fbdf633 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-transport.h
+-rw-r--r--       root       root                 4145 86cf3d4e660eec46c80fd2e4dff4a1e133895eed333fc00d92f13dfe38d88760 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-types.h
+-rw-r--r--       root       root                13065 2f1162ef104a40ba1500ea784b79a76cf05026dce16f571c8be31c024ef29faa ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-userdb-util.c
+-rw-r--r--       root       root                17474 c06f56142cf9acd50a459d8df092e61fb2d572d3b6598a16ae4ffbaee8d319e2 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-userdb.c
+-rw-r--r--       root       root                 6267 bf0222b84677d772544ecaafafe5c6db10b0944bf84526afdebe1b2ab3212cac ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-userdb.h
+-rw-r--r--       root       root                 3523 1c57158822a4220df86c6614454aa9c05eb0efd189c3d78ef857be56db3dce37 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-uuidgen.c
+-rw-r--r--       root       root                 1731 96301581e4524a54f89d0a6dfd09493dd5567c5bcb7c8ca846f4ab0d230fdc0a ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-uuidgen.h
+-rw-r--r--       root       root                 1980 6f259b7263478066edb4f6e7979101b274dd162918b3c0a87c496ce5ab2b4d68 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-valgrind-internal.h
+-rw-r--r--       root       root                21994 9627ec929de5cb944c6edfb26dcb996e35ff22765956d01df90468ab98d7c239 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-watch.c
+-rw-r--r--       root       root                 4725 c684a9cdda30c345c90da8509bd6db1093141211c77f8f9ce48f4fff26122984 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-watch.h
+drwxr-xr-x       root       root                                                                                       ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/tools
+-rw-r--r--       root       root                 9522 d3483ed7ef635c574fec0f9668dd2c4b8c9307429565a270f7a528d683a05bbd ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/tools/dbus-cleanup-sockets.c
+-rw-r--r--       root       root                 6100 bfeb28c3d23865cca8c05517d94ccec31233feb8db053a50653cad37aedd8a32 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/tools/dbus-echo.c
+-rw-r--r--       root       root                11964 3edcab07d7f3132271ca98114d8f463ae6c8aff4b05ce619783a36e319a3c312 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/tools/dbus-launch-x11.c
+-rw-r--r--       root       root                37750 4f6e087093c74eabe74f7d4c148a51062d509fb1a271349a329467adf336aa55 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/tools/dbus-launch.c
+-rw-r--r--       root       root                 1680 e3e21f220463a0fac819434702e371f2dcc10b4b9fbcd7e143915e02be944f95 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/tools/dbus-launch.h
+-rw-r--r--       root       root                17535 35dc59b0070f058870d16fa9984682dbb52b4b4a790297c3a2671d2003119398 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/tools/dbus-monitor.c
+-rw-r--r--       root       root                15411 d3d47bf347d71332988c708ff1e9b128d7fefe386bbd06b3b00e8cbad56fbf75 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/tools/dbus-print-message.c
+-rw-r--r--       root       root                 1195 fd9272e979f518d68e2b1760df0bf0a89715c128b1cbe500d2b4ab1c2f65b003 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/tools/dbus-print-message.h
+-rw-r--r--       root       root                11876 15aff82f1c40e5afbe56d3b0c76f2240e2cfb7aee7e642497d70d9cae1545827 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/tools/dbus-run-session.c
+-rw-r--r--       root       root                16280 7b018c33e3df9f4c5fcd299f434285cc48b971a1ba7a8f00c72a606428de0820 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/tools/dbus-send.c
+-rw-r--r--       root       root                16264 91ef4e7dddf460ea282e2fb58dd0cbc85fa8da5becf31025a480634160d9cead ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/tools/dbus-spam.c
+-rw-r--r--       root       root                10912 18dbd23eab68ecfa3600eeae65c4b543bf0784a8af432b219edfd9a37734ae93 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/tools/dbus-update-activation-environment.c
+-rw-r--r--       root       root                 3695 eee2c0310115fff7f024a333d1312f305f76351d4cc31f0d3e145d33dc35ec0d ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/tools/dbus-uuidgen.c
+-rw-r--r--       root       root                 2163 c101fa11f100088c1ee37a786b1c15101080de2398966928f254e5ef7215ced3 ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/tools/test-tool.c
+-rw-r--r--       root       root                 1972 af7783d085186bb07dc650ac96ba98ea9294bbcd22391ec294f9c92ce680fb3c ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/tools/tool-common.c
+-rw-r--r--       root       root                 1282 f14439062cdb6ea42d3e363b0981017eff7ee313fd8d47bdc58821c16bfa988c ./package/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/tools/tool-common.h
+drwxr-xr-x       root       root                                                                                       ./package/var
+drwxr-xr-x       root       root                                                                                       ./package/var/lib
+drwxr-xr-x messagebus messagebus                                                                                       ./package/var/lib/dbus
+drwxr-xr-x       root       root                                                                                       ./packages-split
+-rw-r--r--       root       root                   54 24b174a37439e250822dfe5fc97a648ef61d2dfe5727ab5ef05da08d98a3c6b5 ./packages-split/dbus-dev.shlibdeps
+-rw-r--r--       root       root                   32 1e9682258b24eded98722d6fe5c59fcb050034b67da741c91a907a5372699a52 ./packages-split/dbus-lib.shlibdeps
+-rw-r--r--       root       root                   89 e3fca5f51c79126d1577410d2a46810370a0d3bc5c0104431b205c852c67968e ./packages-split/dbus.shlibdeps
+drwxrwxrwx       root       root                                                                                       ./packages-split/dbus
+drwxr-xr-x       root       root                                                                                       ./packages-split/dbus/etc
+drwxr-xr-x       root       root                                                                                       ./packages-split/dbus/etc/dbus-1
+-rw-r--r--       root       root                  838 2218b9313dc6d2e07d85751f318124cc5138787358ae1039703321cf6b35602a ./packages-split/dbus/etc/dbus-1/session.conf
+-rw-r--r--       root       root                  833 a6f50dc70ef082a110dcdb164579cd2af221b90226c5e0aca237edcad98a1c26 ./packages-split/dbus/etc/dbus-1/system.conf
+drwxr-xr-x       root       root                                                                                       ./packages-split/dbus/etc/default
+drwxr-xr-x       root       root                                                                                       ./packages-split/dbus/etc/default/volatiles
+-rw-r--r--       root       root                   48 fde4eeb5167cb673b6b823b9bab42adc0582116ddb985005f64d07ae28cb6f93 ./packages-split/dbus/etc/default/volatiles/99_dbus
+drwxr-xr-x       root       root                                                                                       ./packages-split/dbus/etc/init.d
+-rwxr-xr-x       root       root                 2893 a318ecad27c77fec43a15743d72fd82d098976957326b4e7b97129481520fccd ./packages-split/dbus/etc/init.d/dbus-1
+drwxr-xr-x       root       root                                                                                       ./packages-split/dbus/usr
+drwxr-xr-x       root       root                                                                                       ./packages-split/dbus/usr/bin
+-rwxr-xr-x       root       root                14304 7508270af960c6845e600864f3c709d056b52c12ed38e5fd7012e1cc38ce2c72 ./packages-split/dbus/usr/bin/dbus-cleanup-sockets
+-rwxr-xr-x       root       root               223688 acd4188da6f6b97c22449c1ee4195e6985806bd81d3e801347f724f7bb5c6fd4 ./packages-split/dbus/usr/bin/dbus-daemon
+-rwxr-xr-x       root       root                30680 a4b88ff310485172e2db654c1c5e8fd04f6d2948d4c8a4218ab73fe9dc123edf ./packages-split/dbus/usr/bin/dbus-launch
+-rwxr-xr-x       root       root                30688 5ccb29db8f9c8a11370d2eb217922b575a599e61e3891d93fe42b141cd487246 ./packages-split/dbus/usr/bin/dbus-monitor
+-rwxr-xr-x       root       root                14304 fa7eacffefb92e205d0872418de288b9a8ea972e5bfeb0d6ca81b9d2d4937829 ./packages-split/dbus/usr/bin/dbus-run-session
+-rwxr-xr-x       root       root                30680 8945c49cb927e1d552954a235921a787eb70888367645955ff5acea0c34e4d33 ./packages-split/dbus/usr/bin/dbus-send
+-rwxr-xr-x       root       root                14320 e94eaa82006fe87275dddb3bfcd9e992669b2086fbdfd06b0127b4a53e60f520 ./packages-split/dbus/usr/bin/dbus-update-activation-environment
+-rwxr-xr-x       root       root                14296 66de5bd23945d7217b35bedb13e8532a770d987ab362afcd2973541884709e2f ./packages-split/dbus/usr/bin/dbus-uuidgen
+drwxr-xr-x       root       root                                                                                       ./packages-split/dbus/usr/lib
+drwxr-xr-x       root       root                                                                                       ./packages-split/dbus/usr/lib/systemd
+drwxr-xr-x       root       root                                                                                       ./packages-split/dbus/usr/lib/systemd/user
+-rw-r--r--       root       root                  360 19d7b51e1e6da255346ac6acbf95627baf14c324e84ee841d90fab98bcc0e994 ./packages-split/dbus/usr/lib/systemd/user/dbus.service
+-rw-r--r--       root       root                  174 eb9bcc798c347ea00544ca79f3ca07f3f6bd675235c9d73a42b6dcc9fd16a927 ./packages-split/dbus/usr/lib/systemd/user/dbus.socket
+drwxr-xr-x       root       root                                                                                       ./packages-split/dbus/usr/lib/systemd/user/sockets.target.wants
+lrwxrwxrwx       root       root                                                                                       ./packages-split/dbus/usr/lib/systemd/user/sockets.target.wants/dbus.socket -> ../dbus.socket
+drwxr-xr-x       root       root                                                                                       ./packages-split/dbus/usr/libexec
+-rwsr-xr-x       root messagebus                63592 f128dd006ce9a6d97536762b4a886bb2b789be6b513551c28a4e237bb4f91c1e ./packages-split/dbus/usr/libexec/dbus-daemon-launch-helper
+drwxr-xr-x       root       root                                                                                       ./packages-split/dbus/usr/share
+drwxr-xr-x       root       root                                                                                       ./packages-split/dbus/usr/share/dbus-1
+-rw-r--r--       root       root                 3561 206f009ddcf909422f3651c687b4623a5780fb7486c6d650e5332f57c00d6be1 ./packages-split/dbus/usr/share/dbus-1/session.conf
+-rw-r--r--       root       root                 5692 7be0905f2d3ab89b7a04b5b02bdf0f3e1a8c13b6d66aa2bb5e18a2fe32020dab ./packages-split/dbus/usr/share/dbus-1/system.conf
+drwxr-xr-x       root       root                                                                                       ./packages-split/dbus/usr/share/dbus-1/services
+drwxr-xr-x       root       root                                                                                       ./packages-split/dbus/usr/share/dbus-1/session.d
+drwxr-xr-x       root       root                                                                                       ./packages-split/dbus/usr/share/dbus-1/system-services
+drwxr-xr-x       root       root                                                                                       ./packages-split/dbus/usr/share/dbus-1/system.d
+drwxr-xr-x       root       root                                                                                       ./packages-split/dbus/usr/share/xml
+drwxr-xr-x       root       root                                                                                       ./packages-split/dbus/usr/share/xml/dbus-1
+-rw-r--r--       root       root                 1907 9403dd9564b4568d62ca9004d40e2d0c1141ad2a1274d50e97bac66f98cc739d ./packages-split/dbus/usr/share/xml/dbus-1/busconfig.dtd
+-rw-r--r--       root       root                 1226 be73d84e8f764478f78be388385eaa7a3e4c86d314f9d68934f2c7be8b0d25bf ./packages-split/dbus/usr/share/xml/dbus-1/introspect.dtd
+drwxr-xr-x       root       root                                                                                       ./packages-split/dbus/var
+drwxr-xr-x       root       root                                                                                       ./packages-split/dbus/var/lib
+drwxr-xr-x messagebus messagebus                                                                                       ./packages-split/dbus/var/lib/dbus
+drwxrwxrwx       root       root                                                                                       ./packages-split/dbus-dbg
+drwxr-xr-x       root       root                                                                                       ./packages-split/dbus-dbg/usr
+drwxr-xr-x       root       root                                                                                       ./packages-split/dbus-dbg/usr/bin
+drwxr-xr-x       root       root                                                                                       ./packages-split/dbus-dbg/usr/bin/.debug
+-rwxr-xr-x       root       root                28576 0a95e69128c81f2fa308ae297ebc103215515d9007d1c0505af8904afb7939e7 ./packages-split/dbus-dbg/usr/bin/.debug/dbus-cleanup-sockets
+-rwxr-xr-x       root       root               788880 8e8fa626441594fef6fe69dd941a011a657de5aa93c7f5be5eb0c596235372b3 ./packages-split/dbus-dbg/usr/bin/.debug/dbus-daemon
+-rwxr-xr-x       root       root                95024 44ab75aa81354b4bf6b019bfbae1b9d7665e1185b341af9cbff4660a42db53ee ./packages-split/dbus-dbg/usr/bin/.debug/dbus-launch
+-rwxr-xr-x       root       root                74912 1db413488d4f535c996bad7cf7e5bed21cba76e1f4a04b26f7dcf7cef81f5b52 ./packages-split/dbus-dbg/usr/bin/.debug/dbus-monitor
+-rwxr-xr-x       root       root                26560 e143978463753d0164a5d1fae2906d02773d4c43624ca9ac8a68794733e7663c ./packages-split/dbus-dbg/usr/bin/.debug/dbus-run-session
+-rwxr-xr-x       root       root                78920 c465c23fbc18ca30db484e41b43d7fd2c6c685e229b59a4d50480ebbd2699487 ./packages-split/dbus-dbg/usr/bin/.debug/dbus-send
+-rwxr-xr-x       root       root                49928 4ca28c40635dbc5f1663c53c25cd3906eebdf6df5c26d5307596a5cb7d2c36d5 ./packages-split/dbus-dbg/usr/bin/.debug/dbus-test-tool
+-rwxr-xr-x       root       root                29376 0ee0525ba291f1e06c397e064db69a25c867dbe1c4652d0cde7a8f5a3eca946b ./packages-split/dbus-dbg/usr/bin/.debug/dbus-update-activation-environment
+-rwxr-xr-x       root       root                17272 a8e424f021961f6a717f2e46399d883e0713efb7e9cd66a6de5ff81383134641 ./packages-split/dbus-dbg/usr/bin/.debug/dbus-uuidgen
+drwxr-xr-x       root       root                                                                                       ./packages-split/dbus-dbg/usr/lib
+drwxr-xr-x       root       root                                                                                       ./packages-split/dbus-dbg/usr/lib/.debug
+-rwxr-xr-x       root       root              1210432 b73b70db98dc3a220529b571add69ef51c7b8537402c770cf97208cc1681f136 ./packages-split/dbus-dbg/usr/lib/.debug/libdbus-1.so.3.19.11
+drwxr-xr-x       root       root                                                                                       ./packages-split/dbus-dbg/usr/libexec
+drwxr-xr-x       root       root                                                                                       ./packages-split/dbus-dbg/usr/libexec/.debug
+-rwxr-xr-x       root       root               212616 9675cbe3a4ab1daccff99b970d5167ec04958ab6a70c69365f449e732729f31c ./packages-split/dbus-dbg/usr/libexec/.debug/dbus-daemon-launch-helper
+drwxrwxrwx       root       root                                                                                       ./packages-split/dbus-dev
+drwxr-xr-x       root       root                                                                                       ./packages-split/dbus-dev/usr
+drwxr-xr-x       root       root                                                                                       ./packages-split/dbus-dev/usr/bin
+-rwxr-xr-x       root       root                26672 093525c8724dbe28e3b8c4cbecf372d11e0a2ed9ce25afb5aed22d507dd8eb1b ./packages-split/dbus-dev/usr/bin/dbus-test-tool
+drwxr-xr-x       root       root                                                                                       ./packages-split/dbus-dev/usr/include
+drwxr-xr-x       root       root                                                                                       ./packages-split/dbus-dev/usr/include/dbus-1.0
+drwxr-xr-x       root       root                                                                                       ./packages-split/dbus-dev/usr/include/dbus-1.0/dbus
+-rw-r--r--       root       root                 2812 fe4e79d9d37d9d059ac8cb92a1422182f49c4b8663ed197e14f208ccac8d1be2 ./packages-split/dbus-dev/usr/include/dbus-1.0/dbus/dbus-address.h
+-rw-r--r--       root       root                 3472 bcf380f9218ec2748ce7bdd54d559cc540ef3482977ce792e4c83ba385b6ce4b ./packages-split/dbus-dev/usr/include/dbus-1.0/dbus/dbus-bus.h
+-rw-r--r--       root       root                27020 0d16029774286caae011468a0c23c1d50617bad45596f60aa44a467d44630928 ./packages-split/dbus-dev/usr/include/dbus-1.0/dbus/dbus-connection.h
+-rw-r--r--       root       root                 2911 5a7fa01d17c2bfef306c602e6dbbdc61b1dbf88af2dc409acc9dd18cc44b5e01 ./packages-split/dbus-dev/usr/include/dbus-1.0/dbus/dbus-errors.h
+-rw-r--r--       root       root                 6757 ceeb17a032fd7cefe33c8dd208e6f67ec02f15d71818d18a77a5dd1a473e7791 ./packages-split/dbus-dev/usr/include/dbus-1.0/dbus/dbus-macros.h
+-rw-r--r--       root       root                 1963 fcf307c698e138c34891cf578ea16a4804484a6a8d1fb5c5923b15707c11ed5f ./packages-split/dbus-dev/usr/include/dbus-1.0/dbus/dbus-memory.h
+-rw-r--r--       root       root                15005 196776a67c0cdb19be0671d3b8be7b290ed74ebde13cfca8a8784b2b942d3909 ./packages-split/dbus-dev/usr/include/dbus-1.0/dbus/dbus-message.h
+-rw-r--r--       root       root                 1813 3df90d610e4fce407012e7dd38ae2dc961a65948f438b7228fb7bee6e4400637 ./packages-split/dbus-dev/usr/include/dbus-1.0/dbus/dbus-misc.h
+-rw-r--r--       root       root                 3811 5766678273a015408580b429338753cf63ae2585bacf9f9d26216793b0b6e26f ./packages-split/dbus-dev/usr/include/dbus-1.0/dbus/dbus-pending-call.h
+-rw-r--r--       root       root                23642 487276d16b7daafc0612aefd1997f9f3a2dfbd337874a9f8f98a55c7b7cd802e ./packages-split/dbus-dev/usr/include/dbus-1.0/dbus/dbus-protocol.h
+-rw-r--r--       root       root                 5414 85fe2fcca2aae6dd8c27fcfefb4171fff02a82e76fa0a51638dc3cd36df3c7d3 ./packages-split/dbus-dev/usr/include/dbus-1.0/dbus/dbus-server.h
+-rw-r--r--       root       root                 5394 6ff95a016e1008b9eac7603ac6876f95ae2113f3bc7aa62015d291e0bbc757fc ./packages-split/dbus-dev/usr/include/dbus-1.0/dbus/dbus-shared.h
+-rw-r--r--       root       root                 3049 57ab18d9645f944744bbccdd9c3a8b96525a092f5d580861c8d7c4fa8dd67102 ./packages-split/dbus-dev/usr/include/dbus-1.0/dbus/dbus-signature.h
+-rw-r--r--       root       root                 2359 84bf3b915af641566b86038b1c695211192a6d711f8e8b21375cf452b23bbd2d ./packages-split/dbus-dev/usr/include/dbus-1.0/dbus/dbus-syntax.h
+-rw-r--r--       root       root                 8507 2f7dfe9689b1790cf3f975edfd09b60d7ac76f16eb43e7a1270795449af772d6 ./packages-split/dbus-dev/usr/include/dbus-1.0/dbus/dbus-threads.h
+-rw-r--r--       root       root                 4145 86cf3d4e660eec46c80fd2e4dff4a1e133895eed333fc00d92f13dfe38d88760 ./packages-split/dbus-dev/usr/include/dbus-1.0/dbus/dbus-types.h
+-rw-r--r--       root       root                 3963 78711e83fd3d1e6bf681217a93d073ea065d9a0394a88276a28e23c821d0c351 ./packages-split/dbus-dev/usr/include/dbus-1.0/dbus/dbus.h
+drwxr-xr-x       root       root                                                                                       ./packages-split/dbus-dev/usr/lib
+lrwxrwxrwx       root       root                                                                                       ./packages-split/dbus-dev/usr/lib/libdbus-1.so -> libdbus-1.so.3.19.11
+drwxr-xr-x       root       root                                                                                       ./packages-split/dbus-dev/usr/lib/cmake
+drwxr-xr-x       root       root                                                                                       ./packages-split/dbus-dev/usr/lib/cmake/DBus1
+-rw-r--r--       root       root                 2883 9e637d86d9dc3691d31890154289541c46289a45956d049bad52b27ad656ff71 ./packages-split/dbus-dev/usr/lib/cmake/DBus1/DBus1Config.cmake
+-rw-r--r--       root       root                  367 5740acbb6335c4479e300933ef10c6e3734268f9f35b6b7789566f7bb2ca6ace ./packages-split/dbus-dev/usr/lib/cmake/DBus1/DBus1ConfigVersion.cmake
+drwxr-xr-x       root       root                                                                                       ./packages-split/dbus-dev/usr/lib/dbus-1.0
+drwxr-xr-x       root       root                                                                                       ./packages-split/dbus-dev/usr/lib/dbus-1.0/include
+drwxr-xr-x       root       root                                                                                       ./packages-split/dbus-dev/usr/lib/dbus-1.0/include/dbus
+-rw-r--r--       root       root                 2052 a290c49c73f093e5839979abf29fa52cbe257fc53223ec0c4f08dcb1a9deb25f ./packages-split/dbus-dev/usr/lib/dbus-1.0/include/dbus/dbus-arch-deps.h
+drwxr-xr-x       root       root                                                                                       ./packages-split/dbus-dev/usr/lib/pkgconfig
+-rw-r--r--       root       root                  607 5afd16bd76475fff5d49d783ff3c06085f8fbbf8cc8b37c09f5fa010e919b00e ./packages-split/dbus-dev/usr/lib/pkgconfig/dbus-1.pc
+drwxrwxrwx       root       root                                                                                       ./packages-split/dbus-doc
+drwxr-xr-x       root       root                                                                                       ./packages-split/dbus-doc/usr
+drwxr-xr-x       root       root                                                                                       ./packages-split/dbus-doc/usr/share
+drwxr-xr-x       root       root                                                                                       ./packages-split/dbus-doc/usr/share/doc
+drwxr-xr-x       root       root                                                                                       ./packages-split/dbus-doc/usr/share/doc/dbus
+-rw-r--r--       root       root                78762 552d5d0582db3aa6f180eae85f97e822eebc6938b07d84e1a2063ab85ff3f3d7 ./packages-split/dbus-doc/usr/share/doc/dbus/diagram.png
+-rw-r--r--       root       root                33892 7f30f1cc7d95526b8627253fac66e3db2748260dcd6a483a6937e6970510004e ./packages-split/dbus-doc/usr/share/doc/dbus/diagram.svg
+-rw-r--r--       root       root                 3175 adf91f1eed77db6e0ea41a0c21da7bf3641e6640dcd0524885e4a53ea3dc6537 ./packages-split/dbus-doc/usr/share/doc/dbus/system-activation.txt
+drwxr-xr-x       root       root                                                                                       ./packages-split/dbus-doc/usr/share/doc/dbus/examples
+-rw-r--r--       root       root                 3924 c74450ed315eda77216755a229481cf32b4d503af50da5efe9b52dfe502a166c ./packages-split/dbus-doc/usr/share/doc/dbus/examples/GetAllMatchRules.py
+-rw-r--r--       root       root                  606 bb28ae81173a9caa079522dca4c04d12d82e0436143cd3341e9d57e58795ed80 ./packages-split/dbus-doc/usr/share/doc/dbus/examples/example-session-disable-stats.conf
+-rw-r--r--       root       root                  572 9ea39f6528786751c4d74df78e821c01427f164bdc1c006d0dc4139263a7f1db ./packages-split/dbus-doc/usr/share/doc/dbus/examples/example-system-enable-stats.conf
+drwxrwxrwx       root       root                                                                                       ./packages-split/dbus-lib
+drwxr-xr-x       root       root                                                                                       ./packages-split/dbus-lib/usr
+drwxr-xr-x       root       root                                                                                       ./packages-split/dbus-lib/usr/lib
+lrwxrwxrwx       root       root                                                                                       ./packages-split/dbus-lib/usr/lib/libdbus-1.so.3 -> libdbus-1.so.3.19.11
+-rwxr-xr-x       root       root               338048 8e7ea45c9bcf0afd292bba8604951eecfa5d63e45810390999401778a67278d2 ./packages-split/dbus-lib/usr/lib/libdbus-1.so.3.19.11
+drwxrwxrwx       root       root                                                                                       ./packages-split/dbus-locale
+drwxrwxrwx       root       root                                                                                       ./packages-split/dbus-ptest
+drwxrwxrwx       root       root                                                                                       ./packages-split/dbus-src
+drwxr-xr-x       root       root                                                                                       ./packages-split/dbus-src/usr
+drwxr-xr-x       root       root                                                                                       ./packages-split/dbus-src/usr/src
+drwxr-xr-x       root       root                                                                                       ./packages-split/dbus-src/usr/src/debug
+drwxr-xr-x       root       root                                                                                       ./packages-split/dbus-src/usr/src/debug/dbus
+drwxr-xr-x       root       root                                                                                       ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0
+drwxr-xr-x       root       root                                                                                       ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/build
+drwxr-xr-x       root       root                                                                                       ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/build/dbus
+-rw-r--r--       root       root                 2052 a290c49c73f093e5839979abf29fa52cbe257fc53223ec0c4f08dcb1a9deb25f ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/build/dbus/dbus-arch-deps.h
+drwxr-xr-x       root       root                                                                                       ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16
+drwxr-xr-x       root       root                                                                                       ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/bus
+-rw-r--r--       root       root                 3201 6bb5234975241bd7b5fb559967a27405051bf949eab513647c0343728a979fab ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/bus/activation-helper-bin.c
+-rw-r--r--       root       root                14340 5c58b4bad040aff6a9d6e42f060c01e5df73d95dd7ec9378974e0ea6196f074f ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/bus/activation-helper.c
+-rw-r--r--       root       root                 1215 09ea41c11afdf051edf11b75e7df1a300ff1c2ffc9b8bf375d0f13f79ea2483c ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/bus/activation-helper.h
+-rw-r--r--       root       root                82268 edc28fe88bc86d4a207f16975cbe6c2cf60dc9a583f29a2d4b845f6f28064132 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/bus/activation.c
+-rw-r--r--       root       root                 2873 b9490a9a6d390cd295c2c312efec5a3c7e9541e64ad1c219b0fedc85b1462cc9 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/bus/activation.h
+-rw-r--r--       root       root                32011 1c3dcbe16330d60e6a2bc283ee2bfb0e88d8c4d74f3cd2094545aa6f285a7681 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/bus/apparmor.c
+-rw-r--r--       root       root                 3240 5844717de0b07bb6989130f8faeddd50c25aaa6c88225fdd9ea00b6306318117 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/bus/apparmor.h
+-rw-r--r--       root       root                 5167 069f6e4b8f82817e229424abdbc9b7669df4ea85326dbdd44df324d77a2395e2 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/bus/audit.c
+-rw-r--r--       root       root                 1105 b63b44e3980574fe9ba61a3a721f836bd74f171d19912d459ef08ba69d2a5e76 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/bus/audit.h
+-rw-r--r--       root       root                52175 f8f6a3ef57aa2633a73fdf11f9e8114a5360d2520746fdbe497b210834b11873 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/bus/bus.c
+-rw-r--r--       root       root                 9941 27cd24a65ccb9cd40b94041ff611c5bd8c725644be19e62863433c785764d50b ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/bus/bus.h
+-rw-r--r--       root       root                 8453 2e85a2e018e9a9af768303b57f6f6b49e3342ebf7936e57ea9f476f803a0bb2c ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/bus/config-loader-expat.c
+-rw-r--r--       root       root                 4863 4a4a9793ddbaa0d036bb26d9e5280752c2f54b62058366c35c076ad244a2359e ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/bus/config-parser-common.c
+-rw-r--r--       root       root                 1841 54eff52fabcba7e9842f5b00578b8b574a9996f96c02c838405356e7bcd0b9e6 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/bus/config-parser-common.h
+-rw-r--r--       root       root                19978 cda7691bd1396a1c4bdd9ac931bba2f3516cdb2ae66c3d463afafbf1a09309bf ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/bus/config-parser-trivial.c
+-rw-r--r--       root       root                 3596 294bfffcc50d33b4ddac4cc8625c40f4ae669f471d1cc614ff214ab45564be59 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/bus/config-parser-trivial.h
+-rw-r--r--       root       root               113121 c03e1bd6b0804ca850e02c89e304c7e7ab4d2734463145758214e7d39d3e920e ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/bus/config-parser.c
+-rw-r--r--       root       root                 5232 7318b2d5396e266556fcf0dcbce2486742c048f926b04d9e6bf0e8da6a2774e9 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/bus/config-parser.h
+-rw-r--r--       root       root                81547 e0648118dc99234e295b785816043bafdf462876287a18cae349aca447241c48 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/bus/connection.c
+-rw-r--r--       root       root                11357 cd0c5752a6adb713cccc392a6d0dbef5fd6b2f9c85c9354516353f17554f9812 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/bus/connection.h
+-rw-r--r--       root       root                19858 724742f9f23f6db66cdc7b390907bd89d86b7d5d1c97d8d8cd5bb5189b62e534 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/bus/desktop-file.c
+-rw-r--r--       root       root                 2242 db5318f1922dc147ac30eaaab8d9e1b160078729f2608adcb741cbfdf0de8342 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/bus/desktop-file.h
+-rw-r--r--       root       root                 7629 c63eb66a5a1be686097443912db03b8ed4a1b304e11380a6e5a078c5a679f8a0 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/bus/dir-watch-inotify.c
+-rw-r--r--       root       root                 1406 50cacfc70e8ddb44516d6cbd1351df588e87b17203af504a39e3d453346a7cd6 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/bus/dir-watch.h
+-rw-r--r--       root       root               150832 b987cc9845a203a53e631f3190c54b542e6f8fa3aa2cbac13e2aac3d7d62605f ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/bus/dispatch.c
+-rw-r--r--       root       root                 1551 16e12b4a6e51fca3678a425a05e5514034282c82f4ce727d07e98ed120ea0223 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/bus/dispatch.h
+-rw-r--r--       root       root                92255 664b0821ff6fb369afc54c51ca3da7c0ec96b4423616cc16341c3e6ee7515e6f ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/bus/driver.c
+-rw-r--r--       root       root                 3274 6f05a6757842b184bcabefef405396f6f9e16ddc1ce7ff4eb605f47ac79b8f7e ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/bus/driver.h
+-rw-r--r--       root       root                10223 df58b2b4de4701972541dc556747855e749c635aa280b32e6745ee0afa790791 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/bus/expirelist.c
+-rw-r--r--       root       root                 3657 24ea444aa9ba3adadff18833802930930d5135830c9d8f876638ae5c902df221 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/bus/expirelist.h
+-rw-r--r--       root       root                19969 f05d52d09b2513c41a4eb494c2dc99a5a6f472c84014385e7f59105d07c69726 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/bus/main.c
+-rw-r--r--       root       root                39478 512f842dd2d3d0dcc97b04a6df71c6a7183ed822f655db87ca7e859aa393032f ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/bus/policy.c
+-rw-r--r--       root       root                 7405 a947477a3726d78a90c95411b666c8200f0f80f445ee50004ba81b0ef7799ba1 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/bus/policy.h
+-rw-r--r--       root       root                24854 64b7c018ed2ae00a1c157b183217800e83b2da450efe97aaee285cfa86781428 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/bus/selinux.c
+-rw-r--r--       root       root                 2760 1b82b6d6581f150bbb772e2ef97dd9d09d5eb05f8c9654e59a2efc9cab139ca0 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/bus/selinux.h
+-rw-r--r--       root       root                36698 1ba49f995f2ea4b6ffdfa34c33dde224c6efd3469880bcdec85f88cc49da9f2d ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/bus/services.c
+-rw-r--r--       root       root                 5755 58f51ee2f29025a631b623c5c5f643ba5385d6f56e0a4b55244e71e83f4054ca ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/bus/services.h
+-rw-r--r--       root       root                81474 d442904ee289e41873f25020372dfc8cb5a76985a6b6fbe835e16ded0c57e210 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/bus/signals.c
+-rw-r--r--       root       root                 5402 f2ffc03ae0441b9ee2dc0f9cfdab007321e3abfd41dff4cc58721ca469534b9c ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/bus/signals.h
+-rw-r--r--       root       root                11130 64ba83e80bb6e91909946e2f37efbde4a8e63521b95706ece68accd084a8788d ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/bus/stats.c
+-rw-r--r--       root       root                 1579 388751e4c765ac5e5ee02aae15daca7c05ccacab03e6a04d8af551b88dad5643 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/bus/utils.c
+-rw-r--r--       root       root                 1369 2798832e322beb1e7d1f323758807cf043d6623ceb2441ce3687d3fdbd629314 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/bus/utils.h
+drwxr-xr-x       root       root                                                                                       ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus
+-rw-r--r--       root       root                20889 8aba8c57fd002011751b500b553b9f75a778f77a625669fd1224cb5b1c04db58 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-address.c
+-rw-r--r--       root       root                 2812 fe4e79d9d37d9d059ac8cb92a1422182f49c4b8663ed197e14f208ccac8d1be2 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-address.h
+-rw-r--r--       root       root                10290 74e05d20fda125d6428fb870c1a9a1c6bbe6360eb01469ff60dc1a738eb93572 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-asv-util.c
+-rw-r--r--       root       root                 2939 2f26e55d2f06f30edade6a3e9d3fbf131539129d2c83956edb18d173edf32299 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-asv-util.h
+-rw-r--r--       root       root                81873 dcb5a3957115aa949d6ae163805369d9e58301a39bde0760e8ed50e5bc9d7759 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-auth.c
+-rw-r--r--       root       root                 4562 bb7bd6816113289926d74f1f9e5ab084bcc0dd09370647fffc15f00f8412871f ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-auth.h
+-rw-r--r--       root       root                51255 339191e480c116b0c8bc26d88f629dee75034c9d638bcb72972668cfce2fe84b ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-bus.c
+-rw-r--r--       root       root                 3472 bcf380f9218ec2748ce7bdd54d559cc540ef3482977ce792e4c83ba385b6ce4b ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-bus.h
+-rw-r--r--       root       root                 8728 ed3cb68884e782c64ccd23a25e9df5d43143c12b909b5e468f093503daa7cb82 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-connection-internal.h
+-rw-r--r--       root       root               219165 4b7a8893b3d05daa95eb575e3d648dbcbf723b948ad70c6c6a15187f19e116e3 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-connection.c
+-rw-r--r--       root       root                27020 0d16029774286caae011468a0c23c1d50617bad45596f60aa44a467d44630928 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-connection.h
+-rw-r--r--       root       root                17535 bb2cc5de301628819d552c89fde0e38734453e0877dccf4346ce546088204b56 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-credentials.c
+-rw-r--r--       root       root                 5340 c94f9e40324c1e78adf745f611b221eb6b0cd2bb65e58b1f12c35a1d4fa0c6fa ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-credentials.h
+-rw-r--r--       root       root                13319 b8d50a2afaf7a3ce3cccc3430be6737be20025df8dc9e5dae856565eed848167 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-dataslot.c
+-rw-r--r--       root       root                 3849 26307d3a088eecbbdd2efc431730612d704a582b50e26933eb5cb3e3e6a311da ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-dataslot.h
+-rw-r--r--       root       root                11647 7da4c35a30e41f9925b4a42716e4aff6f268bc9560af54f1ee4ce7e4bb54b865 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-errors.c
+-rw-r--r--       root       root                 2911 5a7fa01d17c2bfef306c602e6dbbdc61b1dbf88af2dc409acc9dd18cc44b5e01 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-errors.h
+-rw-r--r--       root       root                11260 100de061abf31eb98ba4e33e7e57c7ada674afed94a0907aa4fd2db6e7b74f0e ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-file-unix.c
+-rw-r--r--       root       root                 2310 d56da7b5f4fd2a6da8734338b2135723d2ddd95773f2c0a8a327d5dd23b67a7b ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-file.h
+-rw-r--r--       root       root                55553 70d5ec42a02c46e3dd27406d97a7ab1e426dafca40a2a2c82b5f43268a4240a9 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-hash.c
+-rw-r--r--       root       root                 8535 b0007914e4aadfeffcb7883bceefa9802c120299f51755184c7ba5b0118daa94 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-hash.h
+-rw-r--r--       root       root                26738 287600736404eeae0e529646baba5b9b35b66423e1fd738afd29951db1923a3e ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-internals.c
+-rw-r--r--       root       root                16351 c72ff3ffc7897107f036554c97299b59e497b370d82aced4af5d61940562ee02 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-internals.h
+-rw-r--r--       root       root                31187 8a9af7658ffd7658592f468365bbf9c874adb4e7a2b0aa25cb6c82177f9b4841 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-keyring.c
+-rw-r--r--       root       root                 2213 98e29cd0f6b90fe6bff2229dfb029324c20715642e49f3ecef4cf02d2ed20de0 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-keyring.h
+-rw-r--r--       root       root                30937 b400131a2cd9af9421e10704e565f551a02ab6f4990bcaf70904185bb304ba46 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-list.c
+-rw-r--r--       root       root                 5211 f4cfc10bc3311a5f8f669ba5fa036a0311e192f028a4476538768f4d8ab2f16f ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-list.h
+-rw-r--r--       root       root                23740 9e11ad1f0320e342950ef339f3f37f557d63fb67fc7e8e887116a30aeecf6a2d ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-mainloop.c
+-rw-r--r--       root       root                 2755 439efc01d41c8fc3bda8dee404f3beb097575d37681b4b088e45851a975e5a7d ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-mainloop.h
+-rw-r--r--       root       root                61576 1237bedb2e24205df84007fbf204270d7383688275e12ec78632da905b61f371 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-marshal-basic.c
+-rw-r--r--       root       root                11758 ef9f37298e35968951fd77b306e476cb088e0a5caa52a5ca7aadaf741640f9b5 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-marshal-basic.h
+-rw-r--r--       root       root                 7615 8d81d61e31e36f77c74836b7026380ad312540c6dd68406fe565075a2721ff62 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-marshal-byteswap.c
+-rw-r--r--       root       root                 1515 dd89f0d22976415d4c8f107d5852b7e6e2f66458be72033bc215f7cbb90b4039 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-marshal-byteswap.h
+-rw-r--r--       root       root                46694 119a9c721b7f9be9ef28dc08fe74ccd69b3f5d0cdd24d72b124905dce5246dbc ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-marshal-header.c
+-rw-r--r--       root       root                 7171 f78bbd1cf07903ebf1c24b133a08af2c861db3d09bc00cb0602a3dba12ddbff5 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-marshal-header.h
+-rw-r--r--       root       root                96034 c3bccdeae638b5e9c1752b22d9569e4979c2700a5848b6f7edb471041f6b2a6b ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-marshal-recursive.c
+-rw-r--r--       root       root                10725 1064ea5bc848020001c86051d4a0e7fb9b60d13cfe3151e2e97b7c7e324a3d7f ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-marshal-recursive.h
+-rw-r--r--       root       root                41113 1c5b211ce536d2d113b5cbfbaa7a9c4fb015355206f21ef3ff49cad0d6cc309d ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-marshal-validate.c
+-rw-r--r--       root       root                 8978 137234f3901e7e283b0e7eb627fe65633dd0b76f22299647ce27c1534b3dcaf9 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-marshal-validate.h
+-rw-r--r--       root       root                24164 c66aea01baf2132b168c1f58e8b1011b7fa7d54ab26bd154766738336977b9eb ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-memory.c
+-rw-r--r--       root       root                 1963 fcf307c698e138c34891cf578ea16a4804484a6a8d1fb5c5923b15707c11ed5f ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-memory.h
+-rw-r--r--       root       root                16482 259288e4d8a6bae5b9af957b1907836aa7e0f2142d8fb9a2313ead57d3f82983 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-mempool.c
+-rw-r--r--       root       root                 1903 f0976cdbace2046efb051a8aa2ea558d15f458e944e33a2a35aef3b1f8ceaaa8 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-mempool.h
+-rw-r--r--       root       root                 7051 8e05ed779d1930c5eb1ae7b3128db6e6fea2d4f4a4299ce4855657af6bf73b3a ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-message-internal.h
+-rw-r--r--       root       root                 5089 baf26a7ddcaa79caed5f0198d3891e9b730189f4b73202e94be10b090c6bf457 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-message-private.h
+-rw-r--r--       root       root                58760 620091675f234c796ce7653aba3d07d0aaaf83be26acec2cd836a762febc4129 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-message-util.c
+-rw-r--r--       root       root               170360 3c6fd662329e31f40f0b336056e5f6a9c7f526975f93642cfd9701a5bd8141b8 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-message.c
+-rw-r--r--       root       root                15005 196776a67c0cdb19be0671d3b8be7b290ed74ebde13cfca8a8784b2b942d3909 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-message.h
+-rw-r--r--       root       root                 9458 a9077c09af6815f6a32321df9ab74ab8a06c999c3ae63a1a7b1b098596c87b32 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-misc.c
+-rw-r--r--       root       root                 1813 3df90d610e4fce407012e7dd38ae2dc961a65948f438b7228fb7bee6e4400637 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-misc.h
+-rw-r--r--       root       root                14260 04d7ace5d9c1488d9ee1c9c207dfd90fe9390a38d2e4d75f63dc99042951daf0 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-nonce.c
+-rw-r--r--       root       root                 2371 a3a58b4f9043afa75752d051ca6a36968700754578911d3a3012707d0681c0c9 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-nonce.h
+-rw-r--r--       root       root                73261 27c8a7fa58b2c6acef905472b495630531786af0a2d41975304abda338e41dda ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-object-tree.c
+-rw-r--r--       root       root                 3204 8c782e7c25b40f01b3b3e91ffd42d561ab9cf5879ddc61223cacbd4bcce41bd3 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-object-tree.h
+-rw-r--r--       root       root                 4010 81fd5cf5d5b6000fbcfa423dd50389e860ebd4fd00a363a76fe57499fb04f10f ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-pending-call-internal.h
+-rw-r--r--       root       root                24995 b587314a4449082574d682d44fa5d2a429e65fdace5ce7dfe63d6971c4295410 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-pending-call.c
+-rw-r--r--       root       root                 3811 5766678273a015408580b429338753cf63ae2585bacf9f9d26216793b0b6e26f ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-pending-call.h
+-rw-r--r--       root       root                 2336 e583810776b3bccf1948504ea7f8f9842b01375cb3828c696cb9e78655225be3 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-pipe-unix.c
+-rw-r--r--       root       root                 2047 b4cf4f819846db81519b31e00c2a0e4913d3793af9771d2602eefe4eba51e3f9 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-pipe.c
+-rw-r--r--       root       root                 2368 58b5e22f25c7f1f91929ec531dcfb9f999f6935c37b93e731931553a6816a207 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-pipe.h
+-rw-r--r--       root       root                 9060 42781b51ccba85647dd313a3c00b241c6e5d6060258bc421cdc869121a4795e0 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-resources.c
+-rw-r--r--       root       root                 2509 0d66f6e205fcc8ff5d8668bf2688c381dae85d6a855b8c42c26dd490f3d13bd5 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-resources.h
+-rw-r--r--       root       root                 7335 c13351911348e09726e0676da511a85de365bfe494ff8d83e1928d83c21e6378 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-server-protected.h
+-rw-r--r--       root       root                17476 fb957da1a936c1db23011f55ec108eb343de3fd13001c21271ffb5fdfa9493ae ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-server-socket.c
+-rw-r--r--       root       root                 2566 595baa47f27de696b8fe3989ee8f790880f2408d4d4bf389d10cd33771406ade ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-server-socket.h
+-rw-r--r--       root       root                11556 19142cdbd3f50868c7dbe872aad4b521888591ffd585752c20e0105e578cabba ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-server-unix.c
+-rw-r--r--       root       root                36164 4d22e87408392c81093db0b75b39cc5aa035d4536a31ef1a7b8681d23ff6ff19 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-server.c
+-rw-r--r--       root       root                 5414 85fe2fcca2aae6dd8c27fcfefb4171fff02a82e76fa0a51638dc3cd36df3c7d3 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-server.h
+-rw-r--r--       root       root                30474 86bca32cd95e63624f776ee3934c87f65caf525e86fc362fad1942146575d74a ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-sha.c
+-rw-r--r--       root       root                 1885 249770631a798f0f135eb2116bf9999ec1a5adc3188bbb7bbd84818f1f020b1c ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-sha.h
+-rw-r--r--       root       root                 5394 6ff95a016e1008b9eac7603ac6876f95ae2113f3bc7aa62015d291e0bbc757fc ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-shared.h
+-rw-r--r--       root       root                17633 52b20c02dcf8967dc2e6227dcc1a8b61ded5f458d18233036805eb0039b4bff5 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-shell.c
+-rw-r--r--       root       root                 1365 d313edafa68e14c980251d2a40c23dc7c9195a9a57de5557ca72831c0f489d55 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-shell.h
+-rw-r--r--       root       root                19761 a8d6c28c52b3948602d09250239a7d08dab50b7afa06dac18be894fc88539c52 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-signature.c
+-rw-r--r--       root       root                 3049 57ab18d9645f944744bbccdd9c3a8b96525a092f5d580861c8d7c4fa8dd67102 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-signature.h
+-rw-r--r--       root       root                 9563 dacaa684d6accc6f3e9e0d67dfbae63caaa6e50dc4ef5b49d20f76a1d85886ae ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-socket-set-epoll.c
+-rw-r--r--       root       root                 8860 34f6340429668803551d1d9dd99be73b375f9bba026e4109e214ec920a2bb667 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-socket-set-poll.c
+-rw-r--r--       root       root                 1313 b3a0d4a3c9571892f1883958e7c8f7ebb76c59e060fc734f978ea125d38c6f73 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-socket-set.c
+-rw-r--r--       root       root                 3893 0e28ae0c346cf481d3d51a17d19fb3811c9ce78739110da7aa8cbe02c01e7a77 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-socket-set.h
+-rw-r--r--       root       root                42765 2f7b4de560c42cde09c987b00cfb237465614e271d54843c436542c5131f7c36 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-spawn.c
+-rw-r--r--       root       root                 3814 64e31df2cadc6cafb7e7785eba2bc9e93ad30ba96384cf011c85147b7c89516a ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-spawn.h
+-rw-r--r--       root       root                 4498 a83c4224086238ad666267434fb0ef5a1cc4ebf47bffcae15c068c0a41834cfb ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-string-private.h
+-rw-r--r--       root       root                31524 1fca4d96136b9a9af0e3edb0b1f6e2c9d7db8e3d6508b27916a1335c0737ae98 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-string-util.c
+-rw-r--r--       root       root                71421 a8a1d0ecafac57b6f433bd49d78ab0c63c6dcb5a5ba6601377095fcebea4e34f ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-string.c
+-rw-r--r--       root       root                21883 6c44ff09073b2d6b07a604e0b3dc819f6155cec8ae7191e7b1bcb0235897a006 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-string.h
+-rw-r--r--       root       root                10199 8c8038a7ca6a08089651fe2efc1054bea0d3a810b18b2b47e8234bf59a5de4fd ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-syntax.c
+-rw-r--r--       root       root                 2359 84bf3b915af641566b86038b1c695211192a6d711f8e8b21375cf452b23bbd2d ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-syntax.h
+-rw-r--r--       root       root                 8171 df961e3182807c9efacd5157b2067c5befd87f9e28d11ea626322da8daf4180a ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-sysdeps-pthread.c
+-rw-r--r--       root       root               130328 958319baa9453de2c44205c434d3e2e0ffebc1f4a359297a3f3c620b159433e1 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-sysdeps-unix.c
+-rw-r--r--       root       root                 6184 65552a8d18abf226764882951b3fd3770bcc3309ef79203df275114af152a4f5 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-sysdeps-unix.h
+-rw-r--r--       root       root                40675 046b0b75a3cdba2388c2939af99ebd2157a3339ff96fadefda72fdef0b33c0af ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-sysdeps-util-unix.c
+-rw-r--r--       root       root                 5405 e1ba22829a744495d041e442dc5d9b9734d29c0e62272b9ee9bc0abcf3eda9cb ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-sysdeps-util.c
+-rw-r--r--       root       root                18052 abee5da6de86f1b9ab9a8094ebf3fd0e5d68fc1d12b13783d25f8db95764096f ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-sysdeps.c
+-rw-r--r--       root       root                26277 4ed7f414a3b5c4ddaaba3498f93e364eb3f5f07d0507071beb089e72c487c9f6 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-sysdeps.h
+-rw-r--r--       root       root                 4095 bc359be736b490ee6c6c1e868f1c1607a882ff127da839f8169e58506e81d9b7 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-threads-internal.h
+-rw-r--r--       root       root                10939 c77cd024bf1cdc1c1c35852113968b61632ff330b1580270150e016b950c1ce2 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-threads.c
+-rw-r--r--       root       root                 8507 2f7dfe9689b1790cf3f975edfd09b60d7ac76f16eb43e7a1270795449af772d6 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-threads.h
+-rw-r--r--       root       root                14955 929fe30111445567dde1710e7065c52a79471161e07bb7d1be9cff82692ca3e1 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-timeout.c
+-rw-r--r--       root       root                 3401 5d69477010260f96ee837b8112d1785a8a31c4568705645a48b871c2c9042c19 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-timeout.h
+-rw-r--r--       root       root                 6481 e978a10a5111a83aae5414e030d7f6453f3a0228f9dbbe8871de1b0819e55703 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-transport-protected.h
+-rw-r--r--       root       root                49484 7d0c2e8d95e0ec1a95e6d4adecc29d968e7583bc87a6b19a7bdc93bc3ba0c162 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-transport-socket.c
+-rw-r--r--       root       root                 2109 cbe7fbccc8eaf54bc881587860f81e1bced333a8180ae6f164b1e46c4580a819 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-transport-socket.h
+-rw-r--r--       root       root                12292 18254f3666395a4008161e77cbb58ab9066a9b42117680841cb3e02670f83296 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-transport-unix.c
+-rw-r--r--       root       root                48132 53c22680cf22d60bff1ff4b530689570c89a573dcd53b5fde7e40d99b7e551b3 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-transport.c
+-rw-r--r--       root       root                 8192 8d6e6193f16d348d4378e81b11f3efae8776655f47674a1b4a2d7f8b6fbdf633 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-transport.h
+-rw-r--r--       root       root                 4145 86cf3d4e660eec46c80fd2e4dff4a1e133895eed333fc00d92f13dfe38d88760 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-types.h
+-rw-r--r--       root       root                13065 2f1162ef104a40ba1500ea784b79a76cf05026dce16f571c8be31c024ef29faa ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-userdb-util.c
+-rw-r--r--       root       root                17474 c06f56142cf9acd50a459d8df092e61fb2d572d3b6598a16ae4ffbaee8d319e2 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-userdb.c
+-rw-r--r--       root       root                 6267 bf0222b84677d772544ecaafafe5c6db10b0944bf84526afdebe1b2ab3212cac ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-userdb.h
+-rw-r--r--       root       root                 3523 1c57158822a4220df86c6614454aa9c05eb0efd189c3d78ef857be56db3dce37 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-uuidgen.c
+-rw-r--r--       root       root                 1731 96301581e4524a54f89d0a6dfd09493dd5567c5bcb7c8ca846f4ab0d230fdc0a ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-uuidgen.h
+-rw-r--r--       root       root                 1980 6f259b7263478066edb4f6e7979101b274dd162918b3c0a87c496ce5ab2b4d68 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-valgrind-internal.h
+-rw-r--r--       root       root                21994 9627ec929de5cb944c6edfb26dcb996e35ff22765956d01df90468ab98d7c239 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-watch.c
+-rw-r--r--       root       root                 4725 c684a9cdda30c345c90da8509bd6db1093141211c77f8f9ce48f4fff26122984 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/dbus/dbus-watch.h
+drwxr-xr-x       root       root                                                                                       ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/tools
+-rw-r--r--       root       root                 9522 d3483ed7ef635c574fec0f9668dd2c4b8c9307429565a270f7a528d683a05bbd ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/tools/dbus-cleanup-sockets.c
+-rw-r--r--       root       root                 6100 bfeb28c3d23865cca8c05517d94ccec31233feb8db053a50653cad37aedd8a32 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/tools/dbus-echo.c
+-rw-r--r--       root       root                11964 3edcab07d7f3132271ca98114d8f463ae6c8aff4b05ce619783a36e319a3c312 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/tools/dbus-launch-x11.c
+-rw-r--r--       root       root                37750 4f6e087093c74eabe74f7d4c148a51062d509fb1a271349a329467adf336aa55 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/tools/dbus-launch.c
+-rw-r--r--       root       root                 1680 e3e21f220463a0fac819434702e371f2dcc10b4b9fbcd7e143915e02be944f95 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/tools/dbus-launch.h
+-rw-r--r--       root       root                17535 35dc59b0070f058870d16fa9984682dbb52b4b4a790297c3a2671d2003119398 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/tools/dbus-monitor.c
+-rw-r--r--       root       root                15411 d3d47bf347d71332988c708ff1e9b128d7fefe386bbd06b3b00e8cbad56fbf75 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/tools/dbus-print-message.c
+-rw-r--r--       root       root                 1195 fd9272e979f518d68e2b1760df0bf0a89715c128b1cbe500d2b4ab1c2f65b003 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/tools/dbus-print-message.h
+-rw-r--r--       root       root                11876 15aff82f1c40e5afbe56d3b0c76f2240e2cfb7aee7e642497d70d9cae1545827 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/tools/dbus-run-session.c
+-rw-r--r--       root       root                16280 7b018c33e3df9f4c5fcd299f434285cc48b971a1ba7a8f00c72a606428de0820 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/tools/dbus-send.c
+-rw-r--r--       root       root                16264 91ef4e7dddf460ea282e2fb58dd0cbc85fa8da5becf31025a480634160d9cead ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/tools/dbus-spam.c
+-rw-r--r--       root       root                10912 18dbd23eab68ecfa3600eeae65c4b543bf0784a8af432b219edfd9a37734ae93 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/tools/dbus-update-activation-environment.c
+-rw-r--r--       root       root                 3695 eee2c0310115fff7f024a333d1312f305f76351d4cc31f0d3e145d33dc35ec0d ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/tools/dbus-uuidgen.c
+-rw-r--r--       root       root                 2163 c101fa11f100088c1ee37a786b1c15101080de2398966928f254e5ef7215ced3 ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/tools/test-tool.c
+-rw-r--r--       root       root                 1972 af7783d085186bb07dc650ac96ba98ea9294bbcd22391ec294f9c92ce680fb3c ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/tools/tool-common.c
+-rw-r--r--       root       root                 1282 f14439062cdb6ea42d3e363b0981017eff7ee313fd8d47bdc58821c16bfa988c ./packages-split/dbus-src/usr/src/debug/dbus/1.12.16-r0/dbus-1.12.16/tools/tool-common.h
+drwxrwxrwx       root       root                                                                                       ./packages-split/dbus-staticdev
+drwxr-xr-x       root       root                                                                                       ./pkgdata
+-rw-r--r--       root       root                   98 d6917ebdad184abb2d909036b7ff345a5dba07ded63573914074837a5c2f8513 ./pkgdata/dbus
+-rw-r--r--       root       root                61034 7f32faa5642da587501b57d6be00c766572ab70a4522fee21d5eb5958bd44b45 ./pkgdata/dbus.filelics
+-rw-r--r--       root       root                77876 9ee38860383a704e7387846ac397491f20f4b2c2fe4830c252275d84f5c0845d ./pkgdata/dbus.srclist
+drwxr-xr-x       root       root                                                                                       ./pkgdata/runtime
+-rw-r--r--       root       root                12263 14d66fc92e2d15801e7a4572d97e6f379b03bb53bd65fb05a299ede10863cf68 ./pkgdata/runtime/dbus
+-rw-r--r--       root       root                 1303 9f4a3dc4a33efbd70a6d249d0cdc3492ca178dd154539c1d53fa8ff2bed23071 ./pkgdata/runtime/dbus-dbg
+-rw-r--r--       root       root                    0 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 ./pkgdata/runtime/dbus-dbg.packaged
+-rw-r--r--       root       root                 2916 da371d3c49891f6a16cc09e75fad09b88212f8797895149d714d1623e556ce29 ./pkgdata/runtime/dbus-dev
+-rw-r--r--       root       root                    0 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 ./pkgdata/runtime/dbus-dev.packaged
+-rw-r--r--       root       root                 1066 df7f149ab27fe7a6d891ecd15b692823b20852ccd577e6ff9ba7809981b96579 ./pkgdata/runtime/dbus-doc
+-rw-r--r--       root       root                    0 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 ./pkgdata/runtime/dbus-doc.packaged
+-rw-r--r--       root       root                 1560 62eea47306583e8ff9d3cc299bf06bc934d83267482cb2e672a3c7805b7f7621 ./pkgdata/runtime/dbus-lib
+-rw-r--r--       root       root                    0 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 ./pkgdata/runtime/dbus-lib.packaged
+-rw-r--r--       root       root                  573 10488f5b925aa22e77cd9bff5b5227647e16799b46caea2c20064eeba8a567c4 ./pkgdata/runtime/dbus-locale
+-rw-r--r--       root       root                  596 844f8e5ba2ac4948ff6d3816cfb5331d2f1485051b18158f721f7b9f063b98d0 ./pkgdata/runtime/dbus-ptest
+-rw-r--r--       root       root                    0 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 ./pkgdata/runtime/dbus-ptest.packaged
+-rw-r--r--       root       root                13558 c88d4114d9af4c28f22ae45f28698d553ba426332b2a594a8700a8f5a978fa56 ./pkgdata/runtime/dbus-src
+-rw-r--r--       root       root                    0 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 ./pkgdata/runtime/dbus-src.packaged
+-rw-r--r--       root       root                  807 cd444976902ed8f94c0f4ea650b3ef5c1bfc6071b0fd3a7cf61f8c6e7ba8f030 ./pkgdata/runtime/dbus-staticdev
+-rw-r--r--       root       root                    0 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 ./pkgdata/runtime/dbus.packaged
+drwxr-xr-x       root       root                                                                                       ./pkgdata/runtime-reverse
+lrwxrwxrwx       root       root                                                                                       ./pkgdata/runtime-reverse/dbus-1 -> ../runtime/dbus
+lrwxrwxrwx       root       root                                                                                       ./pkgdata/runtime-reverse/dbus-dbg -> ../runtime/dbus-dbg
+lrwxrwxrwx       root       root                                                                                       ./pkgdata/runtime-reverse/dbus-dev -> ../runtime/dbus-dev
+lrwxrwxrwx       root       root                                                                                       ./pkgdata/runtime-reverse/dbus-doc -> ../runtime/dbus-doc
+lrwxrwxrwx       root       root                                                                                       ./pkgdata/runtime-reverse/dbus-ptest -> ../runtime/dbus-ptest
+lrwxrwxrwx       root       root                                                                                       ./pkgdata/runtime-reverse/dbus-src -> ../runtime/dbus-src
+lrwxrwxrwx       root       root                                                                                       ./pkgdata/runtime-reverse/libdbus-1-3 -> ../runtime/dbus-lib
+drwxr-xr-x       root       root                                                                                       ./pkgdata/runtime-rprovides
+drwxr-xr-x       root       root                                                                                       ./pkgdata/runtime-rprovides/dbus
+lrwxrwxrwx       root       root                                                                                       ./pkgdata/runtime-rprovides/dbus/dbus -> ../../runtime/dbus
+drwxr-xr-x       root       root                                                                                       ./pkgdata/runtime-rprovides/dbus-lib
+lrwxrwxrwx       root       root                                                                                       ./pkgdata/runtime-rprovides/dbus-lib/dbus-lib -> ../../runtime/dbus-lib
+drwxr-xr-x       root       root                                                                                       ./pkgdata/runtime-rprovides/dbus-x11
+lrwxrwxrwx       root       root                                                                                       ./pkgdata/runtime-rprovides/dbus-x11/dbus -> ../../runtime/dbus
+drwxr-xr-x       root       root                                                                                       ./pkgdata/shlibs2
+-rw-r--r--       root       root                  123 fb26d355b34dc3e8050d9d101cbb255edc7c84dbde0cb10bc7007cb417f98a8a ./pkgdata/shlibs2/dbus-dev.pclist
+-rw-r--r--       root       root                   32 b930728aaf576d5a07d4958fb66c6584c1a84a43a7a5e31b2c68cfc8578c40e6 ./pkgdata/shlibs2/dbus-lib.list

@@ -1,0 +1,14 @@
+PN: libsndfile1
+PV: 1.0.28
+PR: r0
+PKGV: 1.0.28
+PKGR: r0
+LICENSE: LGPLv2.1
+DESCRIPTION: Audio format Conversion library.
+SUMMARY: Audio format Conversion library
+RPROVIDES_libsndfile1-locale:  libsndfile1-locale (=1.0.28)
+SECTION: libs/multimedia
+PKG_libsndfile1-locale: libsndfile-locale
+FILES_libsndfile1-locale: /usr/share/locale
+FILES_INFO: {}
+PKGSIZE_libsndfile1-locale: 0

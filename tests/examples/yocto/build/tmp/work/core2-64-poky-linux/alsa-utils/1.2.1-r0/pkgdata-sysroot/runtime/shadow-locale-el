@@ -1,0 +1,15 @@
+PN: shadow
+PV: 4.8.1
+PR: r0
+PKGV: 4.8.1
+PKGR: r0
+LICENSE: BSD | Artistic-1.0
+DESCRIPTION_shadow-locale-el: Tools to change and administer password and group data.  This package contains language translation files for the el locale.
+SUMMARY_shadow-locale-el: Tools to change and administer password and group data - el translations
+RPROVIDES_shadow-locale-el: shadow-locale el-translation
+RRECOMMENDS_shadow-locale-el: virtual-locale-el
+SECTION: base/utils
+PKG_shadow-locale-el: shadow-locale-el
+FILES_shadow-locale-el: /usr/share/locale/el
+FILES_INFO: {"/usr/share/locale/el/LC_MESSAGES/shadow.mo": 84103}
+PKGSIZE_shadow-locale-el: 84103

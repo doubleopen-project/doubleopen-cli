@@ -1,0 +1,10 @@
+recipe-sysroot-native/sysroot-providers/unzip-native
+recipe-sysroot-native/usr/bin/unzipsfx
+recipe-sysroot-native/usr/bin/zipgrep
+recipe-sysroot-native/usr/bin/funzip
+recipe-sysroot-native/usr/bin/unzip
+recipe-sysroot-native/usr/bin/zipinfo
+recipe-sysroot-native/sysroot-providers/
+recipe-sysroot-native/usr/share/
+recipe-sysroot-native/usr/bin/
+recipe-sysroot-native/usr/

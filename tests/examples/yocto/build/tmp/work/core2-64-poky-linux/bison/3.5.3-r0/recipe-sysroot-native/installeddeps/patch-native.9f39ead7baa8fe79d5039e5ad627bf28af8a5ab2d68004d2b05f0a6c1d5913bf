@@ -1,0 +1,7 @@
+recipe-sysroot-native/sysroot-providers/patch-native
+recipe-sysroot-native/sysroot-providers/patch-replacement-native
+recipe-sysroot-native/usr/bin/patch
+recipe-sysroot-native/sysroot-providers/
+recipe-sysroot-native/usr/share/
+recipe-sysroot-native/usr/bin/
+recipe-sysroot-native/usr/

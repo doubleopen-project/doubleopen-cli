@@ -1,0 +1,15 @@
+PN: libxdmcp
+PE: 1
+PV: 1.1.3
+PR: r0
+PKGE: 1
+PKGV: 1.1.3
+PKGR: r0
+LICENSE: MIT-style
+DESCRIPTION: The purpose of the X Display Manager Control Protocol (XDMCP) is to provide a uniform mechanism for an autonomous display to request login service from a remote host. An X terminal (screen, keyboard, mouse, processor, network interface) is a prime example of an autonomous display.
+SUMMARY: XDMCP: X Display Manager Control Protocol library
+SECTION: x11/libs
+PKG_libxdmcp-locale: libxdmcp-locale
+FILES_libxdmcp-locale: /usr/share/locale
+FILES_INFO: {}
+PKGSIZE_libxdmcp-locale: 0

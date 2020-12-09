@@ -1,0 +1,15 @@
+PN: gcc-runtime
+PV: 9.3.0
+PR: r0
+PKGV: 9.3.0
+PKGR: r0
+LICENSE: GPL-3.0-with-GCC-exception
+DESCRIPTION: Runtime libraries from GCC.
+SUMMARY_libgomp-dev: GNU OpenMP parallel programming library - development files
+RDEPENDS_libgomp-dev: libgomp
+RRECOMMENDS_libgomp-dev: libgcc-dev glibc-dev
+SECTION: devel
+PKG_libgomp-dev: libgomp-dev
+FILES_libgomp-dev:     /usr/lib/libgomp*.so     /usr/lib/libgomp*.la     /usr/lib/libgomp.spec     /usr/lib/x86_64-poky-linux/9.3.0/include/omp.h     /usr/lib/x86_64-poky-linux/9.3.0/include/openacc.h 
+FILES_INFO: {"/usr/lib/libgomp.so": 16, "/usr/lib/libgomp.spec": 169, "/usr/lib/x86_64-poky-linux/9.3.0/include/omp.h": 7062, "/usr/lib/x86_64-poky-linux/9.3.0/include/openacc.h": 5570}
+PKGSIZE_libgomp-dev: 12817

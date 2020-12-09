@@ -1,0 +1,22 @@
+PN: libx11
+PE: 1
+PV: 1.6.9
+PR: r0
+PKGE: 1
+PKGV: 1.6.9
+PKGR: r0
+LICENSE: MIT & MIT-style & BSD
+DESCRIPTION: This package provides a client interface to the X Window System, otherwise known as 'Xlib'.  It provides a complete API for the basic functions of the window system.
+SUMMARY: Xlib: C Language X Interface library
+RDEPENDS_libx11: glibc (>= 2.31+git0+6fdf971c9d) libxcb (>= 1.13.1)
+RPROVIDES_libx11:  libx11 (=1.6.9)
+SECTION: x11/libs
+PKG_libx11: libx11-6
+FILES_libx11: /usr/bin/* /usr/sbin/* /usr/libexec/* /usr/lib/lib*.so.*             /etc /com /var             /bin/* /sbin/*             /lib/*.so.*             /lib/udev /usr/lib/udev             /lib/udev /usr/lib/udev             /usr/share/libx11 /usr/lib/libx11/*             /usr/share/pixmaps /usr/share/applications             /usr/share/idl /usr/share/omf /usr/share/sounds             /usr/lib/bonobo/servers /usr/share/X11/XKeysymDB /usr/share/X11/XErrorDB /usr/share/X11/Xcms.txt
+FILES_INFO: {"/usr/lib/libX11.so.6": 15, "/usr/lib/libX11.so.6.3.0": 1304864, "/usr/share/X11/XErrorDB": 42077, "/usr/share/X11/Xcms.txt": 1723}
+pkg_postinst_libx11: #!/bin/sh\nset -e\nif [ x"$D" = "x" ]; then\n\tif [ -x /sbin/ldconfig ]; then /sbin/ldconfig ; fi\nfi\n
+FILERPROVIDESFLIST_libx11: /usr/lib/libX11.so.6.3.0
+FILERPROVIDES_/usr/lib/libX11.so.6.3.0_libx11:  libX11.so.6()(64bit)
+FILERDEPENDSFLIST_libx11: /usr/lib/libX11.so.6.3.0
+FILERDEPENDS_/usr/lib/libX11.so.6.3.0_libx11:  libdl.so.2(GLIBC_2.2.5)(64bit) libc.so.6(GLIBC_2.7)(64bit) libc.so.6(GLIBC_2.14)(64bit) libc.so.6(GLIBC_2.15)(64bit) libc.so.6(GLIBC_2.4)(64bit) libc.so.6(GLIBC_2.26)(64bit) libc.so.6(GLIBC_2.3.2)(64bit) libc.so.6(GLIBC_2.2.5)(64bit) libc.so.6(GLIBC_2.3.4)(64bit) libc.so.6(GLIBC_2.3)(64bit) libxcb.so.1()(64bit) libdl.so.2()(64bit) libc.so.6()(64bit) rtld(GNU_HASH)
+PKGSIZE_libx11: 1348679

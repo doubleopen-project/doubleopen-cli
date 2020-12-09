@@ -1,0 +1,10 @@
+prefix=${pcfiledir}/../../../usr
+exec_prefix=${pcfiledir}/../../../usr
+libdir=${pcfiledir}/../../../usr/lib
+includedir=${pcfiledir}/../../../usr/include
+
+Name:		libattr
+Description:	A library for filesystem extended attribute support
+Version:	2.4.48
+Cflags:		-I${includedir}
+Libs:		-L${libdir} -lattr

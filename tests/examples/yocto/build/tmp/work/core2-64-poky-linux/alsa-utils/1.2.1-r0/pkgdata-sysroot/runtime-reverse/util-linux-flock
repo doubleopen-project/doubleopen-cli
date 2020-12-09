@@ -1,0 +1,20 @@
+PN: util-linux
+PV: 2.35.1
+PR: r0
+PKGV: 2.35.1
+PKGR: r0
+LICENSE: GPLv2+ & LGPLv2.1+ & BSD-3-Clause & BSD-4-Clause
+DESCRIPTION_util-linux-flock: util-linux flock
+SUMMARY_util-linux-flock: util-linux flock
+RDEPENDS_util-linux-flock: update-alternatives-opkg glibc (>= 2.31+git0+6fdf971c9d)
+SECTION: base
+PKG_util-linux-flock: util-linux-flock
+FILES_util-linux-flock: /usr/bin/flock.util-linux
+FILES_INFO: {"/usr/bin/flock.util-linux": 34944}
+pkg_postinst_util-linux-flock: #!/bin/sh\nset -e\n\tupdate-alternatives --install /usr/bin/flock flock /usr/bin/flock.util-linux 80\n
+pkg_prerm_util-linux-flock: #!/bin/sh\nset -e\n\tupdate-alternatives --remove  flock /usr/bin/flock.util-linux\n
+FILERPROVIDESFLIST_util-linux-flock:  /usr/bin/flock.util-linux
+FILERPROVIDES_/usr/bin/flock.util-linux_util-linux-flock:  /usr/bin/flock
+FILERDEPENDSFLIST_util-linux-flock: /usr/bin/flock.util-linux
+FILERDEPENDS_/usr/bin/flock.util-linux_util-linux-flock:  librt.so.1(GLIBC_2.3.3)(64bit) libc.so.6(GLIBC_2.3)(64bit) libc.so.6(GLIBC_2.8)(64bit) libc.so.6(GLIBC_2.14)(64bit) libc.so.6(GLIBC_2.4)(64bit) libc.so.6(GLIBC_2.17)(64bit) libc.so.6(GLIBC_2.3.4)(64bit) libc.so.6(GLIBC_2.2.5)(64bit) librt.so.1()(64bit) libc.so.6()(64bit) rtld(GNU_HASH)
+PKGSIZE_util-linux-flock: 34944

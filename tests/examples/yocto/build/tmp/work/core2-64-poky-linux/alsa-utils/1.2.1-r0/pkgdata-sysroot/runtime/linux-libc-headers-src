@@ -1,0 +1,13 @@
+PN: linux-libc-headers
+PV: 5.4
+PR: r0
+PKGV: 5.4
+PKGR: r0
+LICENSE: GPLv2
+DESCRIPTION_linux-libc-headers-src: Sanitized set of kernel headers for the C library's use.  This package contains sources for debugging purposes.
+SUMMARY_linux-libc-headers-src: Sanitized set of kernel headers for the C library's use - Source files
+SECTION_linux-libc-headers-src: devel
+PKG_linux-libc-headers-src: linux-libc-headers-src
+FILES_linux-libc-headers-src: /usr/src/debug
+FILES_INFO: {}
+PKGSIZE_linux-libc-headers-src: 0

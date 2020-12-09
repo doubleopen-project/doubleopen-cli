@@ -1,0 +1,13 @@
+PN: bash-completion
+PV: 2.10
+PR: r0
+PKGV: 2.10
+PKGR: r0
+LICENSE: GPLv2
+DESCRIPTION: Programmable Completion for Bash 4.
+SUMMARY: Programmable Completion for Bash 4
+SECTION: console/utils
+PKG_bash-completion-locale: bash-completion-locale
+FILES_bash-completion-locale: /usr/share/locale
+FILES_INFO: {}
+PKGSIZE_bash-completion-locale: 0

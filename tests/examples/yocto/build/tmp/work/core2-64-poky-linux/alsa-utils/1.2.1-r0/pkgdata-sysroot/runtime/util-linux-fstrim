@@ -1,0 +1,20 @@
+PN: util-linux
+PV: 2.35.1
+PR: r0
+PKGV: 2.35.1
+PKGR: r0
+LICENSE: GPLv2+ & LGPLv2.1+ & BSD-3-Clause & BSD-4-Clause
+DESCRIPTION_util-linux-fstrim: util-linux fstrim
+SUMMARY_util-linux-fstrim: util-linux fstrim
+RDEPENDS_util-linux-fstrim: update-alternatives-opkg glibc (>= 2.31+git0+6fdf971c9d) util-linux-libmount (>= 2.35.1)
+SECTION: base
+PKG_util-linux-fstrim: util-linux-fstrim
+FILES_util-linux-fstrim: /sbin/fstrim.util-linux
+FILES_INFO: {"/sbin/fstrim.util-linux": 71728}
+pkg_postinst_util-linux-fstrim: #!/bin/sh\nset -e\n\tupdate-alternatives --install /sbin/fstrim fstrim /sbin/fstrim.util-linux 80\n
+pkg_prerm_util-linux-fstrim: #!/bin/sh\nset -e\n\tupdate-alternatives --remove  fstrim /sbin/fstrim.util-linux\n
+FILERPROVIDESFLIST_util-linux-fstrim:  /sbin/fstrim.util-linux
+FILERPROVIDES_/sbin/fstrim.util-linux_util-linux-fstrim:  /sbin/fstrim
+FILERDEPENDSFLIST_util-linux-fstrim: /sbin/fstrim.util-linux
+FILERDEPENDS_/sbin/fstrim.util-linux_util-linux-fstrim:  libmount.so.1(MOUNT_2.21)(64bit) libmount.so.1(MOUNT_2.25)(64bit) libmount.so.1(MOUNT_2.34)(64bit) libmount.so.1(MOUNT_2.24)(64bit) libmount.so.1(MOUNT_2.22)(64bit) libmount.so.1(MOUNT_2.19)(64bit) libc.so.6(GLIBC_2.14)(64bit) libc.so.6(GLIBC_2.3)(64bit) libc.so.6(GLIBC_2.8)(64bit) libc.so.6(GLIBC_2.4)(64bit) libc.so.6(GLIBC_2.7)(64bit) libc.so.6(GLIBC_2.3.4)(64bit) libc.so.6(GLIBC_2.2.5)(64bit) libmount.so.1()(64bit) libc.so.6()(64bit) rtld(GNU_HASH)
+PKGSIZE_util-linux-fstrim: 71728

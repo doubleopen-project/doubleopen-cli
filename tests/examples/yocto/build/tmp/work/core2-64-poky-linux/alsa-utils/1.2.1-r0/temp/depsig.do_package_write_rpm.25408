@@ -1,0 +1,29 @@
+OEOuthashBasic
+1
+SSTATE_PKGSPEC=sstate:alsa-utils:core2-64-poky-linux:1.2.1:r0:core2-64:3:
+task=package_write_rpm
+drwxrwxr-x       root       root                                                                                       .
+drwxr-xr-x       root       root                                                                                       ./deploy-rpms
+drwxr-xr-x       root       root                                                                                       ./deploy-rpms/core2_64
+-rw-r--r--       root       root                 6016 9c456cdbfad0e5da19d53337caefb53896f00cd181a460c934fc5918308e182b ./deploy-rpms/core2_64/alsa-utils-1.2.1-r0.core2_64.rpm
+-rw-r--r--       root       root                12388 27963e035b9eaf0ba59e4337faff7bb865bed3212081c2c5be8af5e073f54106 ./deploy-rpms/core2_64/alsa-utils-aconnect-1.2.1-r0.core2_64.rpm
+-rw-r--r--       root       root                49944 ded9412605d1762211cb58f3631df4ed418a7b975211313391c16f764e9e1fb2 ./deploy-rpms/core2_64/alsa-utils-alsactl-1.2.1-r0.core2_64.rpm
+-rw-r--r--       root       root                34412 98e81483be67c68a891d7ba71540bd8047284231b0b2943aba4ff17c4166c7bb ./deploy-rpms/core2_64/alsa-utils-alsaloop-1.2.1-r0.core2_64.rpm
+-rw-r--r--       root       root                30360 22d3839b0d11df2fa31ff8caace2959db5bd80f43da59f54b81e091a1ef0eef4 ./deploy-rpms/core2_64/alsa-utils-alsamixer-1.2.1-r0.core2_64.rpm
+-rw-r--r--       root       root                 9464 f55e6f28c474d7ee654fbe8f6b12d1b1c91e0e7d925126d9c3c8604787c13ac7 ./deploy-rpms/core2_64/alsa-utils-alsatplg-1.2.1-r0.core2_64.rpm
+-rw-r--r--       root       root                12560 b68429b7e671362e0f18ed36b1d4c94f029586f14786552d36f0cdcce32f8cb3 ./deploy-rpms/core2_64/alsa-utils-alsaucm-1.2.1-r0.core2_64.rpm
+-rw-r--r--       root       root                24264 2d6600d8c35f321d4ad32ada63c46c0215e510fcb068737721488130ca18c1e7 ./deploy-rpms/core2_64/alsa-utils-amixer-1.2.1-r0.core2_64.rpm
+-rw-r--r--       root       root                62564 7ba7c86c5bcb643fae0b9c83b5ed7809e714fc33a3e93c39f3af70172b4bec57 ./deploy-rpms/core2_64/alsa-utils-aplay-1.2.1-r0.core2_64.rpm
+-rw-r--r--       root       root                11708 cad6c832ba2e4a840f9803526adccbe7b87cbe7abdc97b4b4120e160ec4262bb ./deploy-rpms/core2_64/alsa-utils-aseqdump-1.2.1-r0.core2_64.rpm
+-rw-r--r--       root       root                12864 093b04e4cc45affb84e4e5a266c6b458f8aff02c80b31386f759098db18252ca ./deploy-rpms/core2_64/alsa-utils-aseqnet-1.2.1-r0.core2_64.rpm
+-rw-r--r--       root       root               504940 c8e4b1289429eb77794b70214ef8711239648f173197befd1f2b9af124d2b288 ./deploy-rpms/core2_64/alsa-utils-dbg-1.2.1-r0.core2_64.rpm
+-rw-r--r--       root       root                 6508 f8a8eaa8d73c9b87bd9391680e1276a8e0becc111f7b76012174953a6c866135 ./deploy-rpms/core2_64/alsa-utils-dev-1.2.1-r0.core2_64.rpm
+-rw-r--r--       root       root                37120 abc8c692c9b1a5ec2b53fcec92d54bc4bcdad6f7ca396a9b957876c6b88c99b4 ./deploy-rpms/core2_64/alsa-utils-doc-1.2.1-r0.core2_64.rpm
+-rw-r--r--       root       root                13064 509ce91c1f2801549d2db1d4b0ff7b212a780be2f47295e483f964ad4c8e1dfb ./deploy-rpms/core2_64/alsa-utils-iecset-1.2.1-r0.core2_64.rpm
+-rw-r--r--       root       root                14824 834785b63005148767395719460d997edd610b2dcff0331b45d090085a622cde ./deploy-rpms/core2_64/alsa-utils-locale-de-1.2.1-r0.core2_64.rpm
+-rw-r--r--       root       root                14452 b9a320a33072dcbc470fa33edbcb25d27e824e618569b71b4a53742e0acf7d3d ./deploy-rpms/core2_64/alsa-utils-locale-fr-1.2.1-r0.core2_64.rpm
+-rw-r--r--       root       root                17276 d6ab2e41ad462162bb155649f44d899c69bf0d9e131cc23eaec71febd66702b8 ./deploy-rpms/core2_64/alsa-utils-locale-ja-1.2.1-r0.core2_64.rpm
+-rw-r--r--       root       root                10304 519b4656fbb2cced254aeccf1c696fa138a128226d70231976b90b8ce6ce7eaf ./deploy-rpms/core2_64/alsa-utils-locale-ru-1.2.1-r0.core2_64.rpm
+-rw-r--r--       root       root                26324 5c323af2ac8bad881007b47dc3ae776210bd6039b59bf57043b9b8fcf5727cff ./deploy-rpms/core2_64/alsa-utils-midi-1.2.1-r0.core2_64.rpm
+-rw-r--r--       root       root               757640 ef0631306a33b15735c9810da4d60f6812e684342984b782644a2affb64b4b6a ./deploy-rpms/core2_64/alsa-utils-speakertest-1.2.1-r0.core2_64.rpm
+-rw-r--r--       root       root               173204 be1e2171850b1b17d2e66dfdc97d23a5518701cb00b268fa07ba86229118e729 ./deploy-rpms/core2_64/alsa-utils-src-1.2.1-r0.core2_64.rpm

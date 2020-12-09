@@ -1,0 +1,16 @@
+PN: alsa-utils
+PV: 1.2.1
+PR: r0
+PKGV: 1.2.1
+PKGR: r0
+LICENSE: GPLv2+
+DESCRIPTION: ALSA sound utilities.
+SUMMARY_alsa-utils-alsatplg: Converts topology text files into binary format for kernel
+RDEPENDS_alsa-utils-alsatplg: alsa-lib (>= 1.2.1.2) glibc (>= 2.31+git0+6fdf971c9d) libatopology (>= 1.2.1.2)
+SECTION: console/utils
+PKG_alsa-utils-alsatplg: alsa-utils-alsatplg
+FILES_alsa-utils-alsatplg: /usr/bin/alsatplg
+FILES_INFO: {"/usr/bin/alsatplg": 14376}
+FILERDEPENDSFLIST_alsa-utils-alsatplg: /usr/bin/alsatplg
+FILERDEPENDS_/usr/bin/alsatplg_alsa-utils-alsatplg:  libasound.so.2(ALSA_0.9)(64bit) libatopology.so.2(ALSA_0.9)(64bit) libc.so.6(GLIBC_2.4)(64bit) libc.so.6(GLIBC_2.2.5)(64bit) libc.so.6(GLIBC_2.3.4)(64bit) libatopology.so.2()(64bit) libasound.so.2()(64bit) libc.so.6()(64bit) rtld(GNU_HASH)
+PKGSIZE_alsa-utils-alsatplg: 14376

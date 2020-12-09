@@ -1,0 +1,16 @@
+PN: alsa-utils
+PV: 1.2.1
+PR: r0
+PKGV: 1.2.1
+PKGR: r0
+LICENSE: GPLv2+
+DESCRIPTION: ALSA sound utilities.
+SUMMARY_alsa-utils-amixer: Command-line control for ALSA mixer and settings
+RDEPENDS_alsa-utils-amixer: alsa-lib (>= 1.2.1.2) glibc (>= 2.31+git0+6fdf971c9d)
+SECTION: console/utils
+PKG_alsa-utils-amixer: alsa-utils-amixer
+FILES_alsa-utils-amixer: /usr/bin/amixer
+FILES_INFO: {"/usr/bin/amixer": 59504}
+FILERDEPENDSFLIST_alsa-utils-amixer: /usr/bin/amixer
+FILERDEPENDS_/usr/bin/amixer_alsa-utils-amixer:  libc.so.6(GLIBC_2.4)(64bit) libc.so.6(GLIBC_2.3)(64bit) libc.so.6(GLIBC_2.3.4)(64bit) libc.so.6(GLIBC_2.2.5)(64bit) libasound.so.2(ALSA_0.9)(64bit) libm.so.6(GLIBC_2.29)(64bit) libm.so.6(GLIBC_2.2.5)(64bit) libm.so.6()(64bit) libasound.so.2()(64bit) libc.so.6()(64bit) rtld(GNU_HASH)
+PKGSIZE_alsa-utils-amixer: 59504

@@ -1,0 +1,15 @@
+PN: shadow
+PV: 4.8.1
+PR: r0
+PKGV: 4.8.1
+PKGR: r0
+LICENSE: BSD | Artistic-1.0
+DESCRIPTION_shadow-locale-km: Tools to change and administer password and group data.  This package contains language translation files for the km locale.
+SUMMARY_shadow-locale-km: Tools to change and administer password and group data - km translations
+RPROVIDES_shadow-locale-km: shadow-locale km-translation
+RRECOMMENDS_shadow-locale-km: virtual-locale-km
+SECTION: base/utils
+PKG_shadow-locale-km: shadow-locale-km
+FILES_shadow-locale-km: /usr/share/locale/km
+FILES_INFO: {"/usr/share/locale/km/LC_MESSAGES/shadow.mo": 28595}
+PKGSIZE_shadow-locale-km: 28595

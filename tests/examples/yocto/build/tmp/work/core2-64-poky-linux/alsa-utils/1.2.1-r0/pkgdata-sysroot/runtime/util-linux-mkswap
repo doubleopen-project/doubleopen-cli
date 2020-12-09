@@ -1,0 +1,20 @@
+PN: util-linux
+PV: 2.35.1
+PR: r0
+PKGV: 2.35.1
+PKGR: r0
+LICENSE: GPLv2+ & LGPLv2.1+ & BSD-3-Clause & BSD-4-Clause
+DESCRIPTION_util-linux-mkswap: util-linux mkswap
+SUMMARY_util-linux-mkswap: util-linux mkswap
+RDEPENDS_util-linux-mkswap: update-alternatives-opkg glibc (>= 2.31+git0+6fdf971c9d) util-linux-libblkid (>= 2.35.1) util-linux-libuuid (>= 2.35.1)
+SECTION: base
+PKG_util-linux-mkswap: util-linux-mkswap
+FILES_util-linux-mkswap: /sbin/mkswap.util-linux
+FILES_INFO: {"/sbin/mkswap.util-linux": 104504}
+pkg_postinst_util-linux-mkswap: #!/bin/sh\nset -e\n\tupdate-alternatives --install /sbin/mkswap mkswap /sbin/mkswap.util-linux 80\n
+pkg_prerm_util-linux-mkswap: #!/bin/sh\nset -e\n\tupdate-alternatives --remove  mkswap /sbin/mkswap.util-linux\n
+FILERPROVIDESFLIST_util-linux-mkswap:  /sbin/mkswap.util-linux
+FILERPROVIDES_/sbin/mkswap.util-linux_util-linux-mkswap:  /sbin/mkswap
+FILERDEPENDSFLIST_util-linux-mkswap: /sbin/mkswap.util-linux
+FILERDEPENDS_/sbin/mkswap.util-linux_util-linux-mkswap:  libblkid.so.1(BLKID_2.21)(64bit) libblkid.so.1(BLKID_2.17)(64bit) libblkid.so.1(BLKID_2.15)(64bit) libuuid.so.1(UUID_1.0)(64bit) libc.so.6(GLIBC_2.14)(64bit) libc.so.6(GLIBC_2.3)(64bit) libc.so.6(GLIBC_2.8)(64bit) libc.so.6(GLIBC_2.4)(64bit) libc.so.6(GLIBC_2.7)(64bit) libc.so.6(GLIBC_2.3.4)(64bit) libc.so.6(GLIBC_2.2.5)(64bit) libuuid.so.1()(64bit) libblkid.so.1()(64bit) libc.so.6()(64bit) rtld(GNU_HASH)
+PKGSIZE_util-linux-mkswap: 104504

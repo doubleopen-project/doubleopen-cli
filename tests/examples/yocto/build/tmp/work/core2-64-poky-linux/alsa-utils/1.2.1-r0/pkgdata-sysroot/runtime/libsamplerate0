@@ -1,0 +1,20 @@
+PN: libsamplerate0
+PV: 0.1.9
+PR: r1
+PKGV: 0.1.9
+PKGR: r1
+LICENSE: BSD-2-Clause
+DESCRIPTION: Audio Sample Rate Conversion library.
+SUMMARY: Audio Sample Rate Conversion library
+RDEPENDS_libsamplerate0: glibc (>= 2.31+git0+6fdf971c9d) libsndfile1 (>= 1.0.28)
+SECTION: libs
+PKG_libsamplerate0: libsamplerate0
+FILES_libsamplerate0: /usr/bin/* /usr/sbin/* /usr/libexec/* /usr/lib/lib*.so.*             /etc /com /var             /bin/* /sbin/*             /lib/*.so.*             /lib/udev /usr/lib/udev             /lib/udev /usr/lib/udev             /usr/share/libsamplerate0 /usr/lib/libsamplerate0/*             /usr/share/pixmaps /usr/share/applications             /usr/share/idl /usr/share/omf /usr/share/sounds             /usr/lib/bonobo/servers
+FILES_INFO: {"/usr/bin/sndfile-resample": 14304, "/usr/lib/libsamplerate.so.0": 22, "/usr/lib/libsamplerate.so.0.1.8": 1492888}
+pkg_postinst_libsamplerate0: #!/bin/sh\nset -e\nif [ x"$D" = "x" ]; then\n\tif [ -x /sbin/ldconfig ]; then /sbin/ldconfig ; fi\nfi\n
+FILERPROVIDESFLIST_libsamplerate0: /usr/lib/libsamplerate.so.0.1.8
+FILERPROVIDES_/usr/lib/libsamplerate.so.0.1.8_libsamplerate0:  libsamplerate.so.0(libsamplerate.so.0.0)(64bit) libsamplerate.so.0(libsamplerate.so.0.1)(64bit) libsamplerate.so.0(libsamplerate.so.0.1)(64bit) libsamplerate.so.0()(64bit)
+FILERDEPENDSFLIST_libsamplerate0: /usr/bin/sndfile-resample /usr/lib/libsamplerate.so.0.1.8
+FILERDEPENDS_/usr/bin/sndfile-resample_libsamplerate0:  libm.so.6(GLIBC_2.2.5)(64bit) libsndfile.so.1(libsndfile.so.1.0)(64bit) libc.so.6(GLIBC_2.3.4)(64bit) libc.so.6(GLIBC_2.4)(64bit) libc.so.6(GLIBC_2.2.5)(64bit) libsamplerate.so.0(libsamplerate.so.0.0)(64bit) libsamplerate.so.0()(64bit) libsndfile.so.1()(64bit) libm.so.6()(64bit) libc.so.6()(64bit) rtld(GNU_HASH)
+FILERDEPENDS_/usr/lib/libsamplerate.so.0.1.8_libsamplerate0:  libm.so.6(GLIBC_2.2.5)(64bit) libc.so.6(GLIBC_2.14)(64bit) libc.so.6(GLIBC_2.4)(64bit) libc.so.6(GLIBC_2.2.5)(64bit) libm.so.6()(64bit) libc.so.6()(64bit) rtld(GNU_HASH)
+PKGSIZE_libsamplerate0: 1507214

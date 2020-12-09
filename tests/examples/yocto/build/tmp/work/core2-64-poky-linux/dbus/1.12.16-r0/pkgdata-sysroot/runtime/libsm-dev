@@ -1,0 +1,18 @@
+PN: libsm
+PE: 1
+PV: 1.2.3
+PR: r0
+PKGE: 1
+PKGV: 1.2.3
+PKGR: r0
+LICENSE: MIT-style
+DESCRIPTION_libsm-dev: The Session Management Library (SMlib) is a low-level \\"C\\" language interface to XSMP.  The purpose of the X Session Management Protocol (XSMP) is to provide a uniform mechanism for users to save and restore their sessions.  A session is a group of clients, each of which has a particular state.  This package contains symbolic links, header files, and related items necessary for software development.
+SUMMARY_libsm-dev: SM: Session Management library - Development files
+RDEPENDS_libsm-dev: libsm (= 1:1.2.3-r0)
+RRECOMMENDS_libsm-dev: libice-dev util-macros-dev xorgproto-dev xtrans-dev glibc-dev
+SECTION_libsm-dev: devel
+PKG_libsm-dev: libsm-dev
+ALLOW_EMPTY_libsm-dev: 1
+FILES_libsm-dev: /usr/include /lib/lib*.so /usr/lib/lib*.so /usr/lib/*.la                 /usr/lib/*.o /usr/lib/pkgconfig /usr/share/pkgconfig                 /usr/share/aclocal /lib/*.o                 /usr/lib/libsm/*.la /lib/*.la                 /usr/lib/cmake /usr/share/cmake
+FILES_INFO: {"/usr/include/X11/SM/SM.h": 2927, "/usr/include/X11/SM/SMlib.h": 11268, "/usr/include/X11/SM/SMproto.h": 4852, "/usr/lib/libSM.so": 14, "/usr/lib/pkgconfig/sm.pc": 222}
+PKGSIZE_libsm-dev: 19283

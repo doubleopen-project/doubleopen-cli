@@ -1,0 +1,20 @@
+PN: util-linux
+PV: 2.35.1
+PR: r0
+PKGV: 2.35.1
+PKGR: r0
+LICENSE: GPLv2+ & LGPLv2.1+ & BSD-3-Clause & BSD-4-Clause
+DESCRIPTION_util-linux-swapon: util-linux swapon
+SUMMARY_util-linux-swapon: util-linux swapon
+RDEPENDS_util-linux-swapon: update-alternatives-opkg glibc (>= 2.31+git0+6fdf971c9d) util-linux-libblkid (>= 2.35.1) util-linux-libmount (>= 2.35.1) util-linux-libsmartcols (>= 2.35.1)
+SECTION: base
+PKG_util-linux-swapon: util-linux-swapon
+FILES_util-linux-swapon: /sbin/swapon.util-linux
+FILES_INFO: {"/sbin/swapon.util-linux": 51248}
+pkg_postinst_util-linux-swapon: #!/bin/sh\nset -e\n\tupdate-alternatives --install /sbin/swapon swapon /sbin/swapon.util-linux 80\n
+pkg_prerm_util-linux-swapon: #!/bin/sh\nset -e\n\tupdate-alternatives --remove  swapon /sbin/swapon.util-linux\n
+FILERPROVIDESFLIST_util-linux-swapon:  /sbin/swapon.util-linux
+FILERPROVIDES_/sbin/swapon.util-linux_util-linux-swapon:  /sbin/swapon
+FILERDEPENDSFLIST_util-linux-swapon: /sbin/swapon.util-linux
+FILERDEPENDS_/sbin/swapon.util-linux_util-linux-swapon:  libblkid.so.1(BLKID_2.17)(64bit) libblkid.so.1(BLKID_2.15)(64bit) libsmartcols.so.1(SMARTCOLS_2.25)(64bit) libc.so.6(GLIBC_2.3)(64bit) libc.so.6(GLIBC_2.8)(64bit) libc.so.6(GLIBC_2.14)(64bit) libc.so.6(GLIBC_2.4)(64bit) libc.so.6(GLIBC_2.7)(64bit) libc.so.6(GLIBC_2.3.4)(64bit) libc.so.6(GLIBC_2.2.5)(64bit) libmount.so.1(MOUNT_2.20)(64bit) libmount.so.1(MOUNT_2.21)(64bit) libmount.so.1(MOUNT_2.22)(64bit) libmount.so.1(MOUNT_2.24)(64bit) libmount.so.1(MOUNT_2.19)(64bit) libblkid.so.1()(64bit) libmount.so.1()(64bit) libsmartcols.so.1()(64bit) libc.so.6()(64bit) rtld(GNU_HASH)
+PKGSIZE_util-linux-swapon: 51248

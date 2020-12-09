@@ -1,0 +1,573 @@
+DEBUG: Executing python function sstate_task_prefunc
+DEBUG: Python function sstate_task_prefunc finished
+DEBUG: Executing python function extend_recipe_sysroot
+NOTE: Direct dependencies are ['virtual:native:/home/hhpartners/yocto/meta/recipes-devtools/pseudo/pseudo_git.bb:do_populate_sysroot', 'virtual:native:/home/hhpartners/yocto/meta/recipes-devtools/rpm/rpm_4.14.2.1.bb:do_populate_sysroot']
+NOTE: Installed into sysroot: []
+NOTE: Skipping as already exists in sysroot: ['pseudo-native', 'rpm-native', 'xz-native', 'gettext-minimal-native', 'autoconf-native', 'bzip2-native', 'python3-native', 'quilt-native', 'perl-native', 'pkgconfig-native', 'dbus-native', 'file-native', 'openssl-native', 'popt-native', 'libarchive-native', 'gnu-config-native', 'libtool-native', 'db-native', 'automake-native', 'elfutils-native', 'patch-native', 'm4-native', 'texinfo-dummy-native', 'readline-native', 'gdbm-native', 'util-linux-native', 'libnsl2-native', 'sqlite3-native', 'libtirpc-native', 'libffi-native', 'zlib-native', 'expat-native', 'e2fsprogs-native', 'lzo-native', 'attr-native', 'ncurses-native', 'libcap-ng-native', 'libpcre2-native']
+DEBUG: Python function extend_recipe_sysroot finished
+DEBUG: Executing python function do_package_write_rpm
+DEBUG: Executing python function read_subpackage_metadata
+DEBUG: Python function read_subpackage_metadata finished
+DEBUG: Executing python function do_package_rpm
+DEBUG: Executing python function write_specfile
+NOTE: Creating RPM package for alsa-utils-src
+NOTE: libasound-dbg rprovides alsa-lib-dbg, not replacing the latter
+NOTE: libc6-dbg rprovides glibc-dbg, not replacing the latter
+NOTE: Creating RPM package for alsa-utils-dbg
+NOTE: Not creating empty RPM package for alsa-utils-staticdev
+NOTE: libasound-dev rprovides alsa-lib-dev, not replacing the latter
+NOTE: libc6-dev rprovides glibc-dev, not replacing the latter
+NOTE: Creating empty RPM package for alsa-utils-dev
+NOTE: Creating RPM package for alsa-utils-doc
+NOTE: Creating empty RPM package for alsa-utils
+NOTE: package name mapping done: alsa-lib -> libasound2
+NOTE: package name mapping done: glibc -> libc6
+NOTE: package name mapping done: ncurses-libformw -> libformw5
+NOTE: package name mapping done: ncurses-libmenuw -> libmenuw5
+NOTE: package name mapping done: ncurses-libncursesw -> libncursesw5
+NOTE: package name mapping done: ncurses-libpanelw -> libpanelw5
+NOTE: package name mapping done: ncurses-libtinfo -> libtinfo5
+NOTE: Creating RPM package for alsa-utils-alsamixer
+NOTE: package name mapping done: alsa-lib -> libasound2
+NOTE: package name mapping done: glibc -> libc6
+NOTE: package name mapping done: libatopology -> libatopology2
+NOTE: Creating RPM package for alsa-utils-alsatplg
+NOTE: package name mapping done: alsa-lib -> libasound2
+NOTE: package name mapping done: glibc -> libc6
+NOTE: Creating RPM package for alsa-utils-midi
+NOTE: package name mapping done: alsa-lib -> libasound2
+NOTE: package name mapping done: glibc -> libc6
+NOTE: Creating RPM package for alsa-utils-aplay
+NOTE: package name mapping done: alsa-lib -> libasound2
+NOTE: package name mapping done: glibc -> libc6
+NOTE: Creating RPM package for alsa-utils-amixer
+NOTE: package name mapping done: alsa-lib -> libasound2
+NOTE: package name mapping done: glibc -> libc6
+NOTE: Creating RPM package for alsa-utils-aconnect
+NOTE: package name mapping done: alsa-lib -> libasound2
+NOTE: package name mapping done: glibc -> libc6
+NOTE: Creating RPM package for alsa-utils-iecset
+NOTE: package name mapping done: alsa-lib -> libasound2
+NOTE: package name mapping done: glibc -> libc6
+NOTE: Creating RPM package for alsa-utils-speakertest
+NOTE: package name mapping done: alsa-lib -> libasound2
+NOTE: package name mapping done: glibc -> libc6
+NOTE: Creating RPM package for alsa-utils-aseqnet
+NOTE: package name mapping done: alsa-lib -> libasound2
+NOTE: package name mapping done: glibc -> libc6
+NOTE: Creating RPM package for alsa-utils-aseqdump
+NOTE: package name mapping done: alsa-lib -> libasound2
+NOTE: package name mapping done: glibc -> libc6
+NOTE: Creating RPM package for alsa-utils-alsactl
+NOTE: package name mapping done: alsa-lib -> libasound2
+NOTE: package name mapping done: glibc -> libc6
+NOTE: Creating RPM package for alsa-utils-alsaloop
+NOTE: package name mapping done: alsa-lib -> libasound2
+NOTE: package name mapping done: glibc -> libc6
+NOTE: Creating RPM package for alsa-utils-alsaucm
+NOTE: Creating RPM package for alsa-utils-locale-de
+NOTE: Creating RPM package for alsa-utils-locale-fr
+NOTE: Creating RPM package for alsa-utils-locale-ja
+NOTE: Creating RPM package for alsa-utils-locale-ru
+DEBUG: Python function write_specfile finished
+DEBUG: PKGWRITEDIR: /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/deploy-rpms/core2_64
+DEBUG: Executing shell function BUILDSPEC
+Building target platforms: core2_64-poky-linux
+Building for target core2_64-poky-linux
+Processing files: alsa-utils-1.2.1-r0.core2_64
+Processing files: alsa-utils-src-1.2.1-r0.core2_64
+warning: Deprecated external dependency generator is used!
+Finding  Provides: 
+Finding  Requires(interp): 
+Finding  Requires(rpmlib): 
+Finding  Requires(verify): 
+Finding  Requires(pre): 
+Finding  Requires(post): 
+Finding  Requires(preun): 
+Finding  Requires(postun): 
+Finding  Requires(pretrans): 
+Finding  Requires(posttrans): 
+Finding  Requires: 
+Finding  Conflicts: 
+Finding  Obsoletes: 
+Finding  Recommends: 
+Finding  Suggests: 
+Finding  Supplements: 
+Finding  Enhances: 
+Provides: alsa-utils-src = 1.2.1-r0
+Requires(rpmlib): rpmlib(CompressedFileNames) <= 3.0.4-1 rpmlib(FileDigests) <= 4.6.0-1 rpmlib(PayloadFilesHavePrefix) <= 4.0-1
+Processing files: alsa-utils-dbg-1.2.1-r0.core2_64
+warning: Deprecated external dependency generator is used!
+Finding  Provides: 
+Finding  Requires(interp): 
+Finding  Requires(rpmlib): 
+Finding  Requires(verify): 
+Finding  Requires(pre): 
+Finding  Requires(post): 
+Finding  Requires(preun): 
+Finding  Requires(postun): 
+Finding  Requires(pretrans): 
+Finding  Requires(posttrans): 
+Finding  Requires: 
+Finding  Conflicts: 
+Finding  Obsoletes: 
+Finding  Recommends: 
+Finding  Suggests: 
+Finding  Supplements: 
+Finding  Enhances: 
+Provides: alsa-utils-dbg = 1.2.1-r0
+Requires(rpmlib): rpmlib(CompressedFileNames) <= 3.0.4-1 rpmlib(FileDigests) <= 4.6.0-1 rpmlib(PayloadFilesHavePrefix) <= 4.0-1
+Recommends: alsa-lib-dbg glibc-dbg libatopology-dbg libsamplerate0-dbg ncurses-libformw-dbg ncurses-libmenuw-dbg ncurses-libncursesw-dbg ncurses-libpanelw-dbg ncurses-libtinfo-dbg
+Processing files: alsa-utils-dev-1.2.1-r0.core2_64
+Processing files: alsa-utils-doc-1.2.1-r0.core2_64
+warning: Deprecated external dependency generator is used!
+Finding  Provides: 
+Finding  Requires(interp): 
+Finding  Requires(rpmlib): 
+Finding  Requires(verify): 
+Finding  Requires(pre): 
+Finding  Requires(post): 
+Finding  Requires(preun): 
+Finding  Requires(postun): 
+Finding  Requires(pretrans): 
+Finding  Requires(posttrans): 
+Finding  Requires: 
+Finding  Conflicts: 
+Finding  Obsoletes: 
+Finding  Recommends: 
+Finding  Suggests: 
+Finding  Supplements: 
+Finding  Enhances: 
+Provides: alsa-utils-doc = 1.2.1-r0
+Requires(interp): /bin/sh /bin/sh
+Requires(rpmlib): rpmlib(CompressedFileNames) <= 3.0.4-1 rpmlib(FileDigests) <= 4.6.0-1 rpmlib(PayloadFilesHavePrefix) <= 4.0-1
+Requires(post): /bin/sh
+Requires(postun): /bin/sh
+Processing files: alsa-utils-alsamixer-1.2.1-r0.core2_64
+warning: Deprecated external dependency generator is used!
+Finding  Provides: 
+Finding  Requires(interp): 
+Finding  Requires(rpmlib): 
+Finding  Requires(verify): 
+Finding  Requires(pre): 
+Finding  Requires(post): 
+Finding  Requires(preun): 
+Finding  Requires(postun): 
+Finding  Requires(pretrans): 
+Finding  Requires(posttrans): 
+Finding  Requires: 
+Finding  Conflicts: 
+Finding  Obsoletes: 
+Finding  Recommends: 
+Finding  Suggests: 
+Finding  Supplements: 
+Finding  Enhances: 
+Provides: alsa-utils-alsamixer = 1.2.1-r0
+Requires(rpmlib): rpmlib(CompressedFileNames) <= 3.0.4-1 rpmlib(FileDigests) <= 4.6.0-1 rpmlib(PayloadFilesHavePrefix) <= 4.0-1
+Processing files: alsa-utils-alsatplg-1.2.1-r0.core2_64
+warning: Deprecated external dependency generator is used!
+Finding  Provides: 
+Finding  Requires(interp): 
+Finding  Requires(rpmlib): 
+Finding  Requires(verify): 
+Finding  Requires(pre): 
+Finding  Requires(post): 
+Finding  Requires(preun): 
+Finding  Requires(postun): 
+Finding  Requires(pretrans): 
+Finding  Requires(posttrans): 
+Finding  Requires: 
+Finding  Conflicts: 
+Finding  Obsoletes: 
+Finding  Recommends: 
+Finding  Suggests: 
+Finding  Supplements: 
+Finding  Enhances: 
+Provides: alsa-utils-alsatplg = 1.2.1-r0
+Requires(rpmlib): rpmlib(CompressedFileNames) <= 3.0.4-1 rpmlib(FileDigests) <= 4.6.0-1 rpmlib(PayloadFilesHavePrefix) <= 4.0-1
+Processing files: alsa-utils-midi-1.2.1-r0.core2_64
+warning: Deprecated external dependency generator is used!
+Finding  Provides: 
+Finding  Requires(interp): 
+Finding  Requires(rpmlib): 
+Finding  Requires(verify): 
+Finding  Requires(pre): 
+Finding  Requires(post): 
+Finding  Requires(preun): 
+Finding  Requires(postun): 
+Finding  Requires(pretrans): 
+Finding  Requires(posttrans): 
+Finding  Requires: 
+Finding  Conflicts: 
+Finding  Obsoletes: 
+Finding  Recommends: 
+Finding  Suggests: 
+Finding  Supplements: 
+Finding  Enhances: 
+Provides: alsa-utils-midi = 1.2.1-r0
+Requires(rpmlib): rpmlib(CompressedFileNames) <= 3.0.4-1 rpmlib(FileDigests) <= 4.6.0-1 rpmlib(PayloadFilesHavePrefix) <= 4.0-1
+Processing files: alsa-utils-aplay-1.2.1-r0.core2_64
+warning: Deprecated external dependency generator is used!
+Finding  Provides: 
+Finding  Requires(interp): 
+Finding  Requires(rpmlib): 
+Finding  Requires(verify): 
+Finding  Requires(pre): 
+Finding  Requires(post): 
+Finding  Requires(preun): 
+Finding  Requires(postun): 
+Finding  Requires(pretrans): 
+Finding  Requires(posttrans): 
+Finding  Requires: 
+Finding  Conflicts: 
+Finding  Obsoletes: 
+Finding  Recommends: 
+Finding  Suggests: 
+Finding  Supplements: 
+Finding  Enhances: 
+Provides: alsa-utils-aplay = 1.2.1-r0
+Requires(rpmlib): rpmlib(CompressedFileNames) <= 3.0.4-1 rpmlib(FileDigests) <= 4.6.0-1 rpmlib(PayloadFilesHavePrefix) <= 4.0-1
+Processing files: alsa-utils-amixer-1.2.1-r0.core2_64
+warning: Deprecated external dependency generator is used!
+Finding  Provides: 
+Finding  Requires(interp): 
+Finding  Requires(rpmlib): 
+Finding  Requires(verify): 
+Finding  Requires(pre): 
+Finding  Requires(post): 
+Finding  Requires(preun): 
+Finding  Requires(postun): 
+Finding  Requires(pretrans): 
+Finding  Requires(posttrans): 
+Finding  Requires: 
+Finding  Conflicts: 
+Finding  Obsoletes: 
+Finding  Recommends: 
+Finding  Suggests: 
+Finding  Supplements: 
+Finding  Enhances: 
+Provides: alsa-utils-amixer = 1.2.1-r0
+Requires(rpmlib): rpmlib(CompressedFileNames) <= 3.0.4-1 rpmlib(FileDigests) <= 4.6.0-1 rpmlib(PayloadFilesHavePrefix) <= 4.0-1
+Processing files: alsa-utils-aconnect-1.2.1-r0.core2_64
+warning: Deprecated external dependency generator is used!
+Finding  Provides: 
+Finding  Requires(interp): 
+Finding  Requires(rpmlib): 
+Finding  Requires(verify): 
+Finding  Requires(pre): 
+Finding  Requires(post): 
+Finding  Requires(preun): 
+Finding  Requires(postun): 
+Finding  Requires(pretrans): 
+Finding  Requires(posttrans): 
+Finding  Requires: 
+Finding  Conflicts: 
+Finding  Obsoletes: 
+Finding  Recommends: 
+Finding  Suggests: 
+Finding  Supplements: 
+Finding  Enhances: 
+Provides: alsa-utils-aconnect = 1.2.1-r0
+Requires(rpmlib): rpmlib(CompressedFileNames) <= 3.0.4-1 rpmlib(FileDigests) <= 4.6.0-1 rpmlib(PayloadFilesHavePrefix) <= 4.0-1
+Processing files: alsa-utils-iecset-1.2.1-r0.core2_64
+warning: Deprecated external dependency generator is used!
+Finding  Provides: 
+Finding  Requires(interp): 
+Finding  Requires(rpmlib): 
+Finding  Requires(verify): 
+Finding  Requires(pre): 
+Finding  Requires(post): 
+Finding  Requires(preun): 
+Finding  Requires(postun): 
+Finding  Requires(pretrans): 
+Finding  Requires(posttrans): 
+Finding  Requires: 
+Finding  Conflicts: 
+Finding  Obsoletes: 
+Finding  Recommends: 
+Finding  Suggests: 
+Finding  Supplements: 
+Finding  Enhances: 
+Provides: alsa-utils-iecset = 1.2.1-r0
+Requires(rpmlib): rpmlib(CompressedFileNames) <= 3.0.4-1 rpmlib(FileDigests) <= 4.6.0-1 rpmlib(PayloadFilesHavePrefix) <= 4.0-1
+Processing files: alsa-utils-speakertest-1.2.1-r0.core2_64
+warning: Deprecated external dependency generator is used!
+Finding  Provides: 
+Finding  Requires(interp): 
+Finding  Requires(rpmlib): 
+Finding  Requires(verify): 
+Finding  Requires(pre): 
+Finding  Requires(post): 
+Finding  Requires(preun): 
+Finding  Requires(postun): 
+Finding  Requires(pretrans): 
+Finding  Requires(posttrans): 
+Finding  Requires: 
+Finding  Conflicts: 
+Finding  Obsoletes: 
+Finding  Recommends: 
+Finding  Suggests: 
+Finding  Supplements: 
+Finding  Enhances: 
+Provides: alsa-utils-speakertest = 1.2.1-r0
+Requires(rpmlib): rpmlib(CompressedFileNames) <= 3.0.4-1 rpmlib(FileDigests) <= 4.6.0-1 rpmlib(PayloadFilesHavePrefix) <= 4.0-1
+Processing files: alsa-utils-aseqnet-1.2.1-r0.core2_64
+warning: Deprecated external dependency generator is used!
+Finding  Provides: 
+Finding  Requires(interp): 
+Finding  Requires(rpmlib): 
+Finding  Requires(verify): 
+Finding  Requires(pre): 
+Finding  Requires(post): 
+Finding  Requires(preun): 
+Finding  Requires(postun): 
+Finding  Requires(pretrans): 
+Finding  Requires(posttrans): 
+Finding  Requires: 
+Finding  Conflicts: 
+Finding  Obsoletes: 
+Finding  Recommends: 
+Finding  Suggests: 
+Finding  Supplements: 
+Finding  Enhances: 
+Provides: alsa-utils-aseqnet = 1.2.1-r0
+Requires(rpmlib): rpmlib(CompressedFileNames) <= 3.0.4-1 rpmlib(FileDigests) <= 4.6.0-1 rpmlib(PayloadFilesHavePrefix) <= 4.0-1
+Processing files: alsa-utils-aseqdump-1.2.1-r0.core2_64
+warning: Deprecated external dependency generator is used!
+Finding  Provides: 
+Finding  Requires(interp): 
+Finding  Requires(rpmlib): 
+Finding  Requires(verify): 
+Finding  Requires(pre): 
+Finding  Requires(post): 
+Finding  Requires(preun): 
+Finding  Requires(postun): 
+Finding  Requires(pretrans): 
+Finding  Requires(posttrans): 
+Finding  Requires: 
+Finding  Conflicts: 
+Finding  Obsoletes: 
+Finding  Recommends: 
+Finding  Suggests: 
+Finding  Supplements: 
+Finding  Enhances: 
+Provides: alsa-utils-aseqdump = 1.2.1-r0
+Requires(rpmlib): rpmlib(CompressedFileNames) <= 3.0.4-1 rpmlib(FileDigests) <= 4.6.0-1 rpmlib(PayloadFilesHavePrefix) <= 4.0-1
+Processing files: alsa-utils-alsactl-1.2.1-r0.core2_64
+warning: Deprecated external dependency generator is used!
+Finding  Provides: 
+Finding  Requires(interp): 
+Finding  Requires(rpmlib): 
+Finding  Requires(verify): 
+Finding  Requires(pre): 
+Finding  Requires(post): 
+Finding  Requires(preun): 
+Finding  Requires(postun): 
+Finding  Requires(pretrans): 
+Finding  Requires(posttrans): 
+Finding  Requires: 
+Finding  Conflicts: 
+Finding  Obsoletes: 
+Finding  Recommends: 
+Finding  Suggests: 
+Finding  Supplements: 
+Finding  Enhances: 
+Provides: alsa-utils-alsactl = 1.2.1-r0
+Requires(rpmlib): rpmlib(CompressedFileNames) <= 3.0.4-1 rpmlib(FileDigests) <= 4.6.0-1 rpmlib(PayloadFilesHavePrefix) <= 4.0-1
+Recommends: alsa-states
+Processing files: alsa-utils-alsaloop-1.2.1-r0.core2_64
+warning: Deprecated external dependency generator is used!
+Finding  Provides: 
+Finding  Requires(interp): 
+Finding  Requires(rpmlib): 
+Finding  Requires(verify): 
+Finding  Requires(pre): 
+Finding  Requires(post): 
+Finding  Requires(preun): 
+Finding  Requires(postun): 
+Finding  Requires(pretrans): 
+Finding  Requires(posttrans): 
+Finding  Requires: 
+Finding  Conflicts: 
+Finding  Obsoletes: 
+Finding  Recommends: 
+Finding  Suggests: 
+Finding  Supplements: 
+Finding  Enhances: 
+Provides: alsa-utils-alsaloop = 1.2.1-r0
+Requires(rpmlib): rpmlib(CompressedFileNames) <= 3.0.4-1 rpmlib(FileDigests) <= 4.6.0-1 rpmlib(PayloadFilesHavePrefix) <= 4.0-1
+Processing files: alsa-utils-alsaucm-1.2.1-r0.core2_64
+warning: Deprecated external dependency generator is used!
+Finding  Provides: 
+Finding  Requires(interp): 
+Finding  Requires(rpmlib): 
+Finding  Requires(verify): 
+Finding  Requires(pre): 
+Finding  Requires(post): 
+Finding  Requires(preun): 
+Finding  Requires(postun): 
+Finding  Requires(pretrans): 
+Finding  Requires(posttrans): 
+Finding  Requires: 
+Finding  Conflicts: 
+Finding  Obsoletes: 
+Finding  Recommends: 
+Finding  Suggests: 
+Finding  Supplements: 
+Finding  Enhances: 
+Provides: alsa-utils-alsaucm = 1.2.1-r0
+Requires(rpmlib): rpmlib(CompressedFileNames) <= 3.0.4-1 rpmlib(FileDigests) <= 4.6.0-1 rpmlib(PayloadFilesHavePrefix) <= 4.0-1
+Processing files: alsa-utils-locale-de-1.2.1-r0.core2_64
+warning: Deprecated external dependency generator is used!
+Finding  Provides: 
+Finding  Requires(interp): 
+Finding  Requires(rpmlib): 
+Finding  Requires(verify): 
+Finding  Requires(pre): 
+Finding  Requires(post): 
+Finding  Requires(preun): 
+Finding  Requires(postun): 
+Finding  Requires(pretrans): 
+Finding  Requires(posttrans): 
+Finding  Requires: 
+Finding  Conflicts: 
+Finding  Obsoletes: 
+Finding  Recommends: 
+Finding  Suggests: 
+Finding  Supplements: 
+Finding  Enhances: 
+Provides: alsa-utils-locale alsa-utils-locale-de = 1.2.1-r0 de-translation
+Requires(rpmlib): rpmlib(CompressedFileNames) <= 3.0.4-1 rpmlib(FileDigests) <= 4.6.0-1 rpmlib(PayloadFilesHavePrefix) <= 4.0-1
+Recommends: virtual-locale-de
+Processing files: alsa-utils-locale-fr-1.2.1-r0.core2_64
+warning: Deprecated external dependency generator is used!
+Finding  Provides: 
+Finding  Requires(interp): 
+Finding  Requires(rpmlib): 
+Finding  Requires(verify): 
+Finding  Requires(pre): 
+Finding  Requires(post): 
+Finding  Requires(preun): 
+Finding  Requires(postun): 
+Finding  Requires(pretrans): 
+Finding  Requires(posttrans): 
+Finding  Requires: 
+Finding  Conflicts: 
+Finding  Obsoletes: 
+Finding  Recommends: 
+Finding  Suggests: 
+Finding  Supplements: 
+Finding  Enhances: 
+Provides: alsa-utils-locale alsa-utils-locale-fr = 1.2.1-r0 fr-translation
+Requires(rpmlib): rpmlib(CompressedFileNames) <= 3.0.4-1 rpmlib(FileDigests) <= 4.6.0-1 rpmlib(PayloadFilesHavePrefix) <= 4.0-1
+Recommends: virtual-locale-fr
+Processing files: alsa-utils-locale-ja-1.2.1-r0.core2_64
+warning: Deprecated external dependency generator is used!
+Finding  Provides: 
+Finding  Requires(interp): 
+Finding  Requires(rpmlib): 
+Finding  Requires(verify): 
+Finding  Requires(pre): 
+Finding  Requires(post): 
+Finding  Requires(preun): 
+Finding  Requires(postun): 
+Finding  Requires(pretrans): 
+Finding  Requires(posttrans): 
+Finding  Requires: 
+Finding  Conflicts: 
+Finding  Obsoletes: 
+Finding  Recommends: 
+Finding  Suggests: 
+Finding  Supplements: 
+Finding  Enhances: 
+Provides: alsa-utils-locale alsa-utils-locale-ja = 1.2.1-r0 ja-translation
+Requires(rpmlib): rpmlib(CompressedFileNames) <= 3.0.4-1 rpmlib(FileDigests) <= 4.6.0-1 rpmlib(PayloadFilesHavePrefix) <= 4.0-1
+Recommends: virtual-locale-ja
+Processing files: alsa-utils-locale-ru-1.2.1-r0.core2_64
+warning: Deprecated external dependency generator is used!
+Finding  Provides: 
+Finding  Requires(interp): 
+Finding  Requires(rpmlib): 
+Finding  Requires(verify): 
+Finding  Requires(pre): 
+Finding  Requires(post): 
+Finding  Requires(preun): 
+Finding  Requires(postun): 
+Finding  Requires(pretrans): 
+Finding  Requires(posttrans): 
+Finding  Requires: 
+Finding  Conflicts: 
+Finding  Obsoletes: 
+Finding  Recommends: 
+Finding  Suggests: 
+Finding  Supplements: 
+Finding  Enhances: 
+Provides: alsa-utils-locale alsa-utils-locale-ru = 1.2.1-r0 ru-translation
+Requires(rpmlib): rpmlib(CompressedFileNames) <= 3.0.4-1 rpmlib(FileDigests) <= 4.6.0-1 rpmlib(PayloadFilesHavePrefix) <= 4.0-1
+Recommends: virtual-locale-ru
+Checking for unpackaged file(s): /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/recipe-sysroot-native/usr/bin/../../usr/lib/rpm/check-files /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/package
+Wrote: /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/deploy-rpms/core2_64/alsa-utils-1.2.1-r0.core2_64.rpm
+Finished binary package job, result 0, filename /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/deploy-rpms/core2_64/alsa-utils-1.2.1-r0.core2_64.rpm
+Finished binary package job, result 0, filename (null)
+Wrote: /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/deploy-rpms/core2_64/alsa-utils-dev-1.2.1-r0.core2_64.rpm
+Finished binary package job, result 0, filename /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/deploy-rpms/core2_64/alsa-utils-dev-1.2.1-r0.core2_64.rpm
+Wrote: /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/deploy-rpms/core2_64/alsa-utils-alsatplg-1.2.1-r0.core2_64.rpm
+Finished binary package job, result 0, filename /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/deploy-rpms/core2_64/alsa-utils-alsatplg-1.2.1-r0.core2_64.rpm
+Wrote: /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/deploy-rpms/core2_64/alsa-utils-alsamixer-1.2.1-r0.core2_64.rpm
+Finished binary package job, result 0, filename /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/deploy-rpms/core2_64/alsa-utils-alsamixer-1.2.1-r0.core2_64.rpm
+Wrote: /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/deploy-rpms/core2_64/alsa-utils-amixer-1.2.1-r0.core2_64.rpm
+Finished binary package job, result 0, filename /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/deploy-rpms/core2_64/alsa-utils-amixer-1.2.1-r0.core2_64.rpm
+Wrote: /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/deploy-rpms/core2_64/alsa-utils-iecset-1.2.1-r0.core2_64.rpm
+Finished binary package job, result 0, filename /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/deploy-rpms/core2_64/alsa-utils-iecset-1.2.1-r0.core2_64.rpm
+Wrote: /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/deploy-rpms/core2_64/alsa-utils-aconnect-1.2.1-r0.core2_64.rpm
+Finished binary package job, result 0, filename /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/deploy-rpms/core2_64/alsa-utils-aconnect-1.2.1-r0.core2_64.rpm
+Wrote: /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/deploy-rpms/core2_64/alsa-utils-aseqnet-1.2.1-r0.core2_64.rpm
+Finished binary package job, result 0, filename /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/deploy-rpms/core2_64/alsa-utils-aseqnet-1.2.1-r0.core2_64.rpm
+Wrote: /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/deploy-rpms/core2_64/alsa-utils-aseqdump-1.2.1-r0.core2_64.rpm
+Finished binary package job, result 0, filename /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/deploy-rpms/core2_64/alsa-utils-aseqdump-1.2.1-r0.core2_64.rpm
+Wrote: /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/deploy-rpms/core2_64/alsa-utils-midi-1.2.1-r0.core2_64.rpm
+Finished binary package job, result 0, filename /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/deploy-rpms/core2_64/alsa-utils-midi-1.2.1-r0.core2_64.rpm
+Wrote: /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/deploy-rpms/core2_64/alsa-utils-alsaucm-1.2.1-r0.core2_64.rpm
+Finished binary package job, result 0, filename /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/deploy-rpms/core2_64/alsa-utils-alsaucm-1.2.1-r0.core2_64.rpm
+Wrote: /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/deploy-rpms/core2_64/alsa-utils-doc-1.2.1-r0.core2_64.rpm
+Finished binary package job, result 0, filename /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/deploy-rpms/core2_64/alsa-utils-doc-1.2.1-r0.core2_64.rpm
+Wrote: /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/deploy-rpms/core2_64/alsa-utils-alsactl-1.2.1-r0.core2_64.rpm
+Finished binary package job, result 0, filename /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/deploy-rpms/core2_64/alsa-utils-alsactl-1.2.1-r0.core2_64.rpm
+Wrote: /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/deploy-rpms/core2_64/alsa-utils-locale-fr-1.2.1-r0.core2_64.rpm
+Finished binary package job, result 0, filename /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/deploy-rpms/core2_64/alsa-utils-locale-fr-1.2.1-r0.core2_64.rpm
+Wrote: /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/deploy-rpms/core2_64/alsa-utils-locale-de-1.2.1-r0.core2_64.rpm
+Finished binary package job, result 0, filename /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/deploy-rpms/core2_64/alsa-utils-locale-de-1.2.1-r0.core2_64.rpm
+Wrote: /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/deploy-rpms/core2_64/alsa-utils-aplay-1.2.1-r0.core2_64.rpm
+Finished binary package job, result 0, filename /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/deploy-rpms/core2_64/alsa-utils-aplay-1.2.1-r0.core2_64.rpm
+Wrote: /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/deploy-rpms/core2_64/alsa-utils-locale-ja-1.2.1-r0.core2_64.rpm
+Finished binary package job, result 0, filename /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/deploy-rpms/core2_64/alsa-utils-locale-ja-1.2.1-r0.core2_64.rpm
+Wrote: /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/deploy-rpms/core2_64/alsa-utils-locale-ru-1.2.1-r0.core2_64.rpm
+Finished binary package job, result 0, filename /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/deploy-rpms/core2_64/alsa-utils-locale-ru-1.2.1-r0.core2_64.rpm
+Wrote: /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/deploy-rpms/core2_64/alsa-utils-alsaloop-1.2.1-r0.core2_64.rpm
+Finished binary package job, result 0, filename /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/deploy-rpms/core2_64/alsa-utils-alsaloop-1.2.1-r0.core2_64.rpm
+Wrote: /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/deploy-rpms/core2_64/alsa-utils-src-1.2.1-r0.core2_64.rpm
+Finished binary package job, result 0, filename /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/deploy-rpms/core2_64/alsa-utils-src-1.2.1-r0.core2_64.rpm
+Wrote: /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/deploy-rpms/core2_64/alsa-utils-speakertest-1.2.1-r0.core2_64.rpm
+Finished binary package job, result 0, filename /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/deploy-rpms/core2_64/alsa-utils-speakertest-1.2.1-r0.core2_64.rpm
+Wrote: /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/deploy-rpms/core2_64/alsa-utils-dbg-1.2.1-r0.core2_64.rpm
+Finished binary package job, result 0, filename /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/deploy-rpms/core2_64/alsa-utils-dbg-1.2.1-r0.core2_64.rpm
+DEBUG: Shell function BUILDSPEC finished
+DEBUG: Python function do_package_rpm finished
+DEBUG: Python function do_package_write_rpm finished
+DEBUG: Executing python function sstate_task_postfunc
+NOTE: Using umask 0o002 (not 22) for sstate packaging
+DEBUG: Preparing tree /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/deploy-rpms for packaging at /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/sstate-build-package_write_rpm/deploy-rpms
+DEBUG: Executing python function sstate_hardcode_path
+NOTE: Removing hardcoded paths from sstate package: 'find /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/sstate-build-package_write_rpm/ \( -name "*.la" -o -name "*-config" -o -name "*_config" -o -name "postinst-*" \) -type f | xargs grep -l -e '/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/recipe-sysroot' -e '/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/recipe-sysroot-native' -e '/home/hhpartners/yocto/build/tmp/hosttools' | tee /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/sstate-build-package_write_rpm/fixmepath | xargs --no-run-if-empty sed -i -e 's:/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/recipe-sysroot-native:FIXMESTAGINGDIRHOST:g' -e 's:/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/recipe-sysroot:FIXMESTAGINGDIRTARGET:g' -e 's:/home/hhpartners/yocto/build/tmp/hosttools:FIXME_HOSTTOOLS_DIR:g''
+DEBUG: Python function sstate_hardcode_path finished
+DEBUG: Executing python function sstate_report_unihash
+DEBUG: Reported task a36fe4e9df79a278930a61def4a50814dcdb2f65a2444672d5ab1146aefc8500 as unihash a36fe4e9df79a278930a61def4a50814dcdb2f65a2444672d5ab1146aefc8500 to unix:///home/hhpartners/yocto/build/hashserve.sock
+DEBUG: Python function sstate_report_unihash finished
+DEBUG: Executing shell function sstate_create_package
+DEBUG: Shell function sstate_create_package finished
+DEBUG: Executing python function sstate_hardcode_path_unpack
+DEBUG: Python function sstate_hardcode_path_unpack finished
+DEBUG: Executing python function uninative_changeinterp
+DEBUG: Python function uninative_changeinterp finished
+DEBUG: Staging files from /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/deploy-rpms to /home/hhpartners/yocto/build/tmp/deploy/rpm
+DEBUG: Python function sstate_task_postfunc finished

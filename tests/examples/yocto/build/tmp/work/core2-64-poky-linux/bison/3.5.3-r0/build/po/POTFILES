@@ -1,0 +1,19 @@
+     ../../bison-3.5.3/src/complain.c \
+     ../../bison-3.5.3/src/conflicts.c \
+     ../../bison-3.5.3/src/files.c \
+     ../../bison-3.5.3/src/fixits.c \
+     ../../bison-3.5.3/src/getargs.c \
+     ../../bison-3.5.3/src/gram.c \
+     ../../bison-3.5.3/src/graphviz.c \
+     ../../bison-3.5.3/src/location.c \
+     ../../bison-3.5.3/src/main.c \
+     ../../bison-3.5.3/src/muscle-tab.c \
+     ../../bison-3.5.3/src/parse-gram.y \
+     ../../bison-3.5.3/src/print-graph.c \
+     ../../bison-3.5.3/src/print.c \
+     ../../bison-3.5.3/src/reader.c \
+     ../../bison-3.5.3/src/reduce.c \
+     ../../bison-3.5.3/src/scan-code.l \
+     ../../bison-3.5.3/src/scan-gram.l \
+     ../../bison-3.5.3/src/scan-skel.l \
+     ../../bison-3.5.3/src/symtab.c

@@ -1,0 +1,14 @@
+PN: libpthread-stubs
+PV: 0.4
+PR: r0
+PKGV: 0.4
+PKGR: r0
+LICENSE: MIT
+DESCRIPTION_libpthread-stubs-dev: This library provides weak aliases for pthread functions not provided in libc or otherwise available by default.  This package contains symbolic links, header files, and related items necessary for software development.
+SUMMARY_libpthread-stubs-dev: Library that provides weak aliases for pthread functions - Development files
+SECTION_libpthread-stubs-dev: devel
+PKG_libpthread-stubs-dev: libpthread-stubs-dev
+ALLOW_EMPTY_libpthread-stubs-dev: 1
+FILES_libpthread-stubs-dev: /usr/include /lib/lib*.so /usr/lib/lib*.so /usr/lib/*.la                 /usr/lib/*.o /usr/lib/pkgconfig /usr/share/pkgconfig                 /usr/share/aclocal /lib/*.o                 /usr/lib/libpthread-stubs/*.la /lib/*.la                 /usr/lib/cmake /usr/share/cmake
+FILES_INFO: {"/usr/lib/pkgconfig/pthread-stubs.pc": 224}
+PKGSIZE_libpthread-stubs-dev: 224

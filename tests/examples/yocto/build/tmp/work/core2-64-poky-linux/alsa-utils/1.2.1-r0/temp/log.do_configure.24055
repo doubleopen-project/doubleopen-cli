@@ -1,0 +1,235 @@
+DEBUG: Executing shell function autotools_preconfigure
+DEBUG: Shell function autotools_preconfigure finished
+DEBUG: Executing python function autotools_aclocals
+DEBUG: SITE files ['endian-little', 'common-linux', 'common-glibc', 'bit-64', 'x86_64-linux', 'common']
+DEBUG: Python function autotools_aclocals finished
+DEBUG: Executing shell function do_configure
+automake (GNU automake) 1.16.1
+Copyright (C) 2018 Free Software Foundation, Inc.
+License GPLv2+: GNU GPL version 2 or later <https://gnu.org/licenses/gpl-2.0.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+
+Written by Tom Tromey <tromey@redhat.com>
+       and Alexandre Duret-Lutz <adl@gnu.org>.
+AUTOV is 1.16
+NOTE: Executing ACLOCAL="aclocal --system-acdir=/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/recipe-sysroot/usr/share/aclocal/ --automake-acdir=/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/recipe-sysroot-native/usr/share/aclocal-1.16" autoreconf -Wcross --verbose --install --force --exclude=autopoint -I /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/alsa-utils-1.2.1/m4/ -I /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/recipe-sysroot-native/usr/share/aclocal/
+autoreconf: Entering directory `.'
+autoreconf: running: aclocal --system-acdir=/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/recipe-sysroot/usr/share/aclocal/ --automake-acdir=/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/recipe-sysroot-native/usr/share/aclocal-1.16 -I /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/alsa-utils-1.2.1/m4/ -I /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/recipe-sysroot-native/usr/share/aclocal/ --force -I m4
+autoreconf: configure.ac: tracing
+autoreconf: configure.ac: not using Libtool
+autoreconf: running: /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/recipe-sysroot-native/usr/bin/autoconf --include=/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/alsa-utils-1.2.1/m4/ --include=/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/recipe-sysroot-native/usr/share/aclocal/ --force
+autoreconf: running: /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/recipe-sysroot-native/usr/bin/autoheader --include=/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/alsa-utils-1.2.1/m4/ --include=/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/recipe-sysroot-native/usr/share/aclocal/ --force
+autoreconf: running: automake --add-missing --copy --force-missing
+alsactl/Makefile.am:66: warning: '%'-style pattern rules are a GNU make extension
+alsaucm/Makefile.am:13: warning: '%'-style pattern rules are a GNU make extension
+amixer/Makefile.am:8: warning: source file '../alsamixer/volume_mapping.c' is in a subdirectory,
+amixer/Makefile.am:8: but option 'subdir-objects' is disabled
+automake: warning: possible forward-incompatibility.
+automake: At least a source file is in a subdirectory, but the 'subdir-objects'
+automake: automake option hasn't been enabled.  For now, the corresponding output
+automake: object file(s) will be placed in the top-level directory.  However,
+automake: this behaviour will change in future Automake versions: they will
+automake: unconditionally cause object files to be placed in the same subdirectory
+automake: of the corresponding sources.
+automake: You are advised to start using 'subdir-objects' option throughout your
+automake: project, to avoid future incompatibilities.
+axfer/test/Makefile.am:9: warning: source file '../container.c' is in a subdirectory,
+axfer/test/Makefile.am:9: but option 'subdir-objects' is disabled
+axfer/test/Makefile.am:9: warning: source file '../container-riff-wave.c' is in a subdirectory,
+axfer/test/Makefile.am:9: but option 'subdir-objects' is disabled
+axfer/test/Makefile.am:9: warning: source file '../container-au.c' is in a subdirectory,
+axfer/test/Makefile.am:9: but option 'subdir-objects' is disabled
+axfer/test/Makefile.am:9: warning: source file '../container-voc.c' is in a subdirectory,
+axfer/test/Makefile.am:9: but option 'subdir-objects' is disabled
+axfer/test/Makefile.am:9: warning: source file '../container-raw.c' is in a subdirectory,
+axfer/test/Makefile.am:9: but option 'subdir-objects' is disabled
+axfer/test/Makefile.am:20: warning: source file '../container.c' is in a subdirectory,
+axfer/test/Makefile.am:20: but option 'subdir-objects' is disabled
+axfer/test/Makefile.am:20: warning: source file '../container-riff-wave.c' is in a subdirectory,
+axfer/test/Makefile.am:20: but option 'subdir-objects' is disabled
+axfer/test/Makefile.am:20: warning: source file '../container-au.c' is in a subdirectory,
+axfer/test/Makefile.am:20: but option 'subdir-objects' is disabled
+axfer/test/Makefile.am:20: warning: source file '../container-voc.c' is in a subdirectory,
+axfer/test/Makefile.am:20: but option 'subdir-objects' is disabled
+axfer/test/Makefile.am:20: warning: source file '../container-raw.c' is in a subdirectory,
+axfer/test/Makefile.am:20: but option 'subdir-objects' is disabled
+axfer/test/Makefile.am:20: warning: source file '../mapper.c' is in a subdirectory,
+axfer/test/Makefile.am:20: but option 'subdir-objects' is disabled
+axfer/test/Makefile.am:20: warning: source file '../mapper-single.c' is in a subdirectory,
+axfer/test/Makefile.am:20: but option 'subdir-objects' is disabled
+axfer/test/Makefile.am:20: warning: source file '../mapper-multiple.c' is in a subdirectory,
+axfer/test/Makefile.am:20: but option 'subdir-objects' is disabled
+topology/Makefile.am:8: warning: '%'-style pattern rules are a GNU make extension
+autoreconf: running: gnu-configize
+autoreconf: Leaving directory `.'
+NOTE: Running ../alsa-utils-1.2.1/configure  --build=x86_64-linux 		  --host=x86_64-poky-linux 		  --target=x86_64-poky-linux 		  --prefix=/usr 		  --exec_prefix=/usr 		  --bindir=/usr/bin 		  --sbindir=/usr/sbin 		  --libexecdir=/usr/libexec 		  --datadir=/usr/share 		  --sysconfdir=/etc 		  --sharedstatedir=/com 		  --localstatedir=/var 		  --libdir=/usr/lib 		  --includedir=/usr/include 		  --oldincludedir=/usr/include 		  --infodir=/usr/share/info 		  --mandir=/usr/share/man 		  --disable-silent-rules 		  --disable-dependency-tracking 		  --with-libtool-sysroot=/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/recipe-sysroot --disable-rst2man --disable-static  --disable-bat  --disable-xmlto --with-udev-rules-dir=/lib/udev/rules.d --enable-nls 
+configure: WARNING: unrecognized options: --with-libtool-sysroot, --disable-static
+configure: loading site script /home/hhpartners/yocto/meta/site/endian-little
+configure: loading site script /home/hhpartners/yocto/meta/site/common-linux
+configure: loading site script /home/hhpartners/yocto/meta/site/common-glibc
+configure: loading site script /home/hhpartners/yocto/meta/site/x86_64-linux
+configure: loading site script /home/hhpartners/yocto/meta/site/common
+configure: loading site script /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/recipe-sysroot/usr/share/x86_64-poky-linux_config_site.d/ncurses_config
+checking for a BSD-compatible install... /home/hhpartners/yocto/build/tmp/hosttools/install -c
+checking whether build environment is sane... yes
+checking for x86_64-poky-linux-strip... x86_64-poky-linux-strip
+checking for a thread-safe mkdir -p... /home/hhpartners/yocto/build/tmp/hosttools/mkdir -p
+checking for gawk... gawk
+checking whether make sets $(MAKE)... yes
+checking whether make supports nested variables... yes
+checking whether to enable maintainer-specific portions of Makefiles... yes
+checking for a sed that does not truncate output... (cached) sed
+checking whether NLS is requested... yes
+checking for msgfmt... /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/recipe-sysroot-native/usr/bin/msgfmt
+checking for gmsgfmt... /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/recipe-sysroot-native/usr/bin/msgfmt
+checking for xgettext... /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/recipe-sysroot-native/usr/bin/xgettext
+checking for msgmerge... /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/recipe-sysroot-native/usr/bin/msgmerge
+checking whether make supports the include directive... yes (GNU style)
+checking for x86_64-poky-linux-gcc... x86_64-poky-linux-gcc  -m64 -march=core2 -mtune=core2 -msse3 -mfpmath=sse -fstack-protector-strong  -D_FORTIFY_SOURCE=2 -Wformat -Wformat-security -Werror=format-security --sysroot=/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/recipe-sysroot
+checking whether the C compiler works... yes
+checking for C compiler default output file name... a.out
+checking for suffix of executables... 
+checking whether we are cross compiling... yes
+checking for suffix of object files... o
+checking whether we are using the GNU C compiler... yes
+checking whether x86_64-poky-linux-gcc  -m64 -march=core2 -mtune=core2 -msse3 -mfpmath=sse -fstack-protector-strong  -D_FORTIFY_SOURCE=2 -Wformat -Wformat-security -Werror=format-security --sysroot=/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/recipe-sysroot accepts -g... yes
+checking for x86_64-poky-linux-gcc  -m64 -march=core2 -mtune=core2 -msse3 -mfpmath=sse -fstack-protector-strong  -D_FORTIFY_SOURCE=2 -Wformat -Wformat-security -Werror=format-security --sysroot=/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/recipe-sysroot option to accept ISO C89... none needed
+checking whether x86_64-poky-linux-gcc  -m64 -march=core2 -mtune=core2 -msse3 -mfpmath=sse -fstack-protector-strong  -D_FORTIFY_SOURCE=2 -Wformat -Wformat-security -Werror=format-security --sysroot=/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/recipe-sysroot understands -c and -o together... yes
+checking dependency style of x86_64-poky-linux-gcc  -m64 -march=core2 -mtune=core2 -msse3 -mfpmath=sse -fstack-protector-strong  -D_FORTIFY_SOURCE=2 -Wformat -Wformat-security -Werror=format-security --sysroot=/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/recipe-sysroot... none
+checking build system type... x86_64-pc-linux-gnu
+checking host system type... x86_64-poky-linux-gnu
+checking for ld... x86_64-poky-linux-ld --sysroot=/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/recipe-sysroot  
+checking if the linker (x86_64-poky-linux-ld --sysroot=/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/recipe-sysroot  ) is GNU ld... yes
+checking for shared library run path origin... done
+checking 32-bit host C ABI... no
+checking for the common suffixes of directories in the library search path... lib,lib
+checking for CFPreferencesCopyAppValue... no
+checking for CFLocaleCopyCurrent... no
+checking for CFLocaleCopyPreferredLanguages... no
+checking for GNU gettext in libc... yes
+checking whether to use NLS... yes
+checking where the gettext function comes from... libc
+checking for x86_64-poky-linux-gcc... (cached) x86_64-poky-linux-gcc  -m64 -march=core2 -mtune=core2 -msse3 -mfpmath=sse -fstack-protector-strong  -D_FORTIFY_SOURCE=2 -Wformat -Wformat-security -Werror=format-security --sysroot=/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/recipe-sysroot
+checking whether we are using the GNU C compiler... (cached) yes
+checking whether x86_64-poky-linux-gcc  -m64 -march=core2 -mtune=core2 -msse3 -mfpmath=sse -fstack-protector-strong  -D_FORTIFY_SOURCE=2 -Wformat -Wformat-security -Werror=format-security --sysroot=/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/recipe-sysroot accepts -g... (cached) yes
+checking for x86_64-poky-linux-gcc  -m64 -march=core2 -mtune=core2 -msse3 -mfpmath=sse -fstack-protector-strong  -D_FORTIFY_SOURCE=2 -Wformat -Wformat-security -Werror=format-security --sysroot=/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/recipe-sysroot option to accept ISO C89... (cached) none needed
+checking whether x86_64-poky-linux-gcc  -m64 -march=core2 -mtune=core2 -msse3 -mfpmath=sse -fstack-protector-strong  -D_FORTIFY_SOURCE=2 -Wformat -Wformat-security -Werror=format-security --sysroot=/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/recipe-sysroot understands -c and -o together... (cached) yes
+checking dependency style of x86_64-poky-linux-gcc  -m64 -march=core2 -mtune=core2 -msse3 -mfpmath=sse -fstack-protector-strong  -D_FORTIFY_SOURCE=2 -Wformat -Wformat-security -Werror=format-security --sysroot=/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/recipe-sysroot... (cached) none
+checking whether ln -s works... yes
+checking for a sed that does not truncate output... (cached) sed
+checking for x86_64-poky-linux-pkg-config... no
+checking for pkg-config... /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/recipe-sysroot-native/usr/bin/pkg-config
+configure: WARNING: using cross tools not prefixed with host triplet
+checking pkg-config is at least version 0.9.0... yes
+checking for ALSA CFLAGS... 
+checking for dlopen in -lc... no
+checking for dlopen in -ldl... yes
+checking for ALSA LDFLAGS...  -lasound -lm -ldl -lpthread
+checking required libasound headers version... 1.0.27
+checking for libasound headers version >= 1.0.27 (1.0.27)... found.
+checking for libatopology (sound headers version > 1.1.9)... yes
+checking for snd_ctl_open in -lasound... yes
+checking for snd_tplg_new in -latopology... yes
+checking for ALSA topology LDFLAGS...  -latopology
+checking for snd_ctl_elem_add_enumerated... yes
+checking for alsa/pcm.h... yes
+checking for alsa/mixer.h... yes
+checking for alsa/rawmidi.h... yes
+checking for alsa/seq.h... yes
+checking for alsa/use-case.h... yes
+checking for alsa/topology.h... yes
+checking for samplerate.h... yes
+checking for snd_seq_client_info_get_card in -lasound... yes
+checking for snd_seq_client_info_get_pid in -lasound... yes
+checking for ffado_streaming_init in -lffado... no
+checking for librt... checking for clock_gettime in -lrt... yes
+checking how to run the C preprocessor... x86_64-poky-linux-gcc -E --sysroot=/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/recipe-sysroot  -m64 -march=core2 -mtune=core2 -msse3 -mfpmath=sse -fstack-protector-strong  -D_FORTIFY_SOURCE=2 -Wformat -Wformat-security -Werror=format-security
+checking for grep that handles long lines and -e... /home/hhpartners/yocto/build/tmp/hosttools/grep
+checking for egrep... /home/hhpartners/yocto/build/tmp/hosttools/grep -E
+checking for ANSI C header files... (cached) yes
+checking for ncursesw... yes
+checking for curses library... ncursesw
+checking for curses header name... <ncurses.h>
+checking for curses compiler flags... -D_XOPEN_SOURCE=600
+checking for curses NLS support... yes
+checking for sys/types.h... (cached) yes
+checking for sys/stat.h... (cached) yes
+checking for stdlib.h... (cached) yes
+checking for string.h... (cached) yes
+checking for memory.h... (cached) yes
+checking for strings.h... (cached) yes
+checking for inttypes.h... (cached) yes
+checking for stdint.h... (cached) yes
+checking for unistd.h... (cached) yes
+checking panel.h usability... yes
+checking panel.h presence... yes
+checking for panel.h... yes
+checking menu.h usability... yes
+checking menu.h presence... yes
+checking for menu.h... yes
+checking form.h usability... yes
+checking form.h presence... yes
+checking for form.h... yes
+checking for new_panel in -lpanelw... yes
+checking for new_menu in -lmenuw... yes
+checking for new_form in -lformw... yes
+checking for curses linker flags... -lformw -lmenuw -lpanelw -Wl,-O1 -Wl,--hash-style=gnu -Wl,--as-needed -fstack-protector-strong -lncursesw -ltinfo
+checking for an ANSI C-conforming const... yes
+checking for inline... inline
+checking whether time.h and sys/time.h may both be included... yes
+checking whether x86_64-poky-linux-gcc  -m64 -march=core2 -mtune=core2 -msse3 -mfpmath=sse -fstack-protector-strong  -D_FORTIFY_SOURCE=2 -Wformat -Wformat-security -Werror=format-security --sysroot=/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/recipe-sysroot needs -traditional... no
+checking for special C compiler options needed for large files... no
+checking for _FILE_OFFSET_BITS value needed for large files... no
+checking for systemd >= 18... no
+Package systemd was not found in the pkg-config search path.
+Perhaps you should add the directory containing `systemd.pc'
+to the PKG_CONFIG_PATH environment variable
+No package 'systemd' found
+configure: creating ./config.status
+config.status: creating Makefile
+config.status: creating alsactl/Makefile
+config.status: creating alsactl/init/Makefile
+config.status: creating alsamixer/Makefile
+config.status: creating amidi/Makefile
+config.status: creating amixer/Makefile
+config.status: creating m4/Makefile
+config.status: creating po/Makefile.in
+config.status: creating alsaconf/alsaconf
+config.status: creating alsaconf/Makefile
+config.status: creating alsaconf/po/Makefile
+config.status: WARNING:  '../alsa-utils-1.2.1/alsaconf/po/Makefile.in' seems to ignore the --datarootdir setting
+config.status: creating alsaucm/Makefile
+config.status: creating topology/Makefile
+config.status: creating bat/Makefile
+config.status: creating bat/tests/Makefile
+config.status: creating bat/tests/asound_state/Makefile
+config.status: creating aplay/Makefile
+config.status: creating include/Makefile
+config.status: creating iecset/Makefile
+config.status: creating utils/Makefile
+config.status: creating utils/alsa-utils.spec
+config.status: creating seq/Makefile
+config.status: creating seq/aconnect/Makefile
+config.status: creating seq/aplaymidi/Makefile
+config.status: creating seq/aseqdump/Makefile
+config.status: creating seq/aseqnet/Makefile
+config.status: creating speaker-test/Makefile
+config.status: creating speaker-test/samples/Makefile
+config.status: creating alsaloop/Makefile
+config.status: creating alsa-info/Makefile
+config.status: creating axfer/Makefile
+config.status: creating axfer/test/Makefile
+config.status: creating include/aconfig.h
+config.status: executing po-directories commands
+config.status: creating po/POTFILES
+config.status: creating po/Makefile
+config.status: executing depfiles commands
+configure: WARNING: unrecognized options: --with-libtool-sysroot, --disable-static
+DEBUG: Shell function do_configure finished
+DEBUG: Executing python function do_qa_configure
+NOTE: Checking autotools environment for common misconfiguration
+NOTE: Checking configure output for unrecognised options
+DEBUG: Python function do_qa_configure finished
+DEBUG: Executing shell function autotools_postconfigure
+DEBUG: Shell function autotools_postconfigure finished

@@ -1,0 +1,17 @@
+recipe-sysroot-native/sysroot-providers/gmp-native
+recipe-sysroot-native/usr/include/gmp.h
+recipe-sysroot-native/usr/include/gmpxx.h
+recipe-sysroot-native/usr/lib/libgmp.so
+recipe-sysroot-native/usr/lib/libgmpxx.so
+recipe-sysroot-native/usr/lib/libgmpxx.so.4
+recipe-sysroot-native/usr/lib/libgmp.so.10.4.0
+recipe-sysroot-native/usr/lib/libgmpxx.so.4.6.0
+recipe-sysroot-native/usr/lib/libgmp.so.10
+recipe-sysroot-native/usr/lib/pkgconfig/gmpxx.pc
+recipe-sysroot-native/usr/lib/pkgconfig/gmp.pc
+recipe-sysroot-native/usr/lib/pkgconfig/
+recipe-sysroot-native/sysroot-providers/
+recipe-sysroot-native/usr/include/
+recipe-sysroot-native/usr/share/
+recipe-sysroot-native/usr/lib/
+recipe-sysroot-native/usr/

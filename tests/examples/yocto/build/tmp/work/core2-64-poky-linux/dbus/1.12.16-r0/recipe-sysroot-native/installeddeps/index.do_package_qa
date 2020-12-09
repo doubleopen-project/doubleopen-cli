@@ -1,0 +1,16 @@
+TaskDeps: do_packagedata do_package do_install do_compile do_configure do_prepare_recipe_sysroot do_deploy_source_date_epoch do_patch do_fetch do_unpack do_populate_sysroot
+attr-native
+autoconf-native
+automake-native
+binutils-cross-x86_64
+flex-native
+gettext-minimal-native
+gnu-config-native
+libtool-native
+m4-native
+patch-native
+pseudo-native
+quilt-native
+texinfo-dummy-native
+xz-native
+zlib-native

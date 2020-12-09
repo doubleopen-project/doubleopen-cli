@@ -1,0 +1,14 @@
+recipe-sysroot-native/sysroot-providers/itstool-native
+recipe-sysroot-native/usr/share/itstool/its/xhtml.its
+recipe-sysroot-native/usr/share/itstool/its/mallard.its
+recipe-sysroot-native/usr/share/itstool/its/docbook.its
+recipe-sysroot-native/usr/share/itstool/its/ttml.its
+recipe-sysroot-native/usr/share/itstool/its/docbook5.its
+recipe-sysroot-native/usr/share/itstool/its/its.its
+recipe-sysroot-native/usr/bin/itstool
+recipe-sysroot-native/usr/share/itstool/its/
+recipe-sysroot-native/usr/share/itstool/
+recipe-sysroot-native/sysroot-providers/
+recipe-sysroot-native/usr/share/
+recipe-sysroot-native/usr/bin/
+recipe-sysroot-native/usr/

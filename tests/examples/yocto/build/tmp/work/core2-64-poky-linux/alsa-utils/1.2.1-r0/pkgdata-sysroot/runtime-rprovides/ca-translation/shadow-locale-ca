@@ -1,0 +1,15 @@
+PN: shadow
+PV: 4.8.1
+PR: r0
+PKGV: 4.8.1
+PKGR: r0
+LICENSE: BSD | Artistic-1.0
+DESCRIPTION_shadow-locale-ca: Tools to change and administer password and group data.  This package contains language translation files for the ca locale.
+SUMMARY_shadow-locale-ca: Tools to change and administer password and group data - ca translations
+RPROVIDES_shadow-locale-ca: shadow-locale ca-translation
+RRECOMMENDS_shadow-locale-ca: virtual-locale-ca
+SECTION: base/utils
+PKG_shadow-locale-ca: shadow-locale-ca
+FILES_shadow-locale-ca: /usr/share/locale/ca
+FILES_INFO: {"/usr/share/locale/ca/LC_MESSAGES/shadow.mo": 66961}
+PKGSIZE_shadow-locale-ca: 66961

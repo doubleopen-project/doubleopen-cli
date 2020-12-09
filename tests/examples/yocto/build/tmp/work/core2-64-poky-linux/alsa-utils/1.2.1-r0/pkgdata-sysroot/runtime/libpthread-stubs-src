@@ -1,0 +1,13 @@
+PN: libpthread-stubs
+PV: 0.4
+PR: r0
+PKGV: 0.4
+PKGR: r0
+LICENSE: MIT
+DESCRIPTION_libpthread-stubs-src: This library provides weak aliases for pthread functions not provided in libc or otherwise available by default.  This package contains sources for debugging purposes.
+SUMMARY_libpthread-stubs-src: Library that provides weak aliases for pthread functions - Source files
+SECTION_libpthread-stubs-src: devel
+PKG_libpthread-stubs-src: libpthread-stubs-src
+FILES_libpthread-stubs-src: /usr/src/debug
+FILES_INFO: {}
+PKGSIZE_libpthread-stubs-src: 0

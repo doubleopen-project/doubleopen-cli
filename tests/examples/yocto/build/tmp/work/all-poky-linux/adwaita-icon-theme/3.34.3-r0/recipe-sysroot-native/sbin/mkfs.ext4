@@ -1,0 +1,5 @@
+#!/bin/bash
+realpath=`readlink -fn $0`
+realdir=`dirname $realpath`
+export MKE2FS_CONFIG=$realdir/../etc/mke2fs.conf
+exec -a "$0" $realdir/mkfs.ext4.real "$@"

@@ -1,0 +1,15 @@
+PN: shadow
+PV: 4.8.1
+PR: r0
+PKGV: 4.8.1
+PKGR: r0
+LICENSE: BSD | Artistic-1.0
+DESCRIPTION_shadow-locale-tr: Tools to change and administer password and group data.  This package contains language translation files for the tr locale.
+SUMMARY_shadow-locale-tr: Tools to change and administer password and group data - tr translations
+RPROVIDES_shadow-locale-tr: shadow-locale tr-translation
+RRECOMMENDS_shadow-locale-tr: virtual-locale-tr
+SECTION: base/utils
+PKG_shadow-locale-tr: shadow-locale-tr
+FILES_shadow-locale-tr: /usr/share/locale/tr
+FILES_INFO: {"/usr/share/locale/tr/LC_MESSAGES/shadow.mo": 20898}
+PKGSIZE_shadow-locale-tr: 20898

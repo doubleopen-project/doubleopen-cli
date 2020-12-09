@@ -1,0 +1,20 @@
+PN: util-linux
+PV: 2.35.1
+PR: r0
+PKGV: 2.35.1
+PKGR: r0
+LICENSE: GPLv2+ & LGPLv2.1+ & BSD-3-Clause & BSD-4-Clause
+DESCRIPTION_util-linux-libsmartcols: util-linux libsmartcols
+SUMMARY_util-linux-libsmartcols: util-linux libsmartcols
+RDEPENDS_util-linux-libsmartcols: glibc (>= 2.31+git0+6fdf971c9d)
+RPROVIDES_util-linux-libsmartcols:  util-linux-libsmartcols (=2.35.1)
+SECTION: base
+PKG_util-linux-libsmartcols: libsmartcols1
+FILES_util-linux-libsmartcols: /lib/libsmartcols.so.1 /lib/libsmartcols.so.1.1.0
+FILES_INFO: {"/lib/libsmartcols.so.1": 21, "/lib/libsmartcols.so.1.1.0": 231528}
+pkg_postinst_util-linux-libsmartcols: #!/bin/sh\nset -e\nif [ x"$D" = "x" ]; then\n\tif [ -x /sbin/ldconfig ]; then /sbin/ldconfig ; fi\nfi\n
+FILERPROVIDESFLIST_util-linux-libsmartcols: /lib/libsmartcols.so.1.1.0
+FILERPROVIDES_/lib/libsmartcols.so.1.1.0_util-linux-libsmartcols:  libsmartcols.so.1(SMARTCOLS_2.25)(64bit) libsmartcols.so.1(SMARTCOLS_2.27)(64bit) libsmartcols.so.1(SMARTCOLS_2.27)(64bit) libsmartcols.so.1(SMARTCOLS_2.28)(64bit) libsmartcols.so.1(SMARTCOLS_2.28)(64bit) libsmartcols.so.1(SMARTCOLS_2.29)(64bit) libsmartcols.so.1(SMARTCOLS_2.29)(64bit) libsmartcols.so.1(SMARTCOLS_2.30)(64bit) libsmartcols.so.1(SMARTCOLS_2.30)(64bit) libsmartcols.so.1(SMARTCOLS_2.31)(64bit) libsmartcols.so.1(SMARTCOLS_2.31)(64bit) libsmartcols.so.1(SMARTCOLS_2.33)(64bit) libsmartcols.so.1(SMARTCOLS_2.33)(64bit) libsmartcols.so.1(SMARTCOLS_2.34)(64bit) libsmartcols.so.1(SMARTCOLS_2.34)(64bit) libsmartcols.so.1(SMARTCOLS_2.35)(64bit) libsmartcols.so.1(SMARTCOLS_2.35)(64bit) libsmartcols.so.1()(64bit)
+FILERDEPENDSFLIST_util-linux-libsmartcols: /lib/libsmartcols.so.1.1.0
+FILERDEPENDS_/lib/libsmartcols.so.1.1.0_util-linux-libsmartcols:  ld-linux-x86-64.so.2(GLIBC_2.3)(64bit) libc.so.6(GLIBC_2.25)(64bit) libc.so.6(GLIBC_2.14)(64bit) libc.so.6(GLIBC_2.3)(64bit) libc.so.6(GLIBC_2.8)(64bit) libc.so.6(GLIBC_2.4)(64bit) libc.so.6(GLIBC_2.17)(64bit) libc.so.6(GLIBC_2.7)(64bit) libc.so.6(GLIBC_2.3.4)(64bit) libc.so.6(GLIBC_2.2.5)(64bit) libc.so.6()(64bit) ld-linux-x86-64.so.2()(64bit) rtld(GNU_HASH)
+PKGSIZE_util-linux-libsmartcols: 231549

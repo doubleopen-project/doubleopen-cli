@@ -1,0 +1,20 @@
+PN: util-linux
+PV: 2.35.1
+PR: r0
+PKGV: 2.35.1
+PKGR: r0
+LICENSE: GPLv2+ & LGPLv2.1+ & BSD-3-Clause & BSD-4-Clause
+DESCRIPTION_util-linux-libuuid: util-linux libuuid
+SUMMARY_util-linux-libuuid: util-linux libuuid
+RDEPENDS_util-linux-libuuid: glibc (>= 2.31+git0+6fdf971c9d)
+RPROVIDES_util-linux-libuuid:  util-linux-libuuid (=2.35.1)
+SECTION: base
+PKG_util-linux-libuuid: libuuid1
+FILES_util-linux-libuuid: /lib/libuuid.so.1 /lib/libuuid.so.1.3.0
+FILES_INFO: {"/lib/libuuid.so.1": 16, "/lib/libuuid.so.1.3.0": 30752}
+pkg_postinst_util-linux-libuuid: #!/bin/sh\nset -e\nif [ x"$D" = "x" ]; then\n\tif [ -x /sbin/ldconfig ]; then /sbin/ldconfig ; fi\nfi\n
+FILERPROVIDESFLIST_util-linux-libuuid: /lib/libuuid.so.1.3.0
+FILERPROVIDES_/lib/libuuid.so.1.3.0_util-linux-libuuid:  libuuid.so.1(UUID_1.0)(64bit) libuuid.so.1(UUID_2.20)(64bit) libuuid.so.1(UUID_2.20)(64bit) libuuid.so.1(UUID_2.31)(64bit) libuuid.so.1(UUID_2.31)(64bit) libuuid.so.1(UUIDD_PRIVATE)(64bit) libuuid.so.1()(64bit)
+FILERDEPENDSFLIST_util-linux-libuuid: /lib/libuuid.so.1.3.0
+FILERDEPENDS_/lib/libuuid.so.1.3.0_util-linux-libuuid:  ld-linux-x86-64.so.2(GLIBC_2.3)(64bit) libc.so.6(GLIBC_2.3)(64bit) libc.so.6(GLIBC_2.25)(64bit) libc.so.6(GLIBC_2.3.4)(64bit) libc.so.6(GLIBC_2.14)(64bit) libc.so.6(GLIBC_2.4)(64bit) libc.so.6(GLIBC_2.7)(64bit) libc.so.6(GLIBC_2.2.5)(64bit) libc.so.6()(64bit) ld-linux-x86-64.so.2()(64bit) rtld(GNU_HASH)
+PKGSIZE_util-linux-libuuid: 30768

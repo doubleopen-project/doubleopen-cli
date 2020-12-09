@@ -1,0 +1,40 @@
+DEBUG: Executing python function sstate_task_prefunc
+DEBUG: Python function sstate_task_prefunc finished
+DEBUG: Executing python function extend_recipe_sysroot
+NOTE: Direct dependencies are ['/home/hhpartners/yocto/meta/recipes-devtools/libtool/libtool-native_2.4.6.bb:do_populate_sysroot', '/home/hhpartners/yocto/meta/recipes-extended/texinfo-dummy-native/texinfo-dummy-native.bb:do_populate_sysroot', 'virtual:native:/home/hhpartners/yocto/meta/recipes-devtools/automake/automake_1.16.1.bb:do_populate_sysroot', '/home/hhpartners/yocto/meta/recipes-devtools/quilt/quilt-native_0.66.bb:do_populate_sysroot', '/home/hhpartners/yocto/meta/recipes-devtools/gcc/gcc-runtime_9.3.bb:do_populate_sysroot', 'virtual:native:/home/hhpartners/yocto/meta/recipes-core/gettext/gettext_0.20.1.bb:do_populate_sysroot', 'virtual:native:/home/hhpartners/yocto/meta/recipes-extended/xz/xz_5.2.4.bb:do_populate_sysroot', 'virtual:native:/home/hhpartners/yocto/meta/recipes-devtools/gnu-config/gnu-config_git.bb:do_populate_sysroot', '/home/hhpartners/yocto/meta/recipes-core/glibc/glibc_2.31.bb:do_populate_sysroot', 'virtual:native:/home/hhpartners/yocto/meta/recipes-devtools/bison/bison_3.5.3.bb:do_populate_sysroot', 'virtual:native:/home/hhpartners/yocto/meta/recipes-devtools/patch/patch_2.7.6.bb:do_populate_sysroot', 'virtual:native:/home/hhpartners/yocto/meta/recipes-devtools/pseudo/pseudo_git.bb:do_populate_sysroot', 'virtual:native:/home/hhpartners/yocto/meta/recipes-devtools/autoconf/autoconf_2.69.bb:do_populate_sysroot', '/home/hhpartners/yocto/meta/recipes-devtools/binutils/binutils-cross_2.34.bb:do_populate_sysroot', '/home/hhpartners/yocto/meta/recipes-devtools/libtool/libtool-cross_2.4.6.bb:do_populate_sysroot', 'virtual:native:/home/hhpartners/yocto/meta/recipes-devtools/flex/flex_2.6.4.bb:do_populate_sysroot', '/home/hhpartners/yocto/meta/recipes-devtools/gcc/gcc-cross_9.3.bb:do_populate_sysroot']
+NOTE: Installed into sysroot: []
+NOTE: Skipping as already exists in sysroot: ['libtool-native', 'texinfo-dummy-native', 'automake-native', 'quilt-native', 'gcc-runtime', 'gettext-native', 'xz-native', 'gnu-config-native', 'glibc', 'bison-native', 'patch-native', 'pseudo-native', 'autoconf-native', 'binutils-cross-x86_64', 'libtool-cross', 'flex-native', 'gcc-cross-x86_64', 'libgcc', 'linux-libc-headers', 'gettext-minimal-native', 'pkgconfig-native', 'attr-native', 'm4-native', 'zlib-native', 'libmpc-native', 'gmp-native', 'mpfr-native']
+DEBUG: Python function extend_recipe_sysroot finished
+DEBUG: Executing python function do_populate_sysroot
+DEBUG: Executing shell function sysroot_stage_all
+0 blocks
+0 blocks
+DEBUG: Shell function sysroot_stage_all finished
+DEBUG: Executing python function sysroot_strip
+DEBUG: Python function sysroot_strip finished
+DEBUG: Python function do_populate_sysroot finished
+DEBUG: Executing python function do_qa_staging
+NOTE: QA checking staging
+DEBUG: Python function do_qa_staging finished
+DEBUG: Executing python function sstate_task_postfunc
+DEBUG: Executing python function do_siteconfig
+DEBUG: Executing python function siteconfig_do_siteconfig
+DEBUG: No site_config directory, skipping do_siteconfig
+DEBUG: Python function siteconfig_do_siteconfig finished
+DEBUG: Python function do_siteconfig finished
+NOTE: Using umask 0o002 (not 22) for sstate packaging
+DEBUG: Preparing tree /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/bison/3.5.3-r0/sysroot-destdir for packaging at /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/bison/3.5.3-r0/sstate-build-populate_sysroot/sysroot-destdir
+DEBUG: Executing python function sstate_hardcode_path
+NOTE: Removing hardcoded paths from sstate package: 'find /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/bison/3.5.3-r0/sstate-build-populate_sysroot/ \( -name "*.la" -o -name "*-config" -o -name "*_config" -o -name "postinst-*" \) -type f | xargs grep -l -e '/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/bison/3.5.3-r0/recipe-sysroot' -e '/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/bison/3.5.3-r0/recipe-sysroot-native' -e '/home/hhpartners/yocto/build/tmp/hosttools' | tee /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/bison/3.5.3-r0/sstate-build-populate_sysroot/fixmepath | xargs --no-run-if-empty sed -i -e 's:/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/bison/3.5.3-r0/recipe-sysroot-native:FIXMESTAGINGDIRHOST:g' -e 's:/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/bison/3.5.3-r0/recipe-sysroot:FIXMESTAGINGDIRTARGET:g' -e 's:/home/hhpartners/yocto/build/tmp/hosttools:FIXME_HOSTTOOLS_DIR:g''
+DEBUG: Python function sstate_hardcode_path finished
+DEBUG: Executing python function sstate_report_unihash
+DEBUG: Reported task f3893ac89a41a3bb553634c9f0eb6b5fe7e5b31997daeef4cbbeee907cae2b1b as unihash f3893ac89a41a3bb553634c9f0eb6b5fe7e5b31997daeef4cbbeee907cae2b1b to unix:///home/hhpartners/yocto/build/hashserve.sock
+DEBUG: Python function sstate_report_unihash finished
+DEBUG: Executing shell function sstate_create_package
+DEBUG: Shell function sstate_create_package finished
+DEBUG: Executing python function sstate_hardcode_path_unpack
+DEBUG: Python function sstate_hardcode_path_unpack finished
+DEBUG: Executing python function uninative_changeinterp
+DEBUG: Python function uninative_changeinterp finished
+DEBUG: Staging files from /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/bison/3.5.3-r0/sysroot-destdir to /home/hhpartners/yocto/build/tmp/sysroots-components/core2-64/bison
+DEBUG: Python function sstate_task_postfunc finished

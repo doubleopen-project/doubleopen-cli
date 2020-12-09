@@ -1,0 +1,35 @@
+ppucd.o ppucd.d : ../../../icu/source/tools/toolutil/ppucd.cpp \
+ ../../../icu/source/common/unicode/utypes.h \
+ ../../../icu/source/common/unicode/umachine.h \
+ ../../../icu/source/common/unicode/ptypes.h \
+ ../../../icu/source/common/unicode/platform.h \
+ ../../../icu/source/common/unicode/uconfig.h \
+ ../../../icu/source/common/unicode/uvernum.h \
+ ../../../icu/source/common/unicode/urename.h \
+ ../../../icu/source/common/unicode/uversion.h \
+ ../../../icu/source/common/unicode/uchar.h \
+ ../../../icu/source/common/unicode/stringoptions.h \
+ ../../../icu/source/common/unicode/ucpmap.h \
+ ../../../icu/source/common/charstr.h \
+ ../../../icu/source/common/unicode/utypes.h \
+ ../../../icu/source/common/unicode/unistr.h \
+ ../../../icu/source/common/unicode/char16ptr.h \
+ ../../../icu/source/common/unicode/rep.h \
+ ../../../icu/source/common/unicode/uobject.h \
+ ../../../icu/source/common/unicode/std_string.h \
+ ../../../icu/source/common/unicode/stringpiece.h \
+ ../../../icu/source/common/unicode/bytestream.h \
+ ../../../icu/source/common/unicode/uobject.h \
+ ../../../icu/source/common/cmemory.h \
+ ../../../icu/source/common/unicode/localpointer.h \
+ ../../../icu/source/common/cstring.h \
+ ../../../icu/source/tools/toolutil/ppucd.h \
+ ../../../icu/source/common/unicode/uniset.h \
+ ../../../icu/source/common/unicode/unifilt.h \
+ ../../../icu/source/common/unicode/unifunct.h \
+ ../../../icu/source/common/unicode/unimatch.h \
+ ../../../icu/source/common/unicode/unistr.h \
+ ../../../icu/source/common/unicode/uset.h \
+ ../../../icu/source/common/unicode/localpointer.h \
+ ../../../icu/source/common/uassert.h \
+ ../../../icu/source/tools/toolutil/uparse.h

@@ -1,0 +1,11 @@
+prefix=/usr
+exec_prefix=/usr
+libdir=/usr/lib
+includedir=/usr/include
+
+Name: samplerate
+Description: An audio Sample Rate Conversion library
+Requires: 
+Version: 0.1.9
+Libs: -L${libdir} -lsamplerate
+Cflags: -I${includedir} 

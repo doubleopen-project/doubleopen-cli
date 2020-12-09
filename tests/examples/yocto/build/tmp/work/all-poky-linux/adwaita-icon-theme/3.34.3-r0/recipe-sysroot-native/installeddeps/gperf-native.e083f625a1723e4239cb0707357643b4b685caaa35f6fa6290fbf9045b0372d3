@@ -1,0 +1,6 @@
+recipe-sysroot-native/sysroot-providers/gperf-native
+recipe-sysroot-native/usr/bin/gperf
+recipe-sysroot-native/sysroot-providers/
+recipe-sysroot-native/usr/share/
+recipe-sysroot-native/usr/bin/
+recipe-sysroot-native/usr/

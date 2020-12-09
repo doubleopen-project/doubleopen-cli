@@ -1,0 +1,14 @@
+PN: libcap-ng
+PV: 0.7.10
+PR: r0
+PKGV: 0.7.10
+PKGR: r0
+LICENSE: GPLv2+ & LGPLv2.1+
+DESCRIPTION_libcap-ng-staticdev: The libcap-ng library is intended to make programming with POSIX capabilities much easier than the traditional libcap library.  This package contains static libraries for software development.
+SUMMARY_libcap-ng-staticdev: An alternate posix capabilities library - Development files (Static Libraries)
+RDEPENDS_libcap-ng-staticdev: libcap-ng-dev (= 0.7.10-r0)
+SECTION_libcap-ng-staticdev: devel
+PKG_libcap-ng-staticdev: libcap-ng-staticdev
+FILES_libcap-ng-staticdev: /usr/lib/*.a /lib/*.a /usr/lib/libcap-ng/*.a
+FILES_INFO: {}
+PKGSIZE_libcap-ng-staticdev: 0

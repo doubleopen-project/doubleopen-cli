@@ -1,0 +1,633 @@
+DEBUG: Executing shell function autotools_preconfigure
+DEBUG: Shell function autotools_preconfigure finished
+DEBUG: Executing python function autotools_aclocals
+DEBUG: SITE files ['endian-little', 'common-linux', 'common-glibc', 'bit-64', 'x86_64-linux', 'common']
+DEBUG: Python function autotools_aclocals finished
+DEBUG: Executing shell function do_configure
+automake (GNU automake) 1.16.1
+Copyright (C) 2018 Free Software Foundation, Inc.
+License GPLv2+: GNU GPL version 2 or later <https://gnu.org/licenses/gpl-2.0.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+
+Written by Tom Tromey <tromey@redhat.com>
+       and Alexandre Duret-Lutz <adl@gnu.org>.
+AUTOV is 1.16
+NOTE: Executing ACLOCAL="aclocal --system-acdir=/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot/usr/share/aclocal/ --automake-acdir=/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot-native/usr/share/aclocal-1.16" autoreconf -Wcross --verbose --install --force --exclude=autopoint -I /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/dbus-1.12.16/m4/ -I /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot-native/usr/share/aclocal/
+autoreconf: Entering directory `.'
+autoreconf: configure.ac: not using Gettext
+autoreconf: running: aclocal --system-acdir=/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot/usr/share/aclocal/ --automake-acdir=/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot-native/usr/share/aclocal-1.16 -I /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/dbus-1.12.16/m4/ -I /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot-native/usr/share/aclocal/ --force -I m4 ${ACLOCAL_FLAGS}
+autoreconf: configure.ac: tracing
+autoreconf: running: libtoolize --copy --force
+libtoolize: putting auxiliary files in AC_CONFIG_AUX_DIR, 'build-aux'.
+libtoolize: copying file 'build-aux/ltmain.sh'
+libtoolize: putting macros in AC_CONFIG_MACRO_DIRS, 'm4'.
+libtoolize: copying file 'm4/libtool.m4'
+libtoolize: copying file 'm4/ltoptions.m4'
+libtoolize: copying file 'm4/ltsugar.m4'
+libtoolize: copying file 'm4/ltversion.m4'
+libtoolize: copying file 'm4/lt~obsolete.m4'
+autoreconf: running: /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot-native/usr/bin/autoconf --include=/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/dbus-1.12.16/m4/ --include=/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot-native/usr/share/aclocal/ --force
+autoreconf: running: /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot-native/usr/bin/autoheader --include=/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/dbus-1.12.16/m4/ --include=/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot-native/usr/share/aclocal/ --force
+autoreconf: running: automake --add-missing --copy --force-missing
+configure.ac:97: installing 'build-aux/compile'
+configure.ac:21: installing 'build-aux/missing'
+bus/Makefile.am: installing 'build-aux/depcomp'
+autoreconf: running: gnu-configize
+autoreconf: Leaving directory `.'
+NOTE: Running ../dbus-1.12.16/configure  --build=x86_64-linux 		  --host=x86_64-poky-linux 		  --target=x86_64-poky-linux 		  --prefix=/usr 		  --exec_prefix=/usr 		  --bindir=/usr/bin 		  --sbindir=/usr/sbin 		  --libexecdir=/usr/libexec 		  --datadir=/usr/share 		  --sysconfdir=/etc 		  --sharedstatedir=/com 		  --localstatedir=/var 		  --libdir=/usr/lib 		  --includedir=/usr/include 		  --oldincludedir=/usr/include 		  --infodir=/usr/share/info 		  --mandir=/usr/share/man 		  --disable-silent-rules 		  --disable-dependency-tracking 		  --with-libtool-sysroot=/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot --disable-tests                 --disable-xml-docs                 --disable-doxygen-docs                 --disable-libaudit                 --enable-largefile                 --with-system-socket=/run/dbus/system_bus_socket                  --disable-static  --disable-systemd --without-systemdsystemunitdir --enable-user-session --with-systemduserunitdir=/usr/lib/systemd/user --with-x --enable-x11-autolaunch --enable-nls SYSTEMCTL=/bin/systemctl 
+configure: WARNING: unrecognized options: --enable-nls
+configure: loading site script /home/hhpartners/yocto/meta/site/endian-little
+configure: loading site script /home/hhpartners/yocto/meta/site/common-linux
+configure: loading site script /home/hhpartners/yocto/meta/site/common-glibc
+configure: loading site script /home/hhpartners/yocto/meta/site/x86_64-linux
+configure: loading site script /home/hhpartners/yocto/meta/site/common
+checking build system type... x86_64-pc-linux-gnu
+checking host system type... x86_64-poky-linux-gnu
+checking for a BSD-compatible install... /home/hhpartners/yocto/build/tmp/hosttools/install -c
+checking whether build environment is sane... yes
+checking for x86_64-poky-linux-strip... x86_64-poky-linux-strip
+checking for a thread-safe mkdir -p... /home/hhpartners/yocto/build/tmp/hosttools/mkdir -p
+checking for gawk... gawk
+checking whether make sets $(MAKE)... yes
+checking whether make supports nested variables... yes
+checking whether UID '1000' is supported by ustar format... yes
+checking whether GID '1000' is supported by ustar format... yes
+checking how to create a ustar tar archive... gnutar
+checking whether to enable maintainer-specific portions of Makefiles... yes
+checking whether make supports nested variables... (cached) yes
+checking whether to enable debugging... no
+checking for x86_64-poky-linux-gcc... x86_64-poky-linux-gcc  -m64 -march=core2 -mtune=core2 -msse3 -mfpmath=sse -fstack-protector-strong  -D_FORTIFY_SOURCE=2 -Wformat -Wformat-security -Werror=format-security --sysroot=/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot
+checking whether the C compiler works... yes
+checking for C compiler default output file name... a.out
+checking for suffix of executables... 
+checking whether we are cross compiling... yes
+checking for suffix of object files... o
+checking whether we are using the GNU C compiler... yes
+checking whether x86_64-poky-linux-gcc  -m64 -march=core2 -mtune=core2 -msse3 -mfpmath=sse -fstack-protector-strong  -D_FORTIFY_SOURCE=2 -Wformat -Wformat-security -Werror=format-security --sysroot=/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot accepts -g... yes
+checking for x86_64-poky-linux-gcc  -m64 -march=core2 -mtune=core2 -msse3 -mfpmath=sse -fstack-protector-strong  -D_FORTIFY_SOURCE=2 -Wformat -Wformat-security -Werror=format-security --sysroot=/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot option to accept ISO C89... none needed
+checking whether x86_64-poky-linux-gcc  -m64 -march=core2 -mtune=core2 -msse3 -mfpmath=sse -fstack-protector-strong  -D_FORTIFY_SOURCE=2 -Wformat -Wformat-security -Werror=format-security --sysroot=/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot understands -c and -o together... yes
+checking whether make supports the include directive... yes (GNU style)
+checking dependency style of x86_64-poky-linux-gcc  -m64 -march=core2 -mtune=core2 -msse3 -mfpmath=sse -fstack-protector-strong  -D_FORTIFY_SOURCE=2 -Wformat -Wformat-security -Werror=format-security --sysroot=/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot... none
+checking whether we are using the GNU C++ compiler... yes
+checking whether x86_64-poky-linux-g++  -m64 -march=core2 -mtune=core2 -msse3 -mfpmath=sse -fstack-protector-strong  -D_FORTIFY_SOURCE=2 -Wformat -Wformat-security -Werror=format-security --sysroot=/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot accepts -g... yes
+checking dependency style of x86_64-poky-linux-g++  -m64 -march=core2 -mtune=core2 -msse3 -mfpmath=sse -fstack-protector-strong  -D_FORTIFY_SOURCE=2 -Wformat -Wformat-security -Werror=format-security --sysroot=/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot... none
+checking how to run the C preprocessor... x86_64-poky-linux-gcc -E --sysroot=/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot  -m64 -march=core2 -mtune=core2 -msse3 -mfpmath=sse -fstack-protector-strong  -D_FORTIFY_SOURCE=2 -Wformat -Wformat-security -Werror=format-security
+checking for grep that handles long lines and -e... /home/hhpartners/yocto/build/tmp/hosttools/grep
+checking for egrep... /home/hhpartners/yocto/build/tmp/hosttools/grep -E
+checking for ANSI C header files... yes
+checking for sys/types.h... yes
+checking for sys/stat.h... yes
+checking for stdlib.h... yes
+checking for string.h... yes
+checking for memory.h... yes
+checking for strings.h... yes
+checking for inttypes.h... yes
+checking for stdint.h... yes
+checking for unistd.h... yes
+checking minix/config.h usability... no
+checking minix/config.h presence... no
+checking for minix/config.h... no
+checking whether it is safe to define __EXTENSIONS__... yes
+checking for special C compiler options needed for large files... no
+checking for _FILE_OFFSET_BITS value needed for large files... no
+checking for library containing strerror... none required
+checking for ANSI C header files... (cached) yes
+checking for inline... inline
+checking how to print strings... printf
+checking for a sed that does not truncate output... (cached) sed
+checking for fgrep... /home/hhpartners/yocto/build/tmp/hosttools/grep -F
+checking for ld used by x86_64-poky-linux-gcc  -m64 -march=core2 -mtune=core2 -msse3 -mfpmath=sse -fstack-protector-strong  -D_FORTIFY_SOURCE=2 -Wformat -Wformat-security -Werror=format-security --sysroot=/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot... x86_64-poky-linux-ld --sysroot=/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot  
+checking if the linker (x86_64-poky-linux-ld --sysroot=/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot  ) is GNU ld... yes
+checking for BSD- or MS-compatible name lister (nm)... x86_64-poky-linux-nm
+checking the name lister (x86_64-poky-linux-nm) interface... BSD nm
+checking whether ln -s works... yes
+checking the maximum length of command line arguments... 1572864
+checking how to convert x86_64-pc-linux-gnu file names to x86_64-poky-linux-gnu format... func_convert_file_noop
+checking how to convert x86_64-pc-linux-gnu file names to toolchain format... func_convert_file_noop
+checking for x86_64-poky-linux-ld --sysroot=/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot   option to reload object files... -r
+checking for x86_64-poky-linux-objdump... x86_64-poky-linux-objdump
+checking how to recognize dependent libraries... pass_all
+checking for x86_64-poky-linux-dlltool... no
+checking for dlltool... no
+checking how to associate runtime and link libraries... printf %s\n
+checking for x86_64-poky-linux-ar... x86_64-poky-linux-gcc-ar
+checking for archiver @FILE support... @
+checking for x86_64-poky-linux-strip... (cached) x86_64-poky-linux-strip
+checking for x86_64-poky-linux-ranlib... x86_64-poky-linux-gcc-ranlib
+checking command to parse x86_64-poky-linux-nm output from x86_64-poky-linux-gcc  -m64 -march=core2 -mtune=core2 -msse3 -mfpmath=sse -fstack-protector-strong  -D_FORTIFY_SOURCE=2 -Wformat -Wformat-security -Werror=format-security --sysroot=/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot object... ok
+checking for sysroot... /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot
+checking for a working dd... /home/hhpartners/yocto/build/tmp/hosttools/dd
+checking how to truncate binary pipes... /home/hhpartners/yocto/build/tmp/hosttools/dd bs=4096 count=1
+checking for x86_64-poky-linux-mt... no
+checking for mt... no
+checking if : is a manifest tool... no
+checking for dlfcn.h... yes
+checking for objdir... .libs
+checking if x86_64-poky-linux-gcc  -m64 -march=core2 -mtune=core2 -msse3 -mfpmath=sse -fstack-protector-strong  -D_FORTIFY_SOURCE=2 -Wformat -Wformat-security -Werror=format-security --sysroot=/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot supports -fno-rtti -fno-exceptions... no
+checking for x86_64-poky-linux-gcc  -m64 -march=core2 -mtune=core2 -msse3 -mfpmath=sse -fstack-protector-strong  -D_FORTIFY_SOURCE=2 -Wformat -Wformat-security -Werror=format-security --sysroot=/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot option to produce PIC... -fPIC -DPIC
+checking if x86_64-poky-linux-gcc  -m64 -march=core2 -mtune=core2 -msse3 -mfpmath=sse -fstack-protector-strong  -D_FORTIFY_SOURCE=2 -Wformat -Wformat-security -Werror=format-security --sysroot=/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot PIC flag -fPIC -DPIC works... yes
+checking if x86_64-poky-linux-gcc  -m64 -march=core2 -mtune=core2 -msse3 -mfpmath=sse -fstack-protector-strong  -D_FORTIFY_SOURCE=2 -Wformat -Wformat-security -Werror=format-security --sysroot=/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot static flag -static works... yes
+checking if x86_64-poky-linux-gcc  -m64 -march=core2 -mtune=core2 -msse3 -mfpmath=sse -fstack-protector-strong  -D_FORTIFY_SOURCE=2 -Wformat -Wformat-security -Werror=format-security --sysroot=/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot supports -c -o file.o... yes
+checking if x86_64-poky-linux-gcc  -m64 -march=core2 -mtune=core2 -msse3 -mfpmath=sse -fstack-protector-strong  -D_FORTIFY_SOURCE=2 -Wformat -Wformat-security -Werror=format-security --sysroot=/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot supports -c -o file.o... (cached) yes
+checking whether the x86_64-poky-linux-gcc  -m64 -march=core2 -mtune=core2 -msse3 -mfpmath=sse -fstack-protector-strong  -D_FORTIFY_SOURCE=2 -Wformat -Wformat-security -Werror=format-security --sysroot=/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot linker (x86_64-poky-linux-ld --sysroot=/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot   -m elf_x86_64) supports shared libraries... yes
+checking whether -lc should be explicitly linked in... no
+checking dynamic linker characteristics... GNU/Linux ld.so
+checking how to hardcode library paths into programs... immediate
+checking whether stripping libraries is possible... yes
+checking if libtool supports shared libraries... yes
+checking whether to build shared libraries... yes
+checking whether to build static libraries... no
+checking how to run the C++ preprocessor... x86_64-poky-linux-g++  -m64 -march=core2 -mtune=core2 -msse3 -mfpmath=sse -fstack-protector-strong  -D_FORTIFY_SOURCE=2 -Wformat -Wformat-security -Werror=format-security --sysroot=/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot -E
+checking for ld used by x86_64-poky-linux-g++  -m64 -march=core2 -mtune=core2 -msse3 -mfpmath=sse -fstack-protector-strong  -D_FORTIFY_SOURCE=2 -Wformat -Wformat-security -Werror=format-security --sysroot=/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot... x86_64-poky-linux-ld --sysroot=/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot   -m elf_x86_64
+checking if the linker (x86_64-poky-linux-ld --sysroot=/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot   -m elf_x86_64) is GNU ld... yes
+checking whether the x86_64-poky-linux-g++  -m64 -march=core2 -mtune=core2 -msse3 -mfpmath=sse -fstack-protector-strong  -D_FORTIFY_SOURCE=2 -Wformat -Wformat-security -Werror=format-security --sysroot=/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot linker (x86_64-poky-linux-ld --sysroot=/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot   -m elf_x86_64) supports shared libraries... yes
+checking for x86_64-poky-linux-g++  -m64 -march=core2 -mtune=core2 -msse3 -mfpmath=sse -fstack-protector-strong  -D_FORTIFY_SOURCE=2 -Wformat -Wformat-security -Werror=format-security --sysroot=/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot option to produce PIC... -fPIC -DPIC
+checking if x86_64-poky-linux-g++  -m64 -march=core2 -mtune=core2 -msse3 -mfpmath=sse -fstack-protector-strong  -D_FORTIFY_SOURCE=2 -Wformat -Wformat-security -Werror=format-security --sysroot=/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot PIC flag -fPIC -DPIC works... yes
+checking if x86_64-poky-linux-g++  -m64 -march=core2 -mtune=core2 -msse3 -mfpmath=sse -fstack-protector-strong  -D_FORTIFY_SOURCE=2 -Wformat -Wformat-security -Werror=format-security --sysroot=/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot static flag -static works... yes
+checking if x86_64-poky-linux-g++  -m64 -march=core2 -mtune=core2 -msse3 -mfpmath=sse -fstack-protector-strong  -D_FORTIFY_SOURCE=2 -Wformat -Wformat-security -Werror=format-security --sysroot=/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot supports -c -o file.o... yes
+checking if x86_64-poky-linux-g++  -m64 -march=core2 -mtune=core2 -msse3 -mfpmath=sse -fstack-protector-strong  -D_FORTIFY_SOURCE=2 -Wformat -Wformat-security -Werror=format-security --sysroot=/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot supports -c -o file.o... (cached) yes
+checking whether the x86_64-poky-linux-g++  -m64 -march=core2 -mtune=core2 -msse3 -mfpmath=sse -fstack-protector-strong  -D_FORTIFY_SOURCE=2 -Wformat -Wformat-security -Werror=format-security --sysroot=/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot linker (x86_64-poky-linux-ld --sysroot=/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot   -m elf_x86_64) supports shared libraries... yes
+checking dynamic linker characteristics... (cached) GNU/Linux ld.so
+checking how to hardcode library paths into programs... immediate
+checking for x86_64-poky-linux-pkg-config... no
+checking for pkg-config... /home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot-native/usr/bin/pkg-config
+configure: WARNING: using cross tools not prefixed with host triplet
+checking pkg-config is at least version 0.9.0... yes
+checking for gawk... (cached) gawk
+checking whether the -Werror option is usable... yes
+checking for simple visibility declarations... yes
+checking for x86_64-poky-linux-windres... no
+checking for windres... no
+checking for a Python interpreter with version >= 2.6... python3
+checking for python3... /home/hhpartners/yocto/build/tmp/hosttools/python3
+checking for python3 version... 3.6
+checking for python3 platform... linux
+checking for python3 script directory... ${libdir}/python3.6/site-packages
+checking for python3 extension module directory... ${libdir}/python3.6/site-packages
+checking whether to build with code coverage support... no
+checking size of char... (cached) 1
+checking size of short... (cached) 2
+checking size of long... (cached) 8
+checking size of int... (cached) 4
+checking size of void *... (cached) 8
+checking size of long long... (cached) 8
+checking size of __int64... (cached) 0
+checking 64-bit integer type... long
+checking 32-bit integer type... int
+checking 16-bit integer type... short
+checking whether byte ordering is bigendian... (cached) no
+checking whether environ is declared... yes
+checking for an implementation of va_copy()... yes
+checking for an implementation of __va_copy()... yes
+checking whether va_lists can be copied by value... yes
+checking whether x86_64-poky-linux-gcc  -m64 -march=core2 -mtune=core2 -msse3 -mfpmath=sse -fstack-protector-strong  -D_FORTIFY_SOURCE=2 -Wformat -Wformat-security -Werror=format-security --sysroot=/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot knows __sync_sub_and_fetch()... yes
+checking for library containing socket... none required
+checking for gethostbyname... yes
+checking for vsnprintf... yes
+checking for vasprintf... yes
+checking for nanosleep... yes
+checking for usleep... yes
+checking for setenv... yes
+checking for clearenv... yes
+checking for unsetenv... yes
+checking for socketpair... yes
+checking for getgrouplist... yes
+checking for fpathconf... yes
+checking for setrlimit... yes
+checking for poll... yes
+checking for setlocale... yes
+checking for localeconv... yes
+checking for strtoll... yes
+checking for strtoull... yes
+checking for issetugid... no
+checking for getresuid... yes
+checking for setresuid... (cached) yes
+checking for getrlimit... yes
+checking for prlimit... yes
+checking syslog.h usability... yes
+checking syslog.h presence... yes
+checking for syslog.h... yes
+checking whether LOG_PERROR is declared... yes
+checking for sys/prctl.h... yes
+checking for prctl... yes
+checking for raise... yes
+checking for dirfd... yes
+checking sys/resource.h usability... yes
+checking sys/resource.h presence... yes
+checking for sys/resource.h... yes
+checking sys/time.h usability... yes
+checking sys/time.h presence... yes
+checking for sys/time.h... yes
+checking dirent.h usability... yes
+checking dirent.h presence... yes
+checking for dirent.h... yes
+checking execinfo.h usability... yes
+checking execinfo.h presence... yes
+checking for execinfo.h... yes
+checking for library containing backtrace... none required
+checking errno.h usability... yes
+checking errno.h presence... yes
+checking for errno.h... yes
+checking signal.h usability... yes
+checking signal.h presence... yes
+checking for signal.h... yes
+checking locale.h usability... yes
+checking locale.h presence... yes
+checking for locale.h... yes
+checking byteswap.h usability... yes
+checking byteswap.h presence... yes
+checking for byteswap.h... yes
+checking for unistd.h... (cached) yes
+checking for stdint.h... (cached) yes
+checking ws2tcpip.h usability... no
+checking ws2tcpip.h presence... no
+checking for ws2tcpip.h... no
+checking alloca.h usability... yes
+checking alloca.h presence... yes
+checking for alloca.h... yes
+checking for posix getpwnam_r... (cached) yes
+checking whether socklen_t is defined... yes
+checking sys/uio.h usability... yes
+checking sys/uio.h presence... yes
+checking for sys/uio.h... yes
+checking for writev... yes
+checking sys/syslimits.h usability... no
+checking sys/syslimits.h presence... no
+checking for sys/syslimits.h... no
+checking whether MSG_NOSIGNAL is declared... yes
+checking for ISO C99 varargs macros in C... yes
+checking for GNUC varargs macros... yes
+checking for struct cmsgcred... no
+checking for struct unpcbid.unp_pid... no
+checking for getpeerucred... no
+checking for getpeereid... no
+checking for pipe2... yes
+checking for accept4... yes
+checking for EXPAT... yes
+checking for XML_SetHashSalt... yes
+checking for library containing pthread_cond_timedwait... none required
+checking for library containing pthread_mutexattr_init... -lpthread
+checking for library containing pthread_mutexattr_settype... none required
+checking for library containing pthread_condattr_setclock... none required
+checking for library containing clock_getres... none required
+checking for CLOCK_MONOTONIC... found
+checking for SELINUX... no
+configure: WARNING: Sufficiently new SELinux library not found
+checking for APPARMOR... no
+checking for APPARMOR_2_10... no
+configure: WARNING: Sufficiently new AppArmor library not found
+checking sys/inotify.h usability... yes
+checking sys/inotify.h presence... yes
+checking for sys/inotify.h... yes
+checking for inotify_init1... yes
+checking for Linux epoll(4)... yes
+checking sys/event.h usability... no
+checking sys/event.h presence... no
+checking for sys/event.h... no
+checking for kqueue... no
+checking launch.h usability... no
+checking launch.h presence... no
+checking for launch.h... no
+checking for launchctl... no
+checking for systemctl... /bin/systemctl
+checking for ADT API... no
+checking for SCM_RIGHTS... supported
+checking for X... libraries , headers 
+checking for gethostbyname... (cached) yes
+checking for connect... yes
+checking for remove... yes
+checking for shmat... yes
+checking for IceConnectionNumber in -lICE... yes
+checking whether C compiler accepts -Werror=unknown-warning-option... no
+checking whether C compiler accepts -Wno-suggest-attribute=format... yes
+checking whether C compiler accepts -fno-strict-aliasing... yes
+checking whether C compiler accepts -Wnested-externs... yes
+checking whether C compiler accepts -Wmissing-prototypes... yes
+checking whether C compiler accepts -Wstrict-prototypes... yes
+checking whether C compiler accepts -Wdeclaration-after-statement... yes
+checking whether C compiler accepts -Wimplicit-function-declaration... yes
+checking whether C compiler accepts -Wold-style-definition... yes
+checking whether C compiler accepts -Wjump-misses-init... yes
+checking whether C compiler accepts -Wall... yes
+checking whether C compiler accepts -Wextra... yes
+checking whether C compiler accepts -Wundef... yes
+checking whether C compiler accepts -Wwrite-strings... yes
+checking whether C compiler accepts -Wpointer-arith... yes
+checking whether C compiler accepts -Wmissing-declarations... yes
+checking whether C compiler accepts -Wredundant-decls... yes
+checking whether C compiler accepts -Wno-unused-parameter... yes
+checking whether C compiler accepts -Wno-missing-field-initializers... yes
+checking whether C compiler accepts -Wformat=2... yes
+checking whether C compiler accepts -Wcast-align... yes
+checking whether C compiler accepts -Wformat-nonliteral... yes
+checking whether C compiler accepts -Wformat-security... yes
+checking whether C compiler accepts -Wsign-compare... yes
+checking whether C compiler accepts -Wstrict-aliasing... yes
+checking whether C compiler accepts -Wshadow... yes
+checking whether C compiler accepts -Winline... yes
+checking whether C compiler accepts -Wpacked... yes
+checking whether C compiler accepts -Wmissing-format-attribute... yes
+checking whether C compiler accepts -Wmissing-noreturn... yes
+checking whether C compiler accepts -Winit-self... yes
+checking whether C compiler accepts -Wredundant-decls... (cached) yes
+checking whether C compiler accepts -Wmissing-include-dirs... yes
+checking whether C compiler accepts -Wunused-but-set-variable... yes
+checking whether C compiler accepts -Warray-bounds... yes
+checking whether C compiler accepts -Wreturn-type... yes
+checking whether C compiler accepts -Wswitch-enum... yes
+checking whether C compiler accepts -Wswitch-default... yes
+checking whether C compiler accepts -Wduplicated-cond... yes
+checking whether C compiler accepts -Wduplicated-branches... yes
+checking whether C compiler accepts -Wlogical-op... yes
+checking whether C compiler accepts -Wrestrict... yes
+checking whether C compiler accepts -Wnull-dereference... yes
+checking whether C compiler accepts -Wdouble-promotion... yes
+checking whether C compiler accepts -Wno-error=unused-parameter... yes
+checking whether C compiler accepts -Wno-error=missing-field-initializers... yes
+checking whether C++ compiler accepts -Werror=unknown-warning-option... no
+checking whether C++ compiler accepts -Wno-suggest-attribute=format... yes
+checking whether C++ compiler accepts -fno-strict-aliasing... yes
+checking whether C++ compiler accepts -Wall... yes
+checking whether C++ compiler accepts -Wextra... yes
+checking whether C++ compiler accepts -Wundef... yes
+checking whether C++ compiler accepts -Wwrite-strings... yes
+checking whether C++ compiler accepts -Wpointer-arith... yes
+checking whether C++ compiler accepts -Wmissing-declarations... yes
+checking whether C++ compiler accepts -Wredundant-decls... yes
+checking whether C++ compiler accepts -Wno-unused-parameter... yes
+checking whether C++ compiler accepts -Wno-missing-field-initializers... yes
+checking whether C++ compiler accepts -Wformat=2... yes
+checking whether C++ compiler accepts -Wcast-align... yes
+checking whether C++ compiler accepts -Wformat-nonliteral... yes
+checking whether C++ compiler accepts -Wformat-security... yes
+checking whether C++ compiler accepts -Wsign-compare... yes
+checking whether C++ compiler accepts -Wstrict-aliasing... yes
+checking whether C++ compiler accepts -Wshadow... yes
+checking whether C++ compiler accepts -Winline... yes
+checking whether C++ compiler accepts -Wpacked... yes
+checking whether C++ compiler accepts -Wmissing-format-attribute... yes
+checking whether C++ compiler accepts -Wmissing-noreturn... yes
+checking whether C++ compiler accepts -Winit-self... yes
+checking whether C++ compiler accepts -Wredundant-decls... (cached) yes
+checking whether C++ compiler accepts -Wmissing-include-dirs... yes
+checking whether C++ compiler accepts -Wunused-but-set-variable... yes
+checking whether C++ compiler accepts -Warray-bounds... yes
+checking whether C++ compiler accepts -Wreturn-type... yes
+checking whether C++ compiler accepts -Wno-overloaded-virtual... yes
+checking whether C++ compiler accepts -Wswitch-enum... yes
+checking whether C++ compiler accepts -Wswitch-default... yes
+checking whether C++ compiler accepts -Wno-error=unused-parameter... yes
+checking whether C++ compiler accepts -Wno-error=missing-field-initializers... yes
+checking whether C++ compiler accepts -Wno-error=overloaded-virtual... yes
+checking whether C compiler accepts -Werror=unknown-warning-option... (cached) no
+checking whether the linker accepts -Wl,--as-needed... yes
+checking whether the linker accepts -Wl,--as-needed... yes
+checking whether the linker accepts -Wl,-z,relro... yes
+checking whether the linker accepts -Wl,-z,relro... yes
+checking whether the linker accepts -Wl,-z,now... yes
+checking whether the linker accepts -Wl,-z,now... yes
+checking whether the linker accepts -Wl,-z,noexecstack... yes
+checking whether the linker accepts -Wl,-z,noexecstack... yes
+checking whether the linker accepts -Wl,--no-as-needed... yes
+checking whether the linker accepts -Wl,--fatal-warnings... yes
+checking whether the linker accepts -Wl,-fatal_warnings... no
+checking whether the linker accepts -Wl,--no-as-needed... yes
+checking whether C compiler accepts -Werror=unknown-warning-option... (cached) no
+checking whether C compiler accepts -Wno-suggest-attribute=format... (cached) yes
+checking whether C compiler accepts -fno-strict-aliasing... (cached) yes
+checking whether C compiler accepts -fno-common... yes
+checking whether C compiler accepts -Wnested-externs... (cached) yes
+checking whether C compiler accepts -Wmissing-prototypes... (cached) yes
+checking whether C compiler accepts -Wstrict-prototypes... (cached) yes
+checking whether C compiler accepts -Wdeclaration-after-statement... (cached) yes
+checking whether C compiler accepts -Wimplicit-function-declaration... (cached) yes
+checking whether C compiler accepts -Wold-style-definition... (cached) yes
+checking whether C compiler accepts -Wjump-misses-init... (cached) yes
+checking whether C compiler accepts -Wall... (cached) yes
+checking whether C compiler accepts -Wextra... (cached) yes
+checking whether C compiler accepts -Wundef... (cached) yes
+checking whether C compiler accepts -Wwrite-strings... (cached) yes
+checking whether C compiler accepts -Wpointer-arith... (cached) yes
+checking whether C compiler accepts -Wmissing-declarations... (cached) yes
+checking whether C compiler accepts -Wredundant-decls... (cached) yes
+checking whether C compiler accepts -Wno-unused-parameter... (cached) yes
+checking whether C compiler accepts -Wno-missing-field-initializers... (cached) yes
+checking whether C compiler accepts -Wformat=2... (cached) yes
+checking whether C compiler accepts -Wcast-align... (cached) yes
+checking whether C compiler accepts -Wformat-nonliteral... (cached) yes
+checking whether C compiler accepts -Wformat-security... (cached) yes
+checking whether C compiler accepts -Wsign-compare... (cached) yes
+checking whether C compiler accepts -Wstrict-aliasing... (cached) yes
+checking whether C compiler accepts -Wshadow... (cached) yes
+checking whether C compiler accepts -Winline... (cached) yes
+checking whether C compiler accepts -Wpacked... (cached) yes
+checking whether C compiler accepts -Wmissing-format-attribute... (cached) yes
+checking whether C compiler accepts -Wmissing-noreturn... (cached) yes
+checking whether C compiler accepts -Winit-self... (cached) yes
+checking whether C compiler accepts -Wredundant-decls... (cached) yes
+checking whether C compiler accepts -Wmissing-include-dirs... (cached) yes
+checking whether C compiler accepts -Wunused-but-set-variable... (cached) yes
+checking whether C compiler accepts -Warray-bounds... (cached) yes
+checking whether C compiler accepts -Wreturn-type... (cached) yes
+checking whether C compiler accepts -Wswitch-enum... (cached) yes
+checking whether C compiler accepts -Wswitch-default... (cached) yes
+checking whether C compiler accepts -Wduplicated-cond... (cached) yes
+checking whether C compiler accepts -Wduplicated-branches... (cached) yes
+checking whether C compiler accepts -Wlogical-op... (cached) yes
+checking whether C compiler accepts -Wrestrict... (cached) yes
+checking whether C compiler accepts -Wnull-dereference... (cached) yes
+checking whether C compiler accepts -Wdouble-promotion... (cached) yes
+checking whether C compiler accepts -Wchar-subscripts... yes
+checking whether C compiler accepts -Wfloat-equal... yes
+checking whether C compiler accepts -Wpointer-sign... yes
+checking whether C compiler accepts -Wno-deprecated-declarations... yes
+checking whether C compiler accepts -Wno-missing-field-initializers... (cached) yes
+checking whether C compiler accepts -Wno-unused-parameter... (cached) yes
+checking whether C compiler accepts -Wno-cast-function-type... yes
+checking whether C compiler accepts -Wno-unused-label... yes
+checking whether C compiler accepts -Wno-error=unused-parameter... (cached) yes
+checking whether C compiler accepts -Wno-error=missing-field-initializers... (cached) yes
+checking whether C compiler accepts -Wno-error=deprecated-declarations... yes
+checking whether C compiler accepts -Wno-error=cast-function-type... yes
+checking whether C compiler accepts -Wno-error=unused-label... yes
+checking whether C++ compiler accepts -Werror=unknown-warning-option... (cached) no
+checking whether C++ compiler accepts -Wno-suggest-attribute=format... (cached) yes
+checking whether C++ compiler accepts -fno-strict-aliasing... (cached) yes
+checking whether C++ compiler accepts -Wall... (cached) yes
+checking whether C++ compiler accepts -Wextra... (cached) yes
+checking whether C++ compiler accepts -Wundef... (cached) yes
+checking whether C++ compiler accepts -Wwrite-strings... (cached) yes
+checking whether C++ compiler accepts -Wpointer-arith... (cached) yes
+checking whether C++ compiler accepts -Wmissing-declarations... (cached) yes
+checking whether C++ compiler accepts -Wredundant-decls... (cached) yes
+checking whether C++ compiler accepts -Wno-unused-parameter... (cached) yes
+checking whether C++ compiler accepts -Wno-missing-field-initializers... (cached) yes
+checking whether C++ compiler accepts -Wformat=2... (cached) yes
+checking whether C++ compiler accepts -Wcast-align... (cached) yes
+checking whether C++ compiler accepts -Wformat-nonliteral... (cached) yes
+checking whether C++ compiler accepts -Wformat-security... (cached) yes
+checking whether C++ compiler accepts -Wsign-compare... (cached) yes
+checking whether C++ compiler accepts -Wstrict-aliasing... (cached) yes
+checking whether C++ compiler accepts -Wshadow... (cached) yes
+checking whether C++ compiler accepts -Winline... (cached) yes
+checking whether C++ compiler accepts -Wpacked... (cached) yes
+checking whether C++ compiler accepts -Wmissing-format-attribute... (cached) yes
+checking whether C++ compiler accepts -Wmissing-noreturn... (cached) yes
+checking whether C++ compiler accepts -Winit-self... (cached) yes
+checking whether C++ compiler accepts -Wredundant-decls... (cached) yes
+checking whether C++ compiler accepts -Wmissing-include-dirs... (cached) yes
+checking whether C++ compiler accepts -Wunused-but-set-variable... (cached) yes
+checking whether C++ compiler accepts -Warray-bounds... (cached) yes
+checking whether C++ compiler accepts -Wreturn-type... (cached) yes
+checking whether C++ compiler accepts -Wno-overloaded-virtual... (cached) yes
+checking whether C++ compiler accepts -Wswitch-enum... (cached) yes
+checking whether C++ compiler accepts -Wswitch-default... (cached) yes
+checking whether C++ compiler accepts -Wchar-subscripts... yes
+checking whether C++ compiler accepts -Wfloat-equal... yes
+checking whether C++ compiler accepts -Wno-deprecated-declarations... yes
+checking whether C++ compiler accepts -Wno-missing-field-initializers... (cached) yes
+checking whether C++ compiler accepts -Wno-unused-parameter... (cached) yes
+checking whether C++ compiler accepts -Wno-cast-function-type... yes
+checking whether C++ compiler accepts -Wno-unused-label... yes
+checking whether C++ compiler accepts -Wno-error=unused-parameter... (cached) yes
+checking whether C++ compiler accepts -Wno-error=missing-field-initializers... (cached) yes
+checking whether C++ compiler accepts -Wno-error=overloaded-virtual... (cached) yes
+checking whether C++ compiler accepts -Wno-error=deprecated-declarations... yes
+checking whether C++ compiler accepts -Wno-error=cast-function-type... yes
+checking whether C++ compiler accepts -Wno-error=unused-label... yes
+checking whether C compiler accepts -Werror=unknown-warning-option... (cached) no
+checking whether the linker accepts -Wl,--as-needed... (cached) yes
+checking whether the linker accepts -Wl,--as-needed... (cached) yes
+checking whether the linker accepts -Wl,-z,relro... (cached) yes
+checking whether the linker accepts -Wl,-z,relro... (cached) yes
+checking whether the linker accepts -Wl,-z,now... (cached) yes
+checking whether the linker accepts -Wl,-z,now... (cached) yes
+checking whether the linker accepts -Wl,-z,noexecstack... (cached) yes
+checking whether the linker accepts -Wl,-z,noexecstack... (cached) yes
+checking whether the linker accepts -Wl,--no-as-needed... (cached) yes
+checking whether the linker accepts -Wl,--fatal-warnings... (cached) yes
+checking whether the linker accepts -Wl,-fatal_warnings... (cached) no
+checking whether the linker accepts -Wl,--no-as-needed... (cached) yes
+checking if LD -Wl,--version-script works... yes
+checking for doxygen... no
+checking whether to build Doxygen documentation... no
+checking for xsltproc... no
+checking for ducktype... no
+checking for yelp-build... no
+checking whether to build Ducktype documentation... no
+checking for xmlto... no
+checking whether to build XML documentation... no
+checking crt_externs.h usability... no
+checking crt_externs.h presence... no
+checking for crt_externs.h... no
+checking for _NSGetEnviron... no
+configure: creating ./config.status
+config.status: creating Doxyfile
+config.status: creating dbus/Version
+config.status: creating dbus/versioninfo.rc
+config.status: creating dbus/dbus-arch-deps.h
+config.status: creating bus/system.conf
+config.status: creating bus/session.conf
+config.status: creating bus/legacy-config/system.conf
+config.status: creating bus/legacy-config/session.conf
+config.status: creating bus/example-system-enable-stats.conf
+config.status: creating bus/example-session-disable-stats.conf
+config.status: creating bus/org.freedesktop.dbus-session.plist
+config.status: creating bus/dbus.service
+config.status: creating bus/dbus.socket
+config.status: creating bus/systemd-user/dbus.service
+config.status: creating bus/systemd-user/dbus.socket
+config.status: creating bus/sysusers.d/dbus.conf
+config.status: creating bus/tmpfiles.d/dbus.conf
+config.status: creating Makefile
+config.status: creating dbus/Makefile
+config.status: creating bus/Makefile
+config.status: creating tools/Makefile
+config.status: creating test/Makefile
+config.status: creating test/name-test/Makefile
+config.status: creating doc/Makefile
+config.status: creating doc/dbus-cleanup-sockets.1.xml
+config.status: creating doc/dbus-daemon.1.xml
+config.status: creating doc/dbus-launch.1.xml
+config.status: creating doc/dbus-monitor.1.xml
+config.status: creating doc/dbus-run-session.1.xml
+config.status: creating doc/dbus-send.1.xml
+config.status: creating doc/dbus-test-tool.1.xml
+config.status: creating doc/dbus-update-activation-environment.1.xml
+config.status: creating doc/dbus-uuidgen.1.xml
+config.status: creating dbus-1.pc
+config.status: creating dbus-1-uninstalled.pc
+config.status: creating cmake/DBus1Config.cmake
+config.status: creating cmake/DBus1ConfigVersion.cmake
+config.status: creating config.h
+config.status: executing depfiles commands
+config.status: executing libtool commands
+configure: WARNING: unrecognized options: --enable-nls
+
+                    D-Bus 1.12.16
+                  ==============
+
+	prefix:                   /usr
+	exec_prefix:              /usr
+        libdir:                   /usr/lib
+        libexecdir:               /usr/libexec
+        bindir:                   /usr/bin
+        sysconfdir:               /etc
+        localstatedir:            /var
+        runstatedir:              /var/run
+	datadir:                  /usr/share
+	source code location:	  ../dbus-1.12.16
+	compiler:		  x86_64-poky-linux-gcc  -m64 -march=core2 -mtune=core2 -msse3 -mfpmath=sse -fstack-protector-strong  -D_FORTIFY_SOURCE=2 -Wformat -Wformat-security -Werror=format-security --sysroot=/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot
+	cflags:		          -fno-strict-aliasing -fno-common -Wnested-externs -Wmissing-prototypes -Wstrict-prototypes -Wdeclaration-after-statement -Wimplicit-function-declaration -Wold-style-definition -Wjump-misses-init -Wall -Wextra -Wundef -Wwrite-strings -Wpointer-arith -Wmissing-declarations -Wredundant-decls -Wno-unused-parameter -Wno-missing-field-initializers -Wformat=2 -Wcast-align -Wformat-nonliteral -Wformat-security -Wsign-compare -Wstrict-aliasing -Wshadow -Winline -Wpacked -Wmissing-format-attribute -Wmissing-noreturn -Winit-self -Wmissing-include-dirs -Wunused-but-set-variable -Warray-bounds -Wreturn-type -Wswitch-enum -Wswitch-default -Wduplicated-cond -Wduplicated-branches -Wlogical-op -Wrestrict -Wnull-dereference -Wdouble-promotion -Wchar-subscripts -Wfloat-equal -Wpointer-sign -Wno-deprecated-declarations -Wno-cast-function-type -Wno-unused-label -Wno-error=unused-parameter -Wno-error=missing-field-initializers -Wno-error=deprecated-declarations -Wno-error=cast-function-type -Wno-error=unused-label  -O2 -pipe -g -feliminate-unused-debug-types -fmacro-prefix-map=/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0=/usr/src/debug/dbus/1.12.16-r0                      -fdebug-prefix-map=/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0=/usr/src/debug/dbus/1.12.16-r0                      -fdebug-prefix-map=/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot=                      -fdebug-prefix-map=/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot-native= 
+	cppflags:		  
+	cxxflags:		  -fno-strict-aliasing -Wall -Wextra -Wundef -Wwrite-strings -Wpointer-arith -Wmissing-declarations -Wredundant-decls -Wno-unused-parameter -Wno-missing-field-initializers -Wformat=2 -Wcast-align -Wformat-nonliteral -Wformat-security -Wsign-compare -Wstrict-aliasing -Wshadow -Winline -Wpacked -Wmissing-format-attribute -Wmissing-noreturn -Winit-self -Wmissing-include-dirs -Wunused-but-set-variable -Warray-bounds -Wreturn-type -Wno-overloaded-virtual -Wswitch-enum -Wswitch-default -Wchar-subscripts -Wfloat-equal -Wno-deprecated-declarations -Wno-cast-function-type -Wno-unused-label -Wno-error=unused-parameter -Wno-error=missing-field-initializers -Wno-error=overloaded-virtual -Wno-error=deprecated-declarations -Wno-error=cast-function-type -Wno-error=unused-label  -O2 -pipe -g -feliminate-unused-debug-types -fmacro-prefix-map=/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0=/usr/src/debug/dbus/1.12.16-r0                      -fdebug-prefix-map=/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0=/usr/src/debug/dbus/1.12.16-r0                      -fdebug-prefix-map=/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot=                      -fdebug-prefix-map=/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/recipe-sysroot-native=  -fvisibility-inlines-hidden
+	ldflags:		  -Wl,--no-as-needed -Wl,-O1 -Wl,--hash-style=gnu -Wl,--as-needed -fstack-protector-strong -Wl,-z,relro,-z,now
+	64-bit int:		  long
+	32-bit int:		  int
+	16-bit int:		  short
+        Doxygen:                  no
+        xmlto:                    no
+        ducktype:                 no
+        yelp-build:               no
+
+        Rebuilding generated files: yes
+        gcc coverage profiling:   no
+        Building embedded tests:  no
+        Building modular tests:   no
+            - with GLib:          no
+        Installing tests:         no
+        Building verbose mode:    no
+        Building assertions:      no
+        Building checks:          yes
+        Building bus stats API:   yes
+        Building SELinux support: no
+        Building AppArmor support: no
+        Building inotify support: yes
+        Building kqueue support:  no
+        Building systemd support: no
+        Building X11 code:        yes
+        Building Doxygen docs:    no
+        Building Ducktype docs:   no
+        Building XML docs:        no
+        Building launchd support: no
+        System bus socket:        /run/dbus/system_bus_socket
+        System bus address:       unix:path=/run/dbus/system_bus_socket
+        System bus PID file:      /var/run/dbus/pid
+        Session bus listens on:   unix:tmpdir=/tmp
+        Session clients connect to: autolaunch:
+        pam_console auth dir:     (none)
+        Console owner file:       no
+        Console owner file path:  
+	System bus user:          messagebus
+	Session bus services dir: /usr/share/dbus-1/services
+        'make check' socket dir:  /tmp
+
+
+DEBUG: Shell function do_configure finished
+DEBUG: Executing python function do_qa_configure
+NOTE: Checking autotools environment for common misconfiguration
+NOTE: Checking configure output for unrecognised options
+DEBUG: Python function do_qa_configure finished
+DEBUG: Executing shell function autotools_postconfigure
+DEBUG: Shell function autotools_postconfigure finished

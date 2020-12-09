@@ -1,0 +1,17 @@
+PN: libsm
+PE: 1
+PV: 1.2.3
+PR: r0
+PKGE: 1
+PKGV: 1.2.3
+PKGR: r0
+LICENSE: MIT-style
+DESCRIPTION_libsm-dbg: The Session Management Library (SMlib) is a low-level \\"C\\" language interface to XSMP.  The purpose of the X Session Management Protocol (XSMP) is to provide a uniform mechanism for users to save and restore their sessions.  A session is a group of clients, each of which has a particular state.  This package contains ELF symbols and related sources for debugging purposes.
+SUMMARY_libsm-dbg: SM: Session Management library - Debugging files
+RRECOMMENDS_libsm-dbg: glibc-dbg libice-dbg
+SECTION_libsm-dbg: devel
+PKG_libsm-dbg: libsm-dbg
+ALLOW_EMPTY_libsm-dbg: 1
+FILES_libsm-dbg: /usr/lib/debug /usr/lib/debug-static /usr/src/debug
+FILES_INFO: {"/usr/lib/.debug/libSM.so.6.0.1": 149016}
+PKGSIZE_libsm-dbg: 149016

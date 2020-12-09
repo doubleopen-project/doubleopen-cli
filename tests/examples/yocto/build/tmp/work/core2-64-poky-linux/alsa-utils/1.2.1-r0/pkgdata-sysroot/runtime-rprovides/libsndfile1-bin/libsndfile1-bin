@@ -1,0 +1,26 @@
+PN: libsndfile1
+PV: 1.0.28
+PR: r0
+PKGV: 1.0.28
+PKGR: r0
+LICENSE: LGPLv2.1
+DESCRIPTION: Audio format Conversion library.
+SUMMARY: Audio format Conversion library
+RDEPENDS_libsndfile1-bin: alsa-lib (>= 1.2.1.2) glibc (>= 2.31+git0+6fdf971c9d) libsndfile1 (>= 1.0.28)
+RPROVIDES_libsndfile1-bin:  libsndfile1-bin (=1.0.28)
+SECTION: libs/multimedia
+PKG_libsndfile1-bin: libsndfile-bin
+FILES_libsndfile1-bin: /usr/bin/* /usr/sbin/*
+FILES_INFO: {"/usr/bin/sndfile-cmp": 22568, "/usr/bin/sndfile-concat": 22568, "/usr/bin/sndfile-convert": 22568, "/usr/bin/sndfile-deinterleave": 22576, "/usr/bin/sndfile-info": 30760, "/usr/bin/sndfile-interleave": 22576, "/usr/bin/sndfile-metadata-get": 22576, "/usr/bin/sndfile-metadata-set": 22576, "/usr/bin/sndfile-play": 30760, "/usr/bin/sndfile-salvage": 26664}
+FILERDEPENDSFLIST_libsndfile1-bin: /usr/bin/sndfile-cmp /usr/bin/sndfile-concat /usr/bin/sndfile-convert /usr/bin/sndfile-deinterleave /usr/bin/sndfile-info /usr/bin/sndfile-interleave /usr/bin/sndfile-metadata-get /usr/bin/sndfile-metadata-set /usr/bin/sndfile-play /usr/bin/sndfile-salvage
+FILERDEPENDS_/usr/bin/sndfile-cmp_libsndfile1-bin:  libsndfile.so.1(libsndfile.so.1.0)(64bit) libc.so.6(GLIBC_2.3)(64bit) libc.so.6(GLIBC_2.14)(64bit) libc.so.6(GLIBC_2.4)(64bit) libc.so.6(GLIBC_2.2.5)(64bit) libc.so.6(GLIBC_2.3.4)(64bit) libsndfile.so.1()(64bit) libc.so.6()(64bit) rtld(GNU_HASH)
+FILERDEPENDS_/usr/bin/sndfile-concat_libsndfile1-bin:  libsndfile.so.1(libsndfile.so.1.0)(64bit) libc.so.6(GLIBC_2.3)(64bit) libc.so.6(GLIBC_2.14)(64bit) libc.so.6(GLIBC_2.3.4)(64bit) libc.so.6(GLIBC_2.4)(64bit) libc.so.6(GLIBC_2.2.5)(64bit) libsndfile.so.1()(64bit) libc.so.6()(64bit) rtld(GNU_HASH)
+FILERDEPENDS_/usr/bin/sndfile-convert_libsndfile1-bin:  libsndfile.so.1(libsndfile.so.1.0)(64bit) libc.so.6(GLIBC_2.3)(64bit) libc.so.6(GLIBC_2.14)(64bit) libc.so.6(GLIBC_2.3.4)(64bit) libc.so.6(GLIBC_2.4)(64bit) libc.so.6(GLIBC_2.2.5)(64bit) libsndfile.so.1()(64bit) libc.so.6()(64bit) rtld(GNU_HASH)
+FILERDEPENDS_/usr/bin/sndfile-deinterleave_libsndfile1-bin:  libsndfile.so.1(libsndfile.so.1.0)(64bit) libc.so.6(GLIBC_2.3)(64bit) libc.so.6(GLIBC_2.14)(64bit) libc.so.6(GLIBC_2.4)(64bit) libc.so.6(GLIBC_2.2.5)(64bit) libc.so.6(GLIBC_2.3.4)(64bit) libsndfile.so.1()(64bit) libc.so.6()(64bit) rtld(GNU_HASH)
+FILERDEPENDS_/usr/bin/sndfile-info_libsndfile1-bin:  libm.so.6(GLIBC_2.2.5)(64bit) libsndfile.so.1(libsndfile.so.1.0)(64bit) libc.so.6(GLIBC_2.3)(64bit) libc.so.6(GLIBC_2.14)(64bit) libc.so.6(GLIBC_2.4)(64bit) libc.so.6(GLIBC_2.2.5)(64bit) libc.so.6(GLIBC_2.3.4)(64bit) libsndfile.so.1()(64bit) libm.so.6()(64bit) libc.so.6()(64bit) rtld(GNU_HASH)
+FILERDEPENDS_/usr/bin/sndfile-interleave_libsndfile1-bin:  libsndfile.so.1(libsndfile.so.1.0)(64bit) libc.so.6(GLIBC_2.3)(64bit) libc.so.6(GLIBC_2.14)(64bit) libc.so.6(GLIBC_2.3.4)(64bit) libc.so.6(GLIBC_2.4)(64bit) libc.so.6(GLIBC_2.2.5)(64bit) libsndfile.so.1()(64bit) libc.so.6()(64bit) rtld(GNU_HASH)
+FILERDEPENDS_/usr/bin/sndfile-metadata-get_libsndfile1-bin:  libsndfile.so.1(libsndfile.so.1.0)(64bit) libc.so.6(GLIBC_2.3)(64bit) libc.so.6(GLIBC_2.14)(64bit) libc.so.6(GLIBC_2.3.4)(64bit) libc.so.6(GLIBC_2.4)(64bit) libc.so.6(GLIBC_2.2.5)(64bit) libsndfile.so.1()(64bit) libc.so.6()(64bit) rtld(GNU_HASH)
+FILERDEPENDS_/usr/bin/sndfile-metadata-set_libsndfile1-bin:  libsndfile.so.1(libsndfile.so.1.0)(64bit) libc.so.6(GLIBC_2.3)(64bit) libc.so.6(GLIBC_2.14)(64bit) libc.so.6(GLIBC_2.4)(64bit) libc.so.6(GLIBC_2.2.5)(64bit) libc.so.6(GLIBC_2.3.4)(64bit) libsndfile.so.1()(64bit) libc.so.6()(64bit) rtld(GNU_HASH)
+FILERDEPENDS_/usr/bin/sndfile-play_libsndfile1-bin:  libc.so.6(GLIBC_2.14)(64bit) libc.so.6(GLIBC_2.4)(64bit) libc.so.6(GLIBC_2.3)(64bit) libc.so.6(GLIBC_2.3.4)(64bit) libc.so.6(GLIBC_2.2.5)(64bit) libsndfile.so.1(libsndfile.so.1.0)(64bit) libasound.so.2(ALSA_0.9.0rc4)(64bit) libasound.so.2(ALSA_0.9)(64bit) libsndfile.so.1()(64bit) libasound.so.2()(64bit) libc.so.6()(64bit) rtld(GNU_HASH)
+FILERDEPENDS_/usr/bin/sndfile-salvage_libsndfile1-bin:  libsndfile.so.1(libsndfile.so.1.0)(64bit) libc.so.6(GLIBC_2.3)(64bit) libc.so.6(GLIBC_2.14)(64bit) libc.so.6(GLIBC_2.3.4)(64bit) libc.so.6(GLIBC_2.4)(64bit) libc.so.6(GLIBC_2.2.5)(64bit) libsndfile.so.1()(64bit) libc.so.6()(64bit) rtld(GNU_HASH)
+PKGSIZE_libsndfile1-bin: 246192

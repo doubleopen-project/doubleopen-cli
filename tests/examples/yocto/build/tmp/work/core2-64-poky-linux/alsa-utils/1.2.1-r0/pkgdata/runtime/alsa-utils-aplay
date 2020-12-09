@@ -1,0 +1,17 @@
+PN: alsa-utils
+PV: 1.2.1
+PR: r0
+PKGV: 1.2.1
+PKGR: r0
+LICENSE: GPLv2+
+DESCRIPTION: ALSA sound utilities.
+SUMMARY_alsa-utils-aplay: Play (and record) sound files using ALSA
+RDEPENDS_alsa-utils-aplay: alsa-lib (>= 1.2.1.2) glibc (>= 2.31+git0+6fdf971c9d)
+SECTION: console/utils
+PKG_alsa-utils-aplay: alsa-utils-aplay
+FILES_alsa-utils-aplay: /usr/bin/aplay /usr/bin/arecord /usr/bin/axfer
+FILES_INFO: {"/usr/bin/aplay": 79952, "/usr/bin/arecord": 5, "/usr/bin/axfer": 88096}
+FILERDEPENDSFLIST_alsa-utils-aplay: /usr/bin/aplay /usr/bin/axfer
+FILERDEPENDS_/usr/bin/aplay_alsa-utils-aplay:  libpthread.so.0(GLIBC_2.2.5)(64bit) libc.so.6(GLIBC_2.14)(64bit) libc.so.6(GLIBC_2.4)(64bit) libc.so.6(GLIBC_2.3.4)(64bit) libc.so.6(GLIBC_2.17)(64bit) libc.so.6(GLIBC_2.2.5)(64bit) libasound.so.2(ALSA_0.9.0rc8)(64bit) libasound.so.2(ALSA_0.9.0rc4)(64bit) libasound.so.2(ALSA_0.9)(64bit) libasound.so.2()(64bit) libpthread.so.0()(64bit) libc.so.6()(64bit) rtld(GNU_HASH)
+FILERDEPENDS_/usr/bin/axfer_alsa-utils-aplay:  libpthread.so.0(GLIBC_2.2.5)(64bit) libc.so.6(GLIBC_2.15)(64bit) libc.so.6(GLIBC_2.14)(64bit) libc.so.6(GLIBC_2.4)(64bit) libc.so.6(GLIBC_2.3.2)(64bit) libc.so.6(GLIBC_2.3.4)(64bit) libc.so.6(GLIBC_2.2.5)(64bit) libasound.so.2(ALSA_0.9.0rc4)(64bit) libasound.so.2(ALSA_0.9.0rc8)(64bit) libasound.so.2(ALSA_0.9)(64bit) libm.so.6(GLIBC_2.2.5)(64bit) libasound.so.2()(64bit) libm.so.6()(64bit) libpthread.so.0()(64bit) libc.so.6()(64bit) rtld(GNU_HASH)
+PKGSIZE_alsa-utils-aplay: 168053

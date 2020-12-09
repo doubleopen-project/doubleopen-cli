@@ -1,0 +1,20 @@
+PN: util-linux
+PV: 2.35.1
+PR: r0
+PKGV: 2.35.1
+PKGR: r0
+LICENSE: GPLv2+ & LGPLv2.1+ & BSD-3-Clause & BSD-4-Clause
+DESCRIPTION_util-linux-more: util-linux more
+SUMMARY_util-linux-more: util-linux more
+RDEPENDS_util-linux-more: update-alternatives-opkg glibc (>= 2.31+git0+6fdf971c9d) ncurses-libtinfo (>= 6.2)
+SECTION: base
+PKG_util-linux-more: util-linux-more
+FILES_util-linux-more: /bin/more.util-linux
+FILES_INFO: {"/bin/more.util-linux": 42976}
+pkg_postinst_util-linux-more: #!/bin/sh\nset -e\n\tupdate-alternatives --install /bin/more more /bin/more.util-linux 80\n
+pkg_prerm_util-linux-more: #!/bin/sh\nset -e\n\tupdate-alternatives --remove  more /bin/more.util-linux\n
+FILERPROVIDESFLIST_util-linux-more:  /bin/more.util-linux
+FILERPROVIDES_/bin/more.util-linux_util-linux-more:  /bin/more
+FILERDEPENDSFLIST_util-linux-more: /bin/more.util-linux
+FILERDEPENDS_/bin/more.util-linux_util-linux-more:  libc.so.6(GLIBC_2.3)(64bit) libc.so.6(GLIBC_2.11)(64bit) libc.so.6(GLIBC_2.14)(64bit) libc.so.6(GLIBC_2.3.4)(64bit) libc.so.6(GLIBC_2.4)(64bit) libc.so.6(GLIBC_2.2.5)(64bit) libtinfo.so.5()(64bit) libc.so.6()(64bit) rtld(GNU_HASH)
+PKGSIZE_util-linux-more: 42976

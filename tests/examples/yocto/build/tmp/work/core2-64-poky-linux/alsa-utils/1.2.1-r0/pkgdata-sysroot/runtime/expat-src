@@ -1,0 +1,14 @@
+PN: expat
+PV: 2.2.9
+PR: r0
+PKGV: 2.2.9
+PKGR: r0
+LICENSE: MIT
+DESCRIPTION_expat-src: Expat is an XML parser library written in C. It is a stream-oriented parser in which an application registers handlers for things the parser might find in the XML document (like start tags)  This package contains sources for debugging purposes.
+SUMMARY_expat-src: A stream-oriented XML parser library - Source files
+RPROVIDES_expat-src:  expat-src (=2.2.9)
+SECTION_expat-src: devel
+PKG_expat-src: libexpat-src
+FILES_expat-src: /usr/src/debug
+FILES_INFO: {"/usr/src/debug/expat/2.2.9-r0/expat-2.2.9/lib/expat.h": 41473, "/usr/src/debug/expat/2.2.9-r0/expat-2.2.9/lib/expat_external.h": 5528, "/usr/src/debug/expat/2.2.9-r0/expat-2.2.9/lib/nametab.h": 9026, "/usr/src/debug/expat/2.2.9-r0/expat-2.2.9/lib/siphash.h": 13224, "/usr/src/debug/expat/2.2.9-r0/expat-2.2.9/lib/xmlparse.c": 237884, "/usr/src/debug/expat/2.2.9-r0/expat-2.2.9/lib/xmlrole.c": 34964, "/usr/src/debug/expat/2.2.9-r0/expat-2.2.9/lib/xmlrole.h": 4439, "/usr/src/debug/expat/2.2.9-r0/expat-2.2.9/lib/xmltok.c": 53961, "/usr/src/debug/expat/2.2.9-r0/expat-2.2.9/lib/xmltok.h": 12541, "/usr/src/debug/expat/2.2.9-r0/expat-2.2.9/lib/xmltok_impl.c": 52548, "/usr/src/debug/expat/2.2.9-r0/expat-2.2.9/lib/xmltok_impl.h": 3339, "/usr/src/debug/expat/2.2.9-r0/expat-2.2.9/lib/xmltok_ns.c": 4336, "/usr/src/debug/expat/2.2.9-r0/expat-2.2.9/xmlwf/codepage.c": 2924, "/usr/src/debug/expat/2.2.9-r0/expat-2.2.9/xmlwf/codepage.h": 1663, "/usr/src/debug/expat/2.2.9-r0/expat-2.2.9/xmlwf/filemap.h": 2209, "/usr/src/debug/expat/2.2.9-r0/expat-2.2.9/xmlwf/unixfilemap.c": 2999, "/usr/src/debug/expat/2.2.9-r0/expat-2.2.9/xmlwf/xmlfile.c": 7852, "/usr/src/debug/expat/2.2.9-r0/expat-2.2.9/xmlwf/xmlfile.h": 1855, "/usr/src/debug/expat/2.2.9-r0/expat-2.2.9/xmlwf/xmlwf.c": 31306}
+PKGSIZE_expat-src: 524071

@@ -1,0 +1,12 @@
+     ../../alsa-utils-1.2.1/alsamixer/card_select.c \
+     ../../alsa-utils-1.2.1/alsamixer/cli.c \
+     ../../alsa-utils-1.2.1/alsamixer/device_name.c \
+     ../../alsa-utils-1.2.1/alsamixer/die.c \
+     ../../alsa-utils-1.2.1/alsamixer/mixer_display.c \
+     ../../alsa-utils-1.2.1/alsamixer/mixer_widget.c \
+     ../../alsa-utils-1.2.1/alsamixer/proc_files.c \
+     ../../alsa-utils-1.2.1/alsamixer/textbox.c \
+     ../../alsa-utils-1.2.1/aplay/aplay.c \
+     ../../alsa-utils-1.2.1/seq/aconnect/aconnect.c \
+     ../../alsa-utils-1.2.1/seq/aseqnet/aseqnet.c \
+     ../../alsa-utils-1.2.1/speaker-test/speaker-test.c

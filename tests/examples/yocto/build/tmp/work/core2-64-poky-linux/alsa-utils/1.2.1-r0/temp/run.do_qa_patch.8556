@@ -1,0 +1,69 @@
+def do_qa_patch(d):
+    import subprocess
+
+    ###########################################################################
+    # Check patch.log for fuzz warnings
+    #
+    # Further information on why we check for patch fuzz warnings:
+    # http://lists.openembedded.org/pipermail/openembedded-core/2018-March/148675.html
+    # https://bugzilla.yoctoproject.org/show_bug.cgi?id=10450
+    ###########################################################################
+
+    logdir = d.getVar('T')
+    patchlog = os.path.join(logdir,"log.do_patch")
+
+    if os.path.exists(patchlog):
+        fuzzheader = '--- Patch fuzz start ---'
+        fuzzfooter = '--- Patch fuzz end ---'
+        statement = "grep -e '%s' %s > /dev/null" % (fuzzheader, patchlog)
+        if subprocess.call(statement, shell=True) == 0:
+            msg = "Fuzz detected:\n\n"
+            fuzzmsg = ""
+            inFuzzInfo = False
+            f = open(patchlog, "r")
+            for line in f:
+                if fuzzheader in line:
+                    inFuzzInfo = True
+                    fuzzmsg = ""
+                elif fuzzfooter in line:
+                    fuzzmsg = fuzzmsg.replace('\n\n', '\n')
+                    msg += fuzzmsg
+                    msg += "\n"
+                    inFuzzInfo = False
+                elif inFuzzInfo and not 'Now at patch' in line:
+                    fuzzmsg += line
+            f.close()
+            msg += "The context lines in the patches can be updated with devtool:\n"
+            msg += "\n"
+            msg += "    devtool modify %s\n" % d.getVar('PN')
+            msg += "    devtool finish --force-patch-refresh %s <layer_path>\n\n" % d.getVar('PN')
+            msg += "Don't forget to review changes done by devtool!\n"
+            if 'patch-fuzz' in d.getVar('ERROR_QA'):
+                bb.error(msg)
+            elif 'patch-fuzz' in d.getVar('WARN_QA'):
+                bb.warn(msg)
+            msg = "Patch log indicates that patches do not apply cleanly."
+            package_qa_handle_error("patch-fuzz", msg, d)
+
+do_qa_patch(d)
+
+def package_qa_handle_error(error_class, error_msg, d):
+    if error_class in (d.getVar("ERROR_QA") or "").split():
+        package_qa_write_error(error_class, error_msg, d)
+        bb.error("QA Issue: %s [%s]" % (error_msg, error_class))
+        d.setVar("QA_SANE", False)
+        return False
+    elif error_class in (d.getVar("WARN_QA") or "").split():
+        package_qa_write_error(error_class, error_msg, d)
+        bb.warn("QA Issue: %s [%s]" % (error_msg, error_class))
+    else:
+        bb.note("QA Issue: %s [%s]" % (error_msg, error_class))
+    return True
+
+def package_qa_write_error(type, error, d):
+    logfile = d.getVar('QA_LOGFILE')
+    if logfile:
+        p = d.getVar('P')
+        with open(logfile, "a+") as f:
+            f.write("%s: %s [%s]\n" % (p, error, type))
+

@@ -1,0 +1,17 @@
+PN: glib-2.0
+PE: 1
+PV: 2.62.6
+PR: r0
+PKGE: 1
+PKGV: 2.62.6
+PKGR: r0
+LICENSE: LGPLv2.1+ & BSD & PD
+DESCRIPTION_glib-2.0-locale-fur: GLib is a general-purpose utility library, which provides many useful data types, macros, type conversions, string utilities, file utilities, a main loop abstraction, and so on.  This package contains language translation files for the fur locale.
+SUMMARY_glib-2.0-locale-fur: A general-purpose utility library - fur translations
+RPROVIDES_glib-2.0-locale-fur: glib-2.0-locale fur-translation glib-2.0-locale-fur (=2.62.6)
+RRECOMMENDS_glib-2.0-locale-fur: virtual-locale-fur
+SECTION: libs
+PKG_glib-2.0-locale-fur: libglib-2.0-locale-fur
+FILES_glib-2.0-locale-fur: /usr/share/locale/fur
+FILES_INFO: {"/usr/share/locale/fur/LC_MESSAGES/glib20.mo": 63945}
+PKGSIZE_glib-2.0-locale-fur: 63945

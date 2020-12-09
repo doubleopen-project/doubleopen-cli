@@ -1,0 +1,4 @@
+[Test]
+Type=session
+Exec=/usr/libexec/installed-tests/glib/gdbus-address-get-session
+Output=TAP

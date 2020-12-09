@@ -1,0 +1,5 @@
+#!/bin/bash
+realpath=`readlink -fn $0`
+realdir=`dirname $realpath`
+export M4=$realdir/../../usr/bin/m4
+exec -a "$0" $realdir/flex.real "$@"

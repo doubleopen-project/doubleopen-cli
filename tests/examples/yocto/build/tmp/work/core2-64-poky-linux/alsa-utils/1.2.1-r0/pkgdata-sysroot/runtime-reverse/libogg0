@@ -1,0 +1,20 @@
+PN: libogg
+PV: 1.3.4
+PR: r0
+PKGV: 1.3.4
+PKGR: r0
+LICENSE: BSD-3-Clause
+DESCRIPTION: libogg is the bitstream and framing library for the Ogg project. It provides functions which are necessary to codec libraries like libvorbis.
+SUMMARY: Ogg bitstream and framing libary
+RDEPENDS_libogg: glibc (>= 2.31+git0+6fdf971c9d)
+RPROVIDES_libogg:  libogg (=1.3.4)
+SECTION: libs
+PKG_libogg: libogg0
+FILES_libogg: /usr/bin/* /usr/sbin/* /usr/libexec/* /usr/lib/lib*.so.*             /etc /com /var             /bin/* /sbin/*             /lib/*.so.*             /lib/udev /usr/lib/udev             /lib/udev /usr/lib/udev             /usr/share/libogg /usr/lib/libogg/*             /usr/share/pixmaps /usr/share/applications             /usr/share/idl /usr/share/omf /usr/share/sounds             /usr/lib/bonobo/servers
+FILES_INFO: {"/usr/lib/libogg.so.0": 15, "/usr/lib/libogg.so.0.8.4": 38720}
+pkg_postinst_libogg: #!/bin/sh\nset -e\nif [ x"$D" = "x" ]; then\n\tif [ -x /sbin/ldconfig ]; then /sbin/ldconfig ; fi\nfi\n
+FILERPROVIDESFLIST_libogg: /usr/lib/libogg.so.0.8.4
+FILERPROVIDES_/usr/lib/libogg.so.0.8.4_libogg:  libogg.so.0()(64bit)
+FILERDEPENDSFLIST_libogg: /usr/lib/libogg.so.0.8.4
+FILERDEPENDS_/usr/lib/libogg.so.0.8.4_libogg:  libc.so.6(GLIBC_2.14)(64bit) libc.so.6(GLIBC_2.4)(64bit) libc.so.6(GLIBC_2.2.5)(64bit) libc.so.6()(64bit) rtld(GNU_HASH)
+PKGSIZE_libogg: 38735

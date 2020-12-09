@@ -1,0 +1,5 @@
+OEOuthashBasic
+1
+SSTATE_PKGSPEC=sstate:alsa-utils:core2-64-poky-linux:1.2.1:r0:core2-64:3:
+task=package_qa
+drwxrwxr-x       root       root                                                                                       .

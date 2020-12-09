@@ -1,0 +1,16 @@
+PN: libffi
+PV: 3.3
+PR: r0
+PKGV: 3.3
+PKGR: r0
+LICENSE: MIT
+DESCRIPTION_libffi-dev: The `libffi' library provides a portable, high level programming interface to various calling conventions.  This allows a programmer to call any function specified by a call interface description at run time. FFI stands for Foreign Function Interface.  A foreign function interface is the popular name for the interface that allows code written in one language to call code written in another language.  The `libffi' library really only provides the lowest, machine dependent layer of a fully featured foreign function interface.  A layer must exist above `libffi' that handles type conversions for values passed between the two languages.  This package contains symbolic links, header files, and related items necessary for software development.
+SUMMARY_libffi-dev: A portable foreign function interface library - Development files
+RDEPENDS_libffi-dev: libffi (= 3.3-r0)
+RRECOMMENDS_libffi-dev: glibc-dev
+SECTION_libffi-dev: devel
+PKG_libffi-dev: libffi-dev
+ALLOW_EMPTY_libffi-dev: 1
+FILES_libffi-dev: /usr/include /lib/lib*.so /usr/lib/lib*.so /usr/lib/*.la                 /usr/lib/*.o /usr/lib/pkgconfig /usr/share/pkgconfig                 /usr/share/aclocal /lib/*.o                 /usr/lib/libffi/*.la /lib/*.la                 /usr/lib/cmake /usr/share/cmake /usr/lib/libffi-3.3
+FILES_INFO: {"/usr/include/ffi-64.h": 13934, "/usr/include/ffi.h": 867, "/usr/include/ffitarget-64.h": 4343, "/usr/include/ffitarget.h": 891, "/usr/lib/libffi.so": 15, "/usr/lib/pkgconfig/libffi.pc": 237}
+PKGSIZE_libffi-dev: 20287

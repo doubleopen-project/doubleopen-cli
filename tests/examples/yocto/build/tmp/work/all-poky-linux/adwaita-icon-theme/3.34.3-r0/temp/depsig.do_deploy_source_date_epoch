@@ -1,0 +1,7 @@
+OEOuthashBasic
+1
+SSTATE_PKGSPEC=sstate:adwaita-icon-theme:all-poky-linux:3.34.3:r0:allarch:3:
+task=deploy_source_date_epoch
+drwxrwxr-x                                                                                       .
+drwxrwxr-x                                                                                       ./deploy-source-date-epoch
+-rw-r--r--                   10 1769f2d73178624fdef7149cf1c1712c4d46916133129218f5e4ce06f6a1039a ./deploy-source-date-epoch/__source_date_epoch.txt

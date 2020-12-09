@@ -1,0 +1,17 @@
+recipe-sysroot/sysroot-providers/libogg
+recipe-sysroot/usr/share/aclocal/ogg.m4
+recipe-sysroot/usr/include/ogg/config_types.h
+recipe-sysroot/usr/include/ogg/ogg.h
+recipe-sysroot/usr/include/ogg/os_types.h
+recipe-sysroot/usr/lib/libogg.so.0.8.4
+recipe-sysroot/usr/lib/libogg.so
+recipe-sysroot/usr/lib/libogg.so.0
+recipe-sysroot/usr/lib/pkgconfig/ogg.pc
+recipe-sysroot/usr/lib/pkgconfig/
+recipe-sysroot/usr/share/aclocal/
+recipe-sysroot/sysroot-providers/
+recipe-sysroot/usr/include/ogg/
+recipe-sysroot/usr/include/
+recipe-sysroot/usr/share/
+recipe-sysroot/usr/lib/
+recipe-sysroot/usr/

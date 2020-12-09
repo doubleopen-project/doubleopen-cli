@@ -1,0 +1,4 @@
+[Test]
+Type=session
+Exec=/usr/libexec/installed-tests/glib/live-g-file
+Output=TAP

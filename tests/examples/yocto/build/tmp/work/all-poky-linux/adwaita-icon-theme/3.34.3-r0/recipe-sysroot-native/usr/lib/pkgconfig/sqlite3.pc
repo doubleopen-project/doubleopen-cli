@@ -1,0 +1,13 @@
+# Package Information for pkg-config
+
+prefix=${pcfiledir}/../../../usr
+exec_prefix=${pcfiledir}/../../../usr
+libdir=${pcfiledir}/../../../usr/lib
+includedir=${pcfiledir}/../../../usr/include
+
+Name: SQLite
+Description: SQL database engine
+Version: 3.31.1
+Libs: -L${libdir} -lsqlite3
+Libs.private: -lm -ldl -lpthread 
+Cflags: -I${includedir}

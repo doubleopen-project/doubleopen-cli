@@ -1,0 +1,14 @@
+PN: gcc-runtime
+PV: 9.3.0
+PR: r0
+PKGV: 9.3.0
+PKGR: r0
+LICENSE: GPL-3.0-with-GCC-exception
+DESCRIPTION: Runtime libraries from GCC.
+SUMMARY_libstdc++-precompile-dev: GNU standard C++ library - precompiled header files
+RRECOMMENDS_libstdc++-precompile-dev: libgcc-dev
+SECTION: devel
+PKG_libstdc++-precompile-dev: libstdc++-precompile-dev
+FILES_libstdc++-precompile-dev: /usr/include/c++/x86_64-poky-linux/bits/*.gch
+FILES_INFO: {}
+PKGSIZE_libstdc++-precompile-dev: 0

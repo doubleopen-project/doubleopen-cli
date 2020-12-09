@@ -1,0 +1,63 @@
+def sstate_report_unihash(d):
+    report_unihash = getattr(bb.parse.siggen, 'report_unihash', None)
+
+    if report_unihash:
+        ss = sstate_state_fromvars(d)
+        report_unihash(os.getcwd(), ss['task'], d)
+
+sstate_report_unihash(d)
+
+def sstate_state_fromvars(d, task = None):
+    if task is None:
+        task = d.getVar('BB_CURRENTTASK')
+        if not task:
+            bb.fatal("sstate code running without task context?!")
+        task = task.replace("_setscene", "")
+
+    if task.startswith("do_"):
+        task = task[3:]
+    inputs = (d.getVarFlag("do_" + task, 'sstate-inputdirs') or "").split()
+    outputs = (d.getVarFlag("do_" + task, 'sstate-outputdirs') or "").split()
+    plaindirs = (d.getVarFlag("do_" + task, 'sstate-plaindirs') or "").split()
+    lockfiles = (d.getVarFlag("do_" + task, 'sstate-lockfile') or "").split()
+    lockfilesshared = (d.getVarFlag("do_" + task, 'sstate-lockfile-shared') or "").split()
+    interceptfuncs = (d.getVarFlag("do_" + task, 'sstate-interceptfuncs') or "").split()
+    fixmedir = d.getVarFlag("do_" + task, 'sstate-fixmedir') or ""
+    if not task or len(inputs) != len(outputs):
+        bb.fatal("sstate variables not setup correctly?!")
+
+    if task == "populate_lic":
+        d.setVar("SSTATE_PKGSPEC", "${SSTATE_SWSPEC}")
+        d.setVar("SSTATE_EXTRAPATH", "")
+        d.setVar('SSTATE_EXTRAPATHWILDCARD', "")
+
+    ss = sstate_init(task, d)
+    for i in range(len(inputs)):
+        sstate_add(ss, inputs[i], outputs[i], d)
+    ss['lockfiles'] = lockfiles
+    ss['lockfiles-shared'] = lockfilesshared
+    ss['plaindirs'] = plaindirs
+    ss['interceptfuncs'] = interceptfuncs
+    ss['fixmedir'] = fixmedir
+    return ss
+
+def sstate_init(task, d):
+    ss = {}
+    ss['task'] = task
+    ss['dirs'] = []
+    ss['plaindirs'] = []
+    ss['lockfiles'] = []
+    ss['lockfiles-shared'] = []
+    return ss
+
+def sstate_add(ss, source, dest, d):
+    if not source.endswith("/"):
+         source = source + "/"
+    if not dest.endswith("/"):
+         dest = dest + "/"
+    source = os.path.normpath(source)
+    dest = os.path.normpath(dest)
+    srcbase = os.path.basename(source)
+    ss['dirs'].append([srcbase, source, dest])
+    return ss
+

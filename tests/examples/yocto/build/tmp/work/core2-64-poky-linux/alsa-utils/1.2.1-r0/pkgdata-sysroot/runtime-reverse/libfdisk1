@@ -1,0 +1,20 @@
+PN: util-linux
+PV: 2.35.1
+PR: r0
+PKGV: 2.35.1
+PKGR: r0
+LICENSE: GPLv2+ & LGPLv2.1+ & BSD-3-Clause & BSD-4-Clause
+DESCRIPTION_util-linux-libfdisk: util-linux libfdisk
+SUMMARY_util-linux-libfdisk: util-linux libfdisk
+RDEPENDS_util-linux-libfdisk: glibc (>= 2.31+git0+6fdf971c9d) util-linux-libblkid (>= 2.35.1) util-linux-libuuid (>= 2.35.1)
+RPROVIDES_util-linux-libfdisk:  util-linux-libfdisk (=2.35.1)
+SECTION: base
+PKG_util-linux-libfdisk: libfdisk1
+FILES_util-linux-libfdisk: /lib/libfdisk.so.1 /lib/libfdisk.so.1.1.0
+FILES_INFO: {"/lib/libfdisk.so.1": 17, "/lib/libfdisk.so.1.1.0": 444200}
+pkg_postinst_util-linux-libfdisk: #!/bin/sh\nset -e\nif [ x"$D" = "x" ]; then\n\tif [ -x /sbin/ldconfig ]; then /sbin/ldconfig ; fi\nfi\n
+FILERPROVIDESFLIST_util-linux-libfdisk: /lib/libfdisk.so.1.1.0
+FILERPROVIDES_/lib/libfdisk.so.1.1.0_util-linux-libfdisk:  libfdisk.so.1(FDISK_2.26)(64bit) libfdisk.so.1(FDISK_2.27)(64bit) libfdisk.so.1(FDISK_2.27)(64bit) libfdisk.so.1(FDISK_2.28)(64bit) libfdisk.so.1(FDISK_2.28)(64bit) libfdisk.so.1(FDISK_2.29)(64bit) libfdisk.so.1(FDISK_2.29)(64bit) libfdisk.so.1(FDISK_2.30)(64bit) libfdisk.so.1(FDISK_2.30)(64bit) libfdisk.so.1(FDISK_2.31)(64bit) libfdisk.so.1(FDISK_2.31)(64bit) libfdisk.so.1(FDISK_2.32)(64bit) libfdisk.so.1(FDISK_2.32)(64bit) libfdisk.so.1(FDISK_2.33)(64bit) libfdisk.so.1(FDISK_2.33)(64bit) libfdisk.so.1(FDISK_2.35)(64bit) libfdisk.so.1(FDISK_2.35)(64bit) libfdisk.so.1()(64bit)
+FILERDEPENDSFLIST_util-linux-libfdisk: /lib/libfdisk.so.1.1.0
+FILERDEPENDS_/lib/libfdisk.so.1.1.0_util-linux-libfdisk:  ld-linux-x86-64.so.2(GLIBC_2.3)(64bit) libblkid.so.1(BLKID_2.21)(64bit) libblkid.so.1(BLKID_2.17)(64bit) libblkid.so.1(BLKID_2.15)(64bit) libuuid.so.1(UUID_1.0)(64bit) libc.so.6(GLIBC_2.25)(64bit) libc.so.6(GLIBC_2.14)(64bit) libc.so.6(GLIBC_2.3)(64bit) libc.so.6(GLIBC_2.8)(64bit) libc.so.6(GLIBC_2.4)(64bit) libc.so.6(GLIBC_2.17)(64bit) libc.so.6(GLIBC_2.7)(64bit) libc.so.6(GLIBC_2.3.4)(64bit) libc.so.6(GLIBC_2.2.5)(64bit) libuuid.so.1()(64bit) libblkid.so.1()(64bit) libc.so.6()(64bit) ld-linux-x86-64.so.2()(64bit) rtld(GNU_HASH)
+PKGSIZE_util-linux-libfdisk: 444217

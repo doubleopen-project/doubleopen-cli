@@ -1,0 +1,44 @@
+OEOuthashBasic
+1
+SSTATE_PKGSPEC=sstate:dbus:core2-64-poky-linux:1.12.16:r0:core2-64:3:
+task=packagedata
+drwxrwxr-x                                                                                       .
+drwxr-xr-x                                                                                       ./pkgdata-pdata-input
+-rw-r--r--                   98 d6917ebdad184abb2d909036b7ff345a5dba07ded63573914074837a5c2f8513 ./pkgdata-pdata-input/dbus
+-rw-r--r--                61034 7f32faa5642da587501b57d6be00c766572ab70a4522fee21d5eb5958bd44b45 ./pkgdata-pdata-input/dbus.filelics
+-rw-r--r--                77876 9ee38860383a704e7387846ac397491f20f4b2c2fe4830c252275d84f5c0845d ./pkgdata-pdata-input/dbus.srclist
+drwxr-xr-x                                                                                       ./pkgdata-pdata-input/runtime
+-rw-r--r--                12263 14d66fc92e2d15801e7a4572d97e6f379b03bb53bd65fb05a299ede10863cf68 ./pkgdata-pdata-input/runtime/dbus
+-rw-r--r--                 1303 9f4a3dc4a33efbd70a6d249d0cdc3492ca178dd154539c1d53fa8ff2bed23071 ./pkgdata-pdata-input/runtime/dbus-dbg
+-rw-r--r--                    0 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 ./pkgdata-pdata-input/runtime/dbus-dbg.packaged
+-rw-r--r--                 2916 da371d3c49891f6a16cc09e75fad09b88212f8797895149d714d1623e556ce29 ./pkgdata-pdata-input/runtime/dbus-dev
+-rw-r--r--                    0 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 ./pkgdata-pdata-input/runtime/dbus-dev.packaged
+-rw-r--r--                 1066 df7f149ab27fe7a6d891ecd15b692823b20852ccd577e6ff9ba7809981b96579 ./pkgdata-pdata-input/runtime/dbus-doc
+-rw-r--r--                    0 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 ./pkgdata-pdata-input/runtime/dbus-doc.packaged
+-rw-r--r--                 1560 62eea47306583e8ff9d3cc299bf06bc934d83267482cb2e672a3c7805b7f7621 ./pkgdata-pdata-input/runtime/dbus-lib
+-rw-r--r--                    0 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 ./pkgdata-pdata-input/runtime/dbus-lib.packaged
+-rw-r--r--                  573 10488f5b925aa22e77cd9bff5b5227647e16799b46caea2c20064eeba8a567c4 ./pkgdata-pdata-input/runtime/dbus-locale
+-rw-r--r--                  596 844f8e5ba2ac4948ff6d3816cfb5331d2f1485051b18158f721f7b9f063b98d0 ./pkgdata-pdata-input/runtime/dbus-ptest
+-rw-r--r--                    0 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 ./pkgdata-pdata-input/runtime/dbus-ptest.packaged
+-rw-r--r--                13558 c88d4114d9af4c28f22ae45f28698d553ba426332b2a594a8700a8f5a978fa56 ./pkgdata-pdata-input/runtime/dbus-src
+-rw-r--r--                    0 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 ./pkgdata-pdata-input/runtime/dbus-src.packaged
+-rw-r--r--                  807 cd444976902ed8f94c0f4ea650b3ef5c1bfc6071b0fd3a7cf61f8c6e7ba8f030 ./pkgdata-pdata-input/runtime/dbus-staticdev
+-rw-r--r--                    0 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 ./pkgdata-pdata-input/runtime/dbus.packaged
+drwxr-xr-x                                                                                       ./pkgdata-pdata-input/runtime-reverse
+lrwxrwxrwx                                                                                       ./pkgdata-pdata-input/runtime-reverse/dbus-1 -> ../runtime/dbus
+lrwxrwxrwx                                                                                       ./pkgdata-pdata-input/runtime-reverse/dbus-dbg -> ../runtime/dbus-dbg
+lrwxrwxrwx                                                                                       ./pkgdata-pdata-input/runtime-reverse/dbus-dev -> ../runtime/dbus-dev
+lrwxrwxrwx                                                                                       ./pkgdata-pdata-input/runtime-reverse/dbus-doc -> ../runtime/dbus-doc
+lrwxrwxrwx                                                                                       ./pkgdata-pdata-input/runtime-reverse/dbus-ptest -> ../runtime/dbus-ptest
+lrwxrwxrwx                                                                                       ./pkgdata-pdata-input/runtime-reverse/dbus-src -> ../runtime/dbus-src
+lrwxrwxrwx                                                                                       ./pkgdata-pdata-input/runtime-reverse/libdbus-1-3 -> ../runtime/dbus-lib
+drwxr-xr-x                                                                                       ./pkgdata-pdata-input/runtime-rprovides
+drwxr-xr-x                                                                                       ./pkgdata-pdata-input/runtime-rprovides/dbus
+lrwxrwxrwx                                                                                       ./pkgdata-pdata-input/runtime-rprovides/dbus/dbus -> ../../runtime/dbus
+drwxr-xr-x                                                                                       ./pkgdata-pdata-input/runtime-rprovides/dbus-lib
+lrwxrwxrwx                                                                                       ./pkgdata-pdata-input/runtime-rprovides/dbus-lib/dbus-lib -> ../../runtime/dbus-lib
+drwxr-xr-x                                                                                       ./pkgdata-pdata-input/runtime-rprovides/dbus-x11
+lrwxrwxrwx                                                                                       ./pkgdata-pdata-input/runtime-rprovides/dbus-x11/dbus -> ../../runtime/dbus
+drwxr-xr-x                                                                                       ./pkgdata-pdata-input/shlibs2
+-rw-r--r--                  123 fb26d355b34dc3e8050d9d101cbb255edc7c84dbde0cb10bc7007cb417f98a8a ./pkgdata-pdata-input/shlibs2/dbus-dev.pclist
+-rw-r--r--                   32 b930728aaf576d5a07d4958fb66c6584c1a84a43a7a5e31b2c68cfc8578c40e6 ./pkgdata-pdata-input/shlibs2/dbus-lib.list

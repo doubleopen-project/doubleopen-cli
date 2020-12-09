@@ -1,0 +1,11 @@
+OEOuthashBasic
+1
+SSTATE_PKGSPEC=sstate:alsa-utils::1.2.1:r0::3:
+task=populate_lic
+drwxrwxr-x                                                                                       .
+drwxrwxr-x                                                                                       ./license-destdir
+drwxrwxr-x                                                                                       ./license-destdir/alsa-utils
+-rw-r--r--                18002 231f7edcc7352d7734a96eef0b8030f77982678c516876fcb81e25b32d68564c ./license-destdir/alsa-utils/COPYING
+-rw-rw-r--                17611 f89c8bdbf6eb77e64b5cc53233b446bca77f1d1dae576c81925970be5ecfc891 ./license-destdir/alsa-utils/generic_GPLv2
+-rw-rw-r--                   33 3f9d30ade8b3df75f918639bb78028edda8a7fa7b168664e7f56606b45a6ed9a ./license-destdir/alsa-utils/recipeinfo
+-rw-rw-r--                  800 ba69463933d26437834b93144b0b458b5437ef5070153a5d799a1f095b7f362c ./license-destdir/alsa-utils/utils.c

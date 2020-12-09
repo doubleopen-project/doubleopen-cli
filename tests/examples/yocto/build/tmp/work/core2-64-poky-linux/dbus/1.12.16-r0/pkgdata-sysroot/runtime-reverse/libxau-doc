@@ -1,0 +1,15 @@
+PN: libxau
+PE: 1
+PV: 1.0.9
+PR: r0
+PKGE: 1
+PKGV: 1.0.9
+PKGR: r0
+LICENSE: MIT-style
+DESCRIPTION_libxau-doc: libxau provides the main interfaces to the X11 authorisation handling, which controls authorisation for X connections, both client-side and server-side.  This package contains documentation.
+SUMMARY_libxau-doc: Xau: X Authority Database library - Documentation files
+SECTION_libxau-doc: doc
+PKG_libxau-doc: libxau-doc
+FILES_libxau-doc: /usr/share/doc /usr/share/man /usr/share/info /usr/share/gtk-doc             /usr/share/gnome/help
+FILES_INFO: {"/usr/share/man/man3/Xau.3": 5262, "/usr/share/man/man3/XauDisposeAuth.3": 15, "/usr/share/man/man3/XauFileName.3": 15, "/usr/share/man/man3/XauGetAuthByAddr.3": 15, "/usr/share/man/man3/XauGetBestAuthByAddr.3": 15, "/usr/share/man/man3/XauLockAuth.3": 15, "/usr/share/man/man3/XauReadAuth.3": 15, "/usr/share/man/man3/XauUnlockAuth.3": 15, "/usr/share/man/man3/XauWriteAuth.3": 15}
+PKGSIZE_libxau-doc: 5382

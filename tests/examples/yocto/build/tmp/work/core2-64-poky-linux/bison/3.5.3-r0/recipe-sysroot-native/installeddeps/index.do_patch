@@ -1,0 +1,12 @@
+TaskDeps: do_unpack do_fetch
+attr-native
+autoconf-native
+automake-native
+gettext-minimal-native
+gnu-config-native
+libtool-native
+m4-native
+patch-native
+quilt-native
+texinfo-dummy-native
+xz-native

@@ -1,0 +1,45 @@
+DEBUG: Executing python function extend_recipe_sysroot
+NOTE: Direct dependencies are ['virtual:native:/home/hhpartners/yocto/meta/recipes-extended/xz/xz_5.2.4.bb:do_populate_sysroot', '/home/hhpartners/yocto/meta/recipes-devtools/quilt/quilt-native_0.66.bb:do_populate_sysroot', 'virtual:native:/home/hhpartners/yocto/meta/recipes-devtools/patch/patch_2.7.6.bb:do_populate_sysroot']
+NOTE: Installed into sysroot: ['patch-native', 'attr-native']
+NOTE: Skipping as already exists in sysroot: ['xz-native', 'quilt-native', 'libtool-native', 'automake-native', 'gettext-minimal-native', 'autoconf-native', 'gnu-config-native', 'texinfo-dummy-native', 'm4-native']
+DEBUG: Python function extend_recipe_sysroot finished
+DEBUG: Executing python function do_patch
+DEBUG: Executing python function patch_do_patch
+DEBUG: Searching for 0001-Don-t-use-AC_CANONICAL_HOST.patch in paths:
+    /home/hhpartners/yocto/meta/recipes-gnome/gnome/adwaita-icon-theme-3.34.3/poky
+    /home/hhpartners/yocto/meta/recipes-gnome/gnome/adwaita-icon-theme/poky
+    /home/hhpartners/yocto/meta/recipes-gnome/gnome/files/poky
+    /home/hhpartners/yocto/meta/recipes-gnome/gnome/adwaita-icon-theme-3.34.3/qemux86-64
+    /home/hhpartners/yocto/meta/recipes-gnome/gnome/adwaita-icon-theme/qemux86-64
+    /home/hhpartners/yocto/meta/recipes-gnome/gnome/files/qemux86-64
+    /home/hhpartners/yocto/meta/recipes-gnome/gnome/adwaita-icon-theme-3.34.3/qemuall
+    /home/hhpartners/yocto/meta/recipes-gnome/gnome/adwaita-icon-theme/qemuall
+    /home/hhpartners/yocto/meta/recipes-gnome/gnome/files/qemuall
+    /home/hhpartners/yocto/meta/recipes-gnome/gnome/adwaita-icon-theme-3.34.3/allarch
+    /home/hhpartners/yocto/meta/recipes-gnome/gnome/adwaita-icon-theme/allarch
+    /home/hhpartners/yocto/meta/recipes-gnome/gnome/files/allarch
+    /home/hhpartners/yocto/meta/recipes-gnome/gnome/adwaita-icon-theme-3.34.3/
+    /home/hhpartners/yocto/meta/recipes-gnome/gnome/adwaita-icon-theme/
+    /home/hhpartners/yocto/meta/recipes-gnome/gnome/files/
+DEBUG: Searching for 0001-Run-installation-commands-as-shell-jobs.patch in paths:
+    /home/hhpartners/yocto/meta/recipes-gnome/gnome/adwaita-icon-theme-3.34.3/poky
+    /home/hhpartners/yocto/meta/recipes-gnome/gnome/adwaita-icon-theme/poky
+    /home/hhpartners/yocto/meta/recipes-gnome/gnome/files/poky
+    /home/hhpartners/yocto/meta/recipes-gnome/gnome/adwaita-icon-theme-3.34.3/qemux86-64
+    /home/hhpartners/yocto/meta/recipes-gnome/gnome/adwaita-icon-theme/qemux86-64
+    /home/hhpartners/yocto/meta/recipes-gnome/gnome/files/qemux86-64
+    /home/hhpartners/yocto/meta/recipes-gnome/gnome/adwaita-icon-theme-3.34.3/qemuall
+    /home/hhpartners/yocto/meta/recipes-gnome/gnome/adwaita-icon-theme/qemuall
+    /home/hhpartners/yocto/meta/recipes-gnome/gnome/files/qemuall
+    /home/hhpartners/yocto/meta/recipes-gnome/gnome/adwaita-icon-theme-3.34.3/allarch
+    /home/hhpartners/yocto/meta/recipes-gnome/gnome/adwaita-icon-theme/allarch
+    /home/hhpartners/yocto/meta/recipes-gnome/gnome/files/allarch
+    /home/hhpartners/yocto/meta/recipes-gnome/gnome/adwaita-icon-theme-3.34.3/
+    /home/hhpartners/yocto/meta/recipes-gnome/gnome/adwaita-icon-theme/
+    /home/hhpartners/yocto/meta/recipes-gnome/gnome/files/
+NOTE: Applying patch '0001-Don-t-use-AC_CANONICAL_HOST.patch' (../meta/recipes-gnome/gnome/adwaita-icon-theme/0001-Don-t-use-AC_CANONICAL_HOST.patch)
+NOTE: Applying patch '0001-Run-installation-commands-as-shell-jobs.patch' (../meta/recipes-gnome/gnome/adwaita-icon-theme/0001-Run-installation-commands-as-shell-jobs.patch)
+DEBUG: Python function patch_do_patch finished
+DEBUG: Python function do_patch finished
+DEBUG: Executing python function do_qa_patch
+DEBUG: Python function do_qa_patch finished

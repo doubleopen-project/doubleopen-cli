@@ -1,0 +1,9 @@
+recipe-sysroot/sysroot-providers/base-passwd
+recipe-sysroot/usr/share/base-passwd/passwd.master
+recipe-sysroot/usr/share/base-passwd/group.master
+recipe-sysroot/usr/bin/postinst-base-passwd
+recipe-sysroot/usr/share/base-passwd/
+recipe-sysroot/sysroot-providers/
+recipe-sysroot/usr/share/
+recipe-sysroot/usr/bin/
+recipe-sysroot/usr/

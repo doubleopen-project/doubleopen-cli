@@ -1,0 +1,16 @@
+PN: util-linux
+PV: 2.35.1
+PR: r0
+PKGV: 2.35.1
+PKGR: r0
+LICENSE: GPLv2+ & LGPLv2.1+ & BSD-3-Clause & BSD-4-Clause
+DESCRIPTION_util-linux-blkdiscard: util-linux blkdiscard
+SUMMARY_util-linux-blkdiscard: util-linux blkdiscard
+RDEPENDS_util-linux-blkdiscard: glibc (>= 2.31+git0+6fdf971c9d)
+SECTION: base
+PKG_util-linux-blkdiscard: util-linux-blkdiscard
+FILES_util-linux-blkdiscard: /usr/sbin/blkdiscard
+FILES_INFO: {"/usr/sbin/blkdiscard": 30760}
+FILERDEPENDSFLIST_util-linux-blkdiscard: /usr/sbin/blkdiscard
+FILERDEPENDS_/usr/sbin/blkdiscard_util-linux-blkdiscard:  libc.so.6(GLIBC_2.3)(64bit) libc.so.6(GLIBC_2.8)(64bit) libc.so.6(GLIBC_2.14)(64bit) libc.so.6(GLIBC_2.4)(64bit) libc.so.6(GLIBC_2.17)(64bit) libc.so.6(GLIBC_2.3.4)(64bit) libc.so.6(GLIBC_2.2.5)(64bit) libc.so.6()(64bit) rtld(GNU_HASH)
+PKGSIZE_util-linux-blkdiscard: 30760

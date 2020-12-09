@@ -1,0 +1,15 @@
+PN: xorgproto
+PV: 2019.2
+PR: r0
+PKGV: 2019.2
+PKGR: r0
+LICENSE: MIT-style
+DESCRIPTION_xorgproto-dbg: This package provides the headers and specification documents defining the core protocol and (many) extensions for the X Window System  This package contains ELF symbols and related sources for debugging purposes.
+SUMMARY_xorgproto-dbg: X Window System unified protocol definitions - Debugging files
+RRECOMMENDS_xorgproto-dbg: xorgproto-dev (= 2019.2-r0)
+SECTION_xorgproto-dbg: devel
+PKG_xorgproto-dbg: xorgproto-dbg
+ALLOW_EMPTY_xorgproto-dbg: 1
+FILES_xorgproto-dbg: /usr/lib/debug /usr/lib/debug-static /usr/src/debug
+FILES_INFO: {}
+PKGSIZE_xorgproto-dbg: 0

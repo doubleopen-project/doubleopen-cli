@@ -1,0 +1,70 @@
+def patch_do_patch(d):
+    import oe.patch
+
+    patchsetmap = {
+        "patch": oe.patch.PatchTree,
+        "quilt": oe.patch.QuiltTree,
+        "git": oe.patch.GitApplyTree,
+    }
+
+    cls = patchsetmap[d.getVar('PATCHTOOL') or 'quilt']
+
+    resolvermap = {
+        "noop": oe.patch.NOOPResolver,
+        "user": oe.patch.UserResolver,
+    }
+
+    rcls = resolvermap[d.getVar('PATCHRESOLVE') or 'user']
+
+    classes = {}
+
+    s = d.getVar('S')
+
+    os.putenv('PATH', d.getVar('PATH'))
+
+    # We must use one TMPDIR per process so that the "patch" processes
+    # don't generate the same temp file name.
+
+    import tempfile
+    process_tmpdir = tempfile.mkdtemp()
+    os.environ['TMPDIR'] = process_tmpdir
+
+    for patch in src_patches(d):
+        _, _, local, _, _, parm = bb.fetch.decodeurl(patch)
+
+        if "patchdir" in parm:
+            patchdir = parm["patchdir"]
+            if not os.path.isabs(patchdir):
+                patchdir = os.path.join(s, patchdir)
+        else:
+            patchdir = s
+
+        if not patchdir in classes:
+            patchset = cls(patchdir, d)
+            resolver = rcls(patchset, oe_terminal)
+            classes[patchdir] = (patchset, resolver)
+            patchset.Clean()
+        else:
+            patchset, resolver = classes[patchdir]
+
+        bb.note("Applying patch '%s' (%s)" % (parm['patchname'], oe.path.format_display(local, d)))
+        try:
+            patchset.Import({"file":local, "strippath": parm['striplevel']}, True)
+        except Exception as exc:
+            bb.utils.remove(process_tmpdir, True)
+            bb.fatal(str(exc))
+        try:
+            resolver.Resolve()
+        except bb.BBHandledException as e:
+            bb.utils.remove(process_tmpdir, True)
+            bb.fatal(str(e))
+
+    bb.utils.remove(process_tmpdir, True)
+    del os.environ['TMPDIR']
+
+patch_do_patch(d)
+
+def src_patches(d, all=False, expand=True):
+    import oe.patch
+    return oe.patch.src_patches(d, all, expand)
+

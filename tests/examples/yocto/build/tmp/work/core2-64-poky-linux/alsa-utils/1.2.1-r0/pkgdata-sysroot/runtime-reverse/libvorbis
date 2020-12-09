@@ -1,0 +1,23 @@
+PN: libvorbis
+PV: 1.3.6
+PR: r0
+PKGV: 1.3.6
+PKGR: r0
+LICENSE: BSD-3-Clause
+DESCRIPTION: Ogg Vorbis is a high-quality lossy audio codec that is free of intellectual property restrictions. libvorbis is the main vorbis codec library.
+SUMMARY: Ogg Vorbis Audio Codec
+RDEPENDS_libvorbis: glibc (>= 2.31+git0+6fdf971c9d) libogg (>= 1.3.4)
+SECTION: libs
+PKG_libvorbis: libvorbis
+FILES_libvorbis: /usr/bin/* /usr/sbin/* /usr/libexec/* /usr/lib/lib*.so.*             /etc /com /var             /bin/* /sbin/*             /lib/*.so.*             /lib/udev /usr/lib/udev             /lib/udev /usr/lib/udev             /usr/share/libvorbis /usr/lib/libvorbis/*             /usr/share/pixmaps /usr/share/applications             /usr/share/idl /usr/share/omf /usr/share/sounds             /usr/lib/bonobo/servers
+FILES_INFO: {"/usr/lib/libvorbis.so.0": 18, "/usr/lib/libvorbis.so.0.4.8": 182160, "/usr/lib/libvorbisenc.so.2": 22, "/usr/lib/libvorbisenc.so.2.0.11": 694224, "/usr/lib/libvorbisfile.so.3": 22, "/usr/lib/libvorbisfile.so.3.3.7": 38728}
+pkg_postinst_libvorbis: #!/bin/sh\nset -e\nif [ x"$D" = "x" ]; then\n\tif [ -x /sbin/ldconfig ]; then /sbin/ldconfig ; fi\nfi\n
+FILERPROVIDESFLIST_libvorbis: /usr/lib/libvorbis.so.0.4.8 /usr/lib/libvorbisenc.so.2.0.11 /usr/lib/libvorbisfile.so.3.3.7
+FILERPROVIDES_/usr/lib/libvorbis.so.0.4.8_libvorbis:  libvorbis.so.0()(64bit)
+FILERPROVIDES_/usr/lib/libvorbisenc.so.2.0.11_libvorbis:  libvorbisenc.so.2()(64bit)
+FILERPROVIDES_/usr/lib/libvorbisfile.so.3.3.7_libvorbis:  libvorbisfile.so.3()(64bit)
+FILERDEPENDSFLIST_libvorbis: /usr/lib/libvorbis.so.0.4.8 /usr/lib/libvorbisenc.so.2.0.11 /usr/lib/libvorbisfile.so.3.3.7
+FILERDEPENDS_/usr/lib/libvorbis.so.0.4.8_libvorbis:  libm.so.6(GLIBC_2.29)(64bit) libm.so.6(GLIBC_2.2.5)(64bit) libc.so.6(GLIBC_2.14)(64bit) libc.so.6(GLIBC_2.4)(64bit) libc.so.6(GLIBC_2.2.5)(64bit) libc.so.6(GLIBC_2.3)(64bit) libm.so.6()(64bit) libogg.so.0()(64bit) libc.so.6()(64bit) rtld(GNU_HASH)
+FILERDEPENDS_/usr/lib/libvorbisenc.so.2.0.11_libvorbis:  libc.so.6(GLIBC_2.14)(64bit) libc.so.6(GLIBC_2.2.5)(64bit) libc.so.6(GLIBC_2.4)(64bit) libvorbis.so.0()(64bit) libm.so.6()(64bit) libogg.so.0()(64bit) libc.so.6()(64bit) rtld(GNU_HASH)
+FILERDEPENDS_/usr/lib/libvorbisfile.so.3.3.7_libvorbis:  libc.so.6(GLIBC_2.14)(64bit) libc.so.6(GLIBC_2.4)(64bit) libc.so.6(GLIBC_2.2.5)(64bit) libvorbis.so.0()(64bit) libm.so.6()(64bit) libogg.so.0()(64bit) libc.so.6()(64bit) rtld(GNU_HASH)
+PKGSIZE_libvorbis: 915174

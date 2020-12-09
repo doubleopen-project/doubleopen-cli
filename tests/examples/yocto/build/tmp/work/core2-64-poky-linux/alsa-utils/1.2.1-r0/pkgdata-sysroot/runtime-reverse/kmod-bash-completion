@@ -1,0 +1,14 @@
+PN: kmod
+PV: 26
+PR: r0
+PKGV: 26
+PKGR: r0
+LICENSE: GPL-2.0+ & LGPL-2.1+
+DESCRIPTION: kmod is a set of tools to handle common tasks with Linux kernel modules like                insert, remove, list, check properties, resolve dependencies and aliases.
+SUMMARY: Tools for managing Linux kernel modules
+RDEPENDS_kmod-bash-completion: bash-completion
+SECTION: base
+PKG_kmod-bash-completion: kmod-bash-completion
+FILES_kmod-bash-completion: /usr/share/bash-completion /etc/bash_completion.d
+FILES_INFO: {"/usr/share/bash-completion/completions/kmod": 3235}
+PKGSIZE_kmod-bash-completion: 3235

@@ -1,0 +1,7 @@
+#! /bin/sh
+
+export PKG_CONFIG_PATH="/home/hhpartners/yocto/build/tmp/work/all-poky-linux/adwaita-icon-theme/3.34.3-r0/recipe-sysroot-native/usr/lib/pkgconfig:/home/hhpartners/yocto/build/tmp/work/all-poky-linux/adwaita-icon-theme/3.34.3-r0/recipe-sysroot-native/usr/share/pkgconfig"
+export PKG_CONFIG_LIBDIR="/home/hhpartners/yocto/build/tmp/work/all-poky-linux/adwaita-icon-theme/3.34.3-r0/recipe-sysroot-native/usr/lib/pkgconfig"
+unset PKG_CONFIG_SYSROOT_DIR
+
+pkg-config "$@"

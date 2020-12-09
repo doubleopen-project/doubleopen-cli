@@ -1,0 +1,16 @@
+PN: eudev
+PV: 3.2.9
+PR: r0
+PKGV: 3.2.9
+PKGR: r0
+LICENSE: GPLv2.0+ & LGPL-2.1+
+DESCRIPTION_eudev-dev: eudev is a fork of systemd's udev.  This package contains symbolic links, header files, and related items necessary for software development.
+SUMMARY_eudev-dev: eudev is a fork of systemd's udev - Development files
+RDEPENDS_eudev-dev: eudev (= 3.2.9-r0) libudev
+RRECOMMENDS_eudev-dev: glib-2.0-dev initscripts-dev kmod-dev update-rc.d-dev util-linux-dev glibc-dev libkmod-dev libudev-dev util-linux-libblkid-dev
+SECTION_eudev-dev: devel
+PKG_eudev-dev: eudev-dev
+ALLOW_EMPTY_eudev-dev: 1
+FILES_eudev-dev: /usr/share/pkgconfig/udev.pc                    /usr/include/libudev.h /usr/lib/libudev.so                    /usr/include/udev.h /usr/lib/libudev.la                    /usr/lib/libudev.a /usr/lib/pkgconfig/libudev.pc
+FILES_INFO: {"/usr/include/libudev.h": 10327, "/usr/include/udev.h": 8998, "/usr/lib/libudev.so": 26, "/usr/lib/pkgconfig/libudev.pc": 493, "/usr/share/pkgconfig/udev.pc": 90}
+PKGSIZE_eudev-dev: 19934

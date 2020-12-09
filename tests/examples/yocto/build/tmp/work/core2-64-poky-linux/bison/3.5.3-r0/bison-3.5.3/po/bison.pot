@@ -1,0 +1,1084 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# This file is distributed under the same license as the GNU bison package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: GNU bison 3.5.3\n"
+"Report-Msgid-Bugs-To: bug-bison@gnu.org\n"
+"POT-Creation-Date: 2020-03-08 08:33+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: src/complain.c:114
+msgid "S/R conflicts (enabled by default)"
+msgstr ""
+
+#: src/complain.c:115
+msgid "R/R conflicts (enabled by default)"
+msgstr ""
+
+#: src/complain.c:116
+msgid "string aliases not attached to a symbol"
+msgstr ""
+
+#: src/complain.c:117
+msgid "obsolete constructs"
+msgstr ""
+
+#: src/complain.c:118
+#, c-format
+msgid "empty rules without %empty"
+msgstr ""
+
+#: src/complain.c:119
+msgid "unset or unused midrule values"
+msgstr ""
+
+#: src/complain.c:120
+msgid "useless precedence and associativity"
+msgstr ""
+
+#: src/complain.c:121
+msgid "incompatibilities with POSIX Yacc"
+msgstr ""
+
+#: src/complain.c:122
+msgid "all other warnings (enabled by default)"
+msgstr ""
+
+#: src/complain.c:123
+msgid "all the warnings except 'dangling-alias' and 'yacc'"
+msgstr ""
+
+#: src/complain.c:124
+msgid "turn off warnings in CATEGORY"
+msgstr ""
+
+#: src/complain.c:125
+msgid "turn off all the warnings"
+msgstr ""
+
+#: src/complain.c:126
+msgid "treat warnings as errors"
+msgstr ""
+
+#: src/complain.c:151
+msgid "Warning categories include:"
+msgstr ""
+
+#: src/complain.c:256
+msgid "warning"
+msgstr ""
+
+#: src/complain.c:258
+msgid "error"
+msgstr ""
+
+#: src/complain.c:260
+msgid "fatal error"
+msgstr ""
+
+#: src/complain.c:547
+#, c-format
+msgid "POSIX Yacc does not support %s"
+msgstr ""
+
+#: src/complain.c:556
+#, c-format
+msgid "deprecated directive: %s, use %s"
+msgstr ""
+
+#: src/complain.c:571
+#, c-format
+msgid "duplicate directive"
+msgstr ""
+
+#: src/complain.c:573
+#, c-format
+msgid "duplicate directive: %s"
+msgstr ""
+
+#: src/complain.c:575 src/complain.c:588 src/reader.c:136 src/symtab.c:305
+#: src/symtab.c:318 src/symtab.c:555
+#, c-format
+msgid "previous declaration"
+msgstr ""
+
+#: src/complain.c:585
+#, c-format
+msgid "only one %s allowed per rule"
+msgstr ""
+
+#: src/conflicts.c:81
+#, c-format
+msgid "Conflict between rule %d and token %s resolved as shift"
+msgstr ""
+
+#: src/conflicts.c:91
+#, c-format
+msgid "Conflict between rule %d and token %s resolved as reduce"
+msgstr ""
+
+#: src/conflicts.c:100
+#, c-format
+msgid "Conflict between rule %d and token %s resolved as an error"
+msgstr ""
+
+#: src/conflicts.c:602
+#, c-format
+msgid "State %d "
+msgstr ""
+
+#: src/conflicts.c:605
+#, c-format
+msgid "conflicts: %d shift/reduce, %d reduce/reduce\n"
+msgstr ""
+
+#: src/conflicts.c:608
+#, c-format
+msgid "conflicts: %d shift/reduce\n"
+msgstr ""
+
+#: src/conflicts.c:610
+#, c-format
+msgid "conflicts: %d reduce/reduce\n"
+msgstr ""
+
+#: src/conflicts.c:645
+#, c-format
+msgid "shift/reduce conflicts for rule %d: %d found, %d expected"
+msgstr ""
+
+#: src/conflicts.c:651
+#, c-format
+msgid "reduce/reduce conflicts for rule %d: %d found, %d expected"
+msgstr ""
+
+#: src/conflicts.c:669
+#, c-format
+msgid "%%expect-rr applies only to GLR parsers"
+msgstr ""
+
+#: src/conflicts.c:686
+#, c-format
+msgid "shift/reduce conflicts: %d found, %d expected"
+msgstr ""
+
+#: src/conflicts.c:691
+#, c-format
+msgid "%d shift/reduce conflict"
+msgid_plural "%d shift/reduce conflicts"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/conflicts.c:708
+#, c-format
+msgid "reduce/reduce conflicts: %d found, %d expected"
+msgstr ""
+
+#: src/conflicts.c:713
+#, c-format
+msgid "%d reduce/reduce conflict"
+msgid_plural "%d reduce/reduce conflicts"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/files.c:124
+#, c-format
+msgid "%s: cannot open"
+msgstr ""
+
+#: src/files.c:140
+#, c-format
+msgid "input/output error"
+msgstr ""
+
+#: src/files.c:143
+#, c-format
+msgid "cannot close file"
+msgstr ""
+
+#: src/files.c:374
+#, c-format
+msgid "refusing to overwrite the input file %s"
+msgstr ""
+
+#: src/files.c:382
+#, c-format
+msgid "conflicting outputs to file %s"
+msgstr ""
+
+#: src/fixits.c:122
+#, c-format
+msgid "%s: cannot backup"
+msgstr ""
+
+#: src/getargs.c:173
+msgid "colorize the output"
+msgstr ""
+
+#: src/getargs.c:174
+msgid "don't colorize the output"
+msgstr ""
+
+#: src/getargs.c:175
+msgid "colorize if the output device is a tty"
+msgstr ""
+
+#. TRANSLATORS: Use the same translation for WHEN as in the
+#. --color=WHEN help message.
+#: src/getargs.c:196
+msgid "WHEN can be one of the following:"
+msgstr ""
+
+#: src/getargs.c:209
+msgid "describe the states"
+msgstr ""
+
+#: src/getargs.c:210
+msgid "complete the core item sets with their closure"
+msgstr ""
+
+#: src/getargs.c:211
+msgid "explicitly associate lookahead tokens to items"
+msgstr ""
+
+#: src/getargs.c:212
+msgid "describe shift/reduce conflicts solving"
+msgstr ""
+
+#: src/getargs.c:213
+msgid "include all the above information"
+msgstr ""
+
+#: src/getargs.c:214
+msgid "disable the report"
+msgstr ""
+
+#. TRANSLATORS: Use the same translation for THINGS as in the
+#. --report=THINGS help message.
+#: src/getargs.c:235
+msgid "THINGS is a list of comma separated words that can include:"
+msgstr ""
+
+#: src/getargs.c:294
+msgid "TRACES is a list of comma separated words that can include:"
+msgstr ""
+
+#: src/getargs.c:306
+msgid "show errors with carets"
+msgstr ""
+
+#: src/getargs.c:307
+msgid "show machine-readable fixes"
+msgstr ""
+
+#: src/getargs.c:308
+msgid "do not generate any file"
+msgstr ""
+
+#: src/getargs.c:309
+msgid "all of the above"
+msgstr ""
+
+#: src/getargs.c:310
+msgid "disable all of the above"
+msgstr ""
+
+#. TRANSLATORS: Use the same translation for FEATURES as in the
+#. --feature=FEATURES help message.
+#: src/getargs.c:332
+msgid "FEATURES is a list of comma separated words that can include:"
+msgstr ""
+
+#: src/getargs.c:346
+#, c-format
+msgid "Try '%s --help' for more information.\n"
+msgstr ""
+
+#: src/getargs.c:355
+#, c-format
+msgid "Usage: %s [OPTION]... FILE\n"
+msgstr ""
+
+#: src/getargs.c:356
+msgid ""
+"Generate a deterministic LR or generalized LR (GLR) parser employing\n"
+"LALR(1), IELR(1), or canonical LR(1) parser tables.\n"
+"\n"
+msgstr ""
+
+#: src/getargs.c:362
+msgid ""
+"Mandatory arguments to long options are mandatory for short options too.\n"
+msgstr ""
+
+#: src/getargs.c:365
+msgid "The same is true for optional arguments.\n"
+msgstr ""
+
+#: src/getargs.c:370
+msgid ""
+"Operation Modes:\n"
+"  -h, --help                 display this help and exit\n"
+"  -V, --version              output version information and exit\n"
+"      --print-localedir      output directory containing locale-dependent "
+"data\n"
+"                             and exit\n"
+"      --print-datadir        output directory containing skeletons and XSLT\n"
+"                             and exit\n"
+"  -u, --update               apply fixes to the source grammar file and "
+"exit\n"
+"  -f, --feature[=FEATURES]   activate miscellaneous features\n"
+"\n"
+msgstr ""
+
+#: src/getargs.c:386
+msgid ""
+"Diagnostics:\n"
+"  -W, --warnings[=CATEGORY]  report the warnings falling in CATEGORY\n"
+"      --color[=WHEN]         whether to colorize the diagnostics\n"
+"      --style=FILE           specify the CSS FILE for colorizer diagnostics\n"
+"\n"
+msgstr ""
+
+#: src/getargs.c:400
+#, c-format
+msgid ""
+"Tuning the Parser:\n"
+"  -L, --language=LANGUAGE          specify the output programming language\n"
+"  -S, --skeleton=FILE              specify the skeleton to use\n"
+"  -t, --debug                      instrument the parser for tracing\n"
+"                                   same as '-Dparse.trace'\n"
+"      --locations                  enable location support\n"
+"  -D, --define=NAME[=VALUE]        similar to '%define NAME VALUE'\n"
+"  -F, --force-define=NAME[=VALUE]  override '%define NAME VALUE'\n"
+"  -p, --name-prefix=PREFIX         prepend PREFIX to the external symbols\n"
+"                                   deprecated by '-Dapi.prefix={PREFIX}'\n"
+"  -l, --no-lines                   don't generate '#line' directives\n"
+"  -k, --token-table                include a table of token names\n"
+"  -y, --yacc                       emulate POSIX Yacc\n"
+msgstr ""
+
+#: src/getargs.c:419
+msgid ""
+"Output Files:\n"
+"      --defines[=FILE]       also produce a header file\n"
+"  -d                         likewise but cannot specify FILE (for POSIX "
+"Yacc)\n"
+"  -r, --report=THINGS        also produce details on the automaton\n"
+"      --report-file=FILE     write report to FILE\n"
+"  -v, --verbose              same as '--report=state'\n"
+"  -b, --file-prefix=PREFIX   specify a PREFIX for output files\n"
+"  -o, --output=FILE          leave output to FILE\n"
+"  -g, --graph[=FILE]         also output a graph of the automaton\n"
+"  -x, --xml[=FILE]           also output an XML report of the automaton\n"
+msgstr ""
+
+#: src/getargs.c:436
+#, c-format
+msgid "Report bugs to <%s>.\n"
+msgstr ""
+
+#: src/getargs.c:437
+#, c-format
+msgid "%s home page: <%s>.\n"
+msgstr ""
+
+#: src/getargs.c:438
+msgid "General help using GNU software: <http://www.gnu.org/gethelp/>.\n"
+msgstr ""
+
+#. TRANSLATORS: Replace LANG_CODE in this URL with your language
+#. code <http://translationproject.org/team/LANG_CODE.html> to
+#. form one of the URLs at http://translationproject.org/team/.
+#. Otherwise, replace the entire URL with your translation team's
+#. email address.
+#: src/getargs.c:453
+msgid "Report translation bugs to <http://translationproject.org/team/>.\n"
+msgstr ""
+
+#: src/getargs.c:456
+msgid "For complete documentation, run: info bison.\n"
+msgstr ""
+
+#: src/getargs.c:472
+#, c-format
+msgid "bison (GNU Bison) %s"
+msgstr ""
+
+#: src/getargs.c:474
+msgid "Written by Robert Corbett and Richard Stallman.\n"
+msgstr ""
+
+#: src/getargs.c:478
+#, c-format
+msgid "Copyright (C) %d Free Software Foundation, Inc.\n"
+msgstr ""
+
+#: src/getargs.c:481
+msgid ""
+"This is free software; see the source for copying conditions.  There is NO\n"
+"warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
+msgstr ""
+
+#: src/getargs.c:503
+#, c-format
+msgid "multiple skeleton declarations are invalid"
+msgstr ""
+
+#: src/getargs.c:520
+#, c-format
+msgid "%s: invalid language"
+msgstr ""
+
+#: src/getargs.c:523
+msgid "multiple language declarations are invalid"
+msgstr ""
+
+#: src/getargs.c:816
+#, c-format
+msgid "deprecated option: %s, use %s"
+msgstr ""
+
+#: src/getargs.c:850
+#, c-format
+msgid "missing operand"
+msgstr ""
+
+#: src/getargs.c:852
+#, c-format
+msgid "extra operand %s"
+msgstr ""
+
+#: src/gram.c:218
+msgid "Grammar"
+msgstr ""
+
+#: src/graphviz.c:46
+#, c-format
+msgid ""
+"// Generated by %s.\n"
+"// Report bugs to <%s>.\n"
+"// Home page: <%s>.\n"
+"\n"
+msgstr ""
+
+#: src/location.c:150 src/scan-gram.l:909
+#, c-format
+msgid "line number overflow"
+msgstr ""
+
+#: src/location.c:152
+#, c-format
+msgid "column number overflow"
+msgstr ""
+
+#: src/location.c:155
+#, c-format
+msgid "byte number overflow"
+msgstr ""
+
+#. TRANSLATORS: This is used when a line is too long, and is
+#. displayed truncated.  Use an ellipsis appropriate for your
+#. language, remembering that "…" (U+2026 HORIZONTAL ELLIPSIS)
+#. sometimes misdisplays and that "..." (three ASCII periods) is a
+#. safer choice in some locales.
+#: src/location.c:252
+msgid "..."
+msgstr ""
+
+#: src/main.c:155
+msgid "rule useless in parser due to conflicts"
+msgstr ""
+
+#: src/main.c:245
+#, c-format
+msgid "fix-its can be applied.  Rerun with option '--update'."
+msgstr ""
+
+#: src/muscle-tab.c:531
+#, c-format
+msgid "%%define variable %s redefined"
+msgstr ""
+
+#: src/muscle-tab.c:535 src/symtab.c:333
+#, c-format
+msgid "previous definition"
+msgstr ""
+
+#: src/muscle-tab.c:594 src/muscle-tab.c:695 src/muscle-tab.c:756
+#, c-format
+msgid "%s: undefined %%define variable %s"
+msgstr ""
+
+#: src/muscle-tab.c:628
+#, c-format
+msgid "%%define variable '%s' requires '{...}' values"
+msgstr ""
+
+#: src/muscle-tab.c:633
+#, c-format
+msgid "%%define variable '%s' requires keyword values"
+msgstr ""
+
+#: src/muscle-tab.c:638
+#, c-format
+msgid "%%define variable '%s' requires '\"...\"' values"
+msgstr ""
+
+#: src/muscle-tab.c:689
+#, c-format
+msgid "invalid value for %%define Boolean variable %s"
+msgstr ""
+
+#: src/muscle-tab.c:743
+#, c-format
+msgid "invalid value for %%define variable %s: %s"
+msgstr ""
+
+#: src/muscle-tab.c:748
+#, c-format
+msgid "accepted value: %s"
+msgstr ""
+
+#: src/parse-gram.y:746
+#, c-format
+msgid "character literals cannot be nonterminals"
+msgstr ""
+
+#: src/parse-gram.y:753
+#, c-format
+msgid "character literals cannot be used together with %s"
+msgstr ""
+
+#: src/parse-gram.y:758
+#, c-format
+msgid "definition of %s"
+msgstr ""
+
+#: src/parse-gram.y:889
+#, c-format
+msgid "missing identifier in parameter declaration"
+msgstr ""
+
+#: src/parse-gram.y:1018
+#, c-format
+msgid "invalid version requirement: %s"
+msgstr ""
+
+#: src/parse-gram.y:1032
+#, c-format
+msgid "require bison %s, but have %s"
+msgstr ""
+
+#: src/print-graph.c:62 src/print.c:345
+#, c-format
+msgid "State %d"
+msgstr ""
+
+#: src/print.c:136
+#, c-format
+msgid "shift, and go to state %d\n"
+msgstr ""
+
+#: src/print.c:138
+#, c-format
+msgid "go to state %d\n"
+msgstr ""
+
+#: src/print.c:173
+msgid "error (nonassociative)\n"
+msgstr ""
+
+#: src/print.c:195
+#, c-format
+msgid "reduce using rule %d (%s)"
+msgstr ""
+
+#: src/print.c:198
+#, c-format
+msgid "accept"
+msgstr ""
+
+#: src/print.c:235 src/print.c:309
+msgid "$default"
+msgstr ""
+
+#: src/print.c:364
+msgid "Terminals, with rules where they appear"
+msgstr ""
+
+#: src/print.c:391
+msgid "Nonterminals, with rules where they appear"
+msgstr ""
+
+#: src/print.c:416
+msgid "on left:"
+msgstr ""
+
+#: src/print.c:425
+msgid "on right:"
+msgstr ""
+
+#: src/print.c:447
+msgid "Rules useless in parser due to conflicts"
+msgstr ""
+
+#: src/reader.c:60
+#, c-format
+msgid "multiple %s declarations"
+msgstr ""
+
+#: src/reader.c:129
+#, c-format
+msgid "result type clash on merge function %s: <%s> != <%s>"
+msgstr ""
+
+#: src/reader.c:202
+#, c-format
+msgid "duplicated symbol name for %s ignored"
+msgstr ""
+
+#: src/reader.c:238
+#, c-format
+msgid "rule given for %s, which is a token"
+msgstr ""
+
+#: src/reader.c:295
+#, c-format
+msgid "type clash on default action: <%s> != <%s>"
+msgstr ""
+
+#: src/reader.c:318
+#, c-format
+msgid "empty rule for typed nonterminal, and no action"
+msgstr ""
+
+#: src/reader.c:334
+#, c-format
+msgid "unused value: $%d"
+msgstr ""
+
+#: src/reader.c:336
+#, c-format
+msgid "unset value: $$"
+msgstr ""
+
+#: src/reader.c:346
+#, c-format
+msgid "%%empty on non-empty rule"
+msgstr ""
+
+#: src/reader.c:356
+#, c-format
+msgid "empty rule without %%empty"
+msgstr ""
+
+#: src/reader.c:372
+#, c-format
+msgid "token for %%prec is not defined: %s"
+msgstr ""
+
+#: src/reader.c:377
+#, c-format
+msgid "only midrule actions can be typed: %s"
+msgstr ""
+
+#: src/reader.c:504 src/reader.c:526 src/reader.c:597
+#, c-format
+msgid "%s affects only GLR parsers"
+msgstr ""
+
+#: src/reader.c:507
+#, c-format
+msgid "%s must be followed by positive number"
+msgstr ""
+
+#: src/reader.c:562
+#, c-format
+msgid "POSIX Yacc does not support typed midrule actions"
+msgstr ""
+
+#: src/reader.c:666
+#, c-format
+msgid "rule is too long"
+msgstr ""
+
+#: src/reader.c:779
+#, c-format
+msgid "no rules in the input grammar"
+msgstr ""
+
+#: src/reduce.c:225
+msgid "rule useless in grammar"
+msgstr ""
+
+#: src/reduce.c:280
+#, c-format
+msgid "nonterminal useless in grammar: %s"
+msgstr ""
+
+#: src/reduce.c:321
+msgid "Nonterminals useless in grammar"
+msgstr ""
+
+#: src/reduce.c:333
+msgid "Terminals unused in grammar"
+msgstr ""
+
+#: src/reduce.c:342
+msgid "Rules useless in grammar"
+msgstr ""
+
+#: src/reduce.c:355
+#, c-format
+msgid "%d nonterminal useless in grammar"
+msgid_plural "%d nonterminals useless in grammar"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/reduce.c:360
+#, c-format
+msgid "%d rule useless in grammar"
+msgid_plural "%d rules useless in grammar"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/reduce.c:386
+#, c-format
+msgid "start symbol %s does not derive any sentence"
+msgstr ""
+
+#: src/scan-code.l:158
+#, c-format
+msgid "stray '%s'"
+msgstr ""
+
+#: src/scan-code.l:330
+#, c-format
+msgid "refers to: %c%s at %s"
+msgstr ""
+
+#: src/scan-code.l:354
+#, c-format
+msgid "possibly meant: %c"
+msgstr ""
+
+#: src/scan-code.l:363
+#, c-format
+msgid ", hiding %c"
+msgstr ""
+
+#: src/scan-code.l:371
+#, c-format
+msgid " at %s"
+msgstr ""
+
+#: src/scan-code.l:375
+#, c-format
+msgid ", cannot be accessed from midrule action at $%d"
+msgstr ""
+
+#: src/scan-code.l:423 src/scan-gram.l:831
+#, c-format
+msgid "integer out of range: %s"
+msgstr ""
+
+#: src/scan-code.l:498
+#, c-format
+msgid "invalid reference: %s"
+msgstr ""
+
+#: src/scan-code.l:506
+#, c-format
+msgid "syntax error after '%c', expecting integer, letter, '_', '[', or '$'"
+msgstr ""
+
+#: src/scan-code.l:512
+#, c-format
+msgid "symbol not found in production before $%d: %.*s"
+msgstr ""
+
+#: src/scan-code.l:517
+#, c-format
+msgid "symbol not found in production: %.*s"
+msgstr ""
+
+#: src/scan-code.l:532
+#, c-format
+msgid "misleading reference: %s"
+msgstr ""
+
+#: src/scan-code.l:548
+#, c-format
+msgid "ambiguous reference: %s"
+msgstr ""
+
+#: src/scan-code.l:584
+#, c-format
+msgid "explicit type given in untyped grammar"
+msgstr ""
+
+#: src/scan-code.l:639
+#, c-format
+msgid "$$ for the midrule at $%d of %s has no declared type"
+msgstr ""
+
+#: src/scan-code.l:645
+#, c-format
+msgid "$$ of %s has no declared type"
+msgstr ""
+
+#: src/scan-code.l:671
+#, c-format
+msgid "$%s of %s has no declared type"
+msgstr ""
+
+#: src/scan-code.l:694
+#, c-format
+msgid "multiple occurrences of $%d with api.value.automove"
+msgstr ""
+
+#: src/scan-gram.l:198
+#, c-format
+msgid "stray ',' treated as white space"
+msgstr ""
+
+#: src/scan-gram.l:292
+#, c-format
+msgid "invalid directive: %s"
+msgstr ""
+
+#: src/scan-gram.l:313
+#, c-format
+msgid "invalid identifier: %s"
+msgstr ""
+
+#: src/scan-gram.l:365
+msgid "invalid character"
+msgid_plural "invalid characters"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/scan-gram.l:383
+#, c-format
+msgid "invalid null character"
+msgstr ""
+
+#: src/scan-gram.l:437
+#, c-format
+msgid "unexpected identifier in bracketed name: %s"
+msgstr ""
+
+#: src/scan-gram.l:459
+#, c-format
+msgid "an identifier expected"
+msgstr ""
+
+#: src/scan-gram.l:464
+msgid "invalid character in bracketed name"
+msgid_plural "invalid characters in bracketed name"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/scan-gram.l:535
+#, c-format
+msgid "POSIX Yacc does not support string literals"
+msgstr ""
+
+#: src/scan-gram.l:557
+#, c-format
+msgid "empty character literal"
+msgstr ""
+
+#: src/scan-gram.l:563
+#, c-format
+msgid "extra characters in character literal"
+msgstr ""
+
+#: src/scan-gram.l:612 src/scan-gram.l:622 src/scan-gram.l:640
+#, c-format
+msgid "invalid number after \\-escape: %s"
+msgstr ""
+
+#: src/scan-gram.l:652
+#, c-format
+msgid "invalid character after \\-escape: %s"
+msgstr ""
+
+#: src/scan-gram.l:824
+#, c-format
+msgid "POSIX Yacc does not support hexadecimal literals"
+msgstr ""
+
+#: src/scan-gram.l:962
+#, c-format
+msgid "missing %s at end of file"
+msgstr ""
+
+#: src/scan-gram.l:973
+#, c-format
+msgid "missing %s at end of line"
+msgstr ""
+
+#: src/scan-skel.l:140
+#, c-format
+msgid "unclosed %s directive in skeleton"
+msgstr ""
+
+#: src/scan-skel.l:258
+#, c-format
+msgid "too few arguments for %s directive in skeleton"
+msgstr ""
+
+#: src/scan-skel.l:265
+#, c-format
+msgid "too many arguments for %s directive in skeleton"
+msgstr ""
+
+#: src/symtab.c:110
+#, c-format
+msgid "POSIX Yacc forbids dashes in symbol names: %s"
+msgstr ""
+
+#: src/symtab.c:120
+#, c-format
+msgid "too many symbols in input grammar (limit is %d)"
+msgstr ""
+
+#: src/symtab.c:302
+#, c-format
+msgid "%s redeclaration for %s"
+msgstr ""
+
+#: src/symtab.c:315
+#, c-format
+msgid "%s redeclaration for <%s>"
+msgstr ""
+
+#: src/symtab.c:327
+#, c-format
+msgid "symbol %s redeclared as a token"
+msgstr ""
+
+#: src/symtab.c:328
+#, c-format
+msgid "symbol %s redeclared as a nonterminal"
+msgstr ""
+
+#: src/symtab.c:372
+#, c-format
+msgid ""
+"symbol %s is used, but is not defined as a token and has no rules; did you "
+"mean %s?"
+msgstr ""
+
+#: src/symtab.c:382
+#, c-format
+msgid "symbol %s is used, but is not defined as a token and has no rules"
+msgstr ""
+
+#: src/symtab.c:517
+#, c-format
+msgid "POSIX yacc reserves %%type to nonterminals"
+msgstr ""
+
+#: src/symtab.c:552
+#, c-format
+msgid "symbol %s redeclared"
+msgstr ""
+
+#: src/symtab.c:577
+#, c-format
+msgid "nonterminals cannot be given an explicit number"
+msgstr ""
+
+#: src/symtab.c:580
+#, c-format
+msgid "redefining user token number of %s"
+msgstr ""
+
+#: src/symtab.c:583
+#, c-format
+msgid "user token number of %s too large"
+msgstr ""
+
+#: src/symtab.c:622
+#, c-format
+msgid "string literal %s not attached to a symbol"
+msgstr ""
+
+#: src/symtab.c:650
+#, c-format
+msgid "useless %s for type <%s>"
+msgstr ""
+
+#: src/symtab.c:655
+#, c-format
+msgid "type <%s> is used, but is not associated to any symbol"
+msgstr ""
+
+#: src/symtab.c:700
+#, c-format
+msgid "nonterminals cannot be given a string alias"
+msgstr ""
+
+#: src/symtab.c:703
+#, c-format
+msgid "symbol %s used more than once as a literal string"
+msgstr ""
+
+#: src/symtab.c:706
+#, c-format
+msgid "symbol %s given more than one literal string"
+msgstr ""
+
+#: src/symtab.c:741
+#, c-format
+msgid "user token number %d redeclaration for %s"
+msgstr ""
+
+#: src/symtab.c:745
+#, c-format
+msgid "previous declaration for %s"
+msgstr ""
+
+#: src/symtab.c:1068
+#, c-format
+msgid "token number too large"
+msgstr ""
+
+#: src/symtab.c:1124
+#, c-format
+msgid "the start symbol %s is undefined"
+msgstr ""
+
+#: src/symtab.c:1128
+#, c-format
+msgid "the start symbol %s is a token"
+msgstr ""
+
+#: src/symtab.c:1299
+#, c-format
+msgid "useless precedence and associativity for %s"
+msgstr ""
+
+#: src/symtab.c:1302
+#, c-format
+msgid "useless precedence for %s"
+msgstr ""
+
+#: src/symtab.c:1306
+#, c-format
+msgid "useless associativity for %s, use %%precedence"
+msgstr ""

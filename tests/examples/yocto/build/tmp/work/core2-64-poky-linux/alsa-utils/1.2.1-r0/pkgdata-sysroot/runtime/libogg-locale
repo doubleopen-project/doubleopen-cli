@@ -1,0 +1,13 @@
+PN: libogg
+PV: 1.3.4
+PR: r0
+PKGV: 1.3.4
+PKGR: r0
+LICENSE: BSD-3-Clause
+DESCRIPTION: libogg is the bitstream and framing library for the Ogg project. It provides functions which are necessary to codec libraries like libvorbis.
+SUMMARY: Ogg bitstream and framing libary
+SECTION: libs
+PKG_libogg-locale: libogg-locale
+FILES_libogg-locale: /usr/share/locale
+FILES_INFO: {}
+PKGSIZE_libogg-locale: 0

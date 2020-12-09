@@ -1,0 +1,16 @@
+PN: alsa-utils
+PV: 1.2.1
+PR: r0
+PKGV: 1.2.1
+PKGR: r0
+LICENSE: GPLv2+
+DESCRIPTION_alsa-utils-dev: ALSA sound utilities.  This package contains symbolic links, header files, and related items necessary for software development.
+SUMMARY_alsa-utils-dev: ALSA sound utilities - Development files
+RDEPENDS_alsa-utils-dev: alsa-utils (= 1.2.1-r0)
+RRECOMMENDS_alsa-utils-dev: alsa-lib-dev libsamplerate0-dev ncurses-dev udev-dev alsa-utils-aconnect-dev alsa-utils-alsactl-dev alsa-utils-alsaloop-dev alsa-utils-alsamixer-dev alsa-utils-alsatplg-dev alsa-utils-alsaucm-dev alsa-utils-amixer-dev alsa-utils-aplay-dev alsa-utils-aseqdump-dev alsa-utils-aseqnet-dev alsa-utils-iecset-dev alsa-utils-midi-dev alsa-utils-speakertest-dev glibc-dev libatopology-dev ncurses-libformw-dev ncurses-libmenuw-dev ncurses-libncursesw-dev ncurses-libpanelw-dev ncurses-libtinfo-dev
+SECTION_alsa-utils-dev: devel
+PKG_alsa-utils-dev: alsa-utils-dev
+ALLOW_EMPTY_alsa-utils-dev: 1
+FILES_alsa-utils-dev: /usr/include /lib/lib*.so /usr/lib/lib*.so /usr/lib/*.la                 /usr/lib/*.o /usr/lib/pkgconfig /usr/share/pkgconfig                 /usr/share/aclocal /lib/*.o                 /usr/lib/alsa-utils/*.la /lib/*.la                 /usr/lib/cmake /usr/share/cmake
+FILES_INFO: {}
+PKGSIZE_alsa-utils-dev: 0

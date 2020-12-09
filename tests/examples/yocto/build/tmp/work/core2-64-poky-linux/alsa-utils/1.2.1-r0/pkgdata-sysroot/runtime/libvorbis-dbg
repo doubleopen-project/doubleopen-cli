@@ -1,0 +1,15 @@
+PN: libvorbis
+PV: 1.3.6
+PR: r0
+PKGV: 1.3.6
+PKGR: r0
+LICENSE: BSD-3-Clause
+DESCRIPTION_libvorbis-dbg: Ogg Vorbis is a high-quality lossy audio codec that is free of intellectual property restrictions. libvorbis is the main vorbis codec library.  This package contains ELF symbols and related sources for debugging purposes.
+SUMMARY_libvorbis-dbg: Ogg Vorbis Audio Codec - Debugging files
+RRECOMMENDS_libvorbis-dbg: glibc-dbg libogg-dbg
+SECTION_libvorbis-dbg: devel
+PKG_libvorbis-dbg: libvorbis-dbg
+ALLOW_EMPTY_libvorbis-dbg: 1
+FILES_libvorbis-dbg: /usr/lib/debug /usr/lib/debug-static /usr/src/debug
+FILES_INFO: {"/usr/lib/.debug/libvorbis.so.0.4.8": 493784, "/usr/lib/.debug/libvorbisenc.so.2.0.11": 273088, "/usr/lib/.debug/libvorbisfile.so.3.3.7": 100032}
+PKGSIZE_libvorbis-dbg: 866904

@@ -1,0 +1,15 @@
+PN: alsa-utils
+PV: 1.2.1
+PR: r0
+PKGV: 1.2.1
+PKGR: r0
+LICENSE: GPLv2+
+DESCRIPTION_alsa-utils-locale-ru: ALSA sound utilities.  This package contains language translation files for the ru locale.
+SUMMARY_alsa-utils-locale-ru: ALSA sound utilities - ru translations
+RPROVIDES_alsa-utils-locale-ru: alsa-utils-locale ru-translation
+RRECOMMENDS_alsa-utils-locale-ru: virtual-locale-ru
+SECTION: console/utils
+PKG_alsa-utils-locale-ru: alsa-utils-locale-ru
+FILES_alsa-utils-locale-ru: /usr/share/locale/ru
+FILES_INFO: {"/usr/share/locale/ru/LC_MESSAGES/alsaconf.mo": 9093}
+PKGSIZE_alsa-utils-locale-ru: 9093

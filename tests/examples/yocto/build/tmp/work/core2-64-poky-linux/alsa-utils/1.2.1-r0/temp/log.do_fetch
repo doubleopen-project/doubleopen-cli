@@ -1,0 +1,32 @@
+DEBUG: Executing python function extend_recipe_sysroot
+NOTE: Direct dependencies are []
+NOTE: Installed into sysroot: []
+NOTE: Skipping as already exists in sysroot: []
+DEBUG: Python function extend_recipe_sysroot finished
+DEBUG: Executing python function do_fetch
+DEBUG: Executing python function base_do_fetch
+DEBUG: Trying PREMIRRORS
+DEBUG: For url ['https', 'www.alsa-project.org', '/files/pub/utils/alsa-utils-1.2.1.tar.bz2', '', '', OrderedDict()] comparing ['bzr', '.*', '/.*', '', '', OrderedDict()] to ['http', 'downloads.yoctoproject.org', '/mirror/sources/', '', '', OrderedDict()]
+DEBUG: For url ['https', 'www.alsa-project.org', '/files/pub/utils/alsa-utils-1.2.1.tar.bz2', '', '', OrderedDict()] comparing ['cvs', '.*', '/.*', '', '', OrderedDict()] to ['http', 'downloads.yoctoproject.org', '/mirror/sources/', '', '', OrderedDict()]
+DEBUG: For url ['https', 'www.alsa-project.org', '/files/pub/utils/alsa-utils-1.2.1.tar.bz2', '', '', OrderedDict()] comparing ['git', '.*', '/.*', '', '', OrderedDict()] to ['http', 'downloads.yoctoproject.org', '/mirror/sources/', '', '', OrderedDict()]
+DEBUG: For url ['https', 'www.alsa-project.org', '/files/pub/utils/alsa-utils-1.2.1.tar.bz2', '', '', OrderedDict()] comparing ['gitsm', '.*', '/.*', '', '', OrderedDict()] to ['http', 'downloads.yoctoproject.org', '/mirror/sources/', '', '', OrderedDict()]
+DEBUG: For url ['https', 'www.alsa-project.org', '/files/pub/utils/alsa-utils-1.2.1.tar.bz2', '', '', OrderedDict()] comparing ['hg', '.*', '/.*', '', '', OrderedDict()] to ['http', 'downloads.yoctoproject.org', '/mirror/sources/', '', '', OrderedDict()]
+DEBUG: For url ['https', 'www.alsa-project.org', '/files/pub/utils/alsa-utils-1.2.1.tar.bz2', '', '', OrderedDict()] comparing ['osc', '.*', '/.*', '', '', OrderedDict()] to ['http', 'downloads.yoctoproject.org', '/mirror/sources/', '', '', OrderedDict()]
+DEBUG: For url ['https', 'www.alsa-project.org', '/files/pub/utils/alsa-utils-1.2.1.tar.bz2', '', '', OrderedDict()] comparing ['p4', '.*', '/.*', '', '', OrderedDict()] to ['http', 'downloads.yoctoproject.org', '/mirror/sources/', '', '', OrderedDict()]
+DEBUG: For url ['https', 'www.alsa-project.org', '/files/pub/utils/alsa-utils-1.2.1.tar.bz2', '', '', OrderedDict()] comparing ['svn', '.*', '/.*', '', '', OrderedDict()] to ['http', 'downloads.yoctoproject.org', '/mirror/sources/', '', '', OrderedDict()]
+DEBUG: Trying Upstream
+DEBUG: Fetching https://www.alsa-project.org/files/pub/utils/alsa-utils-1.2.1.tar.bz2 using command '/usr/bin/env wget -t 2 -T 30 --passive-ftp --no-check-certificate -P /home/hhpartners/yocto/build/downloads 'https://www.alsa-project.org/files/pub/utils/alsa-utils-1.2.1.tar.bz2''
+DEBUG: Fetcher accessed the network with the command /usr/bin/env wget -t 2 -T 30 --passive-ftp --no-check-certificate -P /home/hhpartners/yocto/build/downloads 'https://www.alsa-project.org/files/pub/utils/alsa-utils-1.2.1.tar.bz2'
+DEBUG: Running export PSEUDO_DISABLED=1; unset _PYTHON_SYSCONFIGDATA_NAME; export SSH_AUTH_SOCK="/tmp/ssh-s19eEmn4Be/agent.32109"; export PATH="/home/hhpartners/yocto/build/tmp/sysroots-uninative/x86_64-linux/usr/bin:/home/hhpartners/yocto/scripts:/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/recipe-sysroot-native/usr/bin/x86_64-poky-linux:/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/recipe-sysroot/usr/bin/crossscripts:/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/recipe-sysroot-native/usr/sbin:/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/recipe-sysroot-native/usr/bin:/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/recipe-sysroot-native/sbin:/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/recipe-sysroot-native/bin:/home/hhpartners/yocto/bitbake/bin:/home/hhpartners/yocto/build/tmp/hosttools"; export HOME="/home/hhpartners"; /usr/bin/env wget -t 2 -T 30 --passive-ftp --no-check-certificate -P /home/hhpartners/yocto/build/downloads 'https://www.alsa-project.org/files/pub/utils/alsa-utils-1.2.1.tar.bz2' --progress=dot -v
+--2020-11-06 11:03:50--  https://www.alsa-project.org/files/pub/utils/alsa-utils-1.2.1.tar.bz2
+Resolving www.alsa-project.org (www.alsa-project.org)... 207.180.221.201
+Connecting to www.alsa-project.org (www.alsa-project.org)|207.180.221.201|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 1270194 (1.2M) [application/octet-stream]
+Saving to: ‘/home/hhpartners/yocto/build/downloads/alsa-utils-1.2.1.tar.bz2’
+
+
+2020-11-06 11:03:50 (5.32 MB/s) - ‘/home/hhpartners/yocto/build/downloads/alsa-utils-1.2.1.tar.bz2’ saved [1270194/1270194]
+
+DEBUG: Python function base_do_fetch finished
+DEBUG: Python function do_fetch finished

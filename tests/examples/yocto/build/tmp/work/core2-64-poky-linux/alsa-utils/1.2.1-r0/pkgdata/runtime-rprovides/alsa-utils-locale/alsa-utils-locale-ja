@@ -1,0 +1,15 @@
+PN: alsa-utils
+PV: 1.2.1
+PR: r0
+PKGV: 1.2.1
+PKGR: r0
+LICENSE: GPLv2+
+DESCRIPTION_alsa-utils-locale-ja: ALSA sound utilities.  This package contains language translation files for the ja locale.
+SUMMARY_alsa-utils-locale-ja: ALSA sound utilities - ja translations
+RPROVIDES_alsa-utils-locale-ja: alsa-utils-locale ja-translation
+RRECOMMENDS_alsa-utils-locale-ja: virtual-locale-ja
+SECTION: console/utils
+PKG_alsa-utils-locale-ja: alsa-utils-locale-ja
+FILES_alsa-utils-locale-ja: /usr/share/locale/ja
+FILES_INFO: {"/usr/share/locale/ja/LC_MESSAGES/alsa-utils.mo": 22530, "/usr/share/locale/ja/LC_MESSAGES/alsaconf.mo": 9631}
+PKGSIZE_alsa-utils-locale-ja: 32161

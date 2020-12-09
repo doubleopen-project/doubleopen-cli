@@ -1,0 +1,14 @@
+PN: libsamplerate0
+PV: 0.1.9
+PR: r1
+PKGV: 0.1.9
+PKGR: r1
+LICENSE: BSD-2-Clause
+DESCRIPTION_libsamplerate0-staticdev: Audio Sample Rate Conversion library.  This package contains static libraries for software development.
+SUMMARY_libsamplerate0-staticdev: Audio Sample Rate Conversion library - Development files (Static Libraries)
+RDEPENDS_libsamplerate0-staticdev: libsamplerate0-dev (= 0.1.9-r1)
+SECTION_libsamplerate0-staticdev: devel
+PKG_libsamplerate0-staticdev: libsamplerate0-staticdev
+FILES_libsamplerate0-staticdev: /usr/lib/*.a /lib/*.a /usr/lib/libsamplerate0/*.a
+FILES_INFO: {}
+PKGSIZE_libsamplerate0-staticdev: 0

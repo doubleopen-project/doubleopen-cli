@@ -1,0 +1,15 @@
+PN: shadow
+PV: 4.8.1
+PR: r0
+PKGV: 4.8.1
+PKGR: r0
+LICENSE: BSD | Artistic-1.0
+DESCRIPTION_shadow-locale-uk: Tools to change and administer password and group data.  This package contains language translation files for the uk locale.
+SUMMARY_shadow-locale-uk: Tools to change and administer password and group data - uk translations
+RPROVIDES_shadow-locale-uk: shadow-locale uk-translation
+RRECOMMENDS_shadow-locale-uk: virtual-locale-uk
+SECTION: base/utils
+PKG_shadow-locale-uk: shadow-locale-uk
+FILES_shadow-locale-uk: /usr/share/locale/uk
+FILES_INFO: {"/usr/share/locale/uk/LC_MESSAGES/shadow.mo": 23513}
+PKGSIZE_shadow-locale-uk: 23513

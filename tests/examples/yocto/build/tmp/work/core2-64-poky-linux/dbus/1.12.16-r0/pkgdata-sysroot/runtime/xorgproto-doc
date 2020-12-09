@@ -1,0 +1,13 @@
+PN: xorgproto
+PV: 2019.2
+PR: r0
+PKGV: 2019.2
+PKGR: r0
+LICENSE: MIT-style
+DESCRIPTION_xorgproto-doc: This package provides the headers and specification documents defining the core protocol and (many) extensions for the X Window System  This package contains documentation.
+SUMMARY_xorgproto-doc: X Window System unified protocol definitions - Documentation files
+SECTION_xorgproto-doc: doc
+PKG_xorgproto-doc: xorgproto-doc
+FILES_xorgproto-doc: /usr/lib/doc /usr/lib/man /usr/lib/info /usr/lib/gtk-doc             /usr/lib/gnome/help
+FILES_INFO: {}
+PKGSIZE_xorgproto-doc: 0

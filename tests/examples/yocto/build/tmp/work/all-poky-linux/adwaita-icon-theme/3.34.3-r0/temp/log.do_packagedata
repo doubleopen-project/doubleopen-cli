@@ -1,0 +1,20 @@
+DEBUG: Executing python function sstate_task_prefunc
+DEBUG: Python function sstate_task_prefunc finished
+DEBUG: Executing python function do_packagedata
+DEBUG: Python function do_packagedata finished
+DEBUG: Executing python function sstate_task_postfunc
+DEBUG: Preparing tree /home/hhpartners/yocto/build/tmp/work/all-poky-linux/adwaita-icon-theme/3.34.3-r0/pkgdata-pdata-input for packaging at /home/hhpartners/yocto/build/tmp/work/all-poky-linux/adwaita-icon-theme/3.34.3-r0/sstate-build-packagedata/pkgdata-pdata-input
+DEBUG: Executing python function sstate_hardcode_path
+NOTE: Removing hardcoded paths from sstate package: 'find /home/hhpartners/yocto/build/tmp/work/all-poky-linux/adwaita-icon-theme/3.34.3-r0/sstate-build-packagedata/ \( -name "*.la" -o -name "*-config" -o -name "*_config" -o -name "postinst-*" \) -type f | xargs grep -l -e '/home/hhpartners/yocto/build/tmp/work/all-poky-linux/adwaita-icon-theme/3.34.3-r0/recipe-sysroot' -e '/home/hhpartners/yocto/build/tmp/work/all-poky-linux/adwaita-icon-theme/3.34.3-r0/recipe-sysroot-native' -e '/home/hhpartners/yocto/build/tmp/hosttools' | tee /home/hhpartners/yocto/build/tmp/work/all-poky-linux/adwaita-icon-theme/3.34.3-r0/sstate-build-packagedata/fixmepath | xargs --no-run-if-empty sed -i -e 's:/home/hhpartners/yocto/build/tmp/work/all-poky-linux/adwaita-icon-theme/3.34.3-r0/recipe-sysroot-native:FIXMESTAGINGDIRHOST:g' -e 's:/home/hhpartners/yocto/build/tmp/work/all-poky-linux/adwaita-icon-theme/3.34.3-r0/recipe-sysroot:FIXMESTAGINGDIRTARGET:g' -e 's:/home/hhpartners/yocto/build/tmp/hosttools:FIXME_HOSTTOOLS_DIR:g''
+DEBUG: Python function sstate_hardcode_path finished
+DEBUG: Executing python function sstate_report_unihash
+DEBUG: Reported task bd7f3cf2eb7d7ef3b991e61cd510832b14b67dd51b22a6bfd60b0be6c846752d as unihash bd7f3cf2eb7d7ef3b991e61cd510832b14b67dd51b22a6bfd60b0be6c846752d to unix:///home/hhpartners/yocto/build/hashserve.sock
+DEBUG: Python function sstate_report_unihash finished
+DEBUG: Executing shell function sstate_create_package
+DEBUG: Shell function sstate_create_package finished
+DEBUG: Executing python function sstate_hardcode_path_unpack
+DEBUG: Python function sstate_hardcode_path_unpack finished
+DEBUG: Executing python function uninative_changeinterp
+DEBUG: Python function uninative_changeinterp finished
+DEBUG: Staging files from /home/hhpartners/yocto/build/tmp/work/all-poky-linux/adwaita-icon-theme/3.34.3-r0/pkgdata-pdata-input to /home/hhpartners/yocto/build/tmp/pkgdata/qemux86-64
+DEBUG: Python function sstate_task_postfunc finished

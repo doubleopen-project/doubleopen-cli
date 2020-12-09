@@ -1,0 +1,15 @@
+PN: shadow
+PV: 4.8.1
+PR: r0
+PKGV: 4.8.1
+PKGR: r0
+LICENSE: BSD | Artistic-1.0
+DESCRIPTION_shadow-locale-zh-cn: Tools to change and administer password and group data.  This package contains language translation files for the zh_CN locale.
+SUMMARY_shadow-locale-zh-cn: Tools to change and administer password and group data - zh_CN translations
+RPROVIDES_shadow-locale-zh-cn: shadow-locale zh-cn-translation
+RRECOMMENDS_shadow-locale-zh-cn: virtual-locale-zh-cn
+SECTION: base/utils
+PKG_shadow-locale-zh-cn: shadow-locale-zh-cn
+FILES_shadow-locale-zh-cn: /usr/share/locale/zh_CN
+FILES_INFO: {"/usr/share/locale/zh_CN/LC_MESSAGES/shadow.mo": 63428}
+PKGSIZE_shadow-locale-zh-cn: 63428

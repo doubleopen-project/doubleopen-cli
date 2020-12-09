@@ -1,0 +1,10 @@
+recipe-sysroot-native/sysroot-providers/libmpc-native
+recipe-sysroot-native/usr/include/mpc.h
+recipe-sysroot-native/usr/lib/libmpc.so.3.1.0
+recipe-sysroot-native/usr/lib/libmpc.so
+recipe-sysroot-native/usr/lib/libmpc.so.3
+recipe-sysroot-native/sysroot-providers/
+recipe-sysroot-native/usr/include/
+recipe-sysroot-native/usr/share/
+recipe-sysroot-native/usr/lib/
+recipe-sysroot-native/usr/

@@ -1,0 +1,14 @@
+PN: ncurses
+PV: 6.2
+PR: r0
+PKGV: 6.2
+PKGR: r0
+LICENSE: MIT
+DESCRIPTION_ncurses-staticdev: SVr4 and XSI-Curses compatible curses library and terminfo tools including tic, infocmp, captoinfo. Supports color, multiple highlights, forms-drawing characters, and automatic recognition of keypad and function-key sequences. Extensions include resizable windows and mouse support on both xterm and Linux console using the gpm library.  This package contains static libraries for software development.
+SUMMARY_ncurses-staticdev: The New Curses library - Development files (Static Libraries)
+RDEPENDS_ncurses-staticdev: ncurses-dev (= 6.2-r0)
+SECTION_ncurses-staticdev: devel
+PKG_ncurses-staticdev: ncurses-staticdev
+FILES_ncurses-staticdev: /usr/lib/*.a /lib/*.a /usr/lib/ncurses/*.a
+FILES_INFO: {"/usr/lib/libncurses++.a": 676304, "/usr/lib/libncurses++w.a": 678208}
+PKGSIZE_ncurses-staticdev: 1354512

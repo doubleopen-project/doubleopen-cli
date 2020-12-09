@@ -1,0 +1,11 @@
+prefix=${pcfiledir}/../../../usr
+exec_prefix=${pcfiledir}/../../../usr
+libdir=${pcfiledir}/../../../usr/lib
+includedir=${pcfiledir}/../../../usr/include
+
+Name: XCB XKB
+Description: XCB Keyboard Extension (EXPERIMENTAL)
+Version: 1.13.1
+Requires.private: xcb
+Libs: -L${libdir} -lxcb-xkb
+Cflags: -I${includedir}

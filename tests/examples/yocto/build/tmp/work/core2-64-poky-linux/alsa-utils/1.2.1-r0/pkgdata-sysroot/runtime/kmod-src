@@ -1,0 +1,13 @@
+PN: kmod
+PV: 26
+PR: r0
+PKGV: 26
+PKGR: r0
+LICENSE: GPL-2.0+ & LGPL-2.1+
+DESCRIPTION_kmod-src: kmod is a set of tools to handle common tasks with Linux kernel modules like                insert, remove, list, check properties, resolve dependencies and aliases.  This package contains sources for debugging purposes.
+SUMMARY_kmod-src: Tools for managing Linux kernel modules - Source files
+SECTION_kmod-src: devel
+PKG_kmod-src: kmod-src
+FILES_kmod-src: /usr/src/debug
+FILES_INFO: {"/usr/src/debug/kmod/26-r0/git/libkmod/libkmod-config.c": 28419, "/usr/src/debug/kmod/26-r0/git/libkmod/libkmod-elf.c": 28519, "/usr/src/debug/kmod/26-r0/git/libkmod/libkmod-file.c": 7769, "/usr/src/debug/kmod/26-r0/git/libkmod/libkmod-index.c": 23488, "/usr/src/debug/kmod/26-r0/git/libkmod/libkmod-index.h": 1773, "/usr/src/debug/kmod/26-r0/git/libkmod/libkmod-internal.h": 9798, "/usr/src/debug/kmod/26-r0/git/libkmod/libkmod-list.c": 6992, "/usr/src/debug/kmod/26-r0/git/libkmod/libkmod-module.c": 70759, "/usr/src/debug/kmod/26-r0/git/libkmod/libkmod-signature.c": 8556, "/usr/src/debug/kmod/26-r0/git/libkmod/libkmod.c": 22484, "/usr/src/debug/kmod/26-r0/git/libkmod/libkmod.h": 9433, "/usr/src/debug/kmod/26-r0/git/shared/array.c": 2731, "/usr/src/debug/kmod/26-r0/git/shared/array.h": 651, "/usr/src/debug/kmod/26-r0/git/shared/hash.c": 8167, "/usr/src/debug/kmod/26-r0/git/shared/hash.h": 725, "/usr/src/debug/kmod/26-r0/git/shared/missing.h": 1040, "/usr/src/debug/kmod/26-r0/git/shared/scratchbuf.c": 1492, "/usr/src/debug/kmod/26-r0/git/shared/scratchbuf.h": 620, "/usr/src/debug/kmod/26-r0/git/shared/strbuf.c": 2542, "/usr/src/debug/kmod/26-r0/git/shared/strbuf.h": 696, "/usr/src/debug/kmod/26-r0/git/shared/util.c": 8778, "/usr/src/debug/kmod/26-r0/git/shared/util.h": 3680, "/usr/src/debug/kmod/26-r0/git/tools/depmod.c": 67993, "/usr/src/debug/kmod/26-r0/git/tools/insmod.c": 3719, "/usr/src/debug/kmod/26-r0/git/tools/kmod.c": 3888, "/usr/src/debug/kmod/26-r0/git/tools/kmod.h": 1415, "/usr/src/debug/kmod/26-r0/git/tools/log.c": 3149, "/usr/src/debug/kmod/26-r0/git/tools/log.h": 1307, "/usr/src/debug/kmod/26-r0/git/tools/lsmod.c": 2577, "/usr/src/debug/kmod/26-r0/git/tools/modinfo.c": 10344, "/usr/src/debug/kmod/26-r0/git/tools/modprobe.c": 22396, "/usr/src/debug/kmod/26-r0/git/tools/rmmod.c": 4605, "/usr/src/debug/kmod/26-r0/git/tools/static-nodes.c": 6988}
+PKGSIZE_kmod-src: 377493

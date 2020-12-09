@@ -1,0 +1,14 @@
+PN: xcb-proto
+PV: 1.13
+PR: r0
+PKGV: 1.13
+PKGR: r0
+LICENSE: MIT
+DESCRIPTION_xcb-proto-dev: Function prototypes for the X protocol C-language Binding (XCB).  XCB is a replacement for Xlib featuring a small footprint, latency hiding, direct access to the protocol, improved threading support, and extensibility.  This package contains symbolic links, header files, and related items necessary for software development.
+SUMMARY_xcb-proto-dev: XCB: The X protocol C binding headers - Development files
+SECTION_xcb-proto-dev: devel
+PKG_xcb-proto-dev: xcb-proto-dev
+ALLOW_EMPTY_xcb-proto-dev: 1
+FILES_xcb-proto-dev: /usr/include /lib/lib*.so /usr/lib/lib*.so /usr/lib/*.la                 /usr/lib/*.o /usr/lib/pkgconfig /usr/share/pkgconfig                 /usr/share/aclocal /lib/*.o                 /usr/lib/xcb-proto/*.la /lib/*.la                 /usr/lib/cmake /usr/share/cmake /usr/share/xcb/*.xml /usr/share/xcb/*.xsd
+FILES_INFO: {"/usr/lib/pkgconfig/xcb-proto.pc": 241, "/usr/share/xcb/bigreq.xml": 1705, "/usr/share/xcb/composite.xml": 3473, "/usr/share/xcb/damage.xml": 3299, "/usr/share/xcb/dpms.xml": 3155, "/usr/share/xcb/dri2.xml": 9488, "/usr/share/xcb/dri3.xml": 5638, "/usr/share/xcb/ge.xml": 1863, "/usr/share/xcb/glx.xml": 45351, "/usr/share/xcb/present.xml": 7335, "/usr/share/xcb/randr.xml": 30366, "/usr/share/xcb/record.xml": 5924, "/usr/share/xcb/render.xml": 23693, "/usr/share/xcb/res.xml": 5912, "/usr/share/xcb/screensaver.xml": 6593, "/usr/share/xcb/shape.xml": 6039, "/usr/share/xcb/shm.xml": 4778, "/usr/share/xcb/sync.xml": 8390, "/usr/share/xcb/xc_misc.xml": 1162, "/usr/share/xcb/xcb.xsd": 16132, "/usr/share/xcb/xevie.xml": 2958, "/usr/share/xcb/xf86dri.xml": 5900, "/usr/share/xcb/xf86vidmode.xml": 14673, "/usr/share/xcb/xfixes.xml": 12074, "/usr/share/xcb/xinerama.xml": 3453, "/usr/share/xcb/xinput.xml": 103534, "/usr/share/xcb/xkb.xml": 91919, "/usr/share/xcb/xprint.xml": 11134, "/usr/share/xcb/xproto.xml": 206253, "/usr/share/xcb/xselinux.xml": 8260, "/usr/share/xcb/xtest.xml": 3968, "/usr/share/xcb/xv.xml": 16061, "/usr/share/xcb/xvmc.xml": 5363}
+PKGSIZE_xcb-proto-dev: 676087

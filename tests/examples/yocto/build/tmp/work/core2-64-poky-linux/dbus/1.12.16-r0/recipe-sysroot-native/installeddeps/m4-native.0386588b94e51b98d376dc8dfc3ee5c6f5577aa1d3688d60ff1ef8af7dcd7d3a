@@ -1,0 +1,6 @@
+recipe-sysroot-native/sysroot-providers/m4-native
+recipe-sysroot-native/usr/bin/m4
+recipe-sysroot-native/sysroot-providers/
+recipe-sysroot-native/usr/share/
+recipe-sysroot-native/usr/bin/
+recipe-sysroot-native/usr/

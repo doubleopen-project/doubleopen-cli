@@ -1,0 +1,13 @@
+PN: gcc-runtime
+PV: 9.3.0
+PR: r0
+PKGV: 9.3.0
+PKGR: r0
+LICENSE: GPL-3.0-with-GCC-exception
+DESCRIPTION_gcc-runtime-src: Runtime libraries from GCC.  This package contains sources for debugging purposes.
+SUMMARY_gcc-runtime-src: Runtime libraries from GCC - Source files
+SECTION_gcc-runtime-src: devel
+PKG_gcc-runtime-src: gcc-runtime-src
+FILES_gcc-runtime-src: /usr/src/debug
+FILES_INFO: {}
+PKGSIZE_gcc-runtime-src: 0

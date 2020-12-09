@@ -1,0 +1,16 @@
+PN: util-macros
+PE: 1
+PV: 1.19.2
+PR: r0
+PKGE: 1
+PKGV: 1.19.2
+PKGR: r0
+LICENSE: MIT & MIT-style
+DESCRIPTION_util-macros-dev: M4 autotools macros used by various X.org programs.  This package contains symbolic links, header files, and related items necessary for software development.
+SUMMARY_util-macros-dev: X autotools macros - Development files
+SECTION_util-macros-dev: devel
+PKG_util-macros-dev: util-macros-dev
+ALLOW_EMPTY_util-macros-dev: 1
+FILES_util-macros-dev: /usr/include /lib/lib*.so /usr/lib/lib*.so /usr/lib/*.la                 /usr/lib/*.o /usr/lib/pkgconfig /usr/share/pkgconfig                 /usr/share/aclocal /lib/*.o                 /usr/lib/util-macros/*.la /lib/*.la                 /usr/lib/cmake /usr/share/cmake
+FILES_INFO: {"/usr/share/aclocal/xorg-macros.m4": 71315, "/usr/share/pkgconfig/xorg-macros.pc": 384}
+PKGSIZE_util-macros-dev: 71699

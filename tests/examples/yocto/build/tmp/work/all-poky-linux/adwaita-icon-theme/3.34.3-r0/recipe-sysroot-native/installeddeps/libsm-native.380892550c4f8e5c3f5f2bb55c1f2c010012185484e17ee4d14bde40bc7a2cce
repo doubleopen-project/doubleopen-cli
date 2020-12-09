@@ -1,0 +1,16 @@
+recipe-sysroot-native/sysroot-providers/libsm-native
+recipe-sysroot-native/usr/include/X11/SM/SM.h
+recipe-sysroot-native/usr/include/X11/SM/SMlib.h
+recipe-sysroot-native/usr/include/X11/SM/SMproto.h
+recipe-sysroot-native/usr/lib/libSM.so.6
+recipe-sysroot-native/usr/lib/libSM.so
+recipe-sysroot-native/usr/lib/libSM.so.6.0.1
+recipe-sysroot-native/usr/lib/pkgconfig/sm.pc
+recipe-sysroot-native/usr/include/X11/SM/
+recipe-sysroot-native/usr/lib/pkgconfig/
+recipe-sysroot-native/sysroot-providers/
+recipe-sysroot-native/usr/include/X11/
+recipe-sysroot-native/usr/include/
+recipe-sysroot-native/usr/share/
+recipe-sysroot-native/usr/lib/
+recipe-sysroot-native/usr/

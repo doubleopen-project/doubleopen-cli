@@ -1,0 +1,15 @@
+PN: bison
+PV: 3.5.3
+PR: r0
+PKGV: 3.5.3
+PKGR: r0
+LICENSE: GPLv3
+DESCRIPTION_bison-locale-fi: Bison is a general-purpose parser generator that converts an annotated context-free grammar into an LALR(1) or GLR parser for that grammar.  Bison is upward compatible with Yacc: all properly-written Yacc grammars ought to work with Bison with no change. Anyone familiar with Yacc should be able to use Bison with little trouble.  This package contains language translation files for the fi locale.
+SUMMARY_bison-locale-fi: GNU Project parser generator (yacc replacement) - fi translations
+RPROVIDES_bison-locale-fi: bison-locale fi-translation
+RRECOMMENDS_bison-locale-fi: virtual-locale-fi
+SECTION: devel
+PKG_bison-locale-fi: bison-locale-fi
+FILES_bison-locale-fi: /usr/share/locale/fi
+FILES_INFO: {"/usr/share/locale/fi/LC_MESSAGES/bison-gnulib.mo": 3588, "/usr/share/locale/fi/LC_MESSAGES/bison-runtime.mo": 1428, "/usr/share/locale/fi/LC_MESSAGES/bison.mo": 13944}
+PKGSIZE_bison-locale-fi: 18960

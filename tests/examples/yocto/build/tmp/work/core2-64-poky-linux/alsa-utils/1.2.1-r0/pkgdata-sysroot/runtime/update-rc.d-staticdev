@@ -1,0 +1,14 @@
+PN: update-rc.d
+PV: 0.8
+PR: r0
+PKGV: 0.8
+PKGR: r0
+LICENSE: GPLv2+
+DESCRIPTION_update-rc.d-staticdev: update-rc.d is a utility that allows the management of symlinks to the initscripts in the /etc/rcN.d directory structure.  This package contains static libraries for software development.
+SUMMARY_update-rc.d-staticdev: manage symlinks in /etc/rcN.d - Development files (Static Libraries)
+RDEPENDS_update-rc.d-staticdev: update-rc.d-dev (= 0.8-r0)
+SECTION_update-rc.d-staticdev: devel
+PKG_update-rc.d-staticdev: update-rc.d-staticdev
+FILES_update-rc.d-staticdev: /usr/lib/*.a /lib/*.a /usr/lib/update-rc.d/*.a
+FILES_INFO: {}
+PKGSIZE_update-rc.d-staticdev: 0

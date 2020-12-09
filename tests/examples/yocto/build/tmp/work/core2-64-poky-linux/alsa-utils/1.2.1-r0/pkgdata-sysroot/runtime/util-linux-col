@@ -1,0 +1,16 @@
+PN: util-linux
+PV: 2.35.1
+PR: r0
+PKGV: 2.35.1
+PKGR: r0
+LICENSE: GPLv2+ & LGPLv2.1+ & BSD-3-Clause & BSD-4-Clause
+DESCRIPTION_util-linux-col: util-linux col
+SUMMARY_util-linux-col: util-linux col
+RDEPENDS_util-linux-col: glibc (>= 2.31+git0+6fdf971c9d)
+SECTION: base
+PKG_util-linux-col: util-linux-col
+FILES_util-linux-col: /usr/bin/col
+FILES_INFO: {"/usr/bin/col": 34848}
+FILERDEPENDSFLIST_util-linux-col: /usr/bin/col
+FILERDEPENDS_/usr/bin/col_util-linux-col:  libc.so.6(GLIBC_2.3)(64bit) libc.so.6(GLIBC_2.8)(64bit) libc.so.6(GLIBC_2.14)(64bit) libc.so.6(GLIBC_2.4)(64bit) libc.so.6(GLIBC_2.3.4)(64bit) libc.so.6(GLIBC_2.2.5)(64bit) libc.so.6()(64bit) rtld(GNU_HASH)
+PKGSIZE_util-linux-col: 34848

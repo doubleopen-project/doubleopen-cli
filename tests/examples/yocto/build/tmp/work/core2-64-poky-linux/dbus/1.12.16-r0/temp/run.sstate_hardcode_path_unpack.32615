@@ -1,0 +1,50 @@
+def sstate_hardcode_path_unpack(d):
+    # Fixup hardcoded paths
+    #
+    # Note: The logic below must match the reverse logic in
+    # sstate_hardcode_path(d)
+    import subprocess
+
+    sstateinst = d.getVar('SSTATE_INSTDIR')
+    sstatefixmedir = d.getVar('SSTATE_FIXMEDIR')
+    fixmefn = sstateinst + "fixmepath"
+    if os.path.isfile(fixmefn):
+        staging_target = d.getVar('RECIPE_SYSROOT')
+        staging_host = d.getVar('RECIPE_SYSROOT_NATIVE')
+
+        if bb.data.inherits_class('native', d) or bb.data.inherits_class('cross-canadian', d):
+            sstate_sed_cmd = "sed -i -e 's:FIXMESTAGINGDIRHOST:%s:g'" % (staging_host)
+        elif bb.data.inherits_class('cross', d) or bb.data.inherits_class('crosssdk', d):
+            sstate_sed_cmd = "sed -i -e 's:FIXMESTAGINGDIRTARGET:%s:g; s:FIXMESTAGINGDIRHOST:%s:g'" % (staging_target, staging_host)
+        else:
+            sstate_sed_cmd = "sed -i -e 's:FIXMESTAGINGDIRTARGET:%s:g'" % (staging_target)
+
+        extra_staging_fixmes = d.getVar('EXTRA_STAGING_FIXMES') or ''
+        for fixmevar in extra_staging_fixmes.split():
+            fixme_path = d.getVar(fixmevar)
+            sstate_sed_cmd += " -e 's:FIXME_%s:%s:g'" % (fixmevar, fixme_path)
+
+        # Add sstateinst to each filename in fixmepath, use xargs to efficiently call sed
+        sstate_hardcode_cmd = "sed -e 's:^:%s:g' %s | xargs %s" % (sstateinst, fixmefn, sstate_sed_cmd)
+
+        # Defer do_populate_sysroot relocation command
+        if sstatefixmedir:
+            bb.utils.mkdirhier(sstatefixmedir)
+            with open(sstatefixmedir + "/fixmepath.cmd", "w") as f:
+                sstate_hardcode_cmd = sstate_hardcode_cmd.replace(fixmefn, sstatefixmedir + "/fixmepath")
+                sstate_hardcode_cmd = sstate_hardcode_cmd.replace(sstateinst, "FIXMEFINALSSTATEINST")
+                sstate_hardcode_cmd = sstate_hardcode_cmd.replace(staging_host, "FIXMEFINALSSTATEHOST")
+                sstate_hardcode_cmd = sstate_hardcode_cmd.replace(staging_target, "FIXMEFINALSSTATETARGET")
+                f.write(sstate_hardcode_cmd)
+            bb.utils.copyfile(fixmefn, sstatefixmedir + "/fixmepath")
+            return
+
+        bb.note("Replacing fixme paths in sstate package: %s" % (sstate_hardcode_cmd))
+        subprocess.check_call(sstate_hardcode_cmd, shell=True)
+
+        # Need to remove this or we'd copy it into the target directory and may
+        # conflict with another writer
+        os.remove(fixmefn)
+
+sstate_hardcode_path_unpack(d)
+

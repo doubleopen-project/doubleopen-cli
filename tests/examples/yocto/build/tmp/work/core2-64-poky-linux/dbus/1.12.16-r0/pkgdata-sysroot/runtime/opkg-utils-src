@@ -1,0 +1,13 @@
+PN: opkg-utils
+PV: 0.4.2
+PR: r0
+PKGV: 0.4.2
+PKGR: r0
+LICENSE: GPLv2+
+DESCRIPTION_opkg-utils-src: Additional utilities for the opkg package manager.  This package contains sources for debugging purposes.
+SUMMARY_opkg-utils-src: Additional utilities for the opkg package manager - Source files
+SECTION_opkg-utils-src: devel
+PKG_opkg-utils-src: opkg-utils-src
+FILES_opkg-utils-src: /usr/src/debug
+FILES_INFO: {}
+PKGSIZE_opkg-utils-src: 0

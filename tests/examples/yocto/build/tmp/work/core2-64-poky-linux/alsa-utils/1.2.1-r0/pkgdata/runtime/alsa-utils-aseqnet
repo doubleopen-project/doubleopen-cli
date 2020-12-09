@@ -1,0 +1,16 @@
+PN: alsa-utils
+PV: 1.2.1
+PR: r0
+PKGV: 1.2.1
+PKGR: r0
+LICENSE: GPLv2+
+DESCRIPTION: ALSA sound utilities.
+SUMMARY_alsa-utils-aseqnet: Network client/server for ALSA sequencer
+RDEPENDS_alsa-utils-aseqnet: alsa-lib (>= 1.2.1.2) glibc (>= 2.31+git0+6fdf971c9d)
+SECTION: console/utils
+PKG_alsa-utils-aseqnet: alsa-utils-aseqnet
+FILES_alsa-utils-aseqnet: /usr/bin/aseqnet
+FILES_INFO: {"/usr/bin/aseqnet": 26712}
+FILERDEPENDSFLIST_alsa-utils-aseqnet: /usr/bin/aseqnet
+FILERDEPENDS_/usr/bin/aseqnet_alsa-utils-aseqnet:  libpthread.so.0(GLIBC_2.2.5)(64bit) libc.so.6(GLIBC_2.14)(64bit) libc.so.6(GLIBC_2.4)(64bit) libc.so.6(GLIBC_2.3)(64bit) libc.so.6(GLIBC_2.3.4)(64bit) libc.so.6(GLIBC_2.2.5)(64bit) libasound.so.2(ALSA_0.9)(64bit) libasound.so.2()(64bit) libpthread.so.0()(64bit) libc.so.6()(64bit) rtld(GNU_HASH)
+PKGSIZE_alsa-utils-aseqnet: 26712

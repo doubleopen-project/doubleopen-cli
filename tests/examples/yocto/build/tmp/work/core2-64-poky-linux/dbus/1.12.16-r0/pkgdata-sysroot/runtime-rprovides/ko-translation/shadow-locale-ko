@@ -1,0 +1,15 @@
+PN: shadow
+PV: 4.8.1
+PR: r0
+PKGV: 4.8.1
+PKGR: r0
+LICENSE: BSD | Artistic-1.0
+DESCRIPTION_shadow-locale-ko: Tools to change and administer password and group data.  This package contains language translation files for the ko locale.
+SUMMARY_shadow-locale-ko: Tools to change and administer password and group data - ko translations
+RPROVIDES_shadow-locale-ko: shadow-locale ko-translation
+RRECOMMENDS_shadow-locale-ko: virtual-locale-ko
+SECTION: base/utils
+PKG_shadow-locale-ko: shadow-locale-ko
+FILES_shadow-locale-ko: /usr/share/locale/ko
+FILES_INFO: {"/usr/share/locale/ko/LC_MESSAGES/shadow.mo": 31593}
+PKGSIZE_shadow-locale-ko: 31593

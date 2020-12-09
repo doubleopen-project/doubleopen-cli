@@ -1,0 +1,13 @@
+PN: bzip2
+PV: 1.0.8
+PR: r0
+PKGV: 1.0.8
+PKGR: r0
+LICENSE: bzip2-1.0.6
+DESCRIPTION_bzip2-src: bzip2 compresses files using the Burrows-Wheeler block-sorting text compression algorithm, and Huffman coding. Compression is generally considerably better than that achieved by more conventional LZ77/LZ78-based compressors, and approaches the performance of the PPM family of statistical compressors.  This package contains sources for debugging purposes.
+SUMMARY_bzip2-src: Very high-quality data compression program - Source files
+SECTION_bzip2-src: devel
+PKG_bzip2-src: bzip2-src
+FILES_bzip2-src: /usr/src/debug
+FILES_INFO: {"/usr/src/debug/bzip2/1.0.8-r0/bzip2-1.0.8/blocksort.c": 30713, "/usr/src/debug/bzip2/1.0.8-r0/bzip2-1.0.8/bzip2.c": 58576, "/usr/src/debug/bzip2/1.0.8-r0/bzip2-1.0.8/bzip2recover.c": 15003, "/usr/src/debug/bzip2/1.0.8-r0/bzip2-1.0.8/bzlib.c": 45960, "/usr/src/debug/bzip2/1.0.8-r0/bzip2-1.0.8/bzlib.h": 6240, "/usr/src/debug/bzip2/1.0.8-r0/bzip2-1.0.8/bzlib_private.h": 13239, "/usr/src/debug/bzip2/1.0.8-r0/bzip2-1.0.8/compress.c": 20546, "/usr/src/debug/bzip2/1.0.8-r0/bzip2-1.0.8/crctable.c": 4813, "/usr/src/debug/bzip2/1.0.8-r0/bzip2-1.0.8/decompress.c": 21258, "/usr/src/debug/bzip2/1.0.8-r0/bzip2-1.0.8/huffman.c": 6986, "/usr/src/debug/bzip2/1.0.8-r0/bzip2-1.0.8/randtable.c": 3855}
+PKGSIZE_bzip2-src: 227189

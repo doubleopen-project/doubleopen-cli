@@ -1,0 +1,15 @@
+PN: bison
+PV: 3.5.3
+PR: r0
+PKGV: 3.5.3
+PKGR: r0
+LICENSE: GPLv3
+DESCRIPTION_bison-locale-ko: Bison is a general-purpose parser generator that converts an annotated context-free grammar into an LALR(1) or GLR parser for that grammar.  Bison is upward compatible with Yacc: all properly-written Yacc grammars ought to work with Bison with no change. Anyone familiar with Yacc should be able to use Bison with little trouble.  This package contains language translation files for the ko locale.
+SUMMARY_bison-locale-ko: GNU Project parser generator (yacc replacement) - ko translations
+RPROVIDES_bison-locale-ko: bison-locale ko-translation
+RRECOMMENDS_bison-locale-ko: virtual-locale-ko
+SECTION: devel
+PKG_bison-locale-ko: bison-locale-ko
+FILES_bison-locale-ko: /usr/share/locale/ko
+FILES_INFO: {"/usr/share/locale/ko/LC_MESSAGES/bison-gnulib.mo": 931}
+PKGSIZE_bison-locale-ko: 931

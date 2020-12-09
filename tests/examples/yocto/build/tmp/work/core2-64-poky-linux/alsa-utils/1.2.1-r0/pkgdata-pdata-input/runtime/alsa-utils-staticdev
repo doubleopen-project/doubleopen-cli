@@ -1,0 +1,14 @@
+PN: alsa-utils
+PV: 1.2.1
+PR: r0
+PKGV: 1.2.1
+PKGR: r0
+LICENSE: GPLv2+
+DESCRIPTION_alsa-utils-staticdev: ALSA sound utilities.  This package contains static libraries for software development.
+SUMMARY_alsa-utils-staticdev: ALSA sound utilities - Development files (Static Libraries)
+RDEPENDS_alsa-utils-staticdev: alsa-utils-dev (= 1.2.1-r0)
+SECTION_alsa-utils-staticdev: devel
+PKG_alsa-utils-staticdev: alsa-utils-staticdev
+FILES_alsa-utils-staticdev: /usr/lib/*.a /lib/*.a /usr/lib/alsa-utils/*.a
+FILES_INFO: {}
+PKGSIZE_alsa-utils-staticdev: 0

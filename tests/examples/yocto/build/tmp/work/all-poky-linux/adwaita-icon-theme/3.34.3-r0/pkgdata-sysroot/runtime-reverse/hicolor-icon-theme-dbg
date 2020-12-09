@@ -1,0 +1,14 @@
+PN: hicolor-icon-theme
+PV: 0.17
+PR: r0
+PKGV: 0.17
+PKGR: r0
+LICENSE: GPLv2
+DESCRIPTION_hicolor-icon-theme-dbg: The hicolor-icon-theme package contains a default fallback theme for implementations of the icon theme specification.  This package contains ELF symbols and related sources for debugging purposes.
+SUMMARY_hicolor-icon-theme-dbg: Default icon theme that all icon themes automatically inherit from - Debugging files
+SECTION_hicolor-icon-theme-dbg: devel
+PKG_hicolor-icon-theme-dbg: hicolor-icon-theme-dbg
+ALLOW_EMPTY_hicolor-icon-theme-dbg: 1
+FILES_hicolor-icon-theme-dbg: /usr/lib/debug /usr/lib/debug-static /usr/src/debug
+FILES_INFO: {}
+PKGSIZE_hicolor-icon-theme-dbg: 0

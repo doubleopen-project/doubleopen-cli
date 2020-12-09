@@ -1,0 +1,4 @@
+[Test]
+Type=session
+Exec=/usr/libexec/installed-tests/glib/option-argv0
+Output=TAP

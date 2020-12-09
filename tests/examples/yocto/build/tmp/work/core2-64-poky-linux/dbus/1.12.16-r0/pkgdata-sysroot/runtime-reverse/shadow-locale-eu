@@ -1,0 +1,15 @@
+PN: shadow
+PV: 4.8.1
+PR: r0
+PKGV: 4.8.1
+PKGR: r0
+LICENSE: BSD | Artistic-1.0
+DESCRIPTION_shadow-locale-eu: Tools to change and administer password and group data.  This package contains language translation files for the eu locale.
+SUMMARY_shadow-locale-eu: Tools to change and administer password and group data - eu translations
+RPROVIDES_shadow-locale-eu: shadow-locale eu-translation
+RRECOMMENDS_shadow-locale-eu: virtual-locale-eu
+SECTION: base/utils
+PKG_shadow-locale-eu: shadow-locale-eu
+FILES_shadow-locale-eu: /usr/share/locale/eu
+FILES_INFO: {"/usr/share/locale/eu/LC_MESSAGES/shadow.mo": 47713}
+PKGSIZE_shadow-locale-eu: 47713

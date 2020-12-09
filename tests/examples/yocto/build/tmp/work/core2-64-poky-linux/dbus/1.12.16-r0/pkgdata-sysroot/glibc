@@ -1,0 +1,1 @@
+PACKAGES: glibc-src glibc-dbg catchsegv sln nscd ldconfig ldd tzcode glibc-thread-db glibc-pic libcidn libmemusage libnss-db libsegfault glibc-pcprofile libsotruss glibc glibc-utils glibc-extra-nss glibc-dev glibc-staticdev glibc-doc

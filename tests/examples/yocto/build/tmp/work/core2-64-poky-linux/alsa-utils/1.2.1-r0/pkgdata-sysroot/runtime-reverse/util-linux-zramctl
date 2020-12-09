@@ -1,0 +1,16 @@
+PN: util-linux
+PV: 2.35.1
+PR: r0
+PKGV: 2.35.1
+PKGR: r0
+LICENSE: GPLv2+ & LGPLv2.1+ & BSD-3-Clause & BSD-4-Clause
+DESCRIPTION_util-linux-zramctl: util-linux zramctl
+SUMMARY_util-linux-zramctl: util-linux zramctl
+RDEPENDS_util-linux-zramctl: glibc (>= 2.31+git0+6fdf971c9d) util-linux-libsmartcols (>= 2.35.1)
+SECTION: base
+PKG_util-linux-zramctl: util-linux-zramctl
+FILES_util-linux-zramctl: /usr/sbin/zramctl
+FILES_INFO: {"/usr/sbin/zramctl": 112792}
+FILERDEPENDSFLIST_util-linux-zramctl: /usr/sbin/zramctl
+FILERDEPENDS_/usr/sbin/zramctl_util-linux-zramctl:  libsmartcols.so.1(SMARTCOLS_2.25)(64bit) libc.so.6(GLIBC_2.14)(64bit) libc.so.6(GLIBC_2.3)(64bit) libc.so.6(GLIBC_2.8)(64bit) libc.so.6(GLIBC_2.4)(64bit) libc.so.6(GLIBC_2.7)(64bit) libc.so.6(GLIBC_2.3.4)(64bit) libc.so.6(GLIBC_2.2.5)(64bit) libsmartcols.so.1()(64bit) libc.so.6()(64bit) rtld(GNU_HASH)
+PKGSIZE_util-linux-zramctl: 112792

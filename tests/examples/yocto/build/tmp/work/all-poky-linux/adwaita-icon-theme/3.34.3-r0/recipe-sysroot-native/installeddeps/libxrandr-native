@@ -1,0 +1,14 @@
+recipe-sysroot-native/sysroot-providers/libxrandr-native
+recipe-sysroot-native/usr/include/X11/extensions/Xrandr.h
+recipe-sysroot-native/usr/lib/libXrandr.so.2
+recipe-sysroot-native/usr/lib/libXrandr.so.2.2.0
+recipe-sysroot-native/usr/lib/libXrandr.so
+recipe-sysroot-native/usr/lib/pkgconfig/xrandr.pc
+recipe-sysroot-native/usr/include/X11/extensions/
+recipe-sysroot-native/usr/lib/pkgconfig/
+recipe-sysroot-native/sysroot-providers/
+recipe-sysroot-native/usr/include/X11/
+recipe-sysroot-native/usr/include/
+recipe-sysroot-native/usr/share/
+recipe-sysroot-native/usr/lib/
+recipe-sysroot-native/usr/

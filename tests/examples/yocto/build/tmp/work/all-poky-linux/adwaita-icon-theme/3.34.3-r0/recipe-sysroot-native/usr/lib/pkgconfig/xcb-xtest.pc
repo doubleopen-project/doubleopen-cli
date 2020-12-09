@@ -1,0 +1,11 @@
+prefix=${pcfiledir}/../../../usr
+exec_prefix=${pcfiledir}/../../../usr
+libdir=${pcfiledir}/../../../usr/lib
+includedir=${pcfiledir}/../../../usr/include
+
+Name: XCB XTEST
+Description: XCB XTEST Extension
+Version: 1.13.1
+Requires.private: xcb
+Libs: -L${libdir} -lxcb-xtest
+Cflags: -I${includedir}

@@ -1,0 +1,20 @@
+PN: util-linux
+PV: 2.35.1
+PR: r0
+PKGV: 2.35.1
+PKGR: r0
+LICENSE: GPLv2+ & LGPLv2.1+ & BSD-3-Clause & BSD-4-Clause
+DESCRIPTION_util-linux-taskset: util-linux taskset
+SUMMARY_util-linux-taskset: util-linux taskset
+RDEPENDS_util-linux-taskset: update-alternatives-opkg glibc (>= 2.31+git0+6fdf971c9d)
+SECTION: base
+PKG_util-linux-taskset: util-linux-taskset
+FILES_util-linux-taskset: /usr/bin/taskset.util-linux
+FILES_INFO: {"/usr/bin/taskset.util-linux": 34864}
+pkg_postinst_util-linux-taskset: #!/bin/sh\nset -e\n\tupdate-alternatives --install /usr/bin/taskset taskset /usr/bin/taskset.util-linux 80\n
+pkg_prerm_util-linux-taskset: #!/bin/sh\nset -e\n\tupdate-alternatives --remove  taskset /usr/bin/taskset.util-linux\n
+FILERPROVIDESFLIST_util-linux-taskset:  /usr/bin/taskset.util-linux
+FILERPROVIDES_/usr/bin/taskset.util-linux_util-linux-taskset:  /usr/bin/taskset
+FILERDEPENDSFLIST_util-linux-taskset: /usr/bin/taskset.util-linux
+FILERDEPENDS_/usr/bin/taskset.util-linux_util-linux-taskset:  libc.so.6(GLIBC_2.3)(64bit) libc.so.6(GLIBC_2.8)(64bit) libc.so.6(GLIBC_2.7)(64bit) libc.so.6(GLIBC_2.14)(64bit) libc.so.6(GLIBC_2.4)(64bit) libc.so.6(GLIBC_2.3.4)(64bit) libc.so.6(GLIBC_2.2.5)(64bit) libc.so.6()(64bit) rtld(GNU_HASH)
+PKGSIZE_util-linux-taskset: 34864

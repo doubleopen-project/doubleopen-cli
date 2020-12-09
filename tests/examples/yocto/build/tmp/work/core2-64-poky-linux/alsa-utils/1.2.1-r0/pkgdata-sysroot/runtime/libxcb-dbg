@@ -1,0 +1,15 @@
+PN: libxcb
+PV: 1.13.1
+PR: r0
+PKGV: 1.13.1
+PKGR: r0
+LICENSE: MIT
+DESCRIPTION_libxcb-dbg: The X protocol C-language Binding (XCB) is a replacement for Xlib featuring a small footprint, latency hiding, direct access to the protocol, improved threading support, and extensibility.  This package contains ELF symbols and related sources for debugging purposes.
+SUMMARY_libxcb-dbg: XCB: The X protocol C binding library - Debugging files
+RRECOMMENDS_libxcb-dbg: glibc-dbg libxau-dbg libxdmcp-dbg
+SECTION_libxcb-dbg: devel
+PKG_libxcb-dbg: libxcb-dbg
+ALLOW_EMPTY_libxcb-dbg: 1
+FILES_libxcb-dbg: /usr/lib/debug /usr/lib/debug-static /usr/src/debug
+FILES_INFO: {"/usr/lib/.debug/libxcb-composite.so.0.0.0": 26672, "/usr/lib/.debug/libxcb-damage.so.0.0.0": 18728, "/usr/lib/.debug/libxcb-dpms.so.0.0.0": 20576, "/usr/lib/.debug/libxcb-dri2.so.0.0.0": 47488, "/usr/lib/.debug/libxcb-dri3.so.0.0.0": 41624, "/usr/lib/.debug/libxcb-glx.so.0.0.0": 338152, "/usr/lib/.debug/libxcb-present.so.0.0.0": 26384, "/usr/lib/.debug/libxcb-randr.so.0.1.0": 194584, "/usr/lib/.debug/libxcb-record.so.0.0.0": 43320, "/usr/lib/.debug/libxcb-render.so.0.0.0": 160632, "/usr/lib/.debug/libxcb-res.so.0.0.0": 35328, "/usr/lib/.debug/libxcb-screensaver.so.0.0.0": 35072, "/usr/lib/.debug/libxcb-shape.so.0.0.0": 34240, "/usr/lib/.debug/libxcb-shm.so.0.0.0": 30584, "/usr/lib/.debug/libxcb-sync.so.1.0.0": 71832, "/usr/lib/.debug/libxcb-xf86dri.so.0.0.0": 40560, "/usr/lib/.debug/libxcb-xfixes.so.0.0.0": 87248, "/usr/lib/.debug/libxcb-xinerama.so.0.0.0": 22528, "/usr/lib/.debug/libxcb-xinput.so.0.1.0": 488936, "/usr/lib/.debug/libxcb-xkb.so.1.0.0": 357872, "/usr/lib/.debug/libxcb-xtest.so.0.0.0": 18976, "/usr/lib/.debug/libxcb-xv.so.0.0.0": 82824, "/usr/lib/.debug/libxcb-xvmc.so.0.0.0": 37488, "/usr/lib/.debug/libxcb.so.1.1.0": 612528}
+PKGSIZE_libxcb-dbg: 2874176

@@ -1,0 +1,16 @@
+PN: libx11
+PE: 1
+PV: 1.6.9
+PR: r0
+PKGE: 1
+PKGV: 1.6.9
+PKGR: r0
+LICENSE: MIT & MIT-style & BSD
+DESCRIPTION_libx11-staticdev: This package provides a client interface to the X Window System, otherwise known as 'Xlib'.  It provides a complete API for the basic functions of the window system.  This package contains static libraries for software development.
+SUMMARY_libx11-staticdev: Xlib: C Language X Interface library - Development files (Static Libraries)
+RDEPENDS_libx11-staticdev: libx11-dev (= 1:1.6.9-r0)
+SECTION_libx11-staticdev: devel
+PKG_libx11-staticdev: libx11-staticdev
+FILES_libx11-staticdev: /usr/lib/*.a /lib/*.a /usr/lib/libx11/*.a
+FILES_INFO: {}
+PKGSIZE_libx11-staticdev: 0

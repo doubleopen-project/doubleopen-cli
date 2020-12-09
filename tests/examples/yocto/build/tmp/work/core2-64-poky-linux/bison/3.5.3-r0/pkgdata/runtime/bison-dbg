@@ -1,0 +1,15 @@
+PN: bison
+PV: 3.5.3
+PR: r0
+PKGV: 3.5.3
+PKGR: r0
+LICENSE: GPLv3
+DESCRIPTION_bison-dbg: Bison is a general-purpose parser generator that converts an annotated context-free grammar into an LALR(1) or GLR parser for that grammar.  Bison is upward compatible with Yacc: all properly-written Yacc grammars ought to work with Bison with no change. Anyone familiar with Yacc should be able to use Bison with little trouble.  This package contains ELF symbols and related sources for debugging purposes.
+SUMMARY_bison-dbg: GNU Project parser generator (yacc replacement) - Debugging files
+RRECOMMENDS_bison-dbg: glibc-dbg
+SECTION_bison-dbg: devel
+PKG_bison-dbg: bison-dbg
+ALLOW_EMPTY_bison-dbg: 1
+FILES_bison-dbg: /usr/lib/debug /usr/lib/debug-static /usr/src/debug
+FILES_INFO: {"/usr/bin/.debug/bison": 2084288}
+PKGSIZE_bison-dbg: 2084288

@@ -1,0 +1,30 @@
+OEOuthashBasic
+1
+SSTATE_PKGSPEC=sstate:adwaita-icon-theme:all-poky-linux:3.34.3:r0:allarch:3:
+task=packagedata
+drwxrwxr-x                                                                                       .
+drwxr-xr-x                                                                                       ./pkgdata-pdata-input
+-rw-r--r--                  166 4192cbecf0f9e15f8297a2817fca1d743f21b3397e8942d6c34ed1cecdccff58 ./pkgdata-pdata-input/adwaita-icon-theme
+drwxr-xr-x                                                                                       ./pkgdata-pdata-input/runtime
+-rw-r--r--               127679 16e465c77c5126f87d4c3e5741cf5e0d81f5282ca0fc771b377426ad977d0445 ./pkgdata-pdata-input/runtime/adwaita-icon-theme
+-rw-r--r--                 7980 14c91911ff28f307d98b48892ea143fd48b8a4763f61f53f921a41bf0bc32837 ./pkgdata-pdata-input/runtime/adwaita-icon-theme-cursors
+-rw-r--r--                    0 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 ./pkgdata-pdata-input/runtime/adwaita-icon-theme-cursors.packaged
+-rw-r--r--                17700 fb32c7a15d743772d90f497165c0b71cf7f6c1fd4d8af02cdeec11e9bd7d92d9 ./pkgdata-pdata-input/runtime/adwaita-icon-theme-hires
+-rw-r--r--                    0 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 ./pkgdata-pdata-input/runtime/adwaita-icon-theme-hires.packaged
+-rw-r--r--                  450 4ac9f5858a25fbec624ee8590fb012fe7691dc81cafe7b7bcb4112cedb9a4bf1 ./pkgdata-pdata-input/runtime/adwaita-icon-theme-src
+-rw-r--r--               138948 ddf619f0a746945b957db51a03d52c3751aa7eb01e05ff2f71565802693c6e3a ./pkgdata-pdata-input/runtime/adwaita-icon-theme-symbolic
+-rw-r--r--               189476 c71adca3d60b11f8bb03ffe6b3faf3b1828f2d4f0b8fc29b9f9c1823cd0d02c5 ./pkgdata-pdata-input/runtime/adwaita-icon-theme-symbolic-hires
+-rw-r--r--                    0 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 ./pkgdata-pdata-input/runtime/adwaita-icon-theme-symbolic-hires.packaged
+-rw-r--r--                    0 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 ./pkgdata-pdata-input/runtime/adwaita-icon-theme-symbolic.packaged
+-rw-r--r--                    0 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855 ./pkgdata-pdata-input/runtime/adwaita-icon-theme.packaged
+drwxr-xr-x                                                                                       ./pkgdata-pdata-input/runtime-reverse
+lrwxrwxrwx                                                                                       ./pkgdata-pdata-input/runtime-reverse/adwaita-icon-theme -> ../runtime/adwaita-icon-theme
+lrwxrwxrwx                                                                                       ./pkgdata-pdata-input/runtime-reverse/adwaita-icon-theme-cursors -> ../runtime/adwaita-icon-theme-cursors
+lrwxrwxrwx                                                                                       ./pkgdata-pdata-input/runtime-reverse/adwaita-icon-theme-hires -> ../runtime/adwaita-icon-theme-hires
+lrwxrwxrwx                                                                                       ./pkgdata-pdata-input/runtime-reverse/adwaita-icon-theme-symbolic -> ../runtime/adwaita-icon-theme-symbolic
+lrwxrwxrwx                                                                                       ./pkgdata-pdata-input/runtime-reverse/adwaita-icon-theme-symbolic-hires -> ../runtime/adwaita-icon-theme-symbolic-hires
+drwxr-xr-x                                                                                       ./pkgdata-pdata-input/runtime-rprovides
+drwxr-xr-x                                                                                       ./pkgdata-pdata-input/runtime-rprovides/gnome-icon-theme
+lrwxrwxrwx                                                                                       ./pkgdata-pdata-input/runtime-rprovides/gnome-icon-theme/adwaita-icon-theme -> ../../runtime/adwaita-icon-theme
+drwxr-xr-x                                                                                       ./pkgdata-pdata-input/shlibs2
+-rw-r--r--                  155 47baa7156e2ec10de6034adfedb3b572153834fc3eba7131e5bd439ab9ea105d ./pkgdata-pdata-input/shlibs2/adwaita-icon-theme.pclist

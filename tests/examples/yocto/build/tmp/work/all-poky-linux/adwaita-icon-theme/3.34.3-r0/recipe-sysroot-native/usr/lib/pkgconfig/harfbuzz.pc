@@ -1,0 +1,13 @@
+prefix=${pcfiledir}/../../../usr
+exec_prefix=${pcfiledir}/../../../usr
+libdir=${pcfiledir}/../../../usr/lib
+includedir=${pcfiledir}/../../../usr/include
+
+Name: harfbuzz
+Description: HarfBuzz text shaping library
+Version: 2.6.4
+
+Libs: -L${libdir} -lharfbuzz
+Libs.private: -lm     
+Requires.private: glib-2.0 >= 2.19.1 
+Cflags: -I${includedir}/harfbuzz

@@ -1,0 +1,11 @@
+/home/hhpartners/yocto/build/tmp/sysroots-components/core2-64/base-passwd/sysroot-providers/base-passwd
+/home/hhpartners/yocto/build/tmp/sysroots-components/core2-64/base-passwd/usr/share/base-passwd/passwd.master
+/home/hhpartners/yocto/build/tmp/sysroots-components/core2-64/base-passwd/usr/share/base-passwd/group.master
+/home/hhpartners/yocto/build/tmp/sysroots-components/core2-64/base-passwd/usr/bin/postinst-base-passwd
+/home/hhpartners/yocto/build/tmp/sysroots-components/core2-64/base-passwd/fixmepath.cmd
+/home/hhpartners/yocto/build/tmp/sysroots-components/core2-64/base-passwd/fixmepath
+/home/hhpartners/yocto/build/tmp/sysroots-components/core2-64/base-passwd/usr/share/base-passwd/
+/home/hhpartners/yocto/build/tmp/sysroots-components/core2-64/base-passwd/sysroot-providers/
+/home/hhpartners/yocto/build/tmp/sysroots-components/core2-64/base-passwd/usr/share/
+/home/hhpartners/yocto/build/tmp/sysroots-components/core2-64/base-passwd/usr/bin/
+/home/hhpartners/yocto/build/tmp/sysroots-components/core2-64/base-passwd/usr/

@@ -1,0 +1,14 @@
+PN: bison
+PV: 3.5.3
+PR: r0
+PKGV: 3.5.3
+PKGR: r0
+LICENSE: GPLv3
+DESCRIPTION_bison-staticdev: Bison is a general-purpose parser generator that converts an annotated context-free grammar into an LALR(1) or GLR parser for that grammar.  Bison is upward compatible with Yacc: all properly-written Yacc grammars ought to work with Bison with no change. Anyone familiar with Yacc should be able to use Bison with little trouble.  This package contains static libraries for software development.
+SUMMARY_bison-staticdev: GNU Project parser generator (yacc replacement) - Development files (Static Libraries)
+RDEPENDS_bison-staticdev: bison-dev (= 3.5.3-r0)
+SECTION_bison-staticdev: devel
+PKG_bison-staticdev: bison-staticdev
+FILES_bison-staticdev: /usr/lib/*.a /lib/*.a /usr/lib/bison/*.a
+FILES_INFO: {"/usr/lib/liby.a": 9830}
+PKGSIZE_bison-staticdev: 9830
