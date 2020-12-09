@@ -3,12 +3,15 @@ use std::{
     path::{Path, PathBuf},
 };
 
+use walkdir::WalkDir;
+
 use crate::analyze::AnalyzerError;
 
 #[derive(Clone, Debug, Default, PartialEq, Eq)]
 pub struct RuntimeReverse {
     pub package_name: String,
     pub version: String,
+    pub package_revision: String,
 }
 
 impl RuntimeReverse {
@@ -29,42 +32,40 @@ impl RuntimeReverse {
                     "No PV in runtime reverse.".into(),
                 ))?;
 
+        let package_revision =
+            lines
+                .find(|line| line.starts_with("PR:"))
+                .ok_or(AnalyzerError::ParseError(
+                    "No PR in runtime reverse.".into(),
+                ))?;
         Ok(Self {
             package_name: package_name[4..].to_string(),
             version: package_version[4..].to_string(),
+            package_revision: package_revision[4..].to_string(),
         })
     }
 
-    pub fn find_source_archive<P: AsRef<Path>>(
+    pub fn find_source_files<P: AsRef<Path>>(
         &self,
-        build_directory: P,
+        work_directories: &Vec<P>,
     ) -> Result<PathBuf, AnalyzerError> {
-        let downloads_directory = build_directory.as_ref().join("downloads/");
-
         let name_version = format!("{}-{}", &self.package_name, &self.version);
+        let version_revision = format!("{}-{}", &self.version, &self.package_revision);
 
-        let mut downloads = downloads_directory.read_dir()?.map(|x| x.unwrap());
-
-        let archive = downloads.find(|download| {
-            download
-                .file_name()
-                .to_str()
-                .expect("Archive not found.")
-                .starts_with(&name_version)
-                && download
-                    .path()
-                    .extension()
-                    .expect("Archive not found.")
-                    .to_str()
-                    .expect("Archive not found.")
-                    != "done"
+        let archive = work_directories.iter().find(|entry| {
+            let path = entry.as_ref();
+            path.parent()
+                .expect("should always have a parent")
+                .ends_with(&self.package_name)
+                && path.ends_with(&version_revision)
         });
 
         match archive {
-            Some(direntry) => Ok(direntry.path()),
-            None => Err(AnalyzerError::ParseError(
-                format!("Can't find source archive for {}", &name_version)
-            )),
+            Some(direntry) => Ok(direntry.as_ref().to_path_buf().join(&name_version)),
+            None => Err(AnalyzerError::ParseError(format!(
+                "Can't find source archive for {}",
+                &name_version
+            ))),
         }
     }
 }
@@ -75,20 +76,23 @@ mod test_super {
 
     #[test]
     fn find_source_archive() {
-        let mut build_directory = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
-        build_directory.push("tests/examples/yocto/build/");
+        let build_directory = PathBuf::from(env!("CARGO_MANIFEST_DIR"))
+            .join("tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0");
+
+        let work_directories = vec![build_directory.clone()];
 
         let runtime_reverse = RuntimeReverse {
             package_name: "alsa-utils".into(),
             version: "1.2.1".into(),
+            package_revision: "r0".into(),
         };
 
         let archive = runtime_reverse
-            .find_source_archive(&build_directory)
+            .find_source_files(&work_directories)
             .unwrap();
-        let expected = build_directory.join("downloads/alsa-utils-1.2.1.tar.bz2");
+        let expected = &build_directory.join("tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0");
 
-        assert_eq!(archive, expected);
+        assert!(archive.ends_with("tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0"));
     }
 
     #[test]
@@ -101,6 +105,7 @@ mod test_super {
 
         assert_eq!(runtime_reverse.package_name, "adwaita-icon-theme");
         assert_eq!(runtime_reverse.version, "3.34.3");
+        assert_eq!(runtime_reverse.package_revision, "r0");
 
         let mut runtime_reverse_path = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
         runtime_reverse_path
@@ -109,5 +114,6 @@ mod test_super {
 
         assert_eq!(runtime_reverse.package_name, "db");
         assert_eq!(runtime_reverse.version, "5.3.28");
+        assert_eq!(runtime_reverse.package_revision, "r0");
     }
 }

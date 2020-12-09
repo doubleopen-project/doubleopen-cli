@@ -22,36 +22,41 @@ impl YoctoSourcePackage {
     pub fn new(
         package_name: String,
         package_version: String,
-        source_archive_path: PathBuf,
+        source_files_path: PathBuf,
     ) -> Result<Self, AnalyzerError> {
         // Create a temporary directory and unpack the archive there.
-        let temp_dir = tempfile::tempdir().unwrap();
-        let file = File::open(&source_archive_path).unwrap();
-        uncompress_archive(file, temp_dir.path(), Ownership::Ignore)?;
-        let source_files: Vec<YoctoSourceFile> = WalkDir::new(&temp_dir)
+        let source_files: Vec<YoctoSourceFile> = WalkDir::new(&source_files_path)
             .into_iter()
             .filter_map(|f| {
-                let entry = f.unwrap();
-                if entry.metadata().unwrap().is_file() {
-                    let filename = entry
-                        .path()
-                        .strip_prefix(&temp_dir.path())
-                        .expect("Should always be extracted here.")
-                        .to_string_lossy();
-                    let sha256 = hash256_for_path(entry.path());
-                    Some(YoctoSourceFile {
-                        filename: filename.to_string(),
-                        sha256,
-                    })
-                } else {
-                    None
+                let entry = f;
+                match entry {
+                    Ok(entry) => {
+                        if entry.metadata().unwrap().is_file() {
+                            let filename = entry
+                                .path()
+                                .strip_prefix(&source_files_path)
+                                .expect("Should always be extracted here.")
+                                .to_string_lossy();
+                            let sha256 = hash256_for_path(entry.path());
+                            Some(YoctoSourceFile {
+                                filename: filename.to_string(),
+                                sha256,
+                            })
+                        } else {
+                            None
+                        }
+                    }
+                    Err(_) => {
+                        println!("No source for {}-{}", package_name, package_version);
+                        None
+                    }
                 }
             })
             .collect();
         Ok(Self {
             package_name,
             package_version,
-            source_archive_path,
+            source_archive_path: source_files_path,
             source_files,
         })
     }

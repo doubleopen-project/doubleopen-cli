@@ -10,6 +10,7 @@ use std::{
     path::Path,
     path::PathBuf,
 };
+use walkdir::WalkDir;
 
 use self::{
     manifest_entry::ManifestEntry, runtime_reverse::RuntimeReverse,
@@ -150,13 +151,24 @@ impl Yocto {
 
     fn create_source_packages(&mut self) -> Result<(), AnalyzerError> {
         let unique_reversed_packages = self.get_unique_reversed_packages();
+        let work_directories: Vec<PathBuf> = WalkDir::new(&self.build_directory.join("tmp/work/"))
+            .min_depth(3)
+            .max_depth(3)
+            .into_iter()
+            .map(|entry| {
+                entry
+                    .as_ref()
+                    .expect("should always be correct")
+                    .clone()
+                    .into_path()
+            })
+            .collect();
 
         let source_packages = unique_reversed_packages
             .iter()
             .filter_map(|reversed_package| {
-                let source_archive_path = &reversed_package
-                    .find_source_archive(&self.build_directory)
-                    .ok();
+                let source_archive_path =
+                    &reversed_package.find_source_files(&work_directories).ok();
                 match source_archive_path {
                     Some(path) => YoctoSourcePackage::new(
                         reversed_package.package_name.clone(),
@@ -180,6 +192,22 @@ impl Yocto {
         }
 
         Ok(())
+    }
+
+    pub fn get_work_directories(&self) -> Vec<PathBuf> {
+        let work_directories: Vec<PathBuf> = WalkDir::new(&self.build_directory.join("tmp/work/"))
+            .min_depth(3)
+            .max_depth(3)
+            .into_iter()
+            .map(|entry| {
+                entry
+                    .as_ref()
+                    .expect("should always be correct")
+                    .clone()
+                    .into_path()
+            })
+            .collect();
+        work_directories
     }
 }
 
@@ -308,6 +336,7 @@ mod tests {
                 runtime_reverse: RuntimeReverse {
                     package_name: "adwaita-icon-theme".into(),
                     version: "3.34.3".into(),
+                    package_revision: "r0".into(),
                 },
             },
             ManifestEntry {
@@ -317,6 +346,7 @@ mod tests {
                 runtime_reverse: RuntimeReverse {
                     package_name: "adwaita-icon-theme".into(),
                     version: "3.34.3".into(),
+                    package_revision: "r0".into(),
                 },
             },
             ManifestEntry {
@@ -326,6 +356,7 @@ mod tests {
                 runtime_reverse: RuntimeReverse {
                     package_name: "alsa-utils".into(),
                     version: "1.2.1".into(),
+                    package_revision: "r0".into(),
                 },
             },
             ManifestEntry {
@@ -335,6 +366,7 @@ mod tests {
                 runtime_reverse: RuntimeReverse {
                     package_name: "alsa-utils".into(),
                     version: "1.2.1".into(),
+                    package_revision: "r0".into(),
                 },
             },
             ManifestEntry {
@@ -344,6 +376,7 @@ mod tests {
                 runtime_reverse: RuntimeReverse {
                     package_name: "dbus".into(),
                     version: "1.12.16".into(),
+                    package_revision: "r0".into(),
                 },
             },
         ];
@@ -362,8 +395,11 @@ mod tests {
         let expected = RuntimeReverse {
             package_name: "dbus".into(),
             version: "1.12.16".into(),
+            package_revision: "r0".into(),
         };
 
         assert_eq!(runtime_reverse, expected);
     }
+
+
 }
