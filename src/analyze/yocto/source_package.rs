@@ -5,6 +5,7 @@ use std::{
 };
 
 use compress_tools::{uncompress_archive, Ownership};
+use log::{error, info};
 use walkdir::WalkDir;
 extern crate pest;
 use crate::{analyze::AnalyzerError, utilities::hash256_for_path};
@@ -47,12 +48,14 @@ impl YoctoSourcePackage {
                         }
                     }
                     Err(_) => {
-                        println!("No source for {}-{}", package_name, package_version);
+                        error!("No source for {}-{}", package_name, package_version);
                         None
                     }
                 }
             })
             .collect();
+
+        info!("Found {} source files for {}-{}.", source_files.len(), package_name, package_version);
         Ok(Self {
             package_name,
             package_version,
@@ -278,7 +281,7 @@ mod test_super {
                     Rule::uri => {
                         locations.push(SourceLocation::try_from(inner_pair.as_str()).unwrap())
                     }
-                    _ => println!("Hello"),
+                    _ => error!("Should not happen."),
                 }
             }
         }

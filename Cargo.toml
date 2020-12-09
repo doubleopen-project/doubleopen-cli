@@ -34,6 +34,8 @@ thiserror = "1.0.22"
 compress-tools = "0.8.0"
 pest = "2"
 pest_derive = "2"
+log = "0.4.0"
+env_logger = "0.8.2"
 
 [dev-dependencies]
 tempfile = "3.1.0"

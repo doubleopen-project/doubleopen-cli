@@ -3,6 +3,7 @@ use crate::spdx::{
     Checksum, Relationship, RelationshipType,
 };
 use fs::File;
+use log::{debug, error, info, warn};
 use std::{
     collections::HashMap,
     fs,
@@ -85,6 +86,11 @@ impl Yocto {
         build_directory: P,
         manifest_path: P,
     ) -> Result<Self, AnalyzerError> {
+        info!(
+            "Analyzing Yocto from {} and {}",
+            &build_directory.as_ref().display(),
+            &manifest_path.as_ref().display()
+        );
         let image_name = manifest_path
             .as_ref()
             .file_stem()
@@ -119,6 +125,7 @@ impl Yocto {
     }
 
     pub fn get_list_of_packages_from_manifest(&mut self) -> Result<(), AnalyzerError> {
+        info!("Get package list from manifest");
         let runtime_reverse_dir_path = self
             .build_directory
             .join("tmp/pkgdata/")
@@ -133,7 +140,7 @@ impl Yocto {
                 self.manifest_entries.push(entry);
             }
         }
-
+        info!("Found {} packages in manifest", self.manifest_entries.len());
         Ok(())
     }
 
@@ -150,7 +157,9 @@ impl Yocto {
     }
 
     fn create_source_packages(&mut self) -> Result<(), AnalyzerError> {
+        info!("Creating source packages.");
         let unique_reversed_packages = self.get_unique_reversed_packages();
+        info!("Build includes {} unique source packages.", unique_reversed_packages.len());
         let work_directories: Vec<PathBuf> = WalkDir::new(&self.build_directory.join("tmp/work/"))
             .min_depth(3)
             .max_depth(3)
@@ -167,6 +176,7 @@ impl Yocto {
         let source_packages = unique_reversed_packages
             .iter()
             .filter_map(|reversed_package| {
+                debug!("Finding source archive for {}-{}.", reversed_package.package_name, reversed_package.version);
                 let source_archive_path =
                     &reversed_package.find_source_files(&work_directories).ok();
                 match source_archive_path {
@@ -177,7 +187,7 @@ impl Yocto {
                     )
                     .ok(),
                     None => {
-                        println!(
+                        error!(
                             "No source archive for package {}-{}",
                             &reversed_package.package_name, &reversed_package.version
                         );
@@ -190,6 +200,8 @@ impl Yocto {
         for source_package in source_packages {
             self.source_packages.push(source_package);
         }
+
+        info!("Found {} source packages.", self.source_packages.len());
 
         Ok(())
     }
@@ -400,6 +412,4 @@ mod tests {
 
         assert_eq!(runtime_reverse, expected);
     }
-
-
 }

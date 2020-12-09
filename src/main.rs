@@ -18,6 +18,7 @@ use policy_engine::policy::Policy;
 use policy_engine::PolicyEngine;
 
 fn main() {
+    env_logger::init();
     let matches = app_from_crate!()
         .subcommands(vec![
             App::new("analyze")
