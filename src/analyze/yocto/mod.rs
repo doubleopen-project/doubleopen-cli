@@ -177,9 +177,9 @@ impl Yocto {
             .iter()
             .filter_map(|reversed_package| {
                 debug!("Finding source archive for {}-{}.", reversed_package.name, reversed_package.version);
-                let source_archive_path =
+                let work_directory =
                     &reversed_package.find_work_folder(&work_directories).ok();
-                match source_archive_path {
+                match work_directory {
                     Some(path) => YoctoSourcePackage::new(
                         reversed_package.name.clone(),
                         reversed_package.version.clone(),

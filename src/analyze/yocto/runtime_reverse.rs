@@ -76,7 +76,7 @@ impl RuntimeReverse {
         });
 
         match archive {
-            Some(direntry) => Ok(direntry.as_ref().to_path_buf().join(&name_version)),
+            Some(direntry) => Ok(direntry.as_ref().to_path_buf()),
             None => Err(AnalyzerError::ParseError(format!(
                 "Can't find source archive for {}",
                 &name_version

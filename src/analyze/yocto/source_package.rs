@@ -1,11 +1,12 @@
 use std::{
     convert::TryFrom,
-    fs::File,
+    fs::{read_to_string, File},
     path::{Path, PathBuf},
+    process::Command,
 };
 
 use compress_tools::{uncompress_archive, Ownership};
-use log::{error, info};
+use log::{debug, error, info};
 use walkdir::WalkDir;
 extern crate pest;
 use crate::{analyze::AnalyzerError, utilities::hash256_for_path};
@@ -23,10 +24,28 @@ impl YoctoSourcePackage {
     pub fn new(
         package_name: String,
         package_version: String,
-        source_files_path: PathBuf,
+        work_directory: PathBuf,
     ) -> Result<Self, AnalyzerError> {
+        // Find source directory.
+        let mut command = Command::new("bitbake");
+        command.current_dir("/home/hhpartners/yocto/build");
+        command.arg("-e").arg(&package_name);
+        let output = command.output().unwrap();
+        let output = std::str::from_utf8(&output.stdout).unwrap();
+        let source = output
+            .lines()
+            .find(|line| line.starts_with("S="))
+            .unwrap()
+            .replace("S=", "")
+            .replace('"', "");
+
+        debug!(
+            "Source for {}-{} is in {}",
+            &package_name, &package_version, &source
+        );
+
         // Create a temporary directory and unpack the archive there.
-        let source_files: Vec<YoctoSourceFile> = WalkDir::new(&source_files_path)
+        let source_files: Vec<YoctoSourceFile> = WalkDir::new(&source)
             .into_iter()
             .filter_map(|f| {
                 let entry = f;
@@ -35,7 +54,7 @@ impl YoctoSourcePackage {
                         if entry.metadata().unwrap().is_file() {
                             let filename = entry
                                 .path()
-                                .strip_prefix(&source_files_path)
+                                .strip_prefix(&source)
                                 .expect("Should always be extracted here.")
                                 .to_string_lossy();
                             let sha256 = hash256_for_path(entry.path());
@@ -48,18 +67,28 @@ impl YoctoSourcePackage {
                         }
                     }
                     Err(_) => {
-                        error!("No source for {}-{} at {}", package_name, package_version, source_files_path.display());
+                        error!(
+                            "No source for {}-{} at {}",
+                            package_name,
+                            package_version,
+                            source
+                        );
                         None
                     }
                 }
             })
             .collect();
 
-        info!("Found {} source files for {}-{}.", source_files.len(), package_name, package_version);
+        info!(
+            "Found {} source files for {}-{}.",
+            source_files.len(),
+            package_name,
+            package_version
+        );
         Ok(Self {
             package_name,
             package_version,
-            source_archive_path: source_files_path,
+            source_archive_path: source.into(),
             source_files,
         })
     }
