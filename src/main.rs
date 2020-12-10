@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: MIT
 
-use analyze::yocto::Yocto;
+use analyze::{AnalyzerError, yocto::Yocto};
 use clap::{app_from_crate, App, Arg};
 use std::{fs, io::BufReader};
 mod analyze;
