@@ -1,12 +1,10 @@
-use std::path::StripPrefixError;
-
-use nom::error::ErrorKind;
-
 // SPDX-FileCopyrightText: 2020 HH Partners
 //
 // SPDX-License-Identifier: MIT
 
+pub mod package;
 pub mod yocto;
+pub use package::*;
 
 #[derive(Debug, thiserror::Error)]
 pub enum AnalyzerError {
@@ -15,7 +13,4 @@ pub enum AnalyzerError {
 
     #[error("parsing failed")]
     ParseError(String),
-
-    #[error("extracting failed")]
-    CompressError(#[from] compress_tools::Error),
 }

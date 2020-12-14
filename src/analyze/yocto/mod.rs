@@ -2,69 +2,20 @@ use crate::spdx::{
     spdx::{Algorithm, FileInformation, PackageInformation, SPDX},
     Checksum, Relationship, RelationshipType,
 };
-use fs::File;
-use log::{debug, error, info, warn};
+use log::{debug, info};
 use rayon::prelude::*;
-use std::{collections::HashMap, convert::TryFrom, fs::{self, read_to_string}, io::{BufRead, BufReader}, path::Path, path::PathBuf};
-use walkdir::WalkDir;
-
-use self::{
-    manifest_entry::ManifestEntry, runtime_reverse::RuntimeReverse,
-    source_package::YoctoSourcePackage,
+use std::{
+    collections::HashMap,
+    fs::{self, read_to_string},
+    path::Path,
+    path::PathBuf,
 };
 
-use super::AnalyzerError;
+use self::recipe::Recipe;
 
-pub mod manifest_entry;
-pub mod runtime_reverse;
-pub mod source_package;
+use super::{AnalyzerError, Package};
 
-/// Remove files from packages in SPDX file if the files weren't used to build
-/// the packages based on dwarfsrcfiles.
-pub fn exclude_files_with_srclist<P: AsRef<Path>>(
-    package: &mut PackageInformation,
-    srclist_path: P,
-    file_informations: &Vec<FileInformation>,
-) {
-    let hashes_in_srclist = hashes_from_srclist(srclist_path);
-
-    package.files.retain(|file| {
-        let file_information = SPDX::find_file_by_spdx_id(&file_informations, file).unwrap();
-
-        hashes_in_srclist.iter().any(|hash| {
-            hash.to_lowercase()
-                == file_information
-                    .file_checksum
-                    .iter()
-                    .find(|checksum| checksum.algorithm == Algorithm::SHA256)
-                    .unwrap()
-                    .value
-                    .to_lowercase()
-        })
-    });
-}
-
-/// Get all unique hashes from a srclist file produced by Yocto.
-pub fn hashes_from_srclist<P: AsRef<Path>>(path: P) -> Vec<String> {
-    let srclist_content = fs::read_to_string(path).unwrap();
-    let srclist: HashMap<String, Vec<HashMap<String, Option<String>>>> =
-        serde_json::from_str(&srclist_content).unwrap();
-
-    let mut hashes: Vec<String> = Vec::new();
-
-    for i in srclist {
-        for elf_file in i.1 {
-            for source_file in elf_file {
-                if let Some(value) = source_file.1 {
-                    hashes.push(value);
-                }
-            }
-        }
-    }
-    hashes.sort();
-    hashes.dedup();
-    hashes
-}
+mod recipe;
 
 #[derive(Debug)]
 pub struct Yocto {
@@ -72,11 +23,18 @@ pub struct Yocto {
     pub architecture: String,
     pub build_directory: PathBuf,
     pub manifest_path: PathBuf,
-    pub manifest_entries: Vec<ManifestEntry>,
-    pub source_packages: Vec<YoctoSourcePackage>,
+    pub packages: Vec<Package>,
 }
 
 impl Yocto {
+    /// Create a new Yocto build.
+    ///
+    /// Analyzing a Yocto build required access to Yocto developer tools, so the analyzer
+    /// should be run with the build environment activated, `source oe-init-build-env` by
+    /// default.
+    ///
+    /// Takes Yocto's build directory (`build/` by default) and the manifest file
+    /// (`build/tmp/deploy/images/ARCH/IMAGE_NAME.manifest` as default) as arguments.
     pub fn new<P: AsRef<Path>>(
         build_directory: P,
         manifest_path: P,
@@ -86,6 +44,7 @@ impl Yocto {
             &build_directory.as_ref().display(),
             &manifest_path.as_ref().display()
         );
+        // Use file name of manifest as the name of the image.
         let image_name = manifest_path
             .as_ref()
             .file_stem()
@@ -96,6 +55,7 @@ impl Yocto {
 
         debug!("Analyzing image name {}", &image_name);
 
+        // Get architecture from the folder path relative to the manifest file.
         let architecture = manifest_path
             .as_ref()
             .components()
@@ -107,9 +67,7 @@ impl Yocto {
             .ok_or_else(|| AnalyzerError::ParseError("No architecture in path.".into()))?
             .to_string();
 
-        debug!("Analyzing image with architecture {}", &architecture);
-
-        let mut yocto = Self {
+        let yocto = Self {
             architecture,
             image_name,
             build_directory: build_directory.as_ref().to_path_buf(),
@@ -117,78 +75,81 @@ impl Yocto {
             ..Default::default()
         };
 
-        yocto.get_list_of_recipes_from_manifest()?;
-        yocto.create_source_packages()?;
-
+        debug!("Created Yocto build {}.", &yocto.image_name);
         Ok(yocto)
     }
 
-    pub fn get_list_of_recipes_from_manifest(&mut self) -> Result<(), AnalyzerError> {
-        info!(
-            "Get package list for manifest {}",
-            &self.manifest_path.display()
-        );
-        let file = read_to_string(&self.manifest_path).map_err(|_| {
+    /// Analyze the Yocto build.
+    ///
+    /// Analyzing a Yocto build required access to Yocto developer tools, so the analyzer
+    /// should be run with the build environment activated, `source oe-init-build-end` by
+    /// default.
+    pub fn analyze(&mut self) -> Result<(), AnalyzerError> {
+        info!("Analyzing Yocto build {}", self.image_name);
+
+        let recipes = self.recipes()?;
+        let packages = recipes
+            .par_iter()
+            .map(|recipe| recipe.analyze_source(&self.build_directory, &self.pkgdata_path()));
+
+        let (packages, errors): (Vec<_>, Vec<_>) = packages.partition(Result::is_ok);
+        let packages = packages.into_iter().map(Result::unwrap).collect::<Vec<_>>();
+        self.packages = packages;
+        Ok(())
+    }
+
+    /// Get recipes used to build the image.
+    ///
+    /// The manifest file contains all of the packages that are included in the image.
+    /// One recipe can result in multiple packages. Find the source recipe for all of
+    /// the packages and return a list of unique recipes.
+    pub fn recipes(&self) -> Result<Vec<Recipe>, AnalyzerError> {
+        info!("Analyzing recipes for Yocto build {}", &self.image_name);
+
+        let image_manifest = read_to_string(&self.manifest_path).map_err(|_| {
             AnalyzerError::ParseError(format!(
                 "Manifest file not found in {}",
                 &self.manifest_path.display()
             ))
         })?;
-        let lines = file.lines().collect::<Vec<_>>();
-        let manifest_entries = lines
-            .par_iter()
-            .map(|line| ManifestEntry::new(&line))
-            .filter_map(Result::ok)
-            .collect::<Vec<_>>();
-        self.manifest_entries = manifest_entries;
-        info!("Found {} packages in manifest", self.manifest_entries.len());
-        Ok(())
-    }
 
-    pub fn get_unique_recipes(&self) -> Vec<ManifestEntry> {
-        let mut unique_manifest_entries = self.manifest_entries.clone();
-
-        unique_manifest_entries.sort_unstable_by_key(|manifest_entry| manifest_entry.recipe_name.clone());
-        unique_manifest_entries.dedup();
-        unique_manifest_entries
-    }
-
-    fn create_source_packages(&mut self) -> Result<(), AnalyzerError> {
-        info!("Creating source packages.");
-        let unique_recipes = self.get_unique_recipes();
+        // The packages are separated by newline in the manifest file.
+        let lines = image_manifest.par_lines();
         info!(
-            "Build includes {} unique source packages.",
-            unique_recipes.len()
+            "The manifest file includes {} packages.",
+            lines.clone().count()
         );
 
-        let source_packages = unique_recipes
-            .par_iter()
-            .map(|manifest_entry| YoctoSourcePackage::try_from(manifest_entry).unwrap())
+        // Try to create recipes from the manifest lines.
+        let recipes = lines
+            .map(|line| Recipe::try_from_manifest_line(&line))
             .collect::<Vec<_>>();
+        info!(
+            "Image {} contains {} packages.",
+            &self.image_name,
+            recipes.len()
+        );
 
-        for source_package in source_packages {
-            self.source_packages.push(source_package);
-        }
+        // Separate recipes and errors.
+        let (recipes, errors): (Vec<_>, Vec<_>) = recipes.into_iter().partition(Result::is_ok);
+        let mut recipes: Vec<_> = recipes.into_iter().map(Result::unwrap).collect();
 
-        info!("Found {} source packages.", self.source_packages.len());
+        // Sort and remove duplicates
+        recipes.sort_unstable_by_key(|recipe| recipe.name.clone());
+        recipes.dedup();
+        info!(
+            "Image {} was built from {} recipes.",
+            &self.image_name,
+            recipes.len()
+        );
 
-        Ok(())
+        Ok(recipes)
     }
 
-    pub fn get_work_directories(&self) -> Vec<PathBuf> {
-        let work_directories: Vec<PathBuf> = WalkDir::new(&self.build_directory.join("tmp/work/"))
-            .min_depth(3)
-            .max_depth(3)
-            .into_iter()
-            .map(|entry| {
-                entry
-                    .as_ref()
-                    .expect("should always be correct")
-                    .clone()
-                    .into_path()
-            })
-            .collect();
-        work_directories
+    pub fn pkgdata_path(&self) -> PathBuf {
+        self.build_directory
+            .join("tmp/pkgdata/")
+            .join(self.architecture.clone())
     }
 }
 
@@ -198,9 +159,8 @@ impl Default for Yocto {
             architecture: "DEFAULT".into(),
             build_directory: "DEFAULT".into(),
             image_name: "DEFAULT".into(),
-            manifest_entries: Vec::new(),
-            source_packages: Vec::new(),
             manifest_path: "DEFAULT".into(),
+            packages: Vec::new(),
         }
     }
 }
@@ -209,24 +169,30 @@ impl From<Yocto> for SPDX {
     fn from(yocto: Yocto) -> SPDX {
         let mut spdx = SPDX::new(&yocto.image_name);
 
-        for package in yocto.source_packages {
+        for package in yocto.packages {
             let mut spdx_package =
-                PackageInformation::new(&package.package_name, &mut spdx.spdx_ref_counter);
-            spdx_package.package_version = Some(package.package_version);
+                PackageInformation::new(&package.name, &mut spdx.spdx_ref_counter);
+            spdx_package.package_version = Some(package.version);
             for file in package.source_files {
-                let mut spdx_file =
-                    FileInformation::new(&file.filename, &mut spdx.spdx_ref_counter);
+                let mut spdx_file = FileInformation::new(&file.name, &mut spdx.spdx_ref_counter);
                 spdx_file
                     .file_checksum
                     .push(Checksum::new(Algorithm::SHA256, &file.sha256));
 
-                let relationship = Relationship::new(
-                    &spdx_package.package_spdx_identifier,
-                    &spdx_file.file_spdx_identifier,
-                    RelationshipType::Contains,
-                    None,
-                );
-                spdx.file_information.push(spdx_file);
+                let relationship = match file.used_in_build {
+                    true => Relationship::new(
+                        &spdx_package.package_spdx_identifier,
+                        &spdx_file.file_spdx_identifier,
+                        RelationshipType::Contains,
+                        None,
+                    ),
+                    false => Relationship::new(
+                        &spdx_package.package_spdx_identifier,
+                        &spdx_file.file_spdx_identifier,
+                        RelationshipType::Other,
+                        None,
+                    ),
+                };
                 spdx.relationships.push(relationship);
             }
 

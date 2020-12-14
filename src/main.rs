@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: MIT
 
-use analyze::{AnalyzerError, yocto::Yocto};
+use analyze::yocto::Yocto;
 use clap::{app_from_crate, App, Arg};
 use std::{fs, io::BufReader};
 mod analyze;
@@ -11,8 +11,6 @@ use spdx::SPDX;
 mod policy_engine;
 mod spdx;
 mod utilities;
-#[macro_use]
-extern crate pest_derive;
 
 use policy_engine::policy::Policy;
 use policy_engine::PolicyEngine;
@@ -122,7 +120,8 @@ fn main() {
             matches_analyze.value_of("output"),
         ) {
             // TODO: Don't unwrap.
-            let yocto_build = Yocto::new(&build_directory, &manifest_file).unwrap();
+            let mut yocto_build = Yocto::new(&build_directory, &manifest_file).unwrap();
+            yocto_build.analyze();
             let spdx: SPDX = yocto_build.into();
             spdx.save_as_json(output_path);
         }
