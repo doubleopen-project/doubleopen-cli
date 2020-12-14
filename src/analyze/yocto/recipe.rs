@@ -2,7 +2,7 @@ use std::{collections::HashMap, fs::read_to_string, path::Path, process::Command
 
 use log::{debug, error, trace};
 use tempfile::TempDir;
-use walkdir::WalkDir;
+use walkdir::{DirEntry, WalkDir};
 
 use crate::{
     analyze::{AnalyzerError, Package, SourceFile},
@@ -82,7 +82,7 @@ impl Recipe {
     pub fn analyze_source<P: AsRef<Path>>(
         &self,
         build_directory: P,
-        pkgdata_path: P
+        pkgdata_path: P,
     ) -> Result<Package, AnalyzerError> {
         debug!("Analyzing source for recipe {}.", &self.name);
 
@@ -97,7 +97,11 @@ impl Recipe {
             .arg(&self.name)
             .arg(tempdir.path())
             .output()?;
-            debug!("Devtool extract done, saved source of {} to{}.", &self.name, &tempdir.path().display());
+        debug!(
+            "Devtool extract done, saved source of {} to{}.",
+            &self.name,
+            &tempdir.path().display()
+        );
 
         // Find the srclist file for the package.
         debug!("Searching for srclist for {}", &self.name);
@@ -159,8 +163,18 @@ impl Recipe {
 
         // Create a SourceFile for the source files of the recipe.
         debug!("Creating source files for {}.", &self.name);
+
+        // Helper function to skip hidden files
+        fn is_hidden(entry: &DirEntry) -> bool {
+            entry
+                .file_name()
+                .to_str()
+                .map(|s| s.starts_with("."))
+                .unwrap_or(false)
+        }
         let source_files: Vec<SourceFile> = WalkDir::new(&tempdir.path())
             .into_iter()
+            .filter_entry(|entry| !is_hidden(entry))
             .filter_map(|f| {
                 let entry = f;
                 match entry {
@@ -202,8 +216,11 @@ impl Recipe {
                 }
             })
             .collect();
-        
-        let used_source_files_count = &source_files.iter().filter(|source_file| source_file.used_in_build == true).count();
+
+        let used_source_files_count = &source_files
+            .iter()
+            .filter(|source_file| source_file.used_in_build == true)
+            .count();
 
         debug!(
             "Found {} source files of which {} are used for recipe {}.",

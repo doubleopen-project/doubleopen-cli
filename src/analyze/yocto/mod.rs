@@ -193,6 +193,7 @@ impl From<Yocto> for SPDX {
                         None,
                     ),
                 };
+                spdx.file_information.push(spdx_file);
                 spdx.relationships.push(relationship);
             }
 
