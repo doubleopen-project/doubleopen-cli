@@ -1,14 +1,16 @@
-use crate::spdx::{
-    spdx::{Algorithm, FileInformation, PackageInformation, SPDX},
-    Checksum, Relationship, RelationshipType,
+use crate::{
+    fossology::fossology::Fossology,
+    spdx::{
+        spdx::{Algorithm, FileInformation, PackageInformation, SPDX},
+        Checksum, Relationship, RelationshipType,
+    },
+    utilities::hash256_for_path,
 };
+use flate2::{write::GzEncoder, Compression};
 use log::{debug, info};
 use rayon::prelude::*;
-use std::{
-    fs::read_to_string,
-    path::Path,
-    path::PathBuf,
-};
+use std::{fs::read_to_string, path::Path, path::PathBuf};
+use tempfile::tempdir;
 
 use self::recipe::Recipe;
 
@@ -149,6 +151,45 @@ impl Yocto {
         self.build_directory
             .join("tmp/pkgdata/")
             .join(self.architecture.clone())
+    }
+
+    pub fn upload_source_to_fossology(&self, fossology: &Fossology) -> Result<(), AnalyzerError> {
+        debug!(
+            "Uploading source of Yocto build {} to Fossology.",
+            &self.image_name
+        );
+
+        let recipes = self.recipes()?;
+        debug!(
+            "Yocto build {} includes {} recipes.",
+            &self.image_name,
+            recipes.len()
+        );
+
+        for recipe in recipes {
+            debug!("Uploading source of recipe {} to Fossology.", &recipe.name);
+            let source_directory =
+                recipe.get_recipe_source(&self.build_directory, &self.pkgdata_path())?;
+            let tempdir = tempdir()?;
+            let tar_gz = std::fs::File::create(
+                &tempdir
+                    .path()
+                    .join(format!("{}-{}.tar.gz", &recipe.name, &recipe.version)),
+            )?;
+            let enc = GzEncoder::new(tar_gz, Compression::default());
+            let mut tar = tar::Builder::new(enc);
+            tar.append_dir_all("", &source_directory.path())?;
+
+            let sha256 = hash256_for_path(
+                &tempdir
+                    .path()
+                    .join(format!("{}-{}.tar.gz", &recipe.name, &recipe.version)),
+            );
+
+            debug!("SHA256 for {} is {}.", recipe.name, sha256);
+        }
+
+        Ok(())
     }
 }
 

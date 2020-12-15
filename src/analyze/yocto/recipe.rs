@@ -85,23 +85,7 @@ impl Recipe {
         pkgdata_path: P,
     ) -> Result<Package, AnalyzerError> {
         debug!("Analyzing source for recipe {}.", &self.name);
-
-        // Get the source for the recipe with Yocto's `devtool extract` and save it in
-        // a temporary directory for analysis.
-        debug!("Running devtool extract for {}.", &self.name);
-        let mut command = Command::new("devtool");
-        command.current_dir(build_directory.as_ref());
-        let tempdir = TempDir::new()?;
-        command
-            .arg("extract")
-            .arg(&self.name)
-            .arg(tempdir.path())
-            .output()?;
-        debug!(
-            "Devtool extract done, saved source of {} to{}.",
-            &self.name,
-            &tempdir.path().display()
-        );
+        let tempdir = self.get_recipe_source(&build_directory, &pkgdata_path)?;
 
         // Find the srclist file for the package.
         debug!("Searching for srclist for {}", &self.name);
@@ -226,5 +210,30 @@ impl Recipe {
             version: self.version.clone(),
             source_files,
         })
+    }
+
+    /// Get the source for the recipe with Yocto's `devtool extract` and save it in
+    /// a temporary directory for analysis.
+    pub fn get_recipe_source<P: AsRef<Path>>(
+        &self,
+        build_directory: P,
+        pkgdata_path: P,
+    ) -> Result<TempDir, AnalyzerError> {
+        debug!("Running devtool extract for {}.", &self.name);
+        let mut command = Command::new("devtool");
+        command.current_dir(build_directory.as_ref());
+        let tempdir = TempDir::new()?;
+        command
+            .arg("extract")
+            .arg(&self.name)
+            .arg(tempdir.path())
+            .output()?;
+        debug!(
+            "Devtool extract done, saved source of {} to{}.",
+            &self.name,
+            &tempdir.path().display()
+        );
+
+        Ok(tempdir)
     }
 }

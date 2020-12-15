@@ -243,7 +243,7 @@ impl SPDX {
     }
 
     /// Save serialized SPDX as json,
-    pub fn save_as_json(&self, path: &str) {
+    pub fn save_as_json<P: AsRef<Path>>(&self, path: P) {
         println!("Saving to json...");
         let json = serde_json::to_string_pretty(&self).unwrap();
         fs::write(path, json).expect("Unable to write file");

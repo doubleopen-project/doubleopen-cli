@@ -3,8 +3,8 @@
 // SPDX-License-Identifier: MIT
 
 use analyze::yocto::Yocto;
-use clap::{app_from_crate, App, Arg};
-use std::{fs, io::BufReader};
+use clap::{Clap, ValueHint};
+use std::path::PathBuf;
 mod analyze;
 mod fossology;
 use spdx::SPDX;
@@ -15,158 +15,83 @@ mod utilities;
 use policy_engine::policy::Policy;
 use policy_engine::PolicyEngine;
 
+#[derive(Clap, Debug)]
+#[clap(author, about, version)]
+struct Opts {
+    #[clap(subcommand)]
+    subcmd: SubCommand,
+}
+
+#[derive(Clap, Debug)]
+enum SubCommand {
+    /// Analyze project.
+    #[clap(author, version)]
+    Analyze(Analyze),
+
+    /// Use Fossology.
+    #[clap(author, version)]
+    Fossology(Fossology),
+
+    /// Evaluate SPDX against a Policy.
+    #[clap(author, version)]
+    Evaluate(Evaluate),
+}
+
+#[derive(Clap, Debug)]
+struct Analyze {
+    #[clap(short, long, parse(from_os_str), value_hint = ValueHint::FilePath)]
+    manifest: PathBuf,
+
+    #[clap(short, long, parse(from_os_str), value_hint = ValueHint::DirPath)]
+    build: PathBuf,
+
+    #[clap(short, long, parse(from_os_str), value_hint = ValueHint::DirPath)]
+    output: PathBuf,
+}
+
+#[derive(Clap, Debug)]
+struct Fossology {
+    #[clap(short, long, value_hint = ValueHint::Url)]
+    uri: String,
+
+    #[clap(short, long)]
+    token: String,
+
+    #[clap(short, long, parse(from_os_str), value_hint = ValueHint::DirPath)]
+    output: PathBuf,
+}
+
+#[derive(Clap, Debug)]
+struct Evaluate {
+    #[clap(short, long, parse(from_os_str), value_hint = ValueHint::FilePath)]
+    spdx: PathBuf,
+
+    #[clap(short, long, parse(from_os_str), value_hint = ValueHint::FilePath)]
+    policies: Vec<PathBuf>,
+
+    #[clap(short, long)]
+    context: String,
+}
 fn main() {
     env_logger::init();
-    let matches = app_from_crate!()
-        .subcommands(vec![
-            App::new("analyze")
-                .arg(
-                    Arg::new("manifest file")
-                        .short('m')
-                        .long("manifest")
-                        .value_name("FILE")
-                        .about("Manifest file of the image")
-                        .required(true)
-                        .takes_value(true),
-                )
-                .arg(
-                    Arg::new("build directory")
-                        .short('b')
-                        .long("build")
-                        .value_name("FOLDER")
-                        .about("Yocto build directory")
-                        .required(true)
-                        .takes_value(true),
-                )
-                .arg(
-                    Arg::new("output")
-                        .short('o')
-                        .long("output")
-                        .value_name("FILE")
-                        .about("Save package info to file")
-                        .required(true)
-                        .takes_value(true),
-                ),
-            App::new("fossology")
-                .arg(
-                    Arg::new("fossology")
-                        .value_name("URI")
-                        .about("Fossology instance")
-                        .required(true)
-                        .index(1),
-                )
-                .arg(
-                    Arg::new("fossology token")
-                        .long("token")
-                        .short('t')
-                        .value_name("TOKEN")
-                        .about("Access token for Fossology API")
-                        .required(true)
-                        .takes_value(true),
-                )
-                .arg(
-                    Arg::new("upload")
-                        .long("upload")
-                        .short('u')
-                        .value_name("DIR")
-                        .about("Directory to upload to Fossology")
-                        .takes_value(true),
-                )
-                .arg(
-                    Arg::new("spdx file")
-                        .long("spdx")
-                        .short('s')
-                        .value_name("FILE")
-                        .about("SPDX file to get licenses for (JSON).")
-                        .takes_value(true),
-                ),
-            App::new("evaluate")
-                .arg(
-                    Arg::new("spdx file")
-                        .long("spdx")
-                        .short('s')
-                        .value_name("FILE")
-                        .about("SPDX Document to evaluate")
-                        .takes_value(true)
-                        .required(true),
-                )
-                .arg(
-                    Arg::new("policy")
-                        .long("policy files")
-                        .short('p')
-                        .value_name("FILES")
-                        .about("Policy files to evaluate the SPDX against.")
-                        .required(true)
-                        .multiple(true)
-                        .takes_value(true),
-                )
-                .arg(
-                    Arg::new("context")
-                        .long("context")
-                        .short('c')
-                        .value_name("STRING")
-                        .about("Context of the application for the Policy Engine.")
-                        .required(true)
-                        .takes_value(true),
-                ),
-        ])
-        .get_matches();
+    let opts: Opts = Opts::parse();
 
-    // Process analyze subcommand.
-    if let Some(ref matches_analyze) = matches.subcommand_matches("analyze") {
-        if let (Some(manifest_file), Some(build_directory), Some(output_path)) = (
-            matches_analyze.value_of("manifest file"),
-            matches_analyze.value_of("build directory"),
-            matches_analyze.value_of("output"),
-        ) {
+    match opts.subcmd {
+        SubCommand::Analyze(analyze) => {
             // TODO: Don't unwrap.
-            let mut yocto_build = Yocto::new(&build_directory, &manifest_file).unwrap();
+            let mut yocto_build = Yocto::new(&analyze.build, &analyze.manifest).unwrap();
             yocto_build.analyze();
             let spdx: SPDX = yocto_build.into();
-            spdx.save_as_json(output_path);
+            spdx.save_as_json(&analyze.output);
         }
-    }
+        SubCommand::Fossology(_) => {}
+        SubCommand::Evaluate(evaluate) => {
+            let policy = Policy::from_files(evaluate.policies, &evaluate.context);
+            let policy_engine = PolicyEngine::new(policy);
 
-    // Process Fossology subcommand.
-    if let Some(ref matches) = matches.subcommand_matches("fossology") {
-        // Setup Fossology.
-        let fossology_uri = matches.value_of("fossology").unwrap();
-        let token = matches.value_of("fossology token").unwrap();
-        let fossology = fossology::fossology::Fossology::new(fossology_uri, token);
+            let spdx = SPDX::from_file(&evaluate.spdx);
 
-        fossology.version();
-
-        // Upload package.
-        if let Some(source_path) = matches.value_of("upload") {
-            fossology.upload_all_in_folder(&source_path);
+            let result = policy_engine.evaluate_spdx(&spdx);
         }
-
-        // Get licenses from Fossology for spdx.
-        if let Some(spdx) = matches.value_of("spdx file") {
-            let file = fs::File::open(&spdx).expect("SPDX file not found");
-            let reader = BufReader::new(file);
-            let mut spdx: SPDX = serde_json::from_reader(reader).unwrap();
-
-            spdx.query_fossology_for_licenses(&fossology);
-
-            spdx.save_as_json("test.spdx.json");
-        }
-    }
-
-    // Process evaluate subcommand.
-    if let Some(ref matches) = matches.subcommand_matches("evaluate") {
-        let (policies, context) = (
-            matches.values_of("policy").unwrap(),
-            matches.value_of("context").unwrap(),
-        );
-
-        let policy_paths: Vec<&str> = policies.collect();
-        let policy = Policy::from_files(policy_paths, context);
-        let policy_engine = PolicyEngine::new(policy);
-
-        let spdx_path = matches.value_of("spdx").unwrap();
-        let spdx = SPDX::from_file(&spdx_path);
-
-        let result = policy_engine.evaluate_spdx(&spdx);
     }
 }
