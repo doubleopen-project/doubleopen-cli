@@ -5,8 +5,7 @@ use crate::spdx::{
 use log::{debug, info};
 use rayon::prelude::*;
 use std::{
-    collections::HashMap,
-    fs::{self, read_to_string},
+    fs::read_to_string,
     path::Path,
     path::PathBuf,
 };

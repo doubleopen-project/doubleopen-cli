@@ -1,12 +1,12 @@
 use std::{collections::HashMap, fs::read_to_string, path::Path, process::Command};
 
-use log::{debug, error, trace};
+use log::{debug, error};
 use tempfile::TempDir;
-use walkdir::{DirEntry, WalkDir};
+use walkdir::WalkDir;
 
 use crate::{
     analyze::{AnalyzerError, Package, SourceFile},
-    utilities::hash256_for_path,
+    utilities::{hash256_for_path, is_hidden},
 };
 
 #[derive(PartialEq)]
@@ -164,15 +164,8 @@ impl Recipe {
         // Create a SourceFile for the source files of the recipe.
         debug!("Creating source files for {}.", &self.name);
 
-        // Helper function to skip hidden files
-        fn is_hidden(entry: &DirEntry) -> bool {
-            entry
-                .file_name()
-                .to_str()
-                .map(|s| s.starts_with("."))
-                .unwrap_or(false)
-        }
         let source_files: Vec<SourceFile> = WalkDir::new(&tempdir.path())
+            .min_depth(1)
             .into_iter()
             .filter_entry(|entry| !is_hidden(entry))
             .filter_map(|f| {
