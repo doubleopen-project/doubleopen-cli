@@ -1,5 +1,5 @@
 use crate::{
-    fossology::fossology::Fossology,
+    fossology::Fossology,
     spdx::{
         spdx::{Algorithm, FileInformation, PackageInformation, SPDX},
         Checksum, Relationship, RelationshipType,
@@ -170,23 +170,36 @@ impl Yocto {
             debug!("Uploading source of recipe {} to Fossology.", &recipe.name);
             let source_directory =
                 recipe.get_recipe_source(&self.build_directory, &self.pkgdata_path())?;
+            debug!("Creating a temporary dir");
             let tempdir = tempdir()?;
             let tar_gz = std::fs::File::create(
                 &tempdir
                     .path()
                     .join(format!("{}-{}.tar.gz", &recipe.name, &recipe.version)),
             )?;
+            debug!("Created a tar gz.");
             let enc = GzEncoder::new(tar_gz, Compression::default());
+            debug!("Created an encoder");
             let mut tar = tar::Builder::new(enc);
+            debug!("Created a tar builder.");
             tar.append_dir_all("", &source_directory.path())?;
+            debug!("Added files to tar");
+            tar.finish();
 
+            debug!("Calculating hash");
             let sha256 = hash256_for_path(
                 &tempdir
                     .path()
                     .join(format!("{}-{}.tar.gz", &recipe.name, &recipe.version)),
             );
-
             debug!("SHA256 for {} is {}.", recipe.name, sha256);
+
+            fossology.upload(
+                &tempdir
+                    .path()
+                    .join(format!("{}-{}.tar.gz", &recipe.name, &recipe.version)),
+                &3,
+            );
         }
 
         Ok(())

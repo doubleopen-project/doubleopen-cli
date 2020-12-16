@@ -102,7 +102,7 @@ impl PackageInformation {
     /// Find all files of the package.
     pub fn find_files_for_package<'a>(
         &'a self,
-        files: &'a Vec<FileInformation>,
+        files: &'a [FileInformation],
     ) -> Vec<&'a FileInformation> {
         self.files
             .iter()

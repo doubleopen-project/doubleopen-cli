@@ -7,7 +7,7 @@ pub struct SPDXExpression(pub String);
 impl SPDXExpression {
     pub fn parse(&self) -> Result<Expr<String>, String> {
         let expression = parser::parse_spdx(&self.0).map_err(|e| e.to_string())?;
-        if expression.0.len() == 0 {
+        if expression.0.is_empty() {
             Ok(expression.1)
         } else {
             Err("Parsing error".into())

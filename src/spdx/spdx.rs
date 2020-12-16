@@ -2,10 +2,7 @@
 //
 // SPDX-License-Identifier: MIT
 
-use crate::fossology::{
-    fossology::Fossology,
-    structs::{HashQueryInput, HashQueryResponse},
-};
+use crate::fossology::{Fossology, api_objects::{requests::HashQueryInput, responses::HashQueryResponse}};
 use flate2::read::GzDecoder;
 use indicatif::ProgressBar;
 use serde::{Deserialize, Serialize};
@@ -230,7 +227,7 @@ impl SPDX {
                     if let Some(findings) = &response.findings {
                         file_information.license_information_in_file = findings.scanner.clone();
 
-                        if findings.conclusion.len() > 0 {
+                        if !findings.conclusion.is_empty() {
                             file_information.concluded_license =
                                 SPDXExpression(findings.conclusion.join(" "));
                         }

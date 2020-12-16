@@ -4,6 +4,7 @@
 
 use analyze::yocto::Yocto;
 use clap::{Clap, ValueHint};
+use fossology::Fossology;
 use std::path::PathBuf;
 mod analyze;
 mod fossology;
@@ -26,19 +27,19 @@ struct Opts {
 enum SubCommand {
     /// Analyze project.
     #[clap(author, version)]
-    Analyze(Analyze),
+    Analyze(AnalyzeArguments),
 
     /// Use Fossology.
     #[clap(author, version)]
-    Fossology(Fossology),
+    Fossology(FossologyArguments),
 
     /// Evaluate SPDX against a Policy.
     #[clap(author, version)]
-    Evaluate(Evaluate),
+    Evaluate(EvaluateArguments),
 }
 
 #[derive(Clap, Debug)]
-struct Analyze {
+struct AnalyzeArguments {
     #[clap(short, long, parse(from_os_str), value_hint = ValueHint::FilePath)]
     manifest: PathBuf,
 
@@ -50,19 +51,30 @@ struct Analyze {
 }
 
 #[derive(Clap, Debug)]
-struct Fossology {
+struct FossologyArguments {
     #[clap(short, long, value_hint = ValueHint::Url)]
     uri: String,
 
     #[clap(short, long)]
     token: String,
 
-    #[clap(short, long, parse(from_os_str), value_hint = ValueHint::DirPath)]
-    output: PathBuf,
+    #[clap(subcommand)]
+    action: FossologyAction,
 }
 
 #[derive(Clap, Debug)]
-struct Evaluate {
+enum FossologyAction {
+    Upload {
+        #[clap(short, long, parse(from_os_str), value_hint = ValueHint::FilePath)]
+        manifest: PathBuf,
+
+        #[clap(short, long, parse(from_os_str), value_hint = ValueHint::DirPath)]
+        build: PathBuf,
+    },
+}
+
+#[derive(Clap, Debug)]
+struct EvaluateArguments {
     #[clap(short, long, parse(from_os_str), value_hint = ValueHint::FilePath)]
     spdx: PathBuf,
 
@@ -77,19 +89,29 @@ fn main() {
     let opts: Opts = Opts::parse();
 
     match opts.subcmd {
-        SubCommand::Analyze(analyze) => {
+        SubCommand::Analyze(analyze_arguments) => {
             // TODO: Don't unwrap.
-            let mut yocto_build = Yocto::new(&analyze.build, &analyze.manifest).unwrap();
+            let mut yocto_build =
+                Yocto::new(&analyze_arguments.build, &analyze_arguments.manifest).unwrap();
             yocto_build.analyze();
             let spdx: SPDX = yocto_build.into();
-            spdx.save_as_json(&analyze.output);
+            spdx.save_as_json(&analyze_arguments.output);
         }
-        SubCommand::Fossology(_) => {}
-        SubCommand::Evaluate(evaluate) => {
-            let policy = Policy::from_files(evaluate.policies, &evaluate.context);
+        SubCommand::Fossology(fossology_arguments) => match fossology_arguments.action {
+            FossologyAction::Upload { manifest, build } => {
+                let yocto = Yocto::new(&build, &manifest).unwrap();
+                let fossology =
+                    Fossology::new(&fossology_arguments.uri, &fossology_arguments.token);
+
+                yocto.upload_source_to_fossology(&fossology);
+            }
+        },
+        SubCommand::Evaluate(evaluate_arguments) => {
+            let policy =
+                Policy::from_files(evaluate_arguments.policies, &evaluate_arguments.context);
             let policy_engine = PolicyEngine::new(policy);
 
-            let spdx = SPDX::from_file(&evaluate.spdx);
+            let spdx = SPDX::from_file(&evaluate_arguments.spdx);
 
             let result = policy_engine.evaluate_spdx(&spdx);
         }
