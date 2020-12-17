@@ -99,20 +99,16 @@ impl Recipe {
                     if stem.to_str().expect("Conversion should work") == self.name {
                         match extension {
                             Some(extension) => {
-                                if extension.to_str().expect("Conversion should work.") == "srclist"
-                                {
-                                    return true;
-                                } else {
-                                    return false;
-                                }
+                                return extension.to_str().expect("Conversion should work.")
+                                    == "srclist"
                             }
-                            None => return false,
+                            None => false,
                         }
                     } else {
-                        return false;
+                        false
                     }
                 }
-                None => return false,
+                None => false,
             }
         });
 
@@ -196,7 +192,7 @@ impl Recipe {
 
         let used_source_files_count = &source_files
             .iter()
-            .filter(|source_file| source_file.used_in_build == true)
+            .filter(|source_file| source_file.used_in_build)
             .count();
 
         debug!(
