@@ -147,18 +147,20 @@ impl Fossology {
     }
 
     /// Get licenses for a list of hashes
-    pub fn licenses_for_hashes(&self, hashes: &[HashQueryInput]) -> Vec<HashQueryResponse> {
+    pub fn licenses_for_hashes(
+        &self,
+        hashes: &[HashQueryInput],
+    ) -> Result<Vec<HashQueryResponse>, FossologyError> {
         let response: Vec<HashQueryResponse> = self
             .client
             .post(&format!("{}/filesearch", self.uri))
+            .timeout(Duration::from_secs(600))
             .bearer_auth(&self.token)
             .json(&hashes)
-            .send()
-            .unwrap()
-            .json()
-            .unwrap();
+            .send()?
+            .json()?;
 
-        response
+        Ok(response)
     }
 }
 

@@ -64,12 +64,22 @@ struct FossologyArguments {
 
 #[derive(Clap, Debug)]
 enum FossologyAction {
+    /// Upload the source for a Yocto build to Fossology.
     Upload {
         #[clap(short, long, parse(from_os_str), value_hint = ValueHint::FilePath)]
         manifest: PathBuf,
 
         #[clap(short, long, parse(from_os_str), value_hint = ValueHint::DirPath)]
         build: PathBuf,
+    },
+
+    /// Populate an SPDX file with license information from Fossology.
+    Query {
+        #[clap(short, long, parse(from_os_str), value_hint = ValueHint::FilePath)]
+        input: PathBuf,
+
+        #[clap(short, long, parse(from_os_str), value_hint = ValueHint::FilePath)]
+        output: PathBuf,
     },
 }
 
@@ -104,6 +114,13 @@ fn main() {
                     Fossology::new(&fossology_arguments.uri, &fossology_arguments.token);
 
                 yocto.upload_source_to_fossology(&fossology).unwrap();
+            }
+            FossologyAction::Query { input, output } => {
+                let mut spdx = SPDX::from_file(&input);
+                let fossology =
+                    Fossology::new(&fossology_arguments.uri, &fossology_arguments.token);
+                spdx.query_fossology_for_licenses(&fossology).unwrap();
+                spdx.save_as_json(&output);
             }
         },
         SubCommand::Evaluate(evaluate_arguments) => {

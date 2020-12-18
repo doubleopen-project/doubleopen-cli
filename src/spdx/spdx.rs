@@ -2,9 +2,9 @@
 //
 // SPDX-License-Identifier: MIT
 
-use crate::fossology::{Fossology, api_objects::{requests::HashQueryInput, responses::HashQueryResponse}};
+use crate::fossology::{Fossology, FossologyError, api_objects::{requests::HashQueryInput, responses::HashQueryResponse}};
 use flate2::read::GzDecoder;
-use indicatif::ProgressBar;
+use log::info;
 use serde::{Deserialize, Serialize};
 use std::{
     fs::{self, File},
@@ -40,7 +40,7 @@ pub struct SPDX {
     pub relationships: Vec<Relationship>,
 
     /// Counter for creating SPDXRefs.
-    #[serde(skip_serializing)]
+    #[serde(skip)]
     pub spdx_ref_counter: i32,
 }
 
@@ -67,6 +67,7 @@ impl SPDX {
 
     /// Deserialize from file. Accepts json and yaml.
     pub fn from_file<P: AsRef<Path>>(path: P) -> Self {
+        info!("Deserializing SPDX from {}", path.as_ref().display());
         let path = path.as_ref();
         let file = fs::File::open(&path).expect("SPDX file not found");
         let reader = BufReader::new(file);
@@ -145,14 +146,14 @@ impl SPDX {
     }
 
     /// Get unique hashes for all files in all packages of the SPDX.
-    pub fn get_unique_hashes(&self) -> Vec<String> {
+    pub fn get_unique_hashes(&self, algorithm: Algorithm) -> Vec<String> {
         let mut unique_hashes: Vec<String> = Vec::new();
 
         for file_information in self.file_information.iter() {
             if let Some(checksum) = file_information
                 .file_checksum
                 .iter()
-                .find(|checksum| checksum.algorithm == Algorithm::SHA256)
+                .find(|checksum| checksum.algorithm == algorithm)
             {
                 unique_hashes.push(checksum.value.clone());
             }
@@ -166,33 +167,32 @@ impl SPDX {
 
     /// Get scanner results and license conclusions for the files in SPDX
     /// found on the Fossology instance.
-    pub fn query_fossology_for_licenses(&mut self, fossology: &Fossology) {
-        let hashes = self.get_unique_hashes();
+    pub fn query_fossology_for_licenses(&mut self, fossology: &Fossology) -> Result<(), FossologyError> {
+        let sha256_values = self.get_unique_hashes(Algorithm::SHA256);
 
         // Create input for the Fossology query.
-        let input: Vec<HashQueryInput> = hashes
+        let input: Vec<HashQueryInput> = sha256_values
             .iter()
             .map(|hash| HashQueryInput {
                 sha256: hash.to_string(),
             })
             .collect();
 
-        let mut response = fossology.licenses_for_hashes(&input);
+        let mut response = fossology.licenses_for_hashes(&input)?;
 
         self.process_fossology_response(&mut response);
+        Ok(())
     }
 
     /// Add information from Fossology response to the SPDX.
     pub fn process_fossology_response(&mut self, responses: &mut Vec<HashQueryResponse>) {
-        println!("Processing Fossology response");
-        let pb = ProgressBar::new(self.file_information.len() as u64);
+        info!("Processing Fossology response");
 
         // Sort response by sha256 to enable binary search.
         responses.sort_by_key(|i| i.hash.sha256.clone().unwrap());
 
         // Loop over all the files in all packages.
         for file_information in &mut self.file_information {
-            pb.inc(1);
             // Get sha256 of the file.
             if let Some(sha256) = file_information
                 .file_checksum
@@ -235,8 +235,6 @@ impl SPDX {
                 }
             }
         }
-
-        pb.finish();
     }
 
     /// Save serialized SPDX as json,
