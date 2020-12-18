@@ -12,6 +12,7 @@ pub struct FileInformation {
     pub file_name: String,
     #[serde(rename = "SPDXID")]
     pub file_spdx_identifier: String,
+    #[serde(skip_serializing_if = "Option::is_none", default)]
     pub file_type: Option<Vec<FileType>>,
     pub file_checksum: Vec<Checksum>,
     /// Store Fossology's license conclusion. Need a way to parse Fossology's
@@ -19,11 +20,16 @@ pub struct FileInformation {
     pub concluded_license: SPDXExpression,
     /// Store Fossology's scan results.
     pub license_information_in_file: Vec<String>,
+    #[serde(skip_serializing_if = "Option::is_none", default)]
     pub comments_on_license: Option<String>,
     pub copyright_text: String,
+    #[serde(skip_serializing_if = "Option::is_none", default)]
     pub file_comment: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none", default)]
     pub file_notice: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none", default)]
     pub file_contributor: Option<Vec<String>>,
+    #[serde(skip_serializing_if = "Option::is_none", default)]
     pub file_attribution_text: Option<Vec<String>>,
     // TODO: Snippet Information.
 }

@@ -12,30 +12,48 @@ use super::{
 pub struct PackageInformation {
     pub package_name: String,
     pub package_spdx_identifier: String,
+    #[serde(skip_serializing_if = "Option::is_none", default)]
     pub package_version: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none", default)]
     pub package_file_name: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none", default)]
     pub package_supplier: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none", default)]
     pub package_originator: Option<String>,
     pub package_download_location: String,
+    #[serde(skip_serializing_if = "Option::is_none", default)]
     pub files_analyzed: Option<bool>,
+    #[serde(skip_serializing_if = "Option::is_none", default)]
     pub package_verification_code: Option<PackageVerificationCode>,
+    #[serde(skip_serializing_if = "Option::is_none", default)]
     pub package_checksum: Option<Vec<Checksum>>,
+    #[serde(skip_serializing_if = "Option::is_none", default)]
     pub package_home_page: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none", default)]
     pub source_information: Option<String>,
     pub concluded_license: SPDXExpression,
+    #[serde(skip_serializing_if = "Option::is_none", default)]
     pub all_licenses_information_from_files: Option<Vec<String>>,
     pub declared_license: String,
+    #[serde(skip_serializing_if = "Option::is_none", default)]
     pub comments_on_license: Option<String>,
     pub copyright_text: String,
+    #[serde(skip_serializing_if = "Option::is_none", default)]
     pub package_summary_description: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none", default)]
     pub package_detailed_description: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none", default)]
     pub package_comment: Option<String>,
     // TODO: Create Struct if needed.
+    #[serde(skip_serializing_if = "Option::is_none", default)]
     pub external_reference: Option<String>,
     // Should probably be included in ExternalReference struct.
+    #[serde(skip_serializing_if = "Option::is_none", default)]
     pub external_reference_comment: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none", default)]
     pub package_attribution_text: Option<Vec<String>>,
     // Valid SPDX?
+    #[serde(skip_serializing_if = "Vec::is_empty", default)]
     pub files: Vec<String>,
 }
 

@@ -12,11 +12,15 @@ pub struct DocumentCreationInformation {
     pub spdx_identifier: String,
     pub document_name: String,
     pub spdx_document_namespace: String,
+    #[serde(skip_serializing_if = "Option::is_none", default)]
     pub external_document_references: Option<Vec<ExternalDocumentReference>>,
+    #[serde(skip_serializing_if = "Option::is_none", default)]
     pub license_list_version: Option<String>,
     pub creator: String,
     pub created: DateTime<Utc>,
+    #[serde(skip_serializing_if = "Option::is_none", default)]
     pub creator_comment: Option<String>,
+    #[serde(skip_serializing_if = "Option::is_none", default)]
     pub document_comment: Option<String>,
 }
 
