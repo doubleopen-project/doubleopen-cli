@@ -4,12 +4,9 @@
 
 #![deny(clippy::all)]
 use self::api_objects::{requests::*, responses::*};
-use crate::utilities::hash256_for_path;
-use indicatif::{ProgressBar, ProgressStyle};
-use rayon::prelude::*;
 use reqwest::blocking::{multipart::Form, Client};
 use serde::{Deserialize, Serialize};
-use std::{fs, path::Path, thread, time};
+use std::{path::Path, thread, time};
 use time::Duration;
 pub mod api_objects;
 
@@ -24,6 +21,15 @@ pub struct Fossology {
 
     /// Reqwest client.
     client: Client,
+}
+
+#[derive(Debug, thiserror::Error)]
+pub enum FossologyError {
+    #[error(transparent)]
+    FileError(#[from] std::io::Error),
+
+    #[error(transparent)]
+    RequestError(#[from] reqwest::Error),
 }
 
 /// Objects in downloads-folder to be uploaded to Fossology.
@@ -102,6 +108,10 @@ impl Fossology {
 
     /// Check if an upload exists on Fossology by upload id.
     fn upload_exists_by_id(&self, upload_id: &i32) -> bool {
+        // If an upload with a specified id does not exist, Fossology returns a
+        // 503 error. We query the api with an upload id and try to deserialize the
+        // response as a successful query. If the deserialization is successful,
+        // an upload with the specified id exists.
         let response: Result<UploadDetailResponse, reqwest::Error> = self
             .client
             .get(&format!("{}/uploads/{}", self.uri, upload_id))
@@ -116,90 +126,24 @@ impl Fossology {
         }
     }
 
-    pub fn upload_all_in_folder(&self, folder_path: &str) {
-        let paths: Vec<String> = fs::read_dir(folder_path)
-            .unwrap()
-            .filter_map(|x| {
-                let x = x.unwrap();
-                if x.metadata().unwrap().is_file() {
-                    Some(x.path().to_str().unwrap().to_string())
-                } else {
-                    None
-                }
-            })
-            .collect();
-
-        let file_count = fs::read_dir(folder_path).unwrap().count() as u64;
-
-        let pb = ProgressBar::new(file_count);
-
-        println!("Calculating hashes for source packages.");
-        let mut upload_objects: Vec<UploadObject> = paths
-            .into_par_iter()
-            .map(|i| {
-                pb.inc(1);
-                let hash = hash256_for_path(&i);
-                UploadObject {
-                    path: i,
-                    sha256: hash,
-                    exists_in_fossology: false,
-                }
-            })
-            .collect();
-
-        pb.finish();
-
-        // Check fossology for which of the packages are already uploaded.
-        println!("Querying Fossology for existing packages.");
+    /// Check if the file exist in Fossology based on sha256 value.
+    pub fn file_exists(&self, sha_256: &str) -> Result<bool, FossologyError> {
+        let body = HashQueryInput {
+            sha256: sha_256.into(),
+        };
         let response: Vec<HashQueryResponse> = self
             .client
             .post(&format!("{}/filesearch", self.uri))
             .bearer_auth(&self.token)
-            .json::<Vec<HashQueryInput>>(
-                &upload_objects
-                    .iter()
-                    .map(|x| HashQueryInput {
-                        sha256: x.sha256.to_string(),
-                    })
-                    .collect(),
-            )
-            .send()
-            .unwrap()
-            .json()
-            .unwrap();
+            .json(&vec![body])
+            .send()?
+            .json()?;
 
-        // Match fossology response with the packages detected.
-        for i in &mut upload_objects {
-            if !i.path.ends_with(".done") {
-                let includes = !&response.iter().any(|e| {
-                    e.hash.sha1.is_none()
-                        && e.hash.sha256.as_deref() == Some(&i.sha256.to_uppercase())
-                });
-                if includes {
-                    i.exists_in_fossology = true;
-                }
-            }
+        if response[0].message == Some("Not found".into()) {
+            Ok(false)
+        } else {
+            Ok(true)
         }
-
-        let style = ProgressStyle::default_bar().template("{wide_bar} {pos}/{len} {msg}");
-
-        // Filter files that should not be uploaded.
-        // TODO: Refactor to more modular function.
-        upload_objects.retain(|x| !x.path.ends_with(".done"));
-
-        // Filter files already in Fossology.
-        upload_objects.retain(|x| !x.exists_in_fossology);
-
-        println!("Uploading source packages to Fossology.");
-        let upload_objects_length = upload_objects.len() as u64;
-        let pb = ProgressBar::new(upload_objects_length).with_style(style);
-        upload_objects.iter().for_each(|x| {
-            pb.set_message(&x.path);
-            pb.inc(1);
-            // TODO: Get input from user for the correct folder.
-            self.upload(&x.path, &3);
-        });
-        pb.finish();
     }
 
     /// Get licenses for a list of hashes

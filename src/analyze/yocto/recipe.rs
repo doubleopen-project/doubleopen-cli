@@ -1,15 +1,19 @@
 use std::{collections::HashMap, fs::read_to_string, path::Path, process::Command};
 
-use log::{debug, error};
-use tempfile::TempDir;
+use flate2::{write::GzEncoder, Compression};
+use log::{debug, error, info};
+use tempfile::{tempdir, TempDir};
 use walkdir::WalkDir;
 
 use crate::{
     analyze::{AnalyzerError, Package, SourceFile},
+    fossology::Fossology,
     utilities::{hash256_for_path, is_hidden},
 };
 
-#[derive(PartialEq)]
+use super::Yocto;
+
+#[derive(PartialEq, Debug)]
 pub struct Recipe {
     pub name: String,
     pub version: String,
@@ -85,7 +89,7 @@ impl Recipe {
         pkgdata_path: P,
     ) -> Result<Package, AnalyzerError> {
         debug!("Analyzing source for recipe {}.", &self.name);
-        let tempdir = self.get_recipe_source(&build_directory, &pkgdata_path)?;
+        let tempdir = self.get_recipe_source(&build_directory)?;
 
         // Find the srclist file for the package.
         debug!("Searching for srclist for {}", &self.name);
@@ -213,8 +217,9 @@ impl Recipe {
     pub fn get_recipe_source<P: AsRef<Path>>(
         &self,
         build_directory: P,
-        pkgdata_path: P,
     ) -> Result<TempDir, AnalyzerError> {
+        info!("Extracting source for {}", &self.name);
+
         debug!("Running devtool extract for {}.", &self.name);
         let mut command = Command::new("devtool");
         command.current_dir(build_directory.as_ref());
@@ -230,6 +235,86 @@ impl Recipe {
             &tempdir.path().display()
         );
 
+        // Remove git directories from source, as devtool extract uses git and writes
+        // new metadata. With the git directories included the extraction is not deterministic,
+        // leading into different hashe for every extraction.
+        for entry in WalkDir::new(&tempdir.path()).into_iter() {
+            let entry = entry?;
+            if entry.file_name().to_str().expect("Should always convert") == ".git" {
+                debug!("Deleting {}", entry.path().display());
+                std::fs::remove_dir_all(entry.path()).expect("Should not error");
+            }
+        }
+
         Ok(tempdir)
+    }
+
+    /// Uploads source archive for the Yocto recipe to Fossology. Does not upload
+    /// if an archive with the same hash has already been uploaded.
+    pub fn upload_recipe_source_to_fossology(
+        &self,
+        yocto: &Yocto,
+        fossology: &Fossology,
+    ) -> Result<(), AnalyzerError> {
+        info!("Uploading source of recipe {} to Fossology.", &self.name);
+
+        // Get a temporary directory with the source of the recipe.
+        let source_directory =
+            self.get_recipe_source(&yocto.build_directory)?;
+
+        // Get the amount of files in the source directory.
+        // TODO: Might want to filter if no files in source?
+        let source_len = WalkDir::new(&source_directory).into_iter().count();
+        debug!("{} includes {} files", &self.name, source_len);
+
+        // Create a temporary directory for the archive and create an archive of
+        // the source.
+        let tempdir = tempdir()?;
+        debug!("Created a temporary directory.");
+        let tar_gz = std::fs::File::create(
+            &tempdir
+                .path()
+                .join(format!("{}-{}.tar.gz", &self.name, &self.version)),
+        )?;
+        debug!("Created a tar gz.");
+        let enc = GzEncoder::new(tar_gz, Compression::default());
+        debug!("Created an encoder");
+        let mut tar = tar::Builder::new(enc);
+        // Deterministic mode required to produce same hash value.
+        tar.mode(tar::HeaderMode::Deterministic);
+        debug!("Created a tar builder.");
+        tar.append_dir_all("", &source_directory.path())?;
+        tar.mode(tar::HeaderMode::Deterministic);
+        tar.into_inner()?;
+        debug!("Added files to tar");
+
+        // Get sha256 value for the source archive.
+        debug!("Calculating hash");
+        let sha_256 = hash256_for_path(
+            &tempdir
+                .path()
+                .join(format!("{}-{}.tar.gz", &self.name, &self.version)),
+        );
+        debug!("SHA256 for {} is {}.", self.name, sha_256);
+
+        // If the source archive does not exist in Fossology based on the sha256
+        // value, upload it. Don't upload duplicates.
+        let exists = fossology.file_exists(&sha_256).unwrap();
+        if !exists {
+            info!("{} was not found on Fossology, uploading now.", self.name);
+            fossology.upload(
+                &tempdir
+                    .path()
+                    .join(format!("{}-{}.tar.gz", &self.name, &self.version)),
+                &3,
+            );
+        } else {
+            info!(
+                "{} was already found on Fossology, did not upload it again.",
+                self.name
+            );
+        }
+
+        Ok(())
     }
 }

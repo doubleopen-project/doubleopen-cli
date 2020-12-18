@@ -103,7 +103,7 @@ fn main() {
                 let fossology =
                     Fossology::new(&fossology_arguments.uri, &fossology_arguments.token);
 
-                yocto.upload_source_to_fossology(&fossology);
+                yocto.upload_source_to_fossology(&fossology).unwrap();
             }
         },
         SubCommand::Evaluate(evaluate_arguments) => {

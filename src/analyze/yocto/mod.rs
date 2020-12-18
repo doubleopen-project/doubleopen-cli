@@ -163,45 +163,13 @@ impl Yocto {
         debug!(
             "Yocto build {} includes {} recipes.",
             &self.image_name,
-            recipes.len()
+            &recipes.len()
         );
-
-        for recipe in recipes {
-            debug!("Uploading source of recipe {} to Fossology.", &recipe.name);
-            let source_directory =
-                recipe.get_recipe_source(&self.build_directory, &self.pkgdata_path())?;
-            debug!("Creating a temporary dir");
-            let tempdir = tempdir()?;
-            let tar_gz = std::fs::File::create(
-                &tempdir
-                    .path()
-                    .join(format!("{}-{}.tar.gz", &recipe.name, &recipe.version)),
-            )?;
-            debug!("Created a tar gz.");
-            let enc = GzEncoder::new(tar_gz, Compression::default());
-            debug!("Created an encoder");
-            let mut tar = tar::Builder::new(enc);
-            debug!("Created a tar builder.");
-            tar.append_dir_all("", &source_directory.path())?;
-            debug!("Added files to tar");
-            tar.finish();
-
-            debug!("Calculating hash");
-            let sha256 = hash256_for_path(
-                &tempdir
-                    .path()
-                    .join(format!("{}-{}.tar.gz", &recipe.name, &recipe.version)),
-            );
-            debug!("SHA256 for {} is {}.", recipe.name, sha256);
-
-            fossology.upload(
-                &tempdir
-                    .path()
-                    .join(format!("{}-{}.tar.gz", &recipe.name, &recipe.version)),
-                &3,
-            );
-        }
-
+        dbg!(&recipes);
+        let results = recipes.iter().map(|recipe| -> Result<(), AnalyzerError> {
+            recipe.upload_recipe_source_to_fossology(&self, &fossology)
+        }).collect::<Vec<_>>();
+        dbg!(&results);
         Ok(())
     }
 }

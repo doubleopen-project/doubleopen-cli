@@ -13,8 +13,8 @@ pub fn hash256_for_path<P: AsRef<Path>>(path: P) -> String {
     let hash: sha2::digest::generic_array::GenericArray<u8, <Sha256 as Digest>::OutputSize> =
         sha256.finalize();
 
-    let hash = hex::encode_upper(hash);
-    hash
+    
+    hex::encode_upper(hash)
 }
 
 // Helper function to skip hidden files
@@ -22,7 +22,7 @@ pub fn is_hidden(entry: &DirEntry) -> bool {
     entry
         .file_name()
         .to_str()
-        .map(|s| s.starts_with("."))
+        .map(|s| s.starts_with('.'))
         .unwrap_or(false)
 }
 

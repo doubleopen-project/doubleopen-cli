@@ -13,4 +13,7 @@ pub enum AnalyzerError {
 
     #[error("parsing failed")]
     ParseError(String),
+
+    #[error(transparent)]
+    DirectoryError(#[from] walkdir::Error),
 }
