@@ -1,9 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-use super::{
-    Checksum, FileInformation, PackageVerificationCode, Relationship, RelationshipType,
-    SPDXExpression,
-};
+use super::{Checksum, FileInformation, PackageVerificationCode, SPDXExpression};
 
 /// ## Package Information
 ///
@@ -97,24 +94,6 @@ impl PackageInformation {
             package_spdx_identifier: format!("SPDXRef-{}", id),
             ..Default::default()
         }
-    }
-
-    /// Add related file.
-    pub fn add_related_file(
-        &self,
-        file: &FileInformation,
-        relationships: &mut Vec<Relationship>,
-        relationship_type: RelationshipType,
-        comment: Option<String>,
-    ) {
-        let relationship = Relationship::new(
-            &self.package_spdx_identifier,
-            &file.file_spdx_identifier,
-            relationship_type,
-            comment,
-        );
-
-        relationships.push(relationship);
     }
 
     /// Find all files of the package.

@@ -1,11 +1,6 @@
-use std::{collections::HashMap, path::Path};
+use std::path::Path;
 
-use crate::spdx::{FileInformation, PackageInformation, SPDX};
-
-use super::{
-    evaluation_result::EvaluationResult, license::License, policy_file::PolicyFile,
-    policy_violation::PolicyViolation, resolution::Resolution,
-};
+use super::{license::License, policy_file::PolicyFile, resolution::Resolution};
 use serde::{Deserialize, Serialize};
 
 /// Struct for a license policy to be used with the Policy Engine.
@@ -147,13 +142,11 @@ mod test {
                 spdx_expression: "GPL-2.0-only".into(),
                 message: Some("No GPL in saas for this project".into()),
             }],
-            resolutions: vec![
-                Resolution {
-                    license: "GPL-2.0-only".into(),
-                    package: "application-2.0.0".into(),
-                    reason: "Licensed by the author separately.".into()
-                }
-            ],
+            resolutions: vec![Resolution {
+                license: "GPL-2.0-only".into(),
+                package: "application-2.0.0".into(),
+                reason: "Licensed by the author separately.".into(),
+            }],
         };
 
         assert_eq!(policy, expected_policy);

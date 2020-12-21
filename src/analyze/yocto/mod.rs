@@ -1,16 +1,13 @@
 use crate::{
     fossology::Fossology,
     spdx::{
-        spdx::{Algorithm, FileInformation, PackageInformation, SPDX},
-        Checksum, Relationship, RelationshipType,
+        relationship::Relationship, Algorithm, Checksum, FileInformation, PackageInformation,
+        RelationshipType, SPDX,
     },
-    utilities::hash256_for_path,
 };
-use flate2::{write::GzEncoder, Compression};
 use log::{debug, info};
 use rayon::prelude::*;
 use std::{fs::read_to_string, path::Path, path::PathBuf};
-use tempfile::tempdir;
 
 use self::recipe::Recipe;
 
@@ -93,7 +90,7 @@ impl Yocto {
             .par_iter()
             .map(|recipe| recipe.analyze_source(&self.build_directory, &self.pkgdata_path()));
 
-        let (packages, errors): (Vec<_>, Vec<_>) = packages.partition(Result::is_ok);
+        let (packages, _errors): (Vec<_>, Vec<_>) = packages.partition(Result::is_ok);
         let packages = packages.into_iter().map(Result::unwrap).collect::<Vec<_>>();
         self.packages = packages;
         Ok(())
@@ -132,7 +129,7 @@ impl Yocto {
         );
 
         // Separate recipes and errors.
-        let (recipes, errors): (Vec<_>, Vec<_>) = recipes.into_iter().partition(Result::is_ok);
+        let (recipes, _errors): (Vec<_>, Vec<_>) = recipes.into_iter().partition(Result::is_ok);
         let mut recipes: Vec<_> = recipes.into_iter().map(Result::unwrap).collect();
 
         // Sort and remove duplicates
@@ -165,11 +162,12 @@ impl Yocto {
             &self.image_name,
             &recipes.len()
         );
-        dbg!(&recipes);
-        let results = recipes.iter().map(|recipe| -> Result<(), AnalyzerError> {
-            recipe.upload_recipe_source_to_fossology(&self, &fossology)
-        }).collect::<Vec<_>>();
-        dbg!(&results);
+        let _results = recipes
+            .iter()
+            .map(|recipe| -> Result<(), AnalyzerError> {
+                recipe.upload_recipe_source_to_fossology(&self, &fossology)
+            })
+            .collect::<Vec<_>>();
         Ok(())
     }
 }
@@ -224,155 +222,3 @@ impl From<Yocto> for SPDX {
         spdx
     }
 }
-
-// #[cfg(test)]
-// mod tests {
-//     use super::*;
-//     use std::path::PathBuf;
-
-//     #[test]
-//     fn create_yocto() {
-//         let mut manifest_path = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
-//         manifest_path.push("tests/examples/yocto/build/tmp/deploy/images/qemux86-64/core-image-sato-qemux86-64.manifest");
-
-//         let mut build_path = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
-//         build_path.push("tests/examples/yocto/build");
-
-//         let yocto = Yocto::new(&build_path, &manifest_path).unwrap();
-
-//         assert_eq!(yocto.image_name, "core-image-sato-qemux86-64");
-//         assert_eq!(yocto.architecture, "qemux86-64");
-//         assert!(yocto
-//             .build_directory
-//             .ends_with("tests/examples/yocto/build"));
-//         assert_eq!(yocto.manifest_entries.len(), 5);
-//         assert_eq!(
-//             yocto.manifest_entries[0].runtime_reverse.name,
-//             "adwaita-icon-theme".to_string()
-//         );
-//         assert_eq!(
-//             yocto.manifest_entries[0].runtime_reverse.version,
-//             "3.34.3".to_string()
-//         );
-//         assert_eq!(
-//             yocto.manifest_entries[1].runtime_reverse.name,
-//             "adwaita-icon-theme".to_string()
-//         );
-//         assert_eq!(
-//             yocto.manifest_entries[1].runtime_reverse.version,
-//             "3.34.3".to_string()
-//         );
-//         assert_eq!(
-//             yocto.manifest_entries[2].runtime_reverse.name,
-//             "alsa-utils".to_string()
-//         );
-//         assert_eq!(
-//             yocto.manifest_entries[2].runtime_reverse.version,
-//             "1.2.1".to_string()
-//         );
-
-//         assert_eq!(yocto.source_packages.len(), 3);
-//         assert_eq!(yocto.source_packages[0].package_name, "adwaita-icon-theme");
-//         assert_eq!(yocto.source_packages[0].source_files.len(), 3070);
-//     }
-
-//     #[test]
-//     fn get_all_unique_hashes_from_srclist() {
-//         let mut srclist_path = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
-//         srclist_path.push("tests/examples/yocto/build/tmp/pkgdata/qemux86-64/dbus.srclist");
-//         let hashes = hashes_from_srclist(srclist_path);
-
-//         // TODO: The correct amount has not been manually checked, may want to create
-//         // a proper test file.
-//         assert_eq!(hashes.len(), 240)
-//     }
-
-//     // #[test]
-//     // fn parse_manifest_for_packages() {
-//     //     let mut manifest_path = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
-//     //     manifest_path.push("tests/examples/yocto/build/tmp/deploy/images/qemux86-64/core-image-sato-qemux86-64.manifest");
-
-//     //     let mut build_directory = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
-//     //     build_directory.push("tests/examples/yocto/build/");
-
-//     //     let yocto = Yocto::new(build_directory, manifest_path).unwrap();
-
-//     //     let expected_packages = vec![
-//     //         ManifestEntry {
-//     //             package_name: "adwaita-icon-theme".into(),
-//     //             architecture: "noarch".into(),
-//     //             version: "3.34.3".into(),
-//     //             runtime_reverse: RuntimeReverse {
-//     //                 name: "adwaita-icon-theme".into(),
-//     //                 version: "3.34.3".into(),
-//     //                 revision: "r0".into(),
-//     //                 edition: None,
-//     //             },
-//     //         },
-//     //         ManifestEntry {
-//     //             package_name: "adwaita-icon-theme-symbolic".into(),
-//     //             architecture: "noarch".into(),
-//     //             version: "3.34.3".into(),
-//     //             runtime_reverse: RuntimeReverse {
-//     //                 name: "adwaita-icon-theme".into(),
-//     //                 version: "3.34.3".into(),
-//     //                 revision: "r0".into(),
-//     //                 edition: None,
-//     //             },
-//     //         },
-//     //         ManifestEntry {
-//     //             package_name: "alsa-utils-alsactl".into(),
-//     //             architecture: "core2_64".into(),
-//     //             version: "1.2.1".into(),
-//     //             runtime_reverse: RuntimeReverse {
-//     //                 name: "alsa-utils".into(),
-//     //                 version: "1.2.1".into(),
-//     //                 revision: "r0".into(),
-//     //                 edition: None,
-//     //             },
-//     //         },
-//     //         ManifestEntry {
-//     //             package_name: "alsa-utils-alsamixer".into(),
-//     //             architecture: "core2_64".into(),
-//     //             version: "1.2.1".into(),
-//     //             runtime_reverse: RuntimeReverse {
-//     //                 name: "alsa-utils".into(),
-//     //                 version: "1.2.1".into(),
-//     //                 revision: "r0".into(),
-//     //                 edition: None,
-//     //             },
-//     //         },
-//     //         ManifestEntry {
-//     //             package_name: "dbus-1".into(),
-//     //             architecture: "core2_64".into(),
-//     //             version: "1.12.16".into(),
-//     //             runtime_reverse: RuntimeReverse {
-//     //                 name: "dbus".into(),
-//     //                 version: "1.12.16".into(),
-//     //                 revision: "r0".into(),
-//     //                 edition: None,
-//     //             },
-//     //         },
-//     //     ];
-
-//     //     assert_eq!(yocto.manifest_entries, expected_packages)
-//     // }
-
-//     #[test]
-//     fn parse_runtime_reverse() {
-//         let mut test_manifest_path = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
-//         test_manifest_path
-//             .push("tests/examples/yocto/build/tmp/pkgdata/qemux86-64/runtime-reverse/dbus-1");
-
-//         let runtime_reverse = RuntimeReverse::new(&test_manifest_path).unwrap();
-
-//         let expected = RuntimeReverse {
-//             name: "dbus".into(),
-//             version: "1.12.16".into(),
-//             revision: "r0".into(),
-//             edition: None,
-//         };
-
-//         assert_eq!(runtime_reverse, expected);
-//     }
-// }

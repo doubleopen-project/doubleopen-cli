@@ -2,8 +2,6 @@ use std::{fs, io::BufReader, path::Path};
 
 use serde::{Deserialize, Serialize};
 
-use super::PolicyEngine;
-
 /// Struct for deserializing policy files for turning into Policy.
 #[derive(Serialize, Deserialize, Debug, PartialEq)]
 pub struct PolicyFile {
@@ -61,13 +59,8 @@ impl PolicyFile {
                             .position(|ctx| ctx.context == new_allowed_context.context);
 
                         // Process based on whether the new allowed context was in denied licenses in the old policy.
-                        match old_denied_context {
-                            // If the old denied contexts include the new allowed context, remove the context from being denied.
-                            Some(index) => {
-                              old.denied_contexts.remove(index);
-                            }
-                            // If the new context was already not allowed, do nothing.
-                            None => {}
+                        if let Some(index) = old_denied_context {
+                            old.denied_contexts.remove(index);
                         }
                     }
 
@@ -96,13 +89,8 @@ impl PolicyFile {
                             .position(|ctx| ctx.context == new_denied_context.context);
 
                         // Process based on whether the new denied context was in allowed contexts in the old policy.
-                        match old_allowed_context {
-                            // If the old allowed contexts include the new denied context, remove the context from being allowed.
-                            Some(index) => {
-                              old.allowed_contexts.remove(index);
-                            }
-                            // If the new context was already not allowed, do nothing.
-                            None => {}
+                        if let Some(index) = old_allowed_context {
+                            old.allowed_contexts.remove(index);
                         }
                     }
                 }
@@ -115,7 +103,7 @@ impl PolicyFile {
 
     /// Create the struct from multiple files, with the last one being the most
     /// prioritized.
-    pub fn from_multiple_files<P: AsRef<Path>>(paths: &Vec<P>) -> Self {
+    pub fn from_multiple_files<P: AsRef<Path>>(paths: &[P]) -> Self {
         let mut policies: Vec<PolicyFile> = paths
             .iter()
             .map(|path| PolicyFile::from_file(&path))
@@ -239,18 +227,20 @@ mod test {
         ];
         expected_licenses.sort_by_key(|lic| lic.spdx_id.to_string());
         for license in &mut expected_licenses {
-          license.allowed_contexts.sort_by_key(|lic| lic.context.to_string());
-          license.denied_contexts.sort_by_key(|lic| lic.context.to_string());
+            license
+                .allowed_contexts
+                .sort_by_key(|lic| lic.context.to_string());
+            license
+                .denied_contexts
+                .sort_by_key(|lic| lic.context.to_string());
         }
 
-        let mut expected_resolutions: Vec<PolicyFileResolution> = vec![
-          PolicyFileResolution {
+        let mut expected_resolutions: Vec<PolicyFileResolution> = vec![PolicyFileResolution {
             package: "application-1.0.0".into(),
             contexts: vec!["consumer software".into()],
             description: "Licensed by the author separately.".into(),
-            spdx_id: "GPL-2.0-only".into()
-          }
-        ];
+            spdx_id: "GPL-2.0-only".into(),
+        }];
         expected_resolutions.sort_by_key(|res| res.package.to_string());
 
         let expected_policy = PolicyFile {
@@ -260,10 +250,16 @@ mod test {
 
         policy1.add_overriding_policy(&policy2);
         policy1.licenses.sort_by_key(|lic| lic.spdx_id.to_string());
-        policy1.resolutions.sort_by_key(|res| res.package.to_string());
+        policy1
+            .resolutions
+            .sort_by_key(|res| res.package.to_string());
         for license in &mut policy1.licenses {
-          license.allowed_contexts.sort_by_key(|lic| lic.context.to_string());
-          license.denied_contexts.sort_by_key(|lic| lic.context.to_string());
+            license
+                .allowed_contexts
+                .sort_by_key(|lic| lic.context.to_string());
+            license
+                .denied_contexts
+                .sort_by_key(|lic| lic.context.to_string());
         }
 
         assert_eq!(policy1, expected_policy);

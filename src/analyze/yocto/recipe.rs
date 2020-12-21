@@ -185,9 +185,10 @@ impl Recipe {
                     }
                     Err(_) => {
                         error!(
-                            "No source for {} at {}",
+                            "{}: Error opening an entry in {}: {:?}",
                             &self.name,
-                            tempdir.path().display()
+                            tempdir.path().display(),
+                            entry,
                         );
                         None
                     }

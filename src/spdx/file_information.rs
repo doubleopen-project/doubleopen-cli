@@ -1,8 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-use crate::policy_engine::policy::Policy;
-
-use super::{Checksum, FileType, SPDX, SPDXExpression};
+use super::{Checksum, FileType, SPDXExpression};
 
 /// ## File Information
 ///
@@ -60,19 +58,6 @@ impl FileInformation {
         Self {
             file_name: name.to_string(),
             file_spdx_identifier: format!("SPDXRef-{}", id),
-            ..Default::default()
-        }
-    }
-
-    /// Create FileInformation fron a walkdir direntry.
-    pub fn try_from_direntry(direntry: walkdir::DirEntry, spdx: &mut SPDX) -> FileInformation {
-        let sha256 = Checksum::try_sha256_from_path(direntry.path());
-        let spdx_id = spdx.spdx_ref();
-
-        FileInformation {
-            file_name: direntry.file_name().to_str().unwrap().to_string(),
-            file_checksum: vec![sha256],
-            file_spdx_identifier: spdx_id,
             ..Default::default()
         }
     }

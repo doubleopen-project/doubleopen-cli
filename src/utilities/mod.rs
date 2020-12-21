@@ -13,7 +13,6 @@ pub fn hash256_for_path<P: AsRef<Path>>(path: P) -> String {
     let hash: sha2::digest::generic_array::GenericArray<u8, <Sha256 as Digest>::OutputSize> =
         sha256.finalize();
 
-    
     hex::encode_upper(hash)
 }
 

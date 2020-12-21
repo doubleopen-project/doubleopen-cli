@@ -16,7 +16,7 @@ pub mod resolution;
 /// Policy Engine is used to evaluate license conclusions of files against a provided policy.
 pub struct PolicyEngine {
     /// The Policy used for evaluation.
-    policy: Policy,
+    _policy: Policy,
 
     /// List of allowed licenses in correct format for evaluation.
     allowed_licenses: HashMap<String, bool>,
@@ -32,7 +32,7 @@ impl PolicyEngine {
         });
 
         Self {
-            policy,
+            _policy: policy,
             allowed_licenses,
         }
     }
@@ -46,9 +46,8 @@ impl PolicyEngine {
                 .find_files_for_package(&spdx.file_information)
                 .iter()
             {
-                match self.evaluate_file(file, &package) {
-                    Some(violation) => violations.push(violation),
-                    None => {}
+                if let Some(violation) = self.evaluate_file(file, &package) {
+                    violations.push(violation)
                 }
             }
         }
@@ -101,7 +100,7 @@ mod test_policy_engine {
         let policy = Policy {
             licenses_allow: allowed_licenses,
             licenses_deny: vec![],
-            resolutions: vec![]
+            resolutions: vec![],
         };
 
         let engine = PolicyEngine::new(policy.clone());
@@ -110,7 +109,7 @@ mod test_policy_engine {
         expected_hashmap.insert("MIT".into(), true);
 
         assert_eq!(engine.allowed_licenses, expected_hashmap);
-        assert_eq!(engine.policy, policy);
+        assert_eq!(engine._policy, policy);
     }
 
     #[test]
@@ -129,10 +128,10 @@ mod test_policy_engine {
         let policy = Policy {
             licenses_allow: allowed_licenses,
             licenses_deny: vec![],
-            resolutions: vec![]
+            resolutions: vec![],
         };
 
-        let engine = PolicyEngine::new(policy.clone());
+        let engine = PolicyEngine::new(policy);
 
         let result = engine.evaluate_file(&file, &package);
         assert!(result.is_none());

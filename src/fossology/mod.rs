@@ -50,19 +50,6 @@ impl Fossology {
         }
     }
 
-    /// Get version number for the Fossology instance.
-    pub fn version(&self) {
-        let body = self
-            .client
-            .get(&format!("{}/version", self.uri))
-            .bearer_auth(&self.token)
-            .send()
-            .unwrap()
-            .text()
-            .unwrap();
-        println!("Fossology version: {}", body);
-    }
-
     /// Upload a package to Fossology.
     pub fn upload<P: AsRef<Path>>(&self, path_to_source: P, folder_id: &i32) {
         // Get the file in multipart form.

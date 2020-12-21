@@ -103,7 +103,7 @@ fn main() {
             // TODO: Don't unwrap.
             let mut yocto_build =
                 Yocto::new(&analyze_arguments.build, &analyze_arguments.manifest).unwrap();
-            yocto_build.analyze();
+            yocto_build.analyze().unwrap();
             let spdx: SPDX = yocto_build.into();
             spdx.save_as_json(&analyze_arguments.output);
         }
@@ -130,7 +130,7 @@ fn main() {
 
             let spdx = SPDX::from_file(&evaluate_arguments.spdx);
 
-            let result = policy_engine.evaluate_spdx(&spdx);
+            let _result = policy_engine.evaluate_spdx(&spdx);
         }
     }
 }
