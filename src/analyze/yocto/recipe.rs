@@ -149,6 +149,7 @@ impl Recipe {
         debug!("Creating source files for {}.", &self.name);
 
         let source_files: Vec<SourceFile> = WalkDir::new(&tempdir.path())
+            .follow_links(true)
             .min_depth(1)
             .into_iter()
             .filter_entry(|entry| !is_hidden(entry))
@@ -259,8 +260,7 @@ impl Recipe {
         info!("Uploading source of recipe {} to Fossology.", &self.name);
 
         // Get a temporary directory with the source of the recipe.
-        let source_directory =
-            self.get_recipe_source(&yocto.build_directory)?;
+        let source_directory = self.get_recipe_source(&yocto.build_directory)?;
 
         // Get the amount of files in the source directory.
         // TODO: Might want to filter if no files in source?
@@ -283,8 +283,8 @@ impl Recipe {
         // Deterministic mode required to produce same hash value.
         tar.mode(tar::HeaderMode::Deterministic);
         debug!("Created a tar builder.");
+        tar.follow_symlinks(false);
         tar.append_dir_all("", &source_directory.path())?;
-        tar.mode(tar::HeaderMode::Deterministic);
         tar.into_inner()?;
         debug!("Added files to tar");
 

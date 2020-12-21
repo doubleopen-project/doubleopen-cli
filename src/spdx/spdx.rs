@@ -2,7 +2,10 @@
 //
 // SPDX-License-Identifier: MIT
 
-use crate::fossology::{Fossology, FossologyError, api_objects::{requests::HashQueryInput, responses::HashQueryResponse}};
+use crate::fossology::{
+    api_objects::{requests::HashQueryInput, responses::HashQueryResponse},
+    Fossology, FossologyError,
+};
 use flate2::read::GzDecoder;
 use log::info;
 use serde::{Deserialize, Serialize};
@@ -167,7 +170,10 @@ impl SPDX {
 
     /// Get scanner results and license conclusions for the files in SPDX
     /// found on the Fossology instance.
-    pub fn query_fossology_for_licenses(&mut self, fossology: &Fossology) -> Result<(), FossologyError> {
+    pub fn query_fossology_for_licenses(
+        &mut self,
+        fossology: &Fossology,
+    ) -> Result<(), FossologyError> {
         let sha256_values = self.get_unique_hashes(Algorithm::SHA256);
 
         // Create input for the Fossology query.
@@ -228,6 +234,7 @@ impl SPDX {
                         file_information.license_information_in_file = findings.scanner.clone();
 
                         if !findings.conclusion.is_empty() {
+                            // TODO: Transform Fossology output to SPDX expression.
                             file_information.concluded_license =
                                 SPDXExpression(findings.conclusion.join(" "));
                         }
