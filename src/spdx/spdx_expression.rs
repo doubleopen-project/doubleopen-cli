@@ -1,7 +1,7 @@
 use boolean_expression::Expr;
 use serde::{Deserialize, Serialize};
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, PartialEq, Debug)]
 pub struct SPDXExpression(pub String);
 
 impl SPDXExpression {

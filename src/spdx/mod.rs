@@ -15,7 +15,7 @@ pub mod relationship;
 pub mod spdx_expression;
 use crate::fossology::{
     api_objects::{requests::HashQueryInput, responses::HashQueryResponse},
-    Fossology, FossologyError,
+    spdx_expression_from_api_licenses, Fossology, FossologyError,
 };
 pub use algorithm::*;
 pub use checksum::*;
@@ -187,7 +187,7 @@ impl SPDX {
                         if !findings.conclusion.is_empty() {
                             // TODO: Transform Fossology output to SPDX expression.
                             file_information.concluded_license =
-                                SPDXExpression(findings.conclusion.join(" "));
+                                spdx_expression_from_api_licenses(findings.conclusion.clone());
                         };
 
                         if !findings.copyright.is_empty() {
