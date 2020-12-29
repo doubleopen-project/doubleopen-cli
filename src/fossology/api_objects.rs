@@ -97,6 +97,7 @@ pub mod responses {
     pub struct Findings {
         pub scanner: Vec<String>,
         pub conclusion: Vec<String>,
+        pub copyright: Vec<String>,
     }
     #[derive(Serialize, Deserialize, Debug)]
     pub struct UploadPackageResponse {

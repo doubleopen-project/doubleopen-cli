@@ -135,18 +135,18 @@ impl SPDX {
             })
             .collect();
 
-        let mut response = fossology.licenses_for_hashes(&input)?;
+        let response = fossology.licenses_for_hashes(&input)?;
 
-        self.process_fossology_response(&mut response);
+        self.process_fossology_response(response);
         Ok(())
     }
 
     /// Add information from Fossology response to the SPDX.
-    pub fn process_fossology_response(&mut self, responses: &mut Vec<HashQueryResponse>) {
+    pub fn process_fossology_response(&mut self, mut responses: Vec<HashQueryResponse>) {
         info!("Processing Fossology response");
 
         // Sort response by sha256 to enable binary search.
-        responses.sort_by_key(|i| i.hash.sha256.clone().unwrap());
+        responses.sort_unstable_by_key(|i| i.hash.sha256.clone().unwrap().to_uppercase());
 
         // Loop over all the files in all packages.
         for file_information in &mut self.file_information {
@@ -188,6 +188,10 @@ impl SPDX {
                             // TODO: Transform Fossology output to SPDX expression.
                             file_information.concluded_license =
                                 SPDXExpression(findings.conclusion.join(" "));
+                        };
+
+                        if !findings.copyright.is_empty() {
+                            file_information.copyright_text = findings.copyright.join("\n");
                         }
                     }
                 }
