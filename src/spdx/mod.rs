@@ -205,4 +205,79 @@ impl SPDX {
         let json = serde_json::to_string_pretty(&self).unwrap();
         fs::write(path, json).expect("Unable to write file");
     }
+
+    /// Find related files of the package with the provided id.
+    pub fn get_files_for_package(
+        &self,
+        package_spdx_id: &str,
+    ) -> Vec<(&FileInformation, &Relationship)> {
+        let relationships = self.relationships.iter().filter_map(|relationship| {
+            if relationship.spdx_element_id == package_spdx_id {
+                Some(relationship)
+            } else {
+                None
+            }
+        });
+
+        let files_and_relationships = relationships
+            .map(|relationship| {
+                let file = self
+                    .file_information
+                    .iter()
+                    .find(|file| file.file_spdx_identifier == relationship.related_spdx_element)
+                    .expect("File should always exist.");
+                (file, relationship)
+            })
+            .collect::<Vec<_>>();
+
+        files_and_relationships
+    }
+}
+
+#[cfg(test)]
+mod test {
+
+    use super::*;
+
+    #[test]
+    fn deserialize_simple_spdx() {
+        let spdx_file = SPDX::from_file("tests/examples/spdx/simple.spdx.json");
+        assert_eq!(
+            spdx_file.document_creation_information.document_name,
+            "test_package_document".to_string()
+        );
+    }
+
+    #[test]
+    fn find_related_files_for_package() {
+        let spdx_file = SPDX::from_file("tests/examples/spdx/simple.spdx.json");
+
+        let package_1_files = spdx_file.get_files_for_package("SPDXRef-1");
+        let package_2_files = spdx_file.get_files_for_package("SPDXRef-2");
+
+        assert_eq!(package_1_files.len(), 2);
+        assert_eq!(package_2_files.len(), 3);
+
+        let file = package_1_files
+            .iter()
+            .find(|package_and_relationship| {
+                package_and_relationship.0.file_name == "file2.txt".to_string()
+            })
+            .expect("Should always be found");
+
+        assert_eq!(file.0.file_spdx_identifier, "SPDXRef-4");
+        assert_eq!(file.1.relationship_type, RelationshipType::Contains);
+
+        let file = package_2_files
+            .iter()
+            .find(|package_and_relationship| {
+                package_and_relationship.0.file_name == "file5.txt".to_string()
+            })
+            .expect("Should always be found");
+
+        assert_eq!(
+            file.0.concluded_license,
+            SPDXExpression("GPL-2.0+ AND BSD-3-Clause".into())
+        );
+    }
 }
