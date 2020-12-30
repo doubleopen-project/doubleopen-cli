@@ -80,7 +80,7 @@ impl Recipe {
         }
     }
 
-    /// Analyze the source of the recipe and outputs a [Package](analyze::Package).
+    /// Analyze the source of the recipe and outputs a [Package](crate::analyze::Package).
     ///
     /// Gets the source with Yocto's `devtool`.
     pub fn analyze_source<P: AsRef<Path>>(
