@@ -234,6 +234,17 @@ impl SPDX {
     }
 }
 
+/// Get the license text for an SPDX Identifier from the specified version of
+/// the SPDX license list. Gets the text from the SPDX license list GitHub repo.
+pub fn get_license_text(spdx_id: &str, license_list_version: &str) -> Option<String> {
+    let url = format!(
+        "https://raw.githubusercontent.com/spdx/license-list-data/v{}/text/{}.txt",
+        license_list_version, spdx_id
+    );
+    let body = reqwest::blocking::get(&url).unwrap().text().unwrap();
+    Some(body)
+}
+
 #[cfg(test)]
 mod test {
 
@@ -279,5 +290,18 @@ mod test {
             file.0.concluded_license,
             SPDXExpression("GPL-2.0+ AND BSD-3-Clause".into())
         );
+    }
+
+    #[test]
+    fn get_license_text_for_spdx_id() {
+        let expected_beerware = r#""THE BEER-WARE LICENSE" (Revision 42):  <phk@FreeBSD.ORG> wrote this file.
+As long as you retain this notice you  can do whatever you want with this
+stuff. If we meet some day, and you think  this stuff is worth it, you can
+buy me a beer in return Poul-Henning Kamp
+"#;
+
+        let result_beerware = get_license_text("Beerware", "3.11").unwrap();
+
+        assert_eq!(expected_beerware, result_beerware);
     }
 }
