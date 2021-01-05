@@ -257,6 +257,7 @@ impl Recipe {
         &self,
         yocto: &Yocto,
         fossology: &Fossology,
+        folder_id: &i32,
     ) -> Result<(), AnalyzerError> {
         info!("Uploading source of recipe {} to Fossology.", &self.name);
 
@@ -307,7 +308,7 @@ impl Recipe {
                 &tempdir
                     .path()
                     .join(format!("{}-{}.tar.gz", &self.name, &self.version)),
-                &3,
+                &folder_id,
             );
         } else {
             info!(

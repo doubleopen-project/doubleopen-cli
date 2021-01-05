@@ -150,7 +150,11 @@ impl Yocto {
             .join(self.architecture.clone())
     }
 
-    pub fn upload_source_to_fossology(&self, fossology: &Fossology) -> Result<(), AnalyzerError> {
+    pub fn upload_source_to_fossology(
+        &self,
+        fossology: &Fossology,
+        folder_id: &i32,
+    ) -> Result<(), AnalyzerError> {
         debug!(
             "Uploading source of Yocto build {} to Fossology.",
             &self.image_name
@@ -165,7 +169,7 @@ impl Yocto {
         let _results = recipes
             .iter()
             .map(|recipe| -> Result<(), AnalyzerError> {
-                recipe.upload_recipe_source_to_fossology(&self, &fossology)
+                recipe.upload_recipe_source_to_fossology(&self, &fossology, &folder_id)
             })
             .collect::<Vec<_>>();
         Ok(())

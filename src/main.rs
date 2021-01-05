@@ -71,6 +71,10 @@ enum FossologyAction {
 
         #[clap(short, long, parse(from_os_str), value_hint = ValueHint::DirPath)]
         build: PathBuf,
+
+        /// ID of the folder in Fossology to upload the source to.
+        #[clap(short, long)]
+        folder: i32,
     },
 
     /// Populate an SPDX file with license information from Fossology.
@@ -108,12 +112,18 @@ fn main() {
             spdx.save_as_json(&analyze_arguments.output);
         }
         SubCommand::Fossology(fossology_arguments) => match fossology_arguments.action {
-            FossologyAction::Upload { manifest, build } => {
+            FossologyAction::Upload {
+                manifest,
+                build,
+                folder,
+            } => {
                 let yocto = Yocto::new(&build, &manifest).unwrap();
                 let fossology =
                     Fossology::new(&fossology_arguments.uri, &fossology_arguments.token);
 
-                yocto.upload_source_to_fossology(&fossology).unwrap();
+                yocto
+                    .upload_source_to_fossology(&fossology, &folder)
+                    .unwrap();
             }
             FossologyAction::Query { input, output } => {
                 let mut spdx = SPDX::from_file(&input);
