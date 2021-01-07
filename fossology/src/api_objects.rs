@@ -183,7 +183,9 @@ mod tests {
         ]
         "#;
 
-        let _: Vec<responses::HashQueryResponse> = serde_json::from_str(&response).unwrap();
+        let responses: Vec<responses::HashQueryResponse> = serde_json::from_str(&response).unwrap();
+
+        assert_eq!(responses[0].message, Some("Not found".to_string()));
     }
 
     #[test]
