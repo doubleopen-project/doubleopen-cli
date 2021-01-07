@@ -116,7 +116,8 @@ impl Fossology {
     /// Check if the file exist in Fossology based on sha256 value.
     pub fn file_exists(&self, sha_256: &str) -> Result<bool, FossologyError> {
         let body = HashQueryInput {
-            sha256: sha_256.into(),
+            sha256: Some(sha_256.into()),
+            ..Default::default()
         };
         let response: Vec<HashQueryResponse> = self
             .client

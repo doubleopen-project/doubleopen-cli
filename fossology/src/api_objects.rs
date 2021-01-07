@@ -2,12 +2,31 @@
 //
 // SPDX-License-Identifier: MIT
 
+/// Request payloads for the Fossology API.
 pub mod requests {
     use serde::{Deserialize, Serialize};
 
+    // TODO: Add an enclosing array.
+    /// # POST to `/filesearch`.
+    ///
+    /// List of file hashes to fetch
     #[derive(Serialize, Deserialize, Debug)]
     pub struct HashQueryInput {
-        pub sha256: String,
+        pub sha1: Option<String>,
+        pub md5: Option<String>,
+        pub sha256: Option<String>,
+        pub size: Option<i32>,
+    }
+
+    impl Default for HashQueryInput {
+        fn default() -> Self {
+            Self {
+                sha1: None,
+                md5: None,
+                sha256: None,
+                size: None,
+            }
+        }
     }
     #[derive(Serialize, Deserialize, Debug)]
     pub struct ScheduleJobsInput {
@@ -172,34 +191,33 @@ mod tests {
         let response = r#"
         [
             {
-              "hash": {
-                "sha1": "CD54520C6C3C42E53685DC706E28721742AA3FFF",
-                "md5": "C80C5A8385011A0260DCE6BD0DA93DCE",
-                "sha256": "767EC234AE7AA684695B3A735548224888132E063F92DB585759B422570621D4",
-                "size": 487840
-              },
-              "findings": {
-                "scanner": [],
-                "conclusion": []
-              },
-              "uploads": [
-                2,
-                3,
-                4,
-                5,
-                6,
-                7,
-                8,
-                9,
-                10,
-                11,
-                12,
-                13
-              ]
+                "hash": {
+                "sha1": "04295F2D04DA21B646A314983A2C1C811E8DB72A",
+                "md5": "1D1545D41BC2B900F353D7841CCA44EE",
+                "sha256": "3845FEEAAE1AA266A89F9C3FDFA24674D8FED96639631CC3D718D4B15CC28696",
+                "size": 2063
+                },
+                "findings": {
+                "scanner": [
+                    "HPND-sell-variant"
+                ],
+                "conclusion": [
+                    "HPND-sell-variant"
+                ],
+                "copyright": [
+                    "Copyright 2005 Red Hat, Inc."
+                ]
+                },
+                "uploads": []
             }
         ]
         "#;
 
-        let _: Vec<responses::HashQueryResponse> = serde_json::from_str(&response).unwrap();
+        let responses: Vec<responses::HashQueryResponse> = serde_json::from_str(&response).unwrap();
+
+        assert_eq!(
+            responses[0].hash.md5,
+            Some("1D1545D41BC2B900F353D7841CCA44EE".into())
+        );
     }
 }

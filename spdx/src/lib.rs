@@ -131,7 +131,8 @@ impl SPDX {
         let input: Vec<HashQueryInput> = sha256_values
             .iter()
             .map(|hash| HashQueryInput {
-                sha256: hash.to_string(),
+                sha256: Some(hash.to_string()),
+                ..Default::default()
             })
             .collect();
 
@@ -277,7 +278,7 @@ mod test {
 
     #[test]
     fn deserialize_simple_spdx() {
-        let spdx_file = SPDX::from_file("tests/examples/spdx/simple.spdx.json");
+        let spdx_file = SPDX::from_file("../tests/examples/spdx/simple.spdx.json");
         assert_eq!(
             spdx_file.document_creation_information.document_name,
             "test_package_document".to_string()
@@ -286,7 +287,7 @@ mod test {
 
     #[test]
     fn find_related_files_for_package() {
-        let spdx_file = SPDX::from_file("tests/examples/spdx/simple.spdx.json");
+        let spdx_file = SPDX::from_file("../tests/examples/spdx/simple.spdx.json");
 
         let package_1_files = spdx_file.get_files_for_package("SPDXRef-1");
         let package_2_files = spdx_file.get_files_for_package("SPDXRef-2");
