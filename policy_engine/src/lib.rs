@@ -2,7 +2,7 @@ use std::collections::HashMap;
 
 use policy::Policy;
 
-use crate::spdx::{FileInformation, PackageInformation, SPDX};
+use spdx::{FileInformation, PackageInformation, SPDX};
 
 use self::{evaluation_result::EvaluationResult, policy_violation::PolicyViolation};
 
@@ -84,7 +84,7 @@ impl PolicyEngine {
 mod test_policy_engine {
     use std::collections::HashMap;
 
-    use crate::spdx::{FileInformation, PackageInformation, SPDXExpression};
+    use spdx::{FileInformation, PackageInformation, SPDXExpression};
 
     use super::{
         license::License, policy::Policy, policy_violation::PolicyViolation, PolicyEngine,

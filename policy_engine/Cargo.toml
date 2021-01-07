@@ -1,0 +1,15 @@
+[package]
+name = "policy_engine"
+version = "0.1.0"
+authors = ["Mikko Murto <mikko.murto@hhpartners.fi>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+spdx = { path = "../spdx" }
+serde = { version = "1", features = [ "derive" ] }
+serde_yaml = "0.8"
+
+[dev-dependencies]
+pretty_assertions = "0.6.1"

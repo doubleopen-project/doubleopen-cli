@@ -1,0 +1,22 @@
+# SPDX-FileCopyrightText: 2020 HH Partners
+# 
+# SPDX-License-Identifier: MIT
+
+[package]
+name = "doubleopen_cli"
+version = "0.1.0"
+authors = ["HH Partners"]
+edition = "2018"
+description = "A tool for Double Open Project's automation workflow"
+license = "MIT"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+analyze = { path = "../analyze" }
+fossology = { path = "../fossology" }
+spdx = { path = "../spdx" }
+policy_engine = { path = "../policy_engine" }
+utilities = { path = "../utilities" }
+clap = "3.0.0-beta.2"
+env_logger = "0.8"

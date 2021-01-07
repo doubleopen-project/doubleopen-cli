@@ -1,4 +1,4 @@
-use crate::{
+use {
     fossology::Fossology,
     spdx::{
         relationship::Relationship, Algorithm, Checksum, FileInformation, PackageInformation,

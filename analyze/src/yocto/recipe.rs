@@ -5,8 +5,8 @@ use log::{debug, error, info};
 use tempfile::{tempdir, TempDir};
 use walkdir::WalkDir;
 
-use crate::{
-    analyze::{AnalyzerError, Package, SourceFile},
+use {
+    crate::{AnalyzerError, Package, SourceFile},
     fossology::Fossology,
     utilities::{hash256_for_path, is_hidden},
 };

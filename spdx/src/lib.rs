@@ -13,9 +13,9 @@ pub mod package_information;
 pub mod package_verification_code;
 pub mod relationship;
 pub mod spdx_expression;
-use crate::fossology::{
+use fossology::{
     api_objects::{requests::HashQueryInput, responses::HashQueryResponse},
-    spdx_expression_from_api_licenses, Fossology, FossologyError,
+    Fossology, FossologyError,
 };
 pub use algorithm::*;
 pub use checksum::*;
@@ -245,6 +245,31 @@ pub fn get_license_text(spdx_id: &str, license_list_version: &str) -> Option<Str
     Some(body)
 }
 
+/// Transform a list of licenses returned by Fossology to an SPDX license expression.
+/// Fossology's Dual-license tag doesn't allow accurate representation of OR licenses
+/// with more than two licenses, so all license combinations with 3 or more licenses
+/// are interpreted as AND licenses.
+pub fn spdx_expression_from_api_licenses(mut fossology_licenses: Vec<String>) -> SPDXExpression {
+    if fossology_licenses.len() == 3 && fossology_licenses.contains(&"Dual-license".into()) {
+        let dual_license_position = fossology_licenses
+            .iter()
+            .position(|lic| lic == "Dual-license")
+            .expect("Should always exist here");
+
+        fossology_licenses.remove(dual_license_position);
+        let expression = fossology_licenses.join(" OR ");
+        return SPDXExpression(expression);
+    } else {
+        let expression = fossology_licenses
+            .iter()
+            .filter(|&lic| lic != &"Dual-license".to_string())
+            .cloned()
+            .collect::<Vec<_>>()
+            .join(" AND ");
+        return SPDXExpression(expression);
+    }
+}
+
 #[cfg(test)]
 mod test {
 
@@ -303,5 +328,35 @@ buy me a beer in return Poul-Henning Kamp
         let result_beerware = get_license_text("Beerware", "3.11").unwrap();
 
         assert_eq!(expected_beerware, result_beerware);
+    }
+
+    #[test]
+    fn test_spdx_expression_from_fossology() {
+        let input_1 = vec![
+            "MIT".to_string(),
+            "Dual-license".to_string(),
+            "ISC".to_string(),
+        ];
+
+        let expected_1 = SPDXExpression("MIT OR ISC".into());
+
+        assert_eq!(expected_1, spdx_expression_from_api_licenses(input_1));
+
+        let input_2 = vec!["MIT".to_string(), "ISC".to_string()];
+
+        let expected_2 = SPDXExpression("MIT AND ISC".into());
+
+        assert_eq!(expected_2, spdx_expression_from_api_licenses(input_2));
+
+        let input_3 = vec![
+            "MIT".to_string(),
+            "Dual-license".to_string(),
+            "ISC".to_string(),
+            "GPL-2.0-only".to_string(),
+        ];
+
+        let expected_3 = SPDXExpression("MIT AND ISC AND GPL-2.0-only".into());
+
+        assert_eq!(expected_3, spdx_expression_from_api_licenses(input_3));
     }
 }

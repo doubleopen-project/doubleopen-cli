@@ -6,12 +6,7 @@ use analyze::yocto::Yocto;
 use clap::{Clap, ValueHint};
 use fossology::Fossology;
 use std::path::PathBuf;
-mod analyze;
-mod fossology;
 use spdx::SPDX;
-mod policy_engine;
-mod spdx;
-mod utilities;
 
 use policy_engine::policy::Policy;
 use policy_engine::PolicyEngine;

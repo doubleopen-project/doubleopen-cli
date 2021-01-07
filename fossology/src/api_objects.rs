@@ -26,6 +26,20 @@ pub mod requests {
             }
         }
     }
+
+    impl Default for ScheduleJobsInput {
+        fn default() -> Self {
+            Self {
+                analysis: Analysis {
+                    ..Default::default()
+                },
+                decider: Decider {
+                    ..Default::default()
+                },
+            }
+        }
+    }
+
     #[derive(Serialize, Deserialize, Debug)]
     struct Decider {
         nomos_monk: bool,
