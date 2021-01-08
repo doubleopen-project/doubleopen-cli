@@ -13,16 +13,16 @@ pub mod package_information;
 pub mod package_verification_code;
 pub mod relationship;
 pub mod spdx_expression;
-use fossology::{
-    api_objects::{requests::HashQueryInput, responses::HashQueryResponse},
-    Fossology, FossologyError,
-};
 pub use algorithm::*;
 pub use checksum::*;
 pub use document_creation_information::*;
 pub use external_document_reference::*;
 pub use file_information::*;
 pub use file_type::*;
+use fossology::{
+    api_objects::{requests::HashQueryInput, responses::HashQueryResponse},
+    Fossology, FossologyError,
+};
 use log::info;
 pub use other_licensing_information_detected::*;
 pub use package_information::*;
@@ -233,17 +233,21 @@ impl SPDX {
 
         files_and_relationships
     }
-}
 
-/// Get the license text for an SPDX Identifier from the specified version of
-/// the SPDX license list. Gets the text from the SPDX license list GitHub repo.
-pub fn get_license_text(spdx_id: &str, license_list_version: &str) -> Option<String> {
-    let url = format!(
-        "https://raw.githubusercontent.com/spdx/license-list-data/v{}/text/{}.txt",
-        license_list_version, spdx_id
-    );
-    let body = reqwest::blocking::get(&url).unwrap().text().unwrap();
-    Some(body)
+    /// Get all license identifiers from the SPDX.
+    pub fn get_license_ids(&self) -> Vec<String> {
+        let mut license_ids = Vec::new();
+
+        for file in &self.file_information {
+            for license in &file.concluded_license.licenses() {
+                if !license_ids.contains(license) && license != "NOASSERTION" && license != "NONE" {
+                    license_ids.push(license.clone());
+                }
+            }
+        }
+
+        license_ids
+    }
 }
 
 /// Transform a list of licenses returned by Fossology to an SPDX license expression.
@@ -319,19 +323,6 @@ mod test {
     }
 
     #[test]
-    fn get_license_text_for_spdx_id() {
-        let expected_beerware = r#""THE BEER-WARE LICENSE" (Revision 42):  <phk@FreeBSD.ORG> wrote this file.
-As long as you retain this notice you  can do whatever you want with this
-stuff. If we meet some day, and you think  this stuff is worth it, you can
-buy me a beer in return Poul-Henning Kamp
-"#;
-
-        let result_beerware = get_license_text("Beerware", "3.11").unwrap();
-
-        assert_eq!(expected_beerware, result_beerware);
-    }
-
-    #[test]
     fn test_spdx_expression_from_fossology() {
         let input_1 = vec![
             "MIT".to_string(),
@@ -359,5 +350,19 @@ buy me a beer in return Poul-Henning Kamp
         let expected_3 = SPDXExpression("MIT AND ISC AND GPL-2.0-only".into());
 
         assert_eq!(expected_3, spdx_expression_from_api_licenses(input_3));
+    }
+
+    #[test]
+    fn get_all_licenses_from_spdx() {
+        let spdx_file = SPDX::from_file("../tests/examples/spdx/simple.spdx.json");
+
+        let mut actual = spdx_file.get_license_ids();
+        actual.sort();
+
+        let mut expected: Vec<String> =
+            vec!["LGPL-2.1+".into(), "GPL-2.0+".into(), "BSD-3-Clause".into()];
+        expected.sort();
+
+        assert_eq!(expected, actual);
     }
 }

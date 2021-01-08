@@ -5,8 +5,9 @@
 use analyze::yocto::Yocto;
 use clap::{Clap, ValueHint};
 use fossology::Fossology;
-use std::path::PathBuf;
+use notice::{license_file_from_spdx, Notice};
 use spdx::SPDX;
+use std::path::PathBuf;
 
 use policy_engine::policy::Policy;
 use policy_engine::PolicyEngine;
@@ -31,6 +32,10 @@ enum SubCommand {
     /// Evaluate SPDX against a Policy.
     #[clap(author, version)]
     Evaluate(EvaluateArguments),
+
+    /// Create a notice file from SPDX.
+    #[clap(author, version)]
+    Notice(NoticeAction),
 }
 
 #[derive(Clap, Debug)]
@@ -93,6 +98,45 @@ struct EvaluateArguments {
     #[clap(short, long)]
     context: String,
 }
+
+#[derive(Clap, Debug)]
+enum NoticeAction {
+    /// Create a json file including licenses texts for all of the licenses found
+    /// in the SPDX file.
+    CreateLicenses {
+        /// The SPDX file.
+        #[clap(short, long, parse(from_os_str), value_hint = ValueHint::FilePath)]
+        spdx: PathBuf,
+
+        /// The output file in json format.
+        #[clap(short, long, parse(from_os_str), value_hint = ValueHint::FilePath)]
+        output: PathBuf,
+
+        /// URI for the Fossology instance to query licenses from.
+        #[clap(short, long, value_hint = ValueHint::Url)]
+        uri: String,
+
+        /// Token for the Fossology instance to query licenses from.
+        #[clap(short, long)]
+        token: String,
+    },
+
+    /// Create a notice file for the project described in an SPDX file.
+    CreateNotice {
+        /// The SPDX file.
+        #[clap(short, long, parse(from_os_str), value_hint = ValueHint::FilePath)]
+        input: PathBuf,
+
+        /// The output file.
+        #[clap(short, long, parse(from_os_str), value_hint = ValueHint::FilePath)]
+        output: PathBuf,
+
+        /// The licenses file, created with create_licenses.
+        #[clap(short, long, parse(from_os_str), value_hint = ValueHint::FilePath)]
+        licenses: PathBuf,
+    },
+}
+
 fn main() {
     env_logger::init();
     let opts: Opts = Opts::parse();
@@ -137,5 +181,27 @@ fn main() {
 
             let _result = policy_engine.evaluate_spdx(&spdx);
         }
+        SubCommand::Notice(notice_action) => match notice_action {
+            NoticeAction::CreateLicenses {
+                spdx,
+                output,
+                uri,
+                token,
+            } => {
+                let spdx = SPDX::from_file(&spdx);
+                let fossology = Fossology::new(&uri, &token);
+                license_file_from_spdx(&spdx, &fossology, &output).unwrap();
+            }
+            NoticeAction::CreateNotice {
+                input,
+                output,
+                licenses,
+            } => {
+                let spdx = SPDX::from_file(&input);
+
+                let notice = Notice::from(&spdx);
+                dbg!(notice);
+            }
+        },
     }
 }

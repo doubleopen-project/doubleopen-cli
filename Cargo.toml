@@ -11,4 +11,5 @@ members = [
   "policy_engine",
   "spdx",
   "utilities",
+  "notice",
 ]
