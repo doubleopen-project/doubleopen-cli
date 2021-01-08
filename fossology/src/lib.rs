@@ -4,6 +4,7 @@
 
 #![deny(clippy::all)]
 use self::api_objects::{requests::*, responses::*};
+use api_objects::responses;
 use reqwest::blocking::{multipart::Form, Client};
 use serde::{Deserialize, Serialize};
 use std::{path::Path, thread, time};
@@ -145,6 +146,19 @@ impl Fossology {
             .timeout(Duration::from_secs(600))
             .bearer_auth(&self.token)
             .json(&hashes)
+            .send()?
+            .json()?;
+
+        Ok(response)
+    }
+
+    /// Get license details by short name.
+    pub fn license_by_short_name(&self, short_name: &str) -> Result<responses::GetLicense, FossologyError> {
+        let response: responses::GetLicense = self
+            .client
+            .get(&format!("{}/license", self.uri))
+            .bearer_auth(&self.token)
+            .header("shortName", short_name)
             .send()?
             .json()?;
 
