@@ -15,7 +15,6 @@ pub mod requests {
         pub sha1: Option<String>,
         pub md5: Option<String>,
         pub sha256: Option<String>,
-        pub size: Option<i32>,
     }
 
     impl Default for HashQueryInput {
@@ -24,7 +23,6 @@ pub mod requests {
                 sha1: None,
                 md5: None,
                 sha256: None,
-                size: None,
             }
         }
     }
