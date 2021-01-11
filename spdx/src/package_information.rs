@@ -5,7 +5,7 @@ use super::{Checksum, FileInformation, PackageVerificationCode, SPDXExpression};
 /// ## Package Information
 ///
 /// SPDX's [Package Information](https://spdx.github.io/spdx-spec/3-package-information/).
-#[derive(Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize)]
 pub struct PackageInformation {
     pub package_name: String,
     pub package_spdx_identifier: String,

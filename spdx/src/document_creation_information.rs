@@ -4,7 +4,7 @@ use serde::{Deserialize, Serialize};
 /// ## Document Creation Information
 ///
 /// SPDX's [Document Creation Information](https://spdx.github.io/spdx-spec/2-document-creation-information/)
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct DocumentCreationInformation {
     pub spdx_version: String,
     pub data_license: String,

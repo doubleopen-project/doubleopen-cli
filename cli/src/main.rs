@@ -7,7 +7,7 @@ use clap::{Clap, ValueHint};
 use fossology::Fossology;
 use notice::{license_file_from_spdx, Notice};
 use spdx::SPDX;
-use std::{fs::write, path::PathBuf};
+use std::path::PathBuf;
 
 use policy_engine::policy::Policy;
 use policy_engine::PolicyEngine;
@@ -131,10 +131,6 @@ enum NoticeAction {
         #[clap(short, long, parse(from_os_str), value_hint = ValueHint::FilePath)]
         output: PathBuf,
 
-        /// The licenses file, created with create_licenses.
-        #[clap(short, long, parse(from_os_str), value_hint = ValueHint::FilePath)]
-        licenses: PathBuf,
-
         /// Template for notice.
         #[clap(short, long, parse(from_os_str), value_hint = ValueHint::FilePath)]
         template: PathBuf,
@@ -199,16 +195,13 @@ fn main() {
             NoticeAction::CreateNotice {
                 input,
                 output,
-                licenses, template,
+                template,
             } => {
                 let spdx = SPDX::from_file(&input);
-
-                let mut notice = Notice::from(&spdx);
-
-                notice.add_license_texts_from_json(&licenses);
-                let notice = notice.render(&template).expect("Error creating notice");
-                
-                write(&output, &notice).expect("Error writing notice file.");
+                let notice = Notice::from(&spdx);
+                notice
+                    .render_notice_to_file(&template, &output)
+                    .expect("Error rendering notice.");
             }
         },
     }

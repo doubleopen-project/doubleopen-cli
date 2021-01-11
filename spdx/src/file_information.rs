@@ -5,7 +5,7 @@ use super::{Checksum, FileType, SPDXExpression};
 /// ## File Information
 ///
 /// SPDX's [File Information](https://spdx.github.io/spdx-spec/4-file-information/)
-#[derive(Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize)]
 pub struct FileInformation {
     pub file_name: String,
     #[serde(rename = "SPDXID")]

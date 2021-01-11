@@ -46,7 +46,7 @@ use self::Relationship;
 /// is currently 2.2. Can be serialized to JSON.  
 ///     
 /// Spec: https://spdx.github.io/spdx-spec/
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct SPDX {
     #[serde(flatten)]
     pub document_creation_information: DocumentCreationInformation,

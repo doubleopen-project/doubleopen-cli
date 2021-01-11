@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-#[derive(Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize)]
 pub struct OtherLicensingInformationDetected {
     pub license_identifier: String,
     pub extracted_text: String,
