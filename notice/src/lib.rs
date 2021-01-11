@@ -15,7 +15,6 @@ impl<'a> Notice<'a> {
     fn render<P: AsRef<Path>>(&self, template_path: P) -> Result<String, NoticeError> {
         let mut handlebars = Handlebars::new();
         handlebars.register_template_file("notice_template", template_path)?;
-        handlebars.register_escape_fn(|input| input.to_string());
         let output = handlebars.render("notice_template", &self)?;
         Ok(output)
     }
