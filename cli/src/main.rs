@@ -199,7 +199,9 @@ fn main() {
             } => {
                 let spdx = SPDX::from_file(&input);
 
-                let notice = Notice::from(&spdx);
+                let mut notice = Notice::from(&spdx);
+
+                notice.add_license_texts_from_json(&licenses);
                 dbg!(notice);
             }
         },

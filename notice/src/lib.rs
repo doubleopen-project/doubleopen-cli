@@ -1,6 +1,7 @@
-use std::path::Path;
+use std::{fs::read_to_string, path::Path};
 
 use fossology::Fossology;
+use log::debug;
 use serde::{Deserialize, Serialize};
 use spdx::SPDX;
 
@@ -13,6 +14,22 @@ impl Notice {
     fn new() -> Self {
         Self {
             ..Default::default()
+        }
+    }
+
+    pub fn add_license_texts_from_json<P: AsRef<Path>>(&mut self, path_to_licenses: P) {
+        let file_content = read_to_string(path_to_licenses).expect("Failed opening license json.");
+        let licenses: Vec<License> = serde_json::from_str(&file_content).expect("Failed deserializing licenses.");
+        
+        for notice_license in &mut self.licenses {
+            let spdx_id = &notice_license.name;
+            debug!("Getting license text for {}.", &spdx_id);
+            let text = &licenses
+                .iter()
+                .find(|&license| &license.spdx_id == spdx_id)
+                .expect("License json should always include the license.").text;
+
+            notice_license.text = text.clone();
         }
     }
 }
@@ -37,24 +54,44 @@ impl From<&SPDX> for Notice {
 
         for file in &spdx.file_information {
             for license in file.concluded_license.licenses() {
+                if license == "NOASSERTION" {
+                    continue;
+                }
                 let idx = notice_licenses
                     .iter()
                     .position(|notice_license| notice_license.name == license);
 
                 match idx {
                     Some(idx) => {
-                        let copyrights = file.copyright_text.lines();
-                        notice_licenses[idx]
-                            .copyrights
-                            .push(file.copyright_text.clone());
+                        let mut copyrights: Vec<String> = file
+                            .copyright_text
+                            .lines()
+                            .map(|line| line.to_string())
+                            .filter(|copyright| copyright != "NOASSERTION")
+                            .collect();
+                        notice_licenses[idx].copyrights.append(&mut copyrights);
                     }
-                    None => notice_licenses.push(NoticeLicense {
-                        name: license,
-                        copyrights: vec![file.copyright_text.clone()],
-                        text: "TEST".into(),
-                    }),
+                    None => {
+                        let copyrights: Vec<String> = file
+                            .copyright_text
+                            .lines()
+                            .map(|line| line.to_string())
+                            .filter(|copyright| copyright != "NOASSERTION")
+                            .collect();
+                        notice_licenses.push(NoticeLicense {
+                            name: license,
+                            copyrights,
+                            text: "TEST".into(),
+                        })
+                    }
                 }
             }
+        }
+
+        for notice_license in &mut notice_licenses {
+            notice_license.copyrights.sort();
+            notice_license.copyrights.reverse();
+            notice_license.copyrights.dedup();
         }
 
         Notice {
@@ -71,7 +108,7 @@ struct NoticeLicense {
 
 /// Struct for storing license texts from SPDX license list and Fossology.
 #[derive(Debug, Serialize, Deserialize)]
-struct License {
+pub struct License {
     spdx_id: String,
     text: String,
 }
