@@ -5,7 +5,7 @@
 use analyze::yocto::Yocto;
 use clap::{Clap, ValueHint};
 use fossology::Fossology;
-use notice::{license_file_from_spdx, Notice};
+use notice::Notice;
 use spdx::SPDX;
 use std::path::PathBuf;
 
@@ -101,26 +101,6 @@ struct EvaluateArguments {
 
 #[derive(Clap, Debug)]
 enum NoticeAction {
-    /// Create a json file including licenses texts for all of the licenses found
-    /// in the SPDX file.
-    CreateLicenses {
-        /// The SPDX file.
-        #[clap(short, long, parse(from_os_str), value_hint = ValueHint::FilePath)]
-        spdx: PathBuf,
-
-        /// The output file in json format.
-        #[clap(short, long, parse(from_os_str), value_hint = ValueHint::FilePath)]
-        output: PathBuf,
-
-        /// URI for the Fossology instance to query licenses from.
-        #[clap(short, long, value_hint = ValueHint::Url)]
-        uri: String,
-
-        /// Token for the Fossology instance to query licenses from.
-        #[clap(short, long)]
-        token: String,
-    },
-
     /// Create a notice file for the project described in an SPDX file.
     CreateNotice {
         /// The SPDX file.
@@ -182,16 +162,6 @@ fn main() {
             let _result = policy_engine.evaluate_spdx(&spdx);
         }
         SubCommand::Notice(notice_action) => match notice_action {
-            NoticeAction::CreateLicenses {
-                spdx,
-                output,
-                uri,
-                token,
-            } => {
-                let spdx = SPDX::from_file(&spdx);
-                let fossology = Fossology::new(&uri, &token);
-                license_file_from_spdx(&spdx, &fossology, &output).unwrap();
-            }
             NoticeAction::CreateNotice {
                 input,
                 output,

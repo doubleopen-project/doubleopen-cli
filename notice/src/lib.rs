@@ -1,12 +1,7 @@
-use std::{
-    fs::{read_to_string, write},
-    path::Path,
-};
+use std::{fs::write, path::Path};
 
-use fossology::Fossology;
 use handlebars::{Handlebars, RenderError, TemplateFileError};
-use log::debug;
-use serde::{Deserialize, Serialize};
+use serde::Serialize;
 use spdx::SPDX;
 
 #[derive(Debug, Serialize)]
@@ -16,25 +11,6 @@ pub struct Notice<'a> {
 }
 
 impl<'a> Notice<'a> {
-    /// Add license texts to the notice from a license json.
-    pub fn add_license_texts_from_json<P: AsRef<Path>>(&mut self, path_to_licenses: P) {
-        let file_content = read_to_string(path_to_licenses).expect("Failed opening license json.");
-        let licenses: Vec<License> =
-            serde_json::from_str(&file_content).expect("Failed deserializing licenses.");
-
-        for notice_license in &mut self.licenses {
-            let spdx_id = &notice_license.name;
-            debug!("Getting license text for {}.", &spdx_id);
-            let text = &licenses
-                .iter()
-                .find(|&license| &license.spdx_id == spdx_id)
-                .expect("License json should always include the license.")
-                .text;
-
-            notice_license.text = text.clone();
-        }
-    }
-
     /// Render the Notice with a Handlebars template file.
     fn render<P: AsRef<Path>>(&self, template_path: P) -> Result<String, NoticeError> {
         let mut handlebars = Handlebars::new();
@@ -133,6 +109,9 @@ struct NoticeLicense {
 }
 
 impl NoticeLicense {
+    /// Populate the struct with the license text. Get the text from the SPDX
+    /// license list in GitHub if the license is on the list, and from the SPDX
+    /// file if it's not on the list.
     fn get_license_text(&mut self, spdx: &SPDX) -> Result<(), NoticeError> {
         let license_list_version = match &spdx.document_creation_information.license_list_version {
             Some(version) => version,
@@ -154,6 +133,7 @@ impl NoticeLicense {
         Ok(())
     }
 
+    /// Get license text from the provided SPDX file.
     fn get_license_text_from_spdx_file(&self, spdx: &SPDX) -> Result<String, NoticeError> {
         let text = spdx
             .other_licensing_information_detected
@@ -180,86 +160,6 @@ impl NoticeLicense {
     }
 }
 
-/// Struct for storing license texts from SPDX license list and Fossology.
-#[derive(Debug, Serialize, Deserialize)]
-pub struct License {
-    spdx_id: String,
-    text: String,
-}
-
-impl License {
-    /// Create a new license.
-    pub fn new_from_name(
-        name: &str,
-        spdx_license_list_version: &str,
-        fossology: &Fossology,
-    ) -> Result<Self, NoticeError> {
-        let license_from_spdx_list =
-            License::get_license_text_from_spdx_list(&name, &spdx_license_list_version);
-
-        match license_from_spdx_list {
-            Some(license) => Ok(Self {
-                spdx_id: name.to_string(),
-                text: license,
-            }),
-            None => {
-                let license_text =
-                    License::get_license_text_from_fossology(fossology, &name).expect("Failed");
-                Ok(Self {
-                    spdx_id: name.to_string(),
-                    text: license_text,
-                })
-            }
-        }
-    }
-
-    /// Get the license text for an SPDX Identifier from the specified version of
-    /// the SPDX license list. Gets the text from the SPDX license list GitHub repo.
-    fn get_license_text_from_spdx_list(
-        spdx_id: &str,
-        spdx_license_list_version: &str,
-    ) -> Option<String> {
-        let url = format!(
-            "https://raw.githubusercontent.com/spdx/license-list-data/v{}/text/{}.txt",
-            spdx_license_list_version, spdx_id
-        );
-        let body = reqwest::blocking::get(&url).unwrap().text().unwrap();
-        if body == "404: Not Found" {
-            None
-        } else {
-            Some(body)
-        }
-    }
-
-    fn get_license_text_from_fossology(fossology: &Fossology, spdx_id: &str) -> Option<String> {
-        Some(
-            fossology
-                .license_by_short_name(&spdx_id)
-                .expect("Failed getting the license from Fossology.")
-                .text,
-        )
-    }
-}
-
-pub fn license_file_from_spdx<P: AsRef<Path>>(
-    spdx: &SPDX,
-    fossology: &Fossology,
-    output_path: P,
-) -> Result<(), NoticeError> {
-    let licenses = spdx.get_license_ids();
-    let licenses = licenses
-        .iter()
-        .map(|id| License::new_from_name(&id, "3.11", fossology).expect("Notice error"))
-        .collect::<Vec<_>>();
-
-    std::fs::write(
-        output_path,
-        serde_json::to_string_pretty(&licenses).expect("Error serializing licenses."),
-    )?;
-
-    Ok(())
-}
-
 #[cfg(test)]
 mod test {
     use super::*;
@@ -272,8 +172,15 @@ stuff. If we meet some day, and you think  this stuff is worth it, you can
 buy me a beer in return Poul-Henning Kamp
 "#;
 
-        let result_beerware = License::get_license_text_from_spdx_list("Beerware", "3.11").unwrap();
+        let notice_license = NoticeLicense {
+            name: "Beerware".to_string(),
+            copyrights: Vec::new(),
+            text: "NONE".to_string(),
+        };
+        notice_license
+            .get_license_text_from_spdx_list("3.11")
+            .unwrap();
 
-        assert_eq!(expected_beerware, result_beerware);
+        assert_eq!(expected_beerware, notice_license.text);
     }
 }
