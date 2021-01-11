@@ -1,11 +1,12 @@
 use std::{fs::read_to_string, path::Path};
 
 use fossology::Fossology;
+use handlebars::{Handlebars, RenderError, TemplateFileError};
 use log::debug;
 use serde::{Deserialize, Serialize};
 use spdx::SPDX;
 
-#[derive(Debug)]
+#[derive(Debug, Serialize)]
 pub struct Notice {
     licenses: Vec<NoticeLicense>,
 }
@@ -17,6 +18,7 @@ impl Notice {
         }
     }
 
+    /// Add license texts to the notice from a license json.
     pub fn add_license_texts_from_json<P: AsRef<Path>>(&mut self, path_to_licenses: P) {
         let file_content = read_to_string(path_to_licenses).expect("Failed opening license json.");
         let licenses: Vec<License> = serde_json::from_str(&file_content).expect("Failed deserializing licenses.");
@@ -32,12 +34,27 @@ impl Notice {
             notice_license.text = text.clone();
         }
     }
+
+    /// Render the Notice with a Handlebars template file.
+    pub fn render<P: AsRef<Path>>(&self, template_path: P) -> Result<String, NoticeError> {
+        let mut handlebars = Handlebars::new();
+        handlebars.register_template_file("notice_template", template_path)?;
+        handlebars.register_escape_fn(|input| input.to_string());
+        let output = handlebars.render("notice_template", &self)?;
+        Ok(output)
+    }
 }
 
 #[derive(Debug, thiserror::Error)]
 pub enum NoticeError {
     #[error(transparent)]
     FileError(#[from] std::io::Error),
+
+    #[error(transparent)]
+    TemplateFileError(#[from] TemplateFileError),
+
+    #[error(transparent)]
+    RenderError(#[from] RenderError),
 }
 
 impl Default for Notice {
@@ -99,7 +116,7 @@ impl From<&SPDX> for Notice {
         }
     }
 }
-#[derive(Debug)]
+#[derive(Debug, Serialize)]
 struct NoticeLicense {
     name: String,
     text: String,
