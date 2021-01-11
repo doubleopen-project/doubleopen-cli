@@ -139,6 +139,35 @@ impl SPDX {
         let response = fossology.licenses_for_hashes(&input)?;
 
         self.process_fossology_response(response);
+
+        // Add license texts to SPDX for licenses not on the SPDX license list.
+        let licenses = self.get_license_ids();
+
+        for license in licenses {
+            if !is_in_spdx_license_list(&license) {
+                let spdx_license = self
+                    .other_licensing_information_detected
+                    .iter()
+                    .find(|&lic| lic.license_identifier == license);
+
+                match spdx_license {
+                    Some(_) => {}
+                    None => {
+                        let license_data = fossology.license_by_short_name(&license)?;
+                        self.other_licensing_information_detected.push(
+                            OtherLicensingInformationDetected {
+                                license_identifier: license,
+                                extracted_text: license_data.text.to_string(),
+                                license_name: license_data.full_name.to_string(),
+                                license_cross_reference: None,
+                                license_comment: None,
+                            },
+                        )
+                    }
+                }
+            }
+        }
+
         Ok(())
     }
 
@@ -366,13 +395,13 @@ mod test {
 
         assert_eq!(expected, actual);
     }
-    
+
     #[test]
     fn check_if_license_is_in_spdx_list() {
         let not_listed_1 = is_in_spdx_license_list("GPL-2.0+");
-        let not_listed_2= is_in_spdx_license_list("DOESNOT");
-        let listed_1= is_in_spdx_license_list("MIT");
-        let listed_2= is_in_spdx_license_list("GPL-2.0-or-later");
+        let not_listed_2 = is_in_spdx_license_list("DOESNOT");
+        let listed_1 = is_in_spdx_license_list("MIT");
+        let listed_2 = is_in_spdx_license_list("GPL-2.0-or-later");
 
         assert_eq!(not_listed_1, false);
         assert_eq!(not_listed_2, false);
