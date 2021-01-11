@@ -270,6 +270,16 @@ pub fn spdx_expression_from_api_licenses(mut fossology_licenses: Vec<String>) ->
     }
 }
 
+/// Test if license is in the SPDX license list.
+pub fn is_in_spdx_license_list(spdx_id: &str) -> bool {
+    let url = format!(
+        "https://raw.githubusercontent.com/spdx/license-list-data/master/text/{}.txt",
+        spdx_id
+    );
+    let body = reqwest::blocking::get(&url).unwrap().text().unwrap();
+    body != "404: Not Found"
+}
+
 #[cfg(test)]
 mod test {
 
@@ -296,9 +306,7 @@ mod test {
 
         let file = package_1_files
             .iter()
-            .find(|package_and_relationship| {
-                package_and_relationship.0.file_name == *"file2.txt"
-            })
+            .find(|package_and_relationship| package_and_relationship.0.file_name == *"file2.txt")
             .expect("Should always be found");
 
         assert_eq!(file.0.file_spdx_identifier, "SPDXRef-4");
@@ -306,9 +314,7 @@ mod test {
 
         let file = package_2_files
             .iter()
-            .find(|package_and_relationship| {
-                package_and_relationship.0.file_name == *"file5.txt"
-            })
+            .find(|package_and_relationship| package_and_relationship.0.file_name == *"file5.txt")
             .expect("Should always be found");
 
         assert_eq!(
@@ -359,5 +365,18 @@ mod test {
         expected.sort();
 
         assert_eq!(expected, actual);
+    }
+    
+    #[test]
+    fn check_if_license_is_in_spdx_list() {
+        let not_listed_1 = is_in_spdx_license_list("GPL-2.0+");
+        let not_listed_2= is_in_spdx_license_list("DOESNOT");
+        let listed_1= is_in_spdx_license_list("MIT");
+        let listed_2= is_in_spdx_license_list("GPL-2.0-or-later");
+
+        assert_eq!(not_listed_1, false);
+        assert_eq!(not_listed_2, false);
+        assert_eq!(listed_1, true);
+        assert_eq!(listed_2, true);
     }
 }
