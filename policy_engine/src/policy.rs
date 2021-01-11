@@ -80,7 +80,7 @@ impl Policy {
         Policy {
             licenses_allow: allowed_licensens,
             licenses_deny: denied_licensens,
-            resolutions: resolutions,
+            resolutions,
         }
     }
 }

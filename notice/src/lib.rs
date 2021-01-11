@@ -12,12 +12,6 @@ pub struct Notice {
 }
 
 impl Notice {
-    fn new() -> Self {
-        Self {
-            ..Default::default()
-        }
-    }
-
     /// Add license texts to the notice from a license json.
     pub fn add_license_texts_from_json<P: AsRef<Path>>(&mut self, path_to_licenses: P) {
         let file_content = read_to_string(path_to_licenses).expect("Failed opening license json.");

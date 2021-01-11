@@ -212,15 +212,12 @@ impl SPDX {
         &self,
         package_spdx_id: &str,
     ) -> Vec<(&FileInformation, &Relationship)> {
-        let relationships = self.relationships.iter().filter_map(|relationship| {
-            if relationship.spdx_element_id == package_spdx_id {
-                Some(relationship)
-            } else {
-                None
-            }
-        });
+        let relationships = self
+            .relationships
+            .iter()
+            .filter(|relationship| relationship.spdx_element_id == package_spdx_id);
 
-        let files_and_relationships = relationships
+        relationships
             .map(|relationship| {
                 let file = self
                     .file_information
@@ -229,9 +226,7 @@ impl SPDX {
                     .expect("File should always exist.");
                 (file, relationship)
             })
-            .collect::<Vec<_>>();
-
-        files_and_relationships
+            .collect::<Vec<_>>()
     }
 
     /// Get all license identifiers from the SPDX.
@@ -263,7 +258,7 @@ pub fn spdx_expression_from_api_licenses(mut fossology_licenses: Vec<String>) ->
 
         fossology_licenses.remove(dual_license_position);
         let expression = fossology_licenses.join(" OR ");
-        return SPDXExpression(expression);
+        SPDXExpression(expression)
     } else {
         let expression = fossology_licenses
             .iter()
@@ -271,7 +266,7 @@ pub fn spdx_expression_from_api_licenses(mut fossology_licenses: Vec<String>) ->
             .cloned()
             .collect::<Vec<_>>()
             .join(" AND ");
-        return SPDXExpression(expression);
+        SPDXExpression(expression)
     }
 }
 
@@ -302,7 +297,7 @@ mod test {
         let file = package_1_files
             .iter()
             .find(|package_and_relationship| {
-                package_and_relationship.0.file_name == "file2.txt".to_string()
+                package_and_relationship.0.file_name == *"file2.txt"
             })
             .expect("Should always be found");
 
@@ -312,7 +307,7 @@ mod test {
         let file = package_2_files
             .iter()
             .find(|package_and_relationship| {
-                package_and_relationship.0.file_name == "file5.txt".to_string()
+                package_and_relationship.0.file_name == *"file5.txt"
             })
             .expect("Should always be found");
 
