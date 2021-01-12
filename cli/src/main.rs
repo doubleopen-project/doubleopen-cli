@@ -35,7 +35,7 @@ enum SubCommand {
 
     /// Create a notice file from SPDX.
     #[clap(author, version)]
-    Notice(NoticeAction),
+    Notice(NoticeArguments),
 }
 
 #[derive(Clap, Debug)]
@@ -116,20 +116,18 @@ struct EvaluateArguments {
 }
 
 #[derive(Clap, Debug)]
-enum NoticeAction {
-    /// Create a notice file for the project described in an SPDX file.
-    CreateNotice {
+struct NoticeArguments {
     /// Path to the input SPDX.
-        #[clap(short, long, parse(from_os_str), value_hint = ValueHint::FilePath)]
-        input: PathBuf,
+    #[clap(short, long, parse(from_os_str), value_hint = ValueHint::FilePath)]
+    input: PathBuf,
 
-        /// Path to output the notice file to.
-        #[clap(short, long, parse(from_os_str), value_hint = ValueHint::FilePath)]
-        output: PathBuf,
+    /// Path to output the notice file to.
+    #[clap(short, long, parse(from_os_str), value_hint = ValueHint::FilePath)]
+    output: PathBuf,
 
-        /// Path to a template for the notice.
-        #[clap(short, long, parse(from_os_str), value_hint = ValueHint::FilePath)]
-        template: PathBuf,
+    /// Path to a template for the notice.
+    #[clap(short, long, parse(from_os_str), value_hint = ValueHint::FilePath)]
+    template: PathBuf,
     },
 }
 
@@ -177,18 +175,13 @@ fn main() {
 
             let _result = policy_engine.evaluate_spdx(&spdx);
         }
-        SubCommand::Notice(notice_action) => match notice_action {
-            NoticeAction::CreateNotice {
-                input,
-                output,
-                template,
-            } => {
-                let spdx = SPDX::from_file(&input);
-                let notice = Notice::from(&spdx);
-                notice
-                    .render_notice_to_file(&template, &output)
-                    .expect("Error rendering notice.");
-            }
+        SubCommand::Notice(notice_arguments) => {
+            let spdx = SPDX::from_file(&notice_arguments.input);
+            let notice = Notice::from(&spdx);
+            notice
+                .render_notice_to_file(&notice_arguments.template, &notice_arguments.output)
+                .expect("Error rendering notice.");
+        }
         },
     }
 }
