@@ -42,6 +42,9 @@ pub enum NoticeError {
 
     #[error(transparent)]
     RenderError(#[from] RenderError),
+
+    #[error("License for the SPDX ID not found.")]
+    LicenseNotFoundError(String),
 }
 
 impl<'a> From<&'a SPDX> for Notice<'a> {
@@ -117,13 +120,11 @@ impl<'a> NoticeLicense<'a> {
         let text_from_spdx_list = self.get_license_text_from_spdx_list(&license_list_version);
 
         match text_from_spdx_list {
-            Some(text) => {
+            Ok(text) => {
                 self.text = text;
             }
-            None => {
-                self.text = self
-                    .get_license_text_from_spdx_file(&spdx)
-                    .expect("Should be found")
+            Err(_) => {
+                self.text = self.get_license_text_from_spdx_file(&spdx)?;
             }
         }
 
@@ -136,33 +137,46 @@ impl<'a> NoticeLicense<'a> {
             .other_licensing_information_detected
             .iter()
             .find(|&lic| lic.license_identifier == self.name)
-            .expect("Should be found.");
+            .ok_or_else(|| {
+                NoticeError::LicenseNotFoundError(format!(
+                    "License '{}' not found from SPDX file.",
+                    &self.name
+                ))
+            })?;
 
         Ok(text.extracted_text.clone())
     }
 
     /// Get the license text for an SPDX Identifier from the specified version of
     /// the SPDX license list. Gets the text from the SPDX license list GitHub repo.
-    fn get_license_text_from_spdx_list(&self, spdx_license_list_version: &str) -> Option<String> {
+    fn get_license_text_from_spdx_list(
+        &self,
+        spdx_license_list_version: &str,
+    ) -> Result<String, NoticeError> {
         let url = format!(
             "https://raw.githubusercontent.com/spdx/license-list-data/v{}/text/{}.txt",
             spdx_license_list_version, self.name
         );
         let body = reqwest::blocking::get(&url).unwrap().text().unwrap();
         if body == "404: Not Found" {
-            None
+            Err(NoticeError::LicenseNotFoundError(format!(
+                "License '{}' not found from SPDX list.",
+                &self.name
+            )))
         } else {
-            Some(body)
+            Ok(body)
         }
     }
 }
 
 #[cfg(test)]
 mod test {
+    use std::fs::read_to_string;
+
     use super::*;
 
     #[test]
-    fn get_license_text_for_spdx_id() {
+    fn get_correct_license_text_from_spdx_list() {
         let expected_beerware = r#""THE BEER-WARE LICENSE" (Revision 42):  <phk@FreeBSD.ORG> wrote this file.
 As long as you retain this notice you  can do whatever you want with this
 stuff. If we meet some day, and you think  this stuff is worth it, you can
@@ -179,5 +193,94 @@ buy me a beer in return Poul-Henning Kamp
             .unwrap();
 
         assert_eq!(expected_beerware, notice_license.text);
+    }
+
+    #[test]
+    fn get_correct_license_text_from_spdx_file() {
+        let spdx = read_to_string("../tests/examples/spdx/simple.spdx.json").unwrap();
+        let spdx: SPDX = serde_json::from_str(&spdx).unwrap();
+
+        let expected_license = r#"CMU License
+
+          Mach Operating System
+          Copyright © 1991,1990,1989 Carnegie Mellon University
+          All Rights Reserved.
+Permission to use, copy, modify and distribute this software and its documentation is hereby granted, provided that both the copyright notice and this permission notice appear in all copies of the software, derivative works or modified versions, and any portions thereof, and that both notices appear in supporting documentation.
+
+carnegie mellon allows free use of this software in its “as is” condition. carnegie mellon disclaims any liability of any kind for any damages whatsoever resulting from the use of this software.
+
+Carnegie Mellon requests users of this software to return to
+
+           Software Distribution Coordinator
+           School of Computer Science
+           Carnegie Mellon University
+           Pittsburgh PA 15213-3890
+or Software.Distribution@CS.CMU.EDU any improvements or extensions that they make and grant Carnegie Mellon the rights to redistribute these changes."#;
+
+        let mut notice_license = NoticeLicense {
+            name: "CMU".into(),
+            text: "NONE".into(),
+            copyrights: Vec::new(),
+        };
+
+        notice_license.text = notice_license
+            .get_license_text_from_spdx_file(&spdx)
+            .unwrap();
+
+        assert_eq!(notice_license.text, expected_license);
+    }
+
+    #[test]
+    fn get_correct_license_text() {
+        let spdx = read_to_string("../tests/examples/spdx/simple.spdx.json").unwrap();
+        let spdx: SPDX = serde_json::from_str(&spdx).unwrap();
+
+        let mut license_from_spdx_list = NoticeLicense {
+            name: "Beerware".into(),
+            text: "NONE".into(),
+            copyrights: Vec::new(),
+        };
+
+        let expected_beerware = r#""THE BEER-WARE LICENSE" (Revision 42):  <phk@FreeBSD.ORG> wrote this file.
+As long as you retain this notice you  can do whatever you want with this
+stuff. If we meet some day, and you think  this stuff is worth it, you can
+buy me a beer in return Poul-Henning Kamp
+"#;
+
+        let mut license_from_spdx_file = NoticeLicense {
+            name: "CMU".into(),
+            text: "NONE".into(),
+            copyrights: Vec::new(),
+        };
+
+        let expected_cmu = r#"CMU License
+
+          Mach Operating System
+          Copyright © 1991,1990,1989 Carnegie Mellon University
+          All Rights Reserved.
+Permission to use, copy, modify and distribute this software and its documentation is hereby granted, provided that both the copyright notice and this permission notice appear in all copies of the software, derivative works or modified versions, and any portions thereof, and that both notices appear in supporting documentation.
+
+carnegie mellon allows free use of this software in its “as is” condition. carnegie mellon disclaims any liability of any kind for any damages whatsoever resulting from the use of this software.
+
+Carnegie Mellon requests users of this software to return to
+
+           Software Distribution Coordinator
+           School of Computer Science
+           Carnegie Mellon University
+           Pittsburgh PA 15213-3890
+or Software.Distribution@CS.CMU.EDU any improvements or extensions that they make and grant Carnegie Mellon the rights to redistribute these changes."#;
+
+        let mut license_not_found = NoticeLicense {
+            name: "ERROR".into(),
+            text: "NONE".into(),
+            copyrights: Vec::new(),
+        };
+
+        license_from_spdx_list.get_license_text(&spdx).unwrap();
+        license_from_spdx_file.get_license_text(&spdx).unwrap();
+        license_not_found.get_license_text(&spdx).unwrap_err();
+
+        assert_eq!(license_from_spdx_list.text, expected_beerware);
+        assert_eq!(license_from_spdx_file.text, expected_cmu);
     }
 }
