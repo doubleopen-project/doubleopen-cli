@@ -1,3 +1,13 @@
+//! # Yocto
+//!
+//! Module for analyzing builds produced by the
+//! [Yocto build system](https://www.yoctoproject.org/). Heavily utilizes
+//! development tools included with yocto by calling them as external processes,
+//! so sourcing the build environment before analysis is required.
+
+use log::{debug, info};
+use rayon::prelude::*;
+use std::{fs::read_to_string, path::Path, path::PathBuf};
 use {
     fossology::Fossology,
     spdx::{
@@ -5,9 +15,6 @@ use {
         RelationshipType, SPDX,
     },
 };
-use log::{debug, info};
-use rayon::prelude::*;
-use std::{fs::read_to_string, path::Path, path::PathBuf};
 
 use self::recipe::Recipe;
 
@@ -15,6 +22,8 @@ use super::{AnalyzerError, Package};
 
 mod recipe;
 
+/// Representation of a Yocto image and its source. Includes all the relevant
+/// information to store the bill of materials in an SPDX document.
 #[derive(Debug)]
 pub struct Yocto {
     pub image_name: String,
@@ -144,12 +153,14 @@ impl Yocto {
         Ok(recipes)
     }
 
+    /// Get the path to the pkgdata directory.
     pub fn pkgdata_path(&self) -> PathBuf {
         self.build_directory
             .join("tmp/pkgdata/")
             .join(self.architecture.clone())
     }
 
+    /// Upload the source code of the image to Fossology.
     pub fn upload_source_to_fossology(
         &self,
         fossology: &Fossology,
@@ -161,17 +172,20 @@ impl Yocto {
         );
 
         let recipes = self.recipes()?;
+
         debug!(
             "Yocto build {} includes {} recipes.",
             &self.image_name,
             &recipes.len()
         );
+
         let _results = recipes
             .iter()
             .map(|recipe| -> Result<(), AnalyzerError> {
                 recipe.upload_recipe_source_to_fossology(&self, &fossology, &folder_id)
             })
             .collect::<Vec<_>>();
+
         Ok(())
     }
 }
@@ -189,29 +203,38 @@ impl Default for Yocto {
 }
 
 impl From<Yocto> for SPDX {
+    /// Create an SPDX document from a Yocto build.
     fn from(yocto: Yocto) -> SPDX {
         let mut spdx = SPDX::new(&yocto.image_name);
 
+        // Add all packages used in the image to the SPDX.
         for package in yocto.packages {
             let mut spdx_package =
                 PackageInformation::new(&package.name, &mut spdx.spdx_ref_counter);
             spdx_package.package_version = Some(package.version);
+
+            // For each package, add their source files to the SPDX.
             for file in package.source_files {
                 let mut spdx_file = FileInformation::new(&file.name, &mut spdx.spdx_ref_counter);
                 spdx_file
                     .file_checksum
                     .push(Checksum::new(Algorithm::SHA256, &file.sha256));
 
+                // Add the correct relationship to connect the package and the source
+                // file in the SPDX. Differentiate between files used in the build
+                // and files not used.
                 let relationship = match file.used_in_build {
                     true => Relationship::new(
                         &spdx_package.package_spdx_identifier,
                         &spdx_file.file_spdx_identifier,
+                        // TODO: Not sure if the correct relationship.
                         RelationshipType::Contains,
                         None,
                     ),
                     false => Relationship::new(
                         &spdx_package.package_spdx_identifier,
                         &spdx_file.file_spdx_identifier,
+                        // TODO: Not sure if the correct relationship.
                         RelationshipType::Other,
                         None,
                     ),

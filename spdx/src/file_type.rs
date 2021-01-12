@@ -1,5 +1,6 @@
 use serde::{Deserialize, Serialize};
 
+/// https://spdx.github.io/spdx-spec/4-file-information/#43-file-type
 #[derive(Debug, Serialize, Deserialize)]
 #[serde(rename_all = "UPPERCASE")]
 pub enum FileType {

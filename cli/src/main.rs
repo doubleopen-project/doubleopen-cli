@@ -2,6 +2,8 @@
 //
 // SPDX-License-Identifier: MIT
 
+//! Double Open Command Line Utility.
+
 use analyze::yocto::Yocto;
 use clap::{Clap, ValueHint};
 use fossology::Fossology;
@@ -12,6 +14,7 @@ use std::path::PathBuf;
 use policy_engine::policy::Policy;
 use policy_engine::PolicyEngine;
 
+/// Command line options.
 #[derive(Clap, Debug)]
 #[clap(author, about, version)]
 struct Opts {
@@ -19,6 +22,7 @@ struct Opts {
     subcmd: SubCommand,
 }
 
+/// Subcommands for the CLI.
 #[derive(Clap, Debug)]
 enum SubCommand {
     /// Analyze a project and save the bill of materials as an SPDX document.
@@ -38,6 +42,7 @@ enum SubCommand {
     Notice(NoticeArguments),
 }
 
+/// Arguments for the analyze subcommand.
 #[derive(Clap, Debug)]
 struct AnalyzeArguments {
     /// Manifest file of the Yocto build. Default location at
@@ -54,6 +59,7 @@ struct AnalyzeArguments {
     output: PathBuf,
 }
 
+/// Arguments for the Fossology subcommand.
 #[derive(Clap, Debug)]
 struct FossologyArguments {
     /// URL of the Fossology instance to use.
@@ -70,6 +76,7 @@ struct FossologyArguments {
     action: FossologyAction,
 }
 
+/// Sub(sub)commands for the Fossology subcommands.
 #[derive(Clap, Debug)]
 enum FossologyAction {
     /// Upload the source for a Yocto build to Fossology.
@@ -100,6 +107,7 @@ enum FossologyAction {
     },
 }
 
+/// Arguments for the evaluate subcommand.
 #[derive(Clap, Debug)]
 struct EvaluateArguments {
     /// Path to the input SPDX.
@@ -115,6 +123,7 @@ struct EvaluateArguments {
     context: String,
 }
 
+/// Arguments for the notice subcommand.
 #[derive(Clap, Debug)]
 struct NoticeArguments {
     /// Path to the input SPDX.
@@ -128,14 +137,18 @@ struct NoticeArguments {
     /// Path to a template for the notice.
     #[clap(short, long, parse(from_os_str), value_hint = ValueHint::FilePath)]
     template: PathBuf,
-    },
 }
 
 fn main() {
+    // Initialize logging.
     env_logger::init();
+
+    // Get the command line arguments.
     let opts: Opts = Opts::parse();
 
+    // Process subcommands.
     match opts.subcmd {
+        // Process analyze subcommand.
         SubCommand::Analyze(analyze_arguments) => {
             // TODO: Don't unwrap.
             let mut yocto_build =
@@ -144,7 +157,10 @@ fn main() {
             let spdx: SPDX = yocto_build.into();
             spdx.save_as_json(&analyze_arguments.output);
         }
+
+        // Process Fossology subcommand.
         SubCommand::Fossology(fossology_arguments) => match fossology_arguments.action {
+            // Process upload subcommand of Fossology.
             FossologyAction::Upload {
                 manifest,
                 build,
@@ -158,6 +174,8 @@ fn main() {
                     .upload_source_to_fossology(&fossology, &folder)
                     .unwrap();
             }
+
+            // Process query subcommand of Fossology.
             FossologyAction::Query { input, output } => {
                 let mut spdx = SPDX::from_file(&input);
                 let fossology =
@@ -166,6 +184,8 @@ fn main() {
                 spdx.save_as_json(&output);
             }
         },
+
+        // Process evaluate subcommand.
         SubCommand::Evaluate(evaluate_arguments) => {
             let policy =
                 Policy::from_files(evaluate_arguments.policies, &evaluate_arguments.context);
@@ -175,6 +195,8 @@ fn main() {
 
             let _result = policy_engine.evaluate_spdx(&spdx);
         }
+
+        // Process notice subcommand.
         SubCommand::Notice(notice_arguments) => {
             let spdx = SPDX::from_file(&notice_arguments.input);
             let notice = Notice::from(&spdx);
@@ -182,6 +204,5 @@ fn main() {
                 .render_notice_to_file(&notice_arguments.template, &notice_arguments.output)
                 .expect("Error rendering notice.");
         }
-        },
     }
 }

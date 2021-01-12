@@ -2,6 +2,10 @@
 //
 // SPDX-License-Identifier: MIT
 
+//! # Fossology
+//!
+//! Module for communicating with Fossology's REST API.
+
 #![deny(clippy::all)]
 use self::api_objects::{requests::*, responses::*};
 use api_objects::responses;
@@ -24,6 +28,7 @@ pub struct Fossology {
     client: Client,
 }
 
+/// Error when interacting with Fossology.
 #[derive(Debug, thiserror::Error)]
 pub enum FossologyError {
     #[error(transparent)]
@@ -33,6 +38,7 @@ pub enum FossologyError {
     RequestError(#[from] reqwest::Error),
 }
 
+// TODO: Can be deleted.
 /// Objects in downloads-folder to be uploaded to Fossology.
 #[derive(Debug, Serialize, Deserialize)]
 pub struct UploadObject {

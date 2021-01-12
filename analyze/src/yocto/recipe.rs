@@ -13,9 +13,13 @@ use {
 
 use super::Yocto;
 
+/// Representation of a recipe in Yocto.
 #[derive(PartialEq, Debug)]
 pub struct Recipe {
+    /// Name of the recipe.
     pub name: String,
+
+    /// Name of the recipe.
     pub version: String,
 }
 
@@ -98,6 +102,7 @@ impl Recipe {
             let stem = path.file_stem();
             let extension = path.extension();
 
+            // Find the srclist by checking for files with a stem of the package name an extension of `.srclist`.
             match stem {
                 Some(stem) => {
                     if stem.to_str().expect("Conversion should work") == self.name {
@@ -116,6 +121,8 @@ impl Recipe {
             }
         });
 
+        // If an srclist file was found for the recipe, get the hashes of the files
+        // that were used to build the binaries according to the debug utility.
         let used_hashes = match srclist {
             Some(srclist) => {
                 let srclist = srclist.expect("Should always unwrap.");
@@ -125,6 +132,7 @@ impl Recipe {
 
                 let mut hashes: Vec<String> = Vec::new();
 
+                // The format of the srclist files is a little sketchy.
                 for i in srclist {
                     for elf_file in i.1 {
                         for source_file in elf_file {
@@ -145,25 +153,37 @@ impl Recipe {
             }
         };
 
-        // Create a SourceFile for the source files of the recipe.
         debug!("Creating source files for {}.", &self.name);
 
+        // Create a SourceFile for the source files of the recipe.
         let source_files: Vec<SourceFile> = WalkDir::new(&tempdir.path())
             .follow_links(true)
+            // Jump over the first level, as it's the tempdir itself.
             .min_depth(1)
             .into_iter()
+            // Filter hidden files to exclude `.git/`.
+            // TODO: May make more sense and be a little safer to specifically skip
+            // problematic folders, such as `.git/`.
             .filter_entry(|entry| !is_hidden(entry))
             .filter_map(|f| {
                 let entry = f;
                 match entry {
                     Ok(entry) => {
+                        // Only add files, not folders.
                         if entry.metadata().unwrap().is_file() {
+                            // Get the path relative to the root of the source package.
                             let filename = entry
                                 .path()
                                 .strip_prefix(&tempdir.path())
                                 .expect("Should always be extracted here.")
                                 .to_string_lossy();
+
+                            // Calculate the SHA256 checksum for the source file.
                             let sha256 = hash256_for_path(entry.path()).to_ascii_lowercase();
+
+                            // If a srclist with a list of used files was found, try to find the
+                            // checksum of the source file in it. If not found, mark the file as not
+                            // used in build.
                             match &used_hashes {
                                 Some(hashlist) => {
                                     let used_in_build = hashlist.binary_search(&sha256).is_ok();
@@ -207,6 +227,7 @@ impl Recipe {
             used_source_files_count,
             &self.name
         );
+
         Ok(Package {
             name: self.name.clone(),
             version: self.version.clone(),
@@ -226,11 +247,13 @@ impl Recipe {
         let mut command = Command::new("devtool");
         command.current_dir(build_directory.as_ref());
         let tempdir = TempDir::new()?;
+
         command
             .arg("extract")
             .arg(&self.name)
             .arg(tempdir.path())
             .output()?;
+
         debug!(
             "Devtool extract done, saved source of {} to{}.",
             &self.name,

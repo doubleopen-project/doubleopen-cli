@@ -1,14 +1,23 @@
 use serde::{Deserialize, Serialize};
 
+/// https://spdx.github.io/spdx-spec/7-relationships-between-SPDX-elements/#71-relationship
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Relationship {
+    /// SPDX ID of the element.
     pub spdx_element_id: String,
+
+    /// SPDX ID of the related element.
     pub related_spdx_element: String,
+
+    /// Type of the relationship.
     pub relationship_type: RelationshipType,
+
+    /// https://spdx.github.io/spdx-spec/7-relationships-between-SPDX-elements/#72-relationship-comment
     pub comment: Option<String>,
 }
 
 impl Relationship {
+    /// Create a new relationship.
     pub fn new(
         spdx_element_id: &str,
         related_spdx_element: &str,
@@ -24,6 +33,7 @@ impl Relationship {
     }
 }
 
+/// https://spdx.github.io/spdx-spec/7-relationships-between-SPDX-elements/#71-relationship
 #[derive(Serialize, Deserialize, Debug, PartialEq)]
 #[serde(rename_all = "SCREAMING_SNAKE_CASE")]
 pub enum RelationshipType {

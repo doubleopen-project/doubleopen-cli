@@ -1,12 +1,22 @@
+//! # Notice
+//!
+//! A module for generating notice files from SPDX documents.
+
 use std::{fs::write, path::Path};
 
 use handlebars::{Handlebars, RenderError, TemplateFileError};
 use serde::Serialize;
 use spdx::SPDX;
 
+/// A struct to pass to the template for creating the notice. Based on SPDX,
+/// but some additional fields are extracted from SPDX and added to help creating
+/// custom notice files.
 #[derive(Debug, Serialize)]
 pub struct Notice<'a> {
+    /// Full SPDX document.
     spdx: &'a SPDX,
+
+    /// List of unique licenses found in the SPDX.
     licenses: Vec<NoticeLicense<'a>>,
 }
 
@@ -19,6 +29,7 @@ impl<'a> Notice<'a> {
         Ok(output)
     }
 
+    /// Render the Notice with a Handlebars template file to a file.
     pub fn render_notice_to_file<P: AsRef<Path>, O: AsRef<Path>>(
         &self,
         template_path: P,
@@ -32,30 +43,42 @@ impl<'a> Notice<'a> {
     }
 }
 
+/// Error while creating notice.
 #[derive(Debug, thiserror::Error)]
 pub enum NoticeError {
+    /// Error with file input or output.
     #[error(transparent)]
     FileError(#[from] std::io::Error),
 
+    /// Error with template file.
     #[error(transparent)]
     TemplateFileError(#[from] TemplateFileError),
 
+    /// Error while rendering the notice.
     #[error(transparent)]
     RenderError(#[from] RenderError),
 
+    /// A license for the SPDX ID was not found for notice generation.
     #[error("License for the SPDX ID not found.")]
     LicenseNotFoundError(String),
 }
 
 impl<'a> From<&'a SPDX> for Notice<'a> {
+    /// Create the notice struct from SPDX.
     fn from(spdx: &'a SPDX) -> Self {
         let mut notice_licenses: Vec<NoticeLicense> = Vec::new();
 
+        // Get licenses and copyrights from all files in the SPDX.
+        // TODO: Should probably also get data from packages.
         for file in &spdx.file_information {
             for license in file.concluded_license.licenses() {
+                // Do not add NOASSERTION to the notice.
                 if license == "NOASSERTION" {
                     continue;
                 }
+
+                // Check if the license is already encountered. If it is, add copyrights
+                // for that licenses. If the license is new, create it and add copyrights.
                 let idx = notice_licenses
                     .iter()
                     .position(|notice_license| notice_license.name == license);
@@ -85,11 +108,13 @@ impl<'a> From<&'a SPDX> for Notice<'a> {
             }
         }
 
+        // Remove duplicate copyrights from licenses.
         for notice_license in &mut notice_licenses {
             notice_license.copyrights.sort_unstable();
             notice_license.copyrights.reverse();
             notice_license.copyrights.dedup();
 
+            // Populate the notice license with its license text.
             notice_license
                 .get_license_text(&spdx)
                 .expect("Did not find the license text.");
@@ -101,10 +126,17 @@ impl<'a> From<&'a SPDX> for Notice<'a> {
         }
     }
 }
+
+/// Information aboute licenses encountered in SPDX to be provided for the template.
 #[derive(Debug, Serialize)]
 struct NoticeLicense<'a> {
+    /// SPDX ID of the license.
     name: String,
+
+    /// Full license text.
     text: String,
+
+    /// Copyrights from all files licensed under the license.
     copyrights: Vec<&'a str>,
 }
 
@@ -113,12 +145,17 @@ impl<'a> NoticeLicense<'a> {
     /// license list in GitHub if the license is on the list, and from the SPDX
     /// file if it's not on the list.
     fn get_license_text(&mut self, spdx: &SPDX) -> Result<(), NoticeError> {
+        // TODO: Might make more sense to first check the SPDX documents before
+        // querying the SPDX list to reduce the number of requests. Probably a
+        // minimal performance impact.
         let license_list_version = match &spdx.document_creation_information.license_list_version {
             Some(version) => version,
             None => "3.11",
         };
         let text_from_spdx_list = self.get_license_text_from_spdx_list(&license_list_version);
 
+        // If no license found from list, get it from SPDX. If it doesn't include the
+        // license either, produce error.
         match text_from_spdx_list {
             Ok(text) => {
                 self.text = text;
@@ -158,6 +195,8 @@ impl<'a> NoticeLicense<'a> {
             spdx_license_list_version, self.name
         );
         let body = reqwest::blocking::get(&url).unwrap().text().unwrap();
+
+        // Github returns "404: Not Found" if the file is not found.
         if body == "404: Not Found" {
             Err(NoticeError::LicenseNotFoundError(format!(
                 "License '{}' not found from SPDX list.",

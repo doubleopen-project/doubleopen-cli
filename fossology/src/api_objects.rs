@@ -2,6 +2,8 @@
 //
 // SPDX-License-Identifier: MIT
 
+//! Fossology API response and request payloads. 
+
 /// Request payloads for the Fossology API.
 pub mod requests {
     use serde::{Deserialize, Serialize};
@@ -26,12 +28,18 @@ pub mod requests {
             }
         }
     }
+
+    /// # POST to `/jobs`.
+    ///
+    /// Schedule an analysis.
     #[derive(Serialize, Deserialize, Debug)]
     pub struct ScheduleJobsInput {
         analysis: Analysis,
         decider: Decider,
+        // TODO: Reuse.
     }
     impl ScheduleJobsInput {
+        /// Create the payload with default values.
         pub fn new() -> Self {
             Self {
                 analysis: Analysis {
@@ -57,6 +65,7 @@ pub mod requests {
         }
     }
 
+    /// Decider jobs to schedule with POST to `/jobs`.
     #[derive(Serialize, Deserialize, Debug)]
     struct Decider {
         nomos_monk: bool,
@@ -77,6 +86,8 @@ pub mod requests {
             }
         }
     }
+
+    /// Analysis jobs to schedule with POST to `/jobs`.
     #[derive(Serialize, Deserialize, Debug)]
     struct Analysis {
         bucket: bool,
@@ -107,9 +118,11 @@ pub mod requests {
     }
 }
 
+/// Response payloads for the Fossology API.
 pub mod responses {
     use serde::{Deserialize, Serialize};
 
+    /// Response for POST to `/filesearch`.
     #[derive(Serialize, Deserialize, Debug)]
     pub struct HashQueryResponse {
         pub hash: Hash,
@@ -117,6 +130,8 @@ pub mod responses {
         pub uploads: Option<Vec<i32>>,
         pub message: Option<String>,
     }
+
+    /// Hash values in the response for POST to `/filesearch`.
     #[derive(Serialize, Deserialize, Debug)]
     pub struct Hash {
         pub sha1: Option<String>,
@@ -124,12 +139,17 @@ pub mod responses {
         pub sha256: Option<String>,
         pub size: Option<i64>,
     }
+
+    /// License and copyright findings in the response for POST to `/filesearch`.
     #[derive(Serialize, Deserialize, Debug)]
     pub struct Findings {
         pub scanner: Vec<String>,
         pub conclusion: Vec<String>,
         pub copyright: Vec<String>,
     }
+
+    // TODO: The API's default response, should probably make more general.
+    /// Response for POST to `/uploads`.
     #[derive(Serialize, Deserialize, Debug)]
     pub struct UploadPackageResponse {
         pub code: i32,
@@ -137,6 +157,9 @@ pub mod responses {
         #[serde(rename = "type")]
         pub response_type: String,
     }
+
+
+    /// Response for GET to `/uploads/{id}`.
     #[derive(Serialize, Deserialize, Debug)]
     pub struct UploadDetailResponse {
         #[serde(rename = "folderid")]
@@ -152,6 +175,8 @@ pub mod responses {
         hash: Hashes,
     }
 
+    /// Hash values of upload detail from GET to `/uploads/{id}`.
+    // TODO: Might be able to combine with the hash struct in filesearch.
     #[derive(Serialize, Deserialize, Debug)]
     struct Hashes {
         sha1: String,

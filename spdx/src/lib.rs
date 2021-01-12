@@ -48,18 +48,27 @@ use self::Relationship;
 /// Spec: https://spdx.github.io/spdx-spec/
 #[derive(Serialize, Deserialize, Debug)]
 pub struct SPDX {
+    /// https://spdx.github.io/spdx-spec/2-document-creation-information/
     #[serde(flatten)]
     pub document_creation_information: DocumentCreationInformation,
-    // Valid SPDX?
+
+    // TODO: Valid SPDX?
+    /// https://spdx.github.io/spdx-spec/3-package-information/
     #[serde(rename = "packages")]
     pub package_information: Vec<PackageInformation>,
+
+    /// https://spdx.github.io/spdx-spec/6-other-licensing-information-detected/
     #[serde(rename = "hasExtractedLicensingInfos")]
     pub other_licensing_information_detected: Vec<OtherLicensingInformationDetected>,
+
+    /// https://spdx.github.io/spdx-spec/4-file-information/
     #[serde(rename = "files")]
     pub file_information: Vec<FileInformation>,
+
+    /// https://spdx.github.io/spdx-spec/7-relationships-between-SPDX-elements/
     pub relationships: Vec<Relationship>,
 
-    /// Counter for creating SPDXRefs.
+    /// Counter for creating SPDXRefs. Is not part of the spec, so don't serialize.
     #[serde(skip)]
     pub spdx_ref_counter: i32,
 }

@@ -6,20 +6,41 @@ use serde::{Deserialize, Serialize};
 /// SPDX's [Document Creation Information](https://spdx.github.io/spdx-spec/2-document-creation-information/)
 #[derive(Serialize, Deserialize, Debug)]
 pub struct DocumentCreationInformation {
+    /// https://spdx.github.io/spdx-spec/2-document-creation-information/#21-spdx-version
     pub spdx_version: String,
+
+    /// https://spdx.github.io/spdx-spec/2-document-creation-information/#22-data-license
     pub data_license: String,
+
+    /// https://spdx.github.io/spdx-spec/2-document-creation-information/#23-spdx-identifier
     #[serde(rename = "SPDXID")]
     pub spdx_identifier: String,
+
+    /// https://spdx.github.io/spdx-spec/2-document-creation-information/#24-document-name
     pub document_name: String,
+
+    ///https://spdx.github.io/spdx-spec/2-document-creation-information/#25-spdx-document-namespace
     pub spdx_document_namespace: String,
+
+    /// https://spdx.github.io/spdx-spec/2-document-creation-information/#26-external-document-references
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub external_document_references: Option<Vec<ExternalDocumentReference>>,
+
+    /// https://spdx.github.io/spdx-spec/2-document-creation-information/#27-license-list-version
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub license_list_version: Option<String>,
+
+    /// https://spdx.github.io/spdx-spec/2-document-creation-information/#28-creator
     pub creator: String,
+
+    /// https://spdx.github.io/spdx-spec/2-document-creation-information/#29-created
     pub created: DateTime<Utc>,
+
+    /// https://spdx.github.io/spdx-spec/2-document-creation-information/#210-creator-comment
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub creator_comment: Option<String>,
+
+    /// https://spdx.github.io/spdx-spec/2-document-creation-information/#211-document-comment
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub document_comment: Option<String>,
 }

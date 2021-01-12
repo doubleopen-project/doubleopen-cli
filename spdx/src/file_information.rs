@@ -7,26 +7,46 @@ use super::{Checksum, FileType, SPDXExpression};
 /// SPDX's [File Information](https://spdx.github.io/spdx-spec/4-file-information/)
 #[derive(Debug, Serialize, Deserialize)]
 pub struct FileInformation {
+    /// https://spdx.github.io/spdx-spec/4-file-information/#41-file-name
     pub file_name: String,
+
+    /// https://spdx.github.io/spdx-spec/4-file-information/#42-file-spdx-identifier
     #[serde(rename = "SPDXID")]
     pub file_spdx_identifier: String,
+
+    /// https://spdx.github.io/spdx-spec/4-file-information/#43-file-type
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub file_type: Option<Vec<FileType>>,
+
+    /// https://spdx.github.io/spdx-spec/4-file-information/#44-file-checksum
     pub file_checksum: Vec<Checksum>,
-    /// Store Fossology's license conclusion. Need a way to parse Fossology's
-    /// output for policy engine.
+
+    /// https://spdx.github.io/spdx-spec/4-file-information/#45-concluded-license
     pub concluded_license: SPDXExpression,
-    /// Store Fossology's scan results.
+
+    /// https://spdx.github.io/spdx-spec/4-file-information/#46-license-information-in-file
     pub license_information_in_file: Vec<String>,
+
+    /// https://spdx.github.io/spdx-spec/4-file-information/#47-comments-on-license
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub comments_on_license: Option<String>,
+
+    /// https://spdx.github.io/spdx-spec/4-file-information/#48-copyright-text
     pub copyright_text: String,
+
+    /// https://spdx.github.io/spdx-spec/4-file-information/#412-file-comment
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub file_comment: Option<String>,
+
+    /// https://spdx.github.io/spdx-spec/4-file-information/#413-file-notice
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub file_notice: Option<String>,
+
+    /// https://spdx.github.io/spdx-spec/4-file-information/#414-file-contributor
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub file_contributor: Option<Vec<String>>,
+
+    /// https://spdx.github.io/spdx-spec/4-file-information/#415-file-attribution-text
     #[serde(skip_serializing_if = "Option::is_none", default)]
     pub file_attribution_text: Option<Vec<String>>,
     // TODO: Snippet Information.

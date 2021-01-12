@@ -1,10 +1,12 @@
 use boolean_expression::Expr;
 use serde::{Deserialize, Serialize};
 
+/// https://spdx.github.io/spdx-spec/appendix-IV-SPDX-license-expressions/
 #[derive(Serialize, Deserialize, PartialEq, Debug)]
 pub struct SPDXExpression(pub String);
 
 impl SPDXExpression {
+    /// Create a boolean expression from the SPDX expression.
     pub fn parse(&self) -> Result<Expr<String>, String> {
         let expression = parser::parse_spdx(&self.0).map_err(|e| e.to_string())?;
         if expression.0.is_empty() {
@@ -78,6 +80,7 @@ mod test_spdx_expression {
     }
 }
 
+/// Module for parsing of SPDX expressions.
 mod parser {
     use boolean_expression::Expr;
 
