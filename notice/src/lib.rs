@@ -7,7 +7,7 @@ use spdx::SPDX;
 #[derive(Debug, Serialize)]
 pub struct Notice<'a> {
     spdx: &'a SPDX,
-    licenses: Vec<NoticeLicense>,
+    licenses: Vec<NoticeLicense<'a>>,
 }
 
 impl<'a> Notice<'a> {
@@ -59,20 +59,18 @@ impl<'a> From<&'a SPDX> for Notice<'a> {
 
                 match idx {
                     Some(idx) => {
-                        let mut copyrights: Vec<String> = file
+                        let mut copyrights: Vec<&str> = file
                             .copyright_text
                             .lines()
-                            .map(|line| line.to_string())
-                            .filter(|copyright| copyright != "NOASSERTION")
+                            .filter(|&copyright| copyright != "NOASSERTION")
                             .collect();
                         notice_licenses[idx].copyrights.append(&mut copyrights);
                     }
                     None => {
-                        let copyrights: Vec<String> = file
+                        let copyrights: Vec<&str> = file
                             .copyright_text
                             .lines()
-                            .map(|line| line.to_string())
-                            .filter(|copyright| copyright != "NOASSERTION")
+                            .filter(|&copyright| copyright != "NOASSERTION")
                             .collect();
                         notice_licenses.push(NoticeLicense {
                             name: license,
@@ -85,7 +83,7 @@ impl<'a> From<&'a SPDX> for Notice<'a> {
         }
 
         for notice_license in &mut notice_licenses {
-            notice_license.copyrights.sort();
+            notice_license.copyrights.sort_unstable();
             notice_license.copyrights.reverse();
             notice_license.copyrights.dedup();
 
@@ -101,13 +99,13 @@ impl<'a> From<&'a SPDX> for Notice<'a> {
     }
 }
 #[derive(Debug, Serialize)]
-struct NoticeLicense {
+struct NoticeLicense<'a> {
     name: String,
     text: String,
-    copyrights: Vec<String>,
+    copyrights: Vec<&'a str>,
 }
 
-impl NoticeLicense {
+impl<'a> NoticeLicense<'a> {
     /// Populate the struct with the license text. Get the text from the SPDX
     /// license list in GitHub if the license is on the list, and from the SPDX
     /// file if it's not on the list.
