@@ -21,7 +21,7 @@ struct Opts {
 
 #[derive(Clap, Debug)]
 enum SubCommand {
-    /// Analyze project.
+    /// Analyze a project and save the bill of materials as an SPDX document.
     #[clap(author, version)]
     Analyze(AnalyzeArguments),
 
@@ -29,7 +29,7 @@ enum SubCommand {
     #[clap(author, version)]
     Fossology(FossologyArguments),
 
-    /// Evaluate SPDX against a Policy.
+    /// Evaluate the license compliance of an SPDX file with a provided policy.
     #[clap(author, version)]
     Evaluate(EvaluateArguments),
 
@@ -40,24 +40,32 @@ enum SubCommand {
 
 #[derive(Clap, Debug)]
 struct AnalyzeArguments {
+    /// Manifest file of the Yocto build. Default location at
+    /// `build/tmp/deploy/images/<arch>/<image>.manifest`.
     #[clap(short, long, parse(from_os_str), value_hint = ValueHint::FilePath)]
     manifest: PathBuf,
 
+    /// Build directory of the Yocto build. Default location at `build/`.
     #[clap(short, long, parse(from_os_str), value_hint = ValueHint::DirPath)]
     build: PathBuf,
 
+    /// Path to output the SPDX document to.
     #[clap(short, long, parse(from_os_str), value_hint = ValueHint::DirPath)]
     output: PathBuf,
 }
 
 #[derive(Clap, Debug)]
 struct FossologyArguments {
+    /// URL of the Fossology instance to use.
+    /// Example: `http://localhost/repo/api/v1`.
     #[clap(short, long, value_hint = ValueHint::Url)]
     uri: String,
 
+    /// Access token for the Fossology instance.
     #[clap(short, long)]
     token: String,
 
+    /// Action to do with Fossology.
     #[clap(subcommand)]
     action: FossologyAction,
 }
@@ -66,9 +74,12 @@ struct FossologyArguments {
 enum FossologyAction {
     /// Upload the source for a Yocto build to Fossology.
     Upload {
+        /// Manifest file of the Yocto build. Default location at
+        /// `build/tmp/deploy/images/<arch>/<image>.manifest`.
         #[clap(short, long, parse(from_os_str), value_hint = ValueHint::FilePath)]
         manifest: PathBuf,
 
+        /// Build directory of the Yocto build. Default location at `build/`.
         #[clap(short, long, parse(from_os_str), value_hint = ValueHint::DirPath)]
         build: PathBuf,
 
@@ -77,11 +88,13 @@ enum FossologyAction {
         folder: i32,
     },
 
-    /// Populate an SPDX file with license information from Fossology.
+    /// Populate an SPDX file with license and copyritght information from Fossology.
     Query {
+        /// Path to the input SPDX.
         #[clap(short, long, parse(from_os_str), value_hint = ValueHint::FilePath)]
         input: PathBuf,
 
+        /// Path to output the populated SPDX document to.
         #[clap(short, long, parse(from_os_str), value_hint = ValueHint::FilePath)]
         output: PathBuf,
     },
@@ -89,12 +102,15 @@ enum FossologyAction {
 
 #[derive(Clap, Debug)]
 struct EvaluateArguments {
+    /// Path to the input SPDX.
     #[clap(short, long, parse(from_os_str), value_hint = ValueHint::FilePath)]
     spdx: PathBuf,
 
+    /// List of policies to use in the evaluation.
     #[clap(short, long, parse(from_os_str), value_hint = ValueHint::FilePath)]
     policies: Vec<PathBuf>,
 
+    /// The context from the policies to use.
     #[clap(short, long)]
     context: String,
 }
@@ -103,15 +119,15 @@ struct EvaluateArguments {
 enum NoticeAction {
     /// Create a notice file for the project described in an SPDX file.
     CreateNotice {
-        /// The SPDX file.
+    /// Path to the input SPDX.
         #[clap(short, long, parse(from_os_str), value_hint = ValueHint::FilePath)]
         input: PathBuf,
 
-        /// The output file.
+        /// Path to output the notice file to.
         #[clap(short, long, parse(from_os_str), value_hint = ValueHint::FilePath)]
         output: PathBuf,
 
-        /// Template for notice.
+        /// Path to a template for the notice.
         #[clap(short, long, parse(from_os_str), value_hint = ValueHint::FilePath)]
         template: PathBuf,
     },
