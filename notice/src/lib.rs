@@ -169,12 +169,12 @@ stuff. If we meet some day, and you think  this stuff is worth it, you can
 buy me a beer in return Poul-Henning Kamp
 "#;
 
-        let notice_license = NoticeLicense {
+        let mut notice_license = NoticeLicense {
             name: "Beerware".to_string(),
             copyrights: Vec::new(),
             text: "NONE".to_string(),
         };
-        notice_license
+        notice_license.text = notice_license
             .get_license_text_from_spdx_list("3.11")
             .unwrap();
 
