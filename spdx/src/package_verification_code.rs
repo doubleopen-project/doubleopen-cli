@@ -1,11 +1,13 @@
 use serde::{Deserialize, Serialize};
 
 /// https://spdx.github.io/spdx-spec/3-package-information/#39-package-verification-code
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, PartialEq)]
 pub struct PackageVerificationCode {
     /// Value of the verification code.
+    #[serde(rename = "packageVerificationCodeValue")]
     pub value: String,
 
     /// Files that were excluded when calculating the verification code.
-    pub excludes: Option<String>,
+    #[serde(rename = "packageVerificationCodeExcludedFiles", skip_serializing_if = "Vec::is_empty", default)]
+    pub excludes: Vec<String>,
 }

@@ -1,20 +1,25 @@
 use serde::{Deserialize, Serialize};
 
+use crate::{Annotation, ExternalPackageReference};
+
 use super::{Checksum, FileInformation, PackageVerificationCode, SPDXExpression};
 
 /// ## Package Information
 ///
 /// SPDX's [Package Information](https://spdx.github.io/spdx-spec/3-package-information/).
 #[derive(Debug, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct PackageInformation {
     /// https://spdx.github.io/spdx-spec/3-package-information/#31-package-name
+    #[serde(rename = "name")]
     pub package_name: String,
 
     /// https://spdx.github.io/spdx-spec/3-package-information/#32-package-spdx-identifier
+    #[serde(rename = "SPDXID")]
     pub package_spdx_identifier: String,
 
     /// https://spdx.github.io/spdx-spec/3-package-information/#33-package-version
-    #[serde(skip_serializing_if = "Option::is_none", default)]
+    #[serde(rename = "versionInfo", skip_serializing_if = "Option::is_none", default)]
     pub package_version: Option<String>,
 
     /// https://spdx.github.io/spdx-spec/3-package-information/#34-package-file-name
@@ -22,14 +27,15 @@ pub struct PackageInformation {
     pub package_file_name: Option<String>,
 
     /// https://spdx.github.io/spdx-spec/3-package-information/#35-package-supplier
-    #[serde(skip_serializing_if = "Option::is_none", default)]
+    #[serde(rename = "supplier", skip_serializing_if = "Option::is_none", default)]
     pub package_supplier: Option<String>,
 
     /// https://spdx.github.io/spdx-spec/3-package-information/#36-package-originator
-    #[serde(skip_serializing_if = "Option::is_none", default)]
+    #[serde(rename = "originator", skip_serializing_if = "Option::is_none", default)]
     pub package_originator: Option<String>,
 
     /// https://spdx.github.io/spdx-spec/3-package-information/#37-package-download-location
+    #[serde(rename = "downloadLocation")]
     pub package_download_location: String,
 
     /// https://spdx.github.io/spdx-spec/3-package-information/#38-files-analyzed
@@ -41,65 +47,64 @@ pub struct PackageInformation {
     pub package_verification_code: Option<PackageVerificationCode>,
 
     /// https://spdx.github.io/spdx-spec/3-package-information/#310-package-checksum
-    #[serde(skip_serializing_if = "Option::is_none", default)]
-    pub package_checksum: Option<Vec<Checksum>>,
+    #[serde(rename = "checksums", skip_serializing_if = "Vec::is_empty", default)]
+    pub package_checksum: Vec<Checksum>,
 
     /// https://spdx.github.io/spdx-spec/3-package-information/#311-package-home-page
-    #[serde(skip_serializing_if = "Option::is_none", default)]
+    #[serde(rename = "homepage", skip_serializing_if = "Option::is_none", default)]
     pub package_home_page: Option<String>,
 
     /// https://spdx.github.io/spdx-spec/3-package-information/#312-source-information
-    #[serde(skip_serializing_if = "Option::is_none", default)]
+    #[serde(rename = "sourceInfo", skip_serializing_if = "Option::is_none", default)]
     pub source_information: Option<String>,
 
     /// https://spdx.github.io/spdx-spec/3-package-information/#313-concluded-license
+    #[serde(rename = "licenseConcluded")]
     pub concluded_license: SPDXExpression,
 
     /// https://spdx.github.io/spdx-spec/3-package-information/#314-all-licenses-information-from-files
-    #[serde(skip_serializing_if = "Option::is_none", default)]
-    pub all_licenses_information_from_files: Option<Vec<String>>,
+    #[serde(rename = "licenseInfoFromFiles", skip_serializing_if = "Vec::is_empty", default)]
+    pub all_licenses_information_from_files: Vec<String>,
 
     /// https://spdx.github.io/spdx-spec/3-package-information/#315-declared-license
-    pub declared_license: String,
+    #[serde(rename = "licenseDeclared")]
+    pub declared_license: SPDXExpression,
 
     /// https://spdx.github.io/spdx-spec/3-package-information/#316-comments-on-license
-    #[serde(skip_serializing_if = "Option::is_none", default)]
+    #[serde(rename = "licenseComments", skip_serializing_if = "Option::is_none", default)]
     pub comments_on_license: Option<String>,
 
     /// https://spdx.github.io/spdx-spec/3-package-information/#317-copyright-text
     pub copyright_text: String,
 
     /// https://spdx.github.io/spdx-spec/3-package-information/#318-package-summary-description
-    #[serde(skip_serializing_if = "Option::is_none", default)]
+    #[serde(rename = "summary", skip_serializing_if = "Option::is_none", default)]
     pub package_summary_description: Option<String>,
 
     /// https://spdx.github.io/spdx-spec/3-package-information/#319-package-detailed-description
-    #[serde(skip_serializing_if = "Option::is_none", default)]
+    #[serde(rename = "description", skip_serializing_if = "Option::is_none", default)]
     pub package_detailed_description: Option<String>,
 
     /// https://spdx.github.io/spdx-spec/3-package-information/#320-package-comment
-    #[serde(skip_serializing_if = "Option::is_none", default)]
+    #[serde(rename = "comment", skip_serializing_if = "Option::is_none", default)]
     pub package_comment: Option<String>,
 
     /// https://spdx.github.io/spdx-spec/3-package-information/#321-external-reference
-    // TODO: Create Struct if needed.
-    #[serde(skip_serializing_if = "Option::is_none", default)]
-    pub external_reference: Option<String>,
-
-    /// https://spdx.github.io/spdx-spec/3-package-information/#322-external-reference-comment
-    // Should probably be included in ExternalReference struct.
-    #[serde(skip_serializing_if = "Option::is_none", default)]
-    pub external_reference_comment: Option<String>,
+    #[serde(rename = "externalRefs", skip_serializing_if = "Vec::is_empty", default)]
+    pub external_reference: Vec<ExternalPackageReference>,
 
     /// https://spdx.github.io/spdx-spec/3-package-information/#323-package-attribution-text
-    #[serde(skip_serializing_if = "Option::is_none", default)]
-    pub package_attribution_text: Option<Vec<String>>,
+    #[serde(rename = "attributionTexts", skip_serializing_if = "Vec::is_empty", default)]
+    pub package_attribution_text: Vec<String>,
 
     /// List of "files in the package". Not sure which relationship type this maps to.
     /// Info: https://github.com/spdx/spdx-spec/issues/487
     // Valid SPDX?
-    #[serde(skip_serializing_if = "Vec::is_empty", default)]
+    #[serde(rename = "hasFiles", skip_serializing_if = "Vec::is_empty", default)]
     pub files: Vec<String>,
+
+    #[serde(skip_serializing_if = "Vec::is_empty", default)]
+    pub annotations: Vec<Annotation>,
 }
 
 impl Default for PackageInformation {
@@ -114,21 +119,21 @@ impl Default for PackageInformation {
             package_download_location: "NOASSERTION".to_string(),
             files_analyzed: None,
             package_verification_code: None,
-            package_checksum: None,
+            package_checksum: Vec::new(),
             package_home_page: None,
             source_information: None,
             concluded_license: SPDXExpression("NOASSERTION".to_string()),
-            all_licenses_information_from_files: None,
-            declared_license: "NOASSERTION".to_string(),
+            all_licenses_information_from_files: Vec::new(),
+            declared_license: SPDXExpression("NOASSERTION".to_string()),
             comments_on_license: None,
             copyright_text: "NOASSERTION".to_string(),
             package_summary_description: None,
             package_detailed_description: None,
             package_comment: None,
-            external_reference: None,
-            external_reference_comment: None,
-            package_attribution_text: None,
+            external_reference: Vec::new(),
+            package_attribution_text: Vec::new(),
             files: Vec::new(),
+            annotations: Vec::new(),
         }
     }
 }

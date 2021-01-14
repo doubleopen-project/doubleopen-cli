@@ -148,7 +148,11 @@ impl<'a> NoticeLicense<'a> {
         // TODO: Might make more sense to first check the SPDX documents before
         // querying the SPDX list to reduce the number of requests. Probably a
         // minimal performance impact.
-        let license_list_version = match &spdx.document_creation_information.license_list_version {
+        let license_list_version = match &spdx
+            .document_creation_information
+            .creation_info
+            .license_list_version
+        {
             Some(version) => version,
             None => "3.11",
         };
@@ -236,28 +240,13 @@ buy me a beer in return Poul-Henning Kamp
 
     #[test]
     fn get_correct_license_text_from_spdx_file() {
-        let spdx = read_to_string("../tests/examples/spdx/simple.spdx.json").unwrap();
+        let spdx = read_to_string("../tests/examples/spdx/SPDXJSONExample-v2.2.spdx.json").unwrap();
         let spdx: SPDX = serde_json::from_str(&spdx).unwrap();
 
-        let expected_license = r#"CMU License
-
-          Mach Operating System
-          Copyright © 1991,1990,1989 Carnegie Mellon University
-          All Rights Reserved.
-Permission to use, copy, modify and distribute this software and its documentation is hereby granted, provided that both the copyright notice and this permission notice appear in all copies of the software, derivative works or modified versions, and any portions thereof, and that both notices appear in supporting documentation.
-
-carnegie mellon allows free use of this software in its “as is” condition. carnegie mellon disclaims any liability of any kind for any damages whatsoever resulting from the use of this software.
-
-Carnegie Mellon requests users of this software to return to
-
-           Software Distribution Coordinator
-           School of Computer Science
-           Carnegie Mellon University
-           Pittsburgh PA 15213-3890
-or Software.Distribution@CS.CMU.EDU any improvements or extensions that they make and grant Carnegie Mellon the rights to redistribute these changes."#;
+        let expected_license = "\"THE BEER-WARE LICENSE\" (Revision 42):\nphk@FreeBSD.ORG wrote this file. As long as you retain this notice you\ncan do whatever you want with this stuff. If we meet some day, and you think this stuff is worth it, you can buy me a beer in return Poul-Henning Kamp  </\nLicenseName: Beer-Ware License (Version 42)\nLicenseCrossReference:  http://people.freebsd.org/~phk/\nLicenseComment: \nThe beerware license has a couple of other standard variants.".to_string();
 
         let mut notice_license = NoticeLicense {
-            name: "CMU".into(),
+            name: "LicenseRef-Beerware-4.2".into(),
             text: "NONE".into(),
             copyrights: Vec::new(),
         };
@@ -271,7 +260,7 @@ or Software.Distribution@CS.CMU.EDU any improvements or extensions that they mak
 
     #[test]
     fn get_correct_license_text() {
-        let spdx = read_to_string("../tests/examples/spdx/simple.spdx.json").unwrap();
+        let spdx = read_to_string("../tests/examples/spdx/SPDXJSONExample-v2.2.spdx.json").unwrap();
         let spdx: SPDX = serde_json::from_str(&spdx).unwrap();
 
         let mut license_from_spdx_list = NoticeLicense {
@@ -280,34 +269,21 @@ or Software.Distribution@CS.CMU.EDU any improvements or extensions that they mak
             copyrights: Vec::new(),
         };
 
-        let expected_beerware = r#""THE BEER-WARE LICENSE" (Revision 42):  <phk@FreeBSD.ORG> wrote this file.
-As long as you retain this notice you  can do whatever you want with this
-stuff. If we meet some day, and you think  this stuff is worth it, you can
-buy me a beer in return Poul-Henning Kamp
-"#;
+        let expected_license_from_spdx_list = r#""THE BEER-WARE LICENSE" (Revision 42):
+
+<phk@FreeBSD.ORG> wrote this file. As long as you retain this notice you can
+do whatever you want with this stuff. If we meet some day, and you think this
+stuff is worth it, you can buy me a beer in return Poul-Henning Kamp
+"#.to_string();
+
 
         let mut license_from_spdx_file = NoticeLicense {
-            name: "CMU".into(),
+            name: "LicenseRef-Beerware-4.2".into(),
             text: "NONE".into(),
             copyrights: Vec::new(),
         };
 
-        let expected_cmu = r#"CMU License
-
-          Mach Operating System
-          Copyright © 1991,1990,1989 Carnegie Mellon University
-          All Rights Reserved.
-Permission to use, copy, modify and distribute this software and its documentation is hereby granted, provided that both the copyright notice and this permission notice appear in all copies of the software, derivative works or modified versions, and any portions thereof, and that both notices appear in supporting documentation.
-
-carnegie mellon allows free use of this software in its “as is” condition. carnegie mellon disclaims any liability of any kind for any damages whatsoever resulting from the use of this software.
-
-Carnegie Mellon requests users of this software to return to
-
-           Software Distribution Coordinator
-           School of Computer Science
-           Carnegie Mellon University
-           Pittsburgh PA 15213-3890
-or Software.Distribution@CS.CMU.EDU any improvements or extensions that they make and grant Carnegie Mellon the rights to redistribute these changes."#;
+        let expected_license_from_spdx_file = "\"THE BEER-WARE LICENSE\" (Revision 42):\nphk@FreeBSD.ORG wrote this file. As long as you retain this notice you\ncan do whatever you want with this stuff. If we meet some day, and you think this stuff is worth it, you can buy me a beer in return Poul-Henning Kamp  </\nLicenseName: Beer-Ware License (Version 42)\nLicenseCrossReference:  http://people.freebsd.org/~phk/\nLicenseComment: \nThe beerware license has a couple of other standard variants.".to_string();
 
         let mut license_not_found = NoticeLicense {
             name: "ERROR".into(),
@@ -319,7 +295,7 @@ or Software.Distribution@CS.CMU.EDU any improvements or extensions that they mak
         license_from_spdx_file.get_license_text(&spdx).unwrap();
         license_not_found.get_license_text(&spdx).unwrap_err();
 
-        assert_eq!(license_from_spdx_list.text, expected_beerware);
-        assert_eq!(license_from_spdx_file.text, expected_cmu);
+        assert_eq!(license_from_spdx_list.text, expected_license_from_spdx_list);
+        assert_eq!(license_from_spdx_file.text, expected_license_from_spdx_file);
     }
 }

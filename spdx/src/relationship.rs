@@ -2,6 +2,7 @@ use serde::{Deserialize, Serialize};
 
 /// https://spdx.github.io/spdx-spec/7-relationships-between-SPDX-elements/#71-relationship
 #[derive(Debug, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
 pub struct Relationship {
     /// SPDX ID of the element.
     pub spdx_element_id: String,
