@@ -1,4 +1,0 @@
-[D-BUS Service]
-Name=org.freedesktop.DBus.TestSuiteShellEchoServiceSuccess
-Exec=/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/build/test/test-shell-service -test "that" 'we get' back --what "we put in"
-

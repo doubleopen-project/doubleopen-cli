@@ -1,7 +1,0 @@
-[Unit]
-Description=Accessibility services bus
-
-[Service]
-Type=dbus
-BusName=org.a11y.Bus
-ExecStart=/home/hhpartners/yocto/build/tmp/work/all-poky-linux/adwaita-icon-theme/3.34.3-r0/recipe-sysroot-native/usr/libexec/at-spi-bus-launcher

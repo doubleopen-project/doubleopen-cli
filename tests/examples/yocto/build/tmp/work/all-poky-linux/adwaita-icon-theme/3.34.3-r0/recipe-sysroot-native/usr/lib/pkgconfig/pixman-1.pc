@@ -1,9 +1,0 @@
-prefix=${pcfiledir}/../../../usr
-libdir=${prefix}/lib
-includedir=${prefix}/include
-
-Name: Pixman
-Description: The pixman library (version 1)
-Version: 0.38.4
-Libs: -L${libdir} -lpixman-1
-Cflags: -I${includedir}/pixman-1

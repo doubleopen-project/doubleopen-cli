@@ -1,5 +1,0 @@
-OEOuthashBasic
-1
-SSTATE_PKGSPEC=sstate:bison:core2-64-poky-linux:3.5.3:r0:core2-64:3:
-task=package_qa
-drwxrwxr-x       root       root                                                                                       .

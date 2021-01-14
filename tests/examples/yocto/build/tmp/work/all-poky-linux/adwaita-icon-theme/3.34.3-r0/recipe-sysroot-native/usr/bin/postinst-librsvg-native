@@ -1,3 +1,0 @@
-#!/bin/sh
-GDK_PIXBUF_FATAL_LOADER=1 /home/hhpartners/yocto/build/tmp/work/all-poky-linux/adwaita-icon-theme/3.34.3-r0/recipe-sysroot-native/usr/lib/gdk-pixbuf-2.0/gdk-pixbuf-query-loaders --update-cache || exit 1
-

@@ -1,9 +1,0 @@
-libgdbus-example-objectmanager.so:/usr/libexec/installed-tests/glib:2.62.6
-libmoduletestplugin_a_library.so:/usr/libexec/installed-tests/glib:2.62.6
-libmoduletestplugin_a_plugin.so:/usr/libexec/installed-tests/glib:2.62.6
-libmoduletestplugin_b_library.so:/usr/libexec/installed-tests/glib:2.62.6
-libmoduletestplugin_b_plugin.so:/usr/libexec/installed-tests/glib:2.62.6
-libresourceplugin.so:/usr/libexec/installed-tests/glib:2.62.6
-libtestmodulea.so:/usr/libexec/installed-tests/glib/modules:2.62.6
-libtestmoduleb.so:/usr/libexec/installed-tests/glib/modules:2.62.6
-slow-connect-preload.so:/usr/libexec/installed-tests/glib:2.62.6

@@ -1,3 +1,0 @@
-dont-depend-on-help2man.patch.patch -p1
-add-with-bisonlocaledir.patch -p1
-0001-bison-fix-the-parallel-build.patch -p1

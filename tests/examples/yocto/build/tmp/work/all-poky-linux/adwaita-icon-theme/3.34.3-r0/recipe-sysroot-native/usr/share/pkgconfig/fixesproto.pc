@@ -1,8 +1,0 @@
-prefix=${pcfiledir}/../../../usr
-libdir=${prefix}/lib
-includedir=${prefix}/include
-
-Name: fixesproto
-Description: fixesproto headers
-Version: 5.0
-Cflags: -I${includedir}

@@ -1,6 +1,0 @@
-recipe-sysroot/sysroot-providers/libpthread-stubs
-recipe-sysroot/usr/lib/pkgconfig/pthread-stubs.pc
-recipe-sysroot/usr/lib/pkgconfig/
-recipe-sysroot/sysroot-providers/
-recipe-sysroot/usr/lib/
-recipe-sysroot/usr/

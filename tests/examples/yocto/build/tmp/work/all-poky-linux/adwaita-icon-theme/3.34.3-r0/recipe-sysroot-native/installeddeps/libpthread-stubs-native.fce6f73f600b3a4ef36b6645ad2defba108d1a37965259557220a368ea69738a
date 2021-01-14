@@ -1,6 +1,0 @@
-recipe-sysroot-native/sysroot-providers/libpthread-stubs-native
-recipe-sysroot-native/usr/lib/pkgconfig/pthread-stubs.pc
-recipe-sysroot-native/usr/lib/pkgconfig/
-recipe-sysroot-native/sysroot-providers/
-recipe-sysroot-native/usr/lib/
-recipe-sysroot-native/usr/

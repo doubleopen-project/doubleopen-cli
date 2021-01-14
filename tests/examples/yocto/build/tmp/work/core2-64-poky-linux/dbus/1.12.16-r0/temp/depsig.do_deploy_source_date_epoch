@@ -1,7 +1,0 @@
-OEOuthashBasic
-1
-SSTATE_PKGSPEC=sstate:dbus:core2-64-poky-linux:1.12.16:r0:core2-64:3:
-task=deploy_source_date_epoch
-drwxrwxr-x                                                                                       .
-drwxrwxr-x                                                                                       ./deploy-source-date-epoch
--rw-r--r--                   10 b9465ac13f4b3b79710806ff9a992a6192d10bfccedec504420e641575fd573d ./deploy-source-date-epoch/__source_date_epoch.txt

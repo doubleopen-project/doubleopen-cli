@@ -1,6 +1,0 @@
-Name: udev
-Description: eudev
-Version: 243
-prefix=/usr
-exec_prefix=/usr
-udevdir=/lib/udev

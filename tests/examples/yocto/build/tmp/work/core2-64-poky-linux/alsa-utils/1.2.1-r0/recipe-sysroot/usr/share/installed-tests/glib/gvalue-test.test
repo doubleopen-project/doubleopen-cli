@@ -1,4 +1,0 @@
-[Test]
-Type=session
-Exec=/usr/libexec/installed-tests/glib/gvalue-test
-Output=TAP

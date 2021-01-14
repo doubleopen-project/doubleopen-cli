@@ -1,3 +1,0 @@
-#!/bin/sh
-realpath=`readlink -fn $0`
-exec `dirname $realpath`/perl-native/perl "$@"

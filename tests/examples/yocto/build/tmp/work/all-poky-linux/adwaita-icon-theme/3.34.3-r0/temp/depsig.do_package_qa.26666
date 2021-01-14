@@ -1,5 +1,0 @@
-OEOuthashBasic
-1
-SSTATE_PKGSPEC=sstate:adwaita-icon-theme:all-poky-linux:3.34.3:r0:allarch:3:
-task=package_qa
-drwxrwxr-x       root       root                                                                                       .

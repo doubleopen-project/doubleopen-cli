@@ -1,4 +1,0 @@
-[Test]
-Type=session
-Exec=/usr/libexec/installed-tests/glib/memory-input-stream
-Output=TAP

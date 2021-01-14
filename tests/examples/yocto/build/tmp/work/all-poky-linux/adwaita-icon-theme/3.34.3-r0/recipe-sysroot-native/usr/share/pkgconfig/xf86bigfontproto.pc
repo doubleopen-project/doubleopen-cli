@@ -1,8 +1,0 @@
-prefix=${pcfiledir}/../../../usr
-libdir=${prefix}/lib
-includedir=${prefix}/include
-
-Name: xf86bigfontproto
-Description: xf86bigfontproto headers
-Version: 1.2.0
-Cflags: -I${includedir}

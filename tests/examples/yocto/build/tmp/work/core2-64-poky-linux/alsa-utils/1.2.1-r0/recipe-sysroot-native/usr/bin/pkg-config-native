@@ -1,7 +1,0 @@
-#! /bin/sh
-
-export PKG_CONFIG_PATH="/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/recipe-sysroot-native/usr/lib/pkgconfig:/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/recipe-sysroot-native/usr/share/pkgconfig"
-export PKG_CONFIG_LIBDIR="/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/alsa-utils/1.2.1-r0/recipe-sysroot-native/usr/lib/pkgconfig"
-unset PKG_CONFIG_SYSROOT_DIR
-
-pkg-config "$@"

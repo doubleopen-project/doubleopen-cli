@@ -1,6 +1,0 @@
-[D-BUS Service]
-Name=com.example.SendDeniedByNonexistentAppArmorLabel
-Exec=/bin/false SendDeniedByNonexistentAppArmorLabel
-SystemdService=dbus-com.example.SendDeniedByNonexistentAppArmorLabel.service
-# This label is not defined in any AppArmor profile
-AssumedAppArmorLabel=/home/hhpartners/yocto/build/tmp/work/core2-64-poky-linux/dbus/1.12.16-r0/build/test/test-apparmor-activation-com.example.SendDeniedByNonexistentAppArmorLabel

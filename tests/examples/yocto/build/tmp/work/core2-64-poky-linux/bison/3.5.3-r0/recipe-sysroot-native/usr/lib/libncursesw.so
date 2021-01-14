@@ -1,2 +1,0 @@
-/* GNU ld script */
-INPUT(libncursesw.so.5 AS_NEEDED(-ltinfo))

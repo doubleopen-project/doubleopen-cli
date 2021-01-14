@@ -1,4 +1,0 @@
-dbus-lib (>= 1.12.16)
-expat (>= 2.2.9)
-glibc (>= 2.31+git0+6fdf971c9d)
-libx11 (>= 1.6.9)

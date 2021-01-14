@@ -1,4 +1,0 @@
-[Test]
-Type=session
-Exec=/usr/bin/env LD_PRELOAD=/usr/libexec/installed-tests/glib/slow-connect-preload.so /usr/libexec/installed-tests/glib/gsocketclient-slow
-Output=TAP

@@ -1,9 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=AT-SPI D-Bus Bus
-Exec=/home/hhpartners/yocto/build/tmp/work/all-poky-linux/adwaita-icon-theme/3.34.3-r0/recipe-sysroot-native/usr/libexec/at-spi-bus-launcher --launch-immediately
-OnlyShowIn=GNOME;Unity;
-NoDisplay=true
-AutostartCondition=GSETTINGS org.gnome.desktop.interface toolkit-accessibility
-X-GNOME-AutoRestart=true
-X-GNOME-Autostart-Phase=Initialization
