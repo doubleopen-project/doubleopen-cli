@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2020-2021 HH Partners
+//
+// SPDX-License-Identifier: MIT
+
 use serde::{Deserialize, Serialize};
 
 /// https://spdx.github.io/spdx-spec/7-relationships-between-SPDX-elements/#71-relationship

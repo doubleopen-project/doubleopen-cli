@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2020-2021 HH Partners
+//
+// SPDX-License-Identifier: MIT
+
 use serde::{Deserialize, Serialize};
 
 /// Possible algorithms to be used for SPDX's 

@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2020-2021 HH Partners
+//
+// SPDX-License-Identifier: MIT
+
 //! # Notice
 //!
 //! A module for generating notice files from SPDX documents.

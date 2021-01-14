@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2020-2021 HH Partners
+//
+// SPDX-License-Identifier: MIT
+
 use serde::{Deserialize, Serialize};
 
 /// Policy violations are emitted when Policy Engine determines that a file doesn't conform with the provided policy.

@@ -1,0 +1,11 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: Double Open CLI
+Source: https://github.com/doubleopen-project/doubleopen-cli
+
+Files: double_open_logo_huge.png
+Copyright: 2020 HH Partners
+License: CC-BY-4.0
+
+Files: tests/examples/spdx/SPDXJSONExample-v2.2.spdx.json
+Copyright: 2020 SPDX Contributors
+License: CC-BY-3.0

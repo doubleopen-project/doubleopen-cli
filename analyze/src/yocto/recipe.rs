@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2020-2021 HH Partners
+//
+// SPDX-License-Identifier: MIT
+
 use std::{collections::HashMap, fs::read_to_string, path::Path, process::Command};
 
 use flate2::{write::GzEncoder, Compression};

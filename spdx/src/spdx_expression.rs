@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2020-2021 HH Partners
+//
+// SPDX-License-Identifier: MIT
+
 use boolean_expression::Expr;
 use serde::{Deserialize, Serialize};
 

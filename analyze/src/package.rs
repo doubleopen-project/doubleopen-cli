@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2020-2021 HH Partners
+//
+// SPDX-License-Identifier: MIT
+
 /// An abstraction layer between packages in different packaging systems and
 /// SPDX packages. Not sure if needed, more relevant when adding support for
 /// other systems than Yocto.
