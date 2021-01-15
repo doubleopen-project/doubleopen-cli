@@ -18,18 +18,20 @@ use policy_engine::PolicyEngine;
 #[derive(Clap, Debug)]
 #[clap(author, about, version)]
 struct Opts {
+    /// Subcommand to run.
     #[clap(subcommand)]
     subcmd: SubCommand,
 }
 
-/// Subcommands for the CLI.
+/// Analyze software projects for their bill of materials, get license and copyright data for them,
+/// evaluate license compliance and build notice files.
 #[derive(Clap, Debug)]
 enum SubCommand {
-    /// Analyze a project and save the bill of materials as an SPDX document.
+    /// Analyze a Yocto project and save the bill of materials as an SPDX document.
     #[clap(author, version)]
     Analyze(AnalyzeArguments),
 
-    /// Use Fossology.
+    /// Interact with Fossology.
     #[clap(author, version)]
     Fossology(FossologyArguments),
 
@@ -37,7 +39,7 @@ enum SubCommand {
     #[clap(author, version)]
     Evaluate(EvaluateArguments),
 
-    /// Create a notice file from SPDX.
+    /// Create a notice file from an SPDX Document.
     #[clap(author, version)]
     Notice(NoticeArguments),
 }
@@ -114,7 +116,8 @@ struct EvaluateArguments {
     #[clap(short, long, parse(from_os_str), value_hint = ValueHint::FilePath)]
     spdx: PathBuf,
 
-    /// List of policies to use in the evaluation.
+    /// List of policies to use in the evaluation. Latter policies take precedence over earlier
+    /// ones.
     #[clap(short, long, parse(from_os_str), value_hint = ValueHint::FilePath)]
     policies: Vec<PathBuf>,
 
