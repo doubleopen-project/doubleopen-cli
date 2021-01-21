@@ -159,9 +159,16 @@ impl Yocto {
 
     /// Get the path to the pkgdata directory.
     pub fn pkgdata_path(&self) -> PathBuf {
-        self.build_directory
-            .join("tmp/pkgdata/")
-            .join(self.architecture.clone())
+        let mut tmp_directory = self.manifest_path.clone();
+        tmp_directory.pop();
+        tmp_directory.pop();
+        tmp_directory.pop();
+        tmp_directory.pop();
+        let pkgdata = tmp_directory
+            .join("pkgdata/")
+            .join(self.architecture.clone());
+        debug!("Packagedata: {:?}", pkgdata);
+        pkgdata
     }
 
     /// Upload the source code of the image to Fossology.
