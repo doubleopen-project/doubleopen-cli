@@ -170,7 +170,6 @@ impl Yocto {
         let pkgdata = tmp_directory
             .join("pkgdata/")
             .join(self.architecture.clone());
-        debug!("Packagedata: {:?}", pkgdata);
         pkgdata
     }
 
