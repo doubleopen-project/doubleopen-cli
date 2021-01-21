@@ -100,7 +100,10 @@ impl Yocto {
 
         let recipes = self.recipes()?;
         let packages = recipes
-            .par_iter()
+            // This did not work 100% with par_iter, as bitbake server seems to error out if too
+            // many devtool calls are made simultaneously. Might be able to accelerate this with
+            // par_iter but limiting the number of threads to something reasonable.
+            .iter()
             .map(|recipe| recipe.analyze_source(&self.build_directory, &self.pkgdata_path()));
 
         let (packages, _errors): (Vec<_>, Vec<_>) = packages.partition(Result::is_ok);
