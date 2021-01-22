@@ -252,17 +252,25 @@ impl Recipe {
         command.current_dir(build_directory.as_ref());
         let tempdir = TempDir::new()?;
 
-        command
+        let output = command
             .arg("extract")
             .arg(&self.name)
             .arg(tempdir.path())
             .output()?;
 
-        debug!(
+        if output.status.success() {
+            debug!(
             "Devtool extract done, saved source of {} to{}.",
             &self.name,
             &tempdir.path().display()
         );
+        } else {
+            error!(
+                "Devtool extract failed for {} with error: {:?}",
+                &self.name,
+                String::from_utf8_lossy(&output.stderr)
+            );
+        }
 
         // Remove git directories from source, as devtool extract uses git and writes
         // new metadata. With the git directories included the extraction is not deterministic,
