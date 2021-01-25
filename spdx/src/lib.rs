@@ -92,6 +92,8 @@ pub struct SPDX {
 impl SPDX {
     /// Create new SPDX struct.
     pub fn new(name: &str) -> Self {
+        info!("Creating SPDX.");
+
         Self {
             document_creation_information: DocumentCreationInformation {
                 document_name: name.to_string(),
@@ -115,6 +117,7 @@ impl SPDX {
     /// Deserialize from file. Accepts json and yaml.
     pub fn from_file<P: AsRef<Path>>(path: P) -> Self {
         info!("Deserializing SPDX from {}", path.as_ref().display());
+
         let path = path.as_ref();
         let file = fs::File::open(&path).expect("SPDX file not found");
         let reader = BufReader::new(file);
@@ -128,6 +131,8 @@ impl SPDX {
 
     /// Get unique hashes for all files in all packages of the SPDX.
     pub fn get_unique_hashes(&self, algorithm: Algorithm) -> Vec<String> {
+        info!("Getting unique hashes for files in SPDX.");
+
         let mut unique_hashes: Vec<String> = Vec::new();
 
         for file_information in self.file_information.iter() {
@@ -152,6 +157,8 @@ impl SPDX {
         &mut self,
         fossology: &Fossology,
     ) -> Result<(), FossologyError> {
+        info!("Populating SPDX from Fossology.");
+
         let sha256_values = self.get_unique_hashes(Algorithm::SHA256);
 
         // Create input for the Fossology query.
@@ -259,6 +266,7 @@ impl SPDX {
     /// Save serialized SPDX as json,
     pub fn save_as_json<P: AsRef<Path>>(&self, path: P) {
         println!("Saving to json...");
+
         let json = serde_json::to_string_pretty(&self).unwrap();
         fs::write(path, json).expect("Unable to write file");
     }
@@ -268,6 +276,8 @@ impl SPDX {
         &self,
         package_spdx_id: &str,
     ) -> Vec<(&FileInformation, &Relationship)> {
+        info!("Finding related files for package {}.", &package_spdx_id);
+
         let relationships = self
             .relationships
             .iter()
@@ -290,6 +300,8 @@ impl SPDX {
 
     /// Get all license identifiers from the SPDX.
     pub fn get_license_ids(&self) -> Vec<String> {
+        info!("Getting all license identifiers from SPDX.");
+
         let mut license_ids = Vec::new();
 
         for file in &self.file_information {
@@ -309,6 +321,8 @@ impl SPDX {
 /// with more than two licenses, so all license combinations with 3 or more licenses
 /// are interpreted as AND licenses.
 pub fn spdx_expression_from_api_licenses(mut fossology_licenses: Vec<String>) -> SPDXExpression {
+    info!("Transforming {:?} from Fossology to SPDX expression.", &fossology_licenses);
+
     if fossology_licenses.len() == 3 && fossology_licenses.contains(&"Dual-license".into()) {
         let dual_license_position = fossology_licenses
             .iter()
@@ -331,6 +345,8 @@ pub fn spdx_expression_from_api_licenses(mut fossology_licenses: Vec<String>) ->
 
 /// Test if license is in the SPDX license list.
 pub fn is_in_spdx_license_list(spdx_id: &str) -> bool {
+    info!("Checking if {} is in SPDX License List.", &spdx_id);
+
     let url = format!(
         "https://raw.githubusercontent.com/spdx/license-list-data/master/text/{}.txt",
         spdx_id

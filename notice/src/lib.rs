@@ -190,6 +190,8 @@ impl<'a> NoticeLicense<'a> {
                     &self.name
                 ))
             })?;
+        
+        info!("Found {} from the SPDX file.", &self.name);
 
         Ok(text.extracted_text.clone())
     }
@@ -213,6 +215,7 @@ impl<'a> NoticeLicense<'a> {
                 &self.name
             )))
         } else {
+            info!("Found {} from the SPDX list on GitHub.", &self.name);
             Ok(body)
         }
     }
