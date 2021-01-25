@@ -260,10 +260,10 @@ impl Recipe {
 
         if output.status.success() {
             debug!(
-            "Devtool extract done, saved source of {} to{}.",
-            &self.name,
-            &tempdir.path().display()
-        );
+                "Devtool extract done, saved source of {} to {}.",
+                &self.name,
+                &tempdir.path().display()
+            );
         } else {
             error!(
                 "Devtool extract failed for {} with error: {:?}",
@@ -277,7 +277,9 @@ impl Recipe {
         // leading into different hashe for every extraction.
         for entry in WalkDir::new(&tempdir.path()).into_iter() {
             let entry = entry?;
-            if entry.file_name().to_str().expect("Should always convert") == ".git" {
+            if entry.file_name().to_str().expect("Should always convert") == ".git"
+                && entry.file_type().is_dir()
+            {
                 debug!("Deleting {}", entry.path().display());
                 std::fs::remove_dir_all(entry.path()).expect("Should not error");
             }
