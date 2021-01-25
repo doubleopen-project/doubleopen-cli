@@ -167,10 +167,9 @@ impl Yocto {
         tmp_directory.pop();
         tmp_directory.pop();
         tmp_directory.pop();
-        let pkgdata = tmp_directory
+        tmp_directory
             .join("pkgdata/")
-            .join(self.architecture.clone());
-        pkgdata
+            .join(self.architecture.clone())
     }
 
     /// Upload the source code of the image to Fossology.
