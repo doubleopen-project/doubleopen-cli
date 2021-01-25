@@ -149,7 +149,7 @@ impl Fossology {
         let response: Vec<HashQueryResponse> = self
             .client
             .post(&format!("{}/filesearch", self.uri))
-            .timeout(Duration::from_secs(600))
+            .timeout(Duration::from_secs(1800))
             .bearer_auth(&self.token)
             .json(&hashes)
             .send()?
