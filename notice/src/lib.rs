@@ -9,6 +9,7 @@
 use std::{fs::write, path::Path};
 
 use handlebars::{Handlebars, RenderError, TemplateFileError};
+use log::info;
 use serde::Serialize;
 use spdx::SPDX;
 
@@ -77,7 +78,7 @@ impl<'a> From<&'a SPDX> for Notice<'a> {
         for file in &spdx.file_information {
             for license in file.concluded_license.licenses() {
                 // Do not add NOASSERTION to the notice.
-                if license == "NOASSERTION" {
+                if license == "NOASSERTION" || license == "NONE" {
                     continue;
                 }
 
@@ -152,6 +153,7 @@ impl<'a> NoticeLicense<'a> {
         // TODO: Might make more sense to first check the SPDX documents before
         // querying the SPDX list to reduce the number of requests. Probably a
         // minimal performance impact.
+        info!("Getting license text for {}.", &self.name);
         let license_list_version = match &spdx
             .document_creation_information
             .creation_info
