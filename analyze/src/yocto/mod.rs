@@ -220,13 +220,13 @@ impl From<Yocto> for SPDX {
         let mut spdx = SPDX::new(&yocto.image_name);
 
         // Add all packages used in the image to the SPDX.
-        for package in yocto.packages {
+        for package in &yocto.packages {
             let mut spdx_package =
                 PackageInformation::new(&package.name, &mut spdx.spdx_ref_counter);
-            spdx_package.package_version = Some(package.version);
+            spdx_package.package_version = Some(package.version.clone());
 
             // For each package, add their source files to the SPDX.
-            for file in package.source_files {
+            for file in &package.source_files {
                 let mut spdx_file = FileInformation::new(&file.name, &mut spdx.spdx_ref_counter);
                 spdx_file
                     .file_checksum
@@ -255,7 +255,29 @@ impl From<Yocto> for SPDX {
                 spdx.relationships.push(relationship);
             }
 
-            spdx.package_information.push(spdx_package)
+            spdx.package_information.push(spdx_package);
+        }
+
+        for package in &yocto.packages {
+            for binary in &package.binaries {
+                let spdx_binary = FileInformation::new(&binary.name, &mut spdx.spdx_ref_counter);
+                for source in &binary.source_hashes {
+                    let spdx_source = spdx
+                        .file_information
+                        .iter()
+                        .find(|&file| file.equal_by_hash(Algorithm::SHA256, source));
+
+                    if let Some(spdx_source) = spdx_source {
+                        let relationship = Relationship::new(
+                            &spdx_source.file_spdx_identifier,
+                            &spdx_binary.file_spdx_identifier,
+                            RelationshipType::Generates,
+                            None,
+                        );
+                        spdx.relationships.push(relationship);
+                    }
+                }
+            }
         }
 
         spdx

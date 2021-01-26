@@ -15,6 +15,9 @@ pub struct Package {
 
     /// Source files inclded in the package.
     pub source_files: Vec<SourceFile>,
+
+    /// Binaries provided by the package.
+    pub binaries: Vec<Binary>,
 }
 
 /// An abstraction layer between source files in different packaging systems and
@@ -33,4 +36,11 @@ pub struct SourceFile {
     /// what source files were used to build the binaries of the packages, which
     /// should exclude e.g. tests.
     pub used_in_build: bool,
+}
+
+#[derive(Debug)]
+pub struct Binary {
+    pub name: String,
+
+    pub source_hashes: Vec<String,>
 }

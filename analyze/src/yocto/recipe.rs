@@ -15,6 +15,8 @@ use {
     utilities::{hash256_for_path, is_hidden},
 };
 
+use crate::Binary;
+
 use super::Yocto;
 
 /// Representation of a recipe in Yocto.
@@ -125,31 +127,18 @@ impl Recipe {
             }
         });
 
+        let mut binaries: Vec<Binary> = Vec::new();
+
         // If an srclist file was found for the recipe, get the hashes of the files
         // that were used to build the binaries according to the debug utility.
         let used_hashes = match srclist {
             Some(srclist) => {
                 let srclist = srclist.expect("Should always unwrap.");
                 let srclist_content = read_to_string(srclist.path()).expect("Should always exist.");
-                let srclist: HashMap<String, Vec<HashMap<String, Option<String>>>> =
-                    serde_json::from_str(&srclist_content).unwrap();
-
-                let mut hashes: Vec<String> = Vec::new();
-
-                // The format of the srclist files is a little sketchy.
-                for i in srclist {
-                    for elf_file in i.1 {
-                        for source_file in elf_file {
-                            if let Some(value) = source_file.1 {
-                                hashes.push(value.to_ascii_lowercase());
-                            }
-                        }
-                    }
-                }
-                hashes.sort();
-                hashes.dedup();
+                let used_hashes = Recipe::process_srclist_content(&srclist_content);
                 debug!("Found hashlist for {}.", self.name);
-                Some(hashes)
+                binaries = used_hashes.1;
+                Some(used_hashes.0)
             }
             None => {
                 debug!("Did not find srclist for {}.", self.name);
@@ -236,6 +225,7 @@ impl Recipe {
             name: self.name.clone(),
             version: self.version.clone(),
             source_files,
+            binaries,
         })
     }
 
@@ -355,5 +345,77 @@ impl Recipe {
         }
 
         Ok(())
+    }
+
+    /// Process srclist file content.
+    /// The format of the srclist files is a little sketchy.
+    ///
+    /// Returns a vector of binary names with a related vector of source file hashes for each
+    /// binary.
+    pub fn process_srclist_content(srclist_content: &str) -> (Vec<String>, Vec<Binary>) {
+        let srclist: HashMap<String, Vec<HashMap<String, Option<String>>>> =
+            serde_json::from_str(&srclist_content).unwrap();
+
+        let mut hashes: Vec<String> = Vec::new();
+        let mut binaries: Vec<Binary> = Vec::new();
+
+        for i in srclist {
+            let mut binary: Binary = Binary {
+                name: i.0,
+                source_hashes: Vec::new(),
+            };
+            for elf_file in i.1 {
+                for source_file in elf_file {
+                    if let Some(value) = source_file.1 {
+                        hashes.push(value.to_ascii_lowercase());
+                        binary.source_hashes.push(value.to_ascii_lowercase());
+                    }
+                }
+            }
+            binaries.push(binary);
+        }
+        hashes.sort();
+        hashes.dedup();
+        (hashes, binaries)
+    }
+}
+
+#[cfg(test)]
+mod test {
+    use super::*;
+
+    #[test]
+    fn srclist_content_is_correctly_parsed() {
+        let srclist_content = r#"
+{
+  "/home/mikko/doubleopen/poky/build/tmp/work/core2-64-poky-linux/mtdev/1.1.6-r0/package/usr/bin/mtdev-test": [
+    {
+      "/usr/src/debug/glibc/2.32-r0/git/sysdeps/x86_64/crti.S": null
+    },
+    {
+      "/usr/src/debug/mtdev/1.1.6-r0/mtdev-1.1.6/test/mtdev-test.c": "89c8c3d10e5ae73055d991970efe34745bdb618027c668b46eb50ef07ec8725e"
+    },
+    {
+      "/usr/src/debug/mtdev/1.1.6-r0/build/test/<built-in>": null
+    } 
+  ],
+  "/home/mikko/doubleopen/poky/build/tmp/work/core2-64-poky-linux/mtdev/1.1.6-r0/package/usr/lib/libmtdev.so.1.0.0": [
+    {
+      "/usr/src/debug/glibc/2.32-r0/git/sysdeps/x86_64/crti.S": null
+    },
+    {
+      "/usr/src/debug/mtdev/1.1.6-r0/mtdev-1.1.6/src/caps.c": "bead9a7a2e39e86804afd7129c71ced1835fda67c891a19ec4ee75ec04632cd7"
+    },
+    {
+      "/usr/src/debug/mtdev/1.1.6-r0/mtdev-1.1.6/src/common.h": "b19da05381db8cf58a9ed6b36fb6fddec2ec64554cc21bd0e68c8477acd988a5"
+    }
+  ]
+}
+        "#;
+
+        let binaries = Recipe::process_srclist_content(srclist_content);
+
+        assert_eq!(binaries.0.len(), 3);
+        assert_eq!(binaries.1.len(), 2);
     }
 }

@@ -4,6 +4,8 @@
 
 use serde::{Deserialize, Serialize};
 
+use crate::Algorithm;
+
 use super::{Checksum, FileType, SPDXExpression};
 
 /// ## File Information
@@ -36,7 +38,11 @@ pub struct FileInformation {
     pub license_information_in_file: Vec<String>,
 
     /// https://spdx.github.io/spdx-spec/4-file-information/#47-comments-on-license
-    #[serde(rename = "licenseComments", skip_serializing_if = "Option::is_none", default)]
+    #[serde(
+        rename = "licenseComments",
+        skip_serializing_if = "Option::is_none",
+        default
+    )]
     pub comments_on_license: Option<String>,
 
     /// https://spdx.github.io/spdx-spec/4-file-information/#48-copyright-text
@@ -47,11 +53,19 @@ pub struct FileInformation {
     pub file_comment: Option<String>,
 
     /// https://spdx.github.io/spdx-spec/4-file-information/#413-file-notice
-    #[serde(rename = "noticeText", skip_serializing_if = "Option::is_none", default)]
+    #[serde(
+        rename = "noticeText",
+        skip_serializing_if = "Option::is_none",
+        default
+    )]
     pub file_notice: Option<String>,
 
     /// https://spdx.github.io/spdx-spec/4-file-information/#414-file-contributor
-    #[serde(rename = "fileContributors", skip_serializing_if = "Vec::is_empty", default)]
+    #[serde(
+        rename = "fileContributors",
+        skip_serializing_if = "Vec::is_empty",
+        default
+    )]
     pub file_contributor: Vec<String>,
 
     /// https://spdx.github.io/spdx-spec/4-file-information/#415-file-attribution-text
@@ -88,5 +102,44 @@ impl FileInformation {
             file_spdx_identifier: format!("SPDXRef-{}", id),
             ..Default::default()
         }
+    }
+
+    /// Check if hash equals.
+    pub fn equal_by_hash(&self, algorithm: Algorithm, value: &str) -> bool {
+        let checksum = self
+            .file_checksum
+            .iter()
+            .find(|&checksum| checksum.algorithm == algorithm);
+
+        if let Some(checksum) = checksum {
+            checksum.value.to_ascii_lowercase() == value.to_ascii_lowercase()
+        } else {
+            false
+        }
+    }
+}
+
+#[cfg(test)]
+mod test {
+    use super::*;
+
+    #[test]
+    fn checksum_equality() {
+        let mut id = 1;
+        let mut file_sha256 = FileInformation::new("sha256", &mut id);
+        file_sha256
+            .file_checksum
+            .push(Checksum::new(Algorithm::SHA256, "test"));
+
+        assert!(file_sha256.equal_by_hash(Algorithm::SHA256, "test"));
+        assert!(!file_sha256.equal_by_hash(Algorithm::SHA256, "no_test"));
+
+        let mut file_md5 = FileInformation::new("md5", &mut id);
+        file_md5
+            .file_checksum
+            .push(Checksum::new(Algorithm::MD5, "test"));
+        assert!(file_md5.equal_by_hash(Algorithm::MD5, "test"));
+        assert!(!file_md5.equal_by_hash(Algorithm::MD5, "no_test"));
+        assert!(!file_md5.equal_by_hash(Algorithm::SHA1, "test"));
     }
 }
