@@ -4,6 +4,7 @@
 
 use super::policy_violation::PolicyViolation;
 
+#[derive(Debug)]
 pub struct EvaluationResult {
     pub policy_violations: Vec<PolicyViolation>,
 }

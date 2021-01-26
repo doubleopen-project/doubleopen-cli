@@ -88,7 +88,7 @@ impl PolicyEngine {
 mod test_policy_engine {
     use std::collections::HashMap;
 
-    use spdx::{FileInformation, PackageInformation, SPDXExpression};
+    use spdx::{FileInformation, PackageInformation, SPDXExpression, SPDX};
 
     use super::{
         license::License, policy::Policy, policy_violation::PolicyViolation, PolicyEngine,
@@ -152,5 +152,12 @@ mod test_policy_engine {
         };
 
         assert_eq!(result, expected_violation);
+    }
+
+    #[test]
+    fn test_policy_engine() {
+        let spdx_file = SPDX::from_file("../tests/examples/policy_engine/minimal.spdx.json");
+        let policy =
+            Policy::from_files(&["../tests/examples/policy_engine/policy.yml"], "hardware");
     }
 }

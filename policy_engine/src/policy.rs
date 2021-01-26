@@ -23,7 +23,7 @@ pub struct Policy {
 impl Policy {
     /// Creates a policy from an undefined amount of Policy Files. Provide context
     /// of the application.
-    pub fn from_files<P: AsRef<Path>>(files: Vec<P>, context: &str) -> Self {
+    pub fn from_files<P: AsRef<Path>>(files: &[P], context: &str) -> Self {
         let combined_files = PolicyFile::from_multiple_files(&files);
         Self::from_policy_file(combined_files, context)
     }

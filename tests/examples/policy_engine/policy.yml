@@ -1,0 +1,20 @@
+licenses:
+- spdx_id: "MIT"
+  allowed_contexts: 
+  - context: "saas"
+  - context: "consumer software"
+    description: "Is good"
+  - context: "internal"
+- spdx_id: "GPL-2.0-only"
+  allowed_contexts:
+  - context: "saas"
+  - context: "internal"
+  denied_contexts:
+  - context: "consumer software"
+    description: "Not good"
+resolutions:
+- package: "application-1.0.0"
+  contexts:
+  - "consumer software"
+  spdx_id: GPL-2.0-only
+  description: "Licensed by the author separately."

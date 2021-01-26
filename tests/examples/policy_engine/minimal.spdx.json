@@ -1,0 +1,403 @@
+{
+  "spdxVersion": "SPDX-2.2",
+  "dataLicense": "CC0-1.0",
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "name": "core-image-minimal-qemux86-64",
+  "documentNamespace": "http://spdx.org/spdxdocs/core-image-minimal-qemux86-64-01930c20-0e82-4d76-9d20-85f85f2fe9ac",
+  "creationInfo": {
+    "creators": [
+      "Person: Jane Doe ()",
+      "Organization: DoubleOpen ()",
+      "Tool: DoubleOpen-1.0"
+    ],
+    "created": "2021-01-21T08:05:47.175252586Z"
+  },
+  "packages": [
+    {
+      "name": "full-mit-package",
+      "SPDXID": "SPDXRef-Package-1",
+      "versionInfo": "3.0.14-r89",
+      "downloadLocation": "NOASSERTION",
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "comment": "Package containing four files, three licensed under MIT and one with NONE."
+    },
+    {
+      "name": "base-passwd",
+      "SPDXID": "SPDXRef-Package-2",
+      "versionInfo": "3.5.29-r0",
+      "downloadLocation": "NOASSERTION",
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "comment": ""
+    },
+    {
+      "name": "busybox",
+      "SPDXID": "SPDXRef-Package-3",
+      "versionInfo": "1.32.0-r0",
+      "downloadLocation": "NOASSERTION",
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "comment": ""
+    }
+  ],
+  "hasExtractedLicensingInfos": [],
+  "files": [
+    {
+      "fileName": "source-date-epoch/__source_date_epoch.txt",
+      "SPDXID": "SPDXRef-File-1",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+        },
+        {
+          "algorithm": "MD5",
+          "checksumValue": "CFCD208495D565EF66E7DFF9F98764DA"
+        },
+        {
+          "algorithm": "SHA1",
+          "checksumValue": "B6589FC6AB0DC82CF12099D1C2D40AB994E8410C"
+        }
+      ],
+      "licenseConcluded": "MIT",
+      "licenseInfoInFiles": [
+        "MIT"
+      ],
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "fileName": "fstab",
+      "SPDXID": "SPDXRef-File-2",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "f44729b17ba1f3391765830f580a1529324f632acf499ecf95e495a74584d49b"
+        },
+        {
+          "algorithm": "MD5",
+          "checksumValue": "AF3C087D6C9131735C8D1F270A226892"
+        },
+        {
+          "algorithm": "SHA1",
+          "checksumValue": "63752B35712BFF8DF755EAE1D974D05FED9C73D3"
+        }
+      ],
+      "licenseConcluded": "MIT",
+      "licenseInfoInFiles": [
+        "MIT"
+      ],
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "fileName": "profile",
+      "SPDXID": "SPDXRef-File-3",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "bb095ca8880a1f6b1f88eed4074ebce6591e1708bf4f7335fbc02bfdf1493ae9"
+        },
+        {
+          "algorithm": "MD5",
+          "checksumValue": "0B4A4817E5008A240DBA333B0F43D059"
+        },
+        {
+          "algorithm": "SHA1",
+          "checksumValue": "EA34B562F11F5D6ACB9048F93AB91D194FB91C34"
+        }
+      ],
+      "licenseConcluded": "MIT",
+      "licenseInfoInFiles": [
+        "MIT"
+      ],
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "fileName": "motd",
+      "SPDXID": "SPDXRef-File-4",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "algorithm": "MD5",
+          "checksumValue": "D41D8CD98F00B204E9800998ECF8427E"
+        },
+        {
+          "algorithm": "SHA1",
+          "checksumValue": "DA39A3EE5E6B4B0D3255BFEF95601890AFD80709"
+        }
+      ],
+      "licenseConcluded": "NONE",
+      "licenseInfoInFiles": [
+        "No_license_found"
+      ],
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "fileName": "hosts",
+      "SPDXID": "SPDXRef-File-5",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "b97c230c49de8f8100e7fc34c0bf60d1b55c2f71bec69b38914d46dd37a12505"
+        },
+        {
+          "algorithm": "MD5",
+          "checksumValue": "4AF6093D05FD4D338A78484BD352927D"
+        },
+        {
+          "algorithm": "SHA1",
+          "checksumValue": "F47BEA28F359B70E083A209573F07D1A1E2D2268"
+        }
+      ],
+      "licenseConcluded": "GPL-2.0-or-later WITH Autoconf-exception",
+      "licenseInfoInFiles": [
+        "GPL-2.0+",
+        "Autoconf-exception"
+      ],
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "fileName": "host.conf",
+      "SPDXID": "SPDXRef-File-6",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "83b331f98a128e1721c54be5c07bd38ad0d146e89cdecbe0eb53cbc23ff6b86a"
+        },
+        {
+          "algorithm": "MD5",
+          "checksumValue": "A61B9F6548D337C1CC1E5A4DE39F7B7F"
+        },
+        {
+          "algorithm": "SHA1",
+          "checksumValue": "5D1BD37371D91358C2BD3D6FD79F4256B59D957F"
+        }
+      ],
+      "licenseConcluded": "NOASSERTION",
+      "licenseInfoInFiles": [
+        "GPL-2.0+"
+      ],
+      "copyrightText": "GPL-2.0-or-later"
+    },
+    {
+      "fileName": "rotation",
+      "SPDXID": "SPDXRef-File-7",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+        },
+        {
+          "algorithm": "MD5",
+          "checksumValue": "CFCD208495D565EF66E7DFF9F98764DA"
+        },
+        {
+          "algorithm": "SHA1",
+          "checksumValue": "B6589FC6AB0DC82CF12099D1C2D40AB994E8410C"
+        }
+      ],
+      "licenseConcluded": "NOASSERTION",
+      "licenseInfoInFiles": [
+        "No_license_found"
+      ],
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "fileName": "issue",
+      "SPDXID": "SPDXRef-File-8",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "algorithm": "MD5",
+          "checksumValue": "D41D8CD98F00B204E9800998ECF8427E"
+        },
+        {
+          "algorithm": "SHA1",
+          "checksumValue": "DA39A3EE5E6B4B0D3255BFEF95601890AFD80709"
+        }
+      ],
+      "licenseConcluded": "NOASSERTION",
+      "licenseInfoInFiles": [
+        "No_license_found"
+      ],
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "fileName": "issue.net",
+      "SPDXID": "SPDXRef-File-9",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "algorithm": "MD5",
+          "checksumValue": "D41D8CD98F00B204E9800998ECF8427E"
+        },
+        {
+          "algorithm": "SHA1",
+          "checksumValue": "DA39A3EE5E6B4B0D3255BFEF95601890AFD80709"
+        }
+      ],
+      "licenseConcluded": "NOASSERTION",
+      "licenseInfoInFiles": [
+        "No_license_found"
+      ],
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "fileName": "nsswitch.conf",
+      "SPDXID": "SPDXRef-File-10",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "2875235cd60dfdec24a78fd25073aba0d5127808ba54cd9128cd355df79192cc"
+        },
+        {
+          "algorithm": "MD5",
+          "checksumValue": "109E33E2C91D1853B5BC56078A96AA18"
+        },
+        {
+          "algorithm": "SHA1",
+          "checksumValue": "2FE930A01BB3CEB69E4F9E5320E147DDE90815F4"
+        }
+      ],
+      "licenseConcluded": "NOASSERTION",
+      "licenseInfoInFiles": [
+        "No_license_found"
+      ],
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "fileName": "shells",
+      "SPDXID": "SPDXRef-File-11",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "184fd1ac95af5ad460ee875e9fddb4975e8720ee7d805d964c68d125573537be"
+        },
+        {
+          "algorithm": "MD5",
+          "checksumValue": "A0B758B0AE1EAEFDA1DFB8B031F7A903"
+        },
+        {
+          "algorithm": "SHA1",
+          "checksumValue": "4F360CD116C9366F8090F987D06A0F415F0C71A8"
+        }
+      ],
+      "licenseConcluded": "NOASSERTION",
+      "licenseInfoInFiles": [
+        "No_license_found"
+      ],
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "fileName": "README",
+      "SPDXID": "SPDXRef-File-12",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "184fd1ac95af5ad460ee875e9fddb4975e8720ee7d805d964c68d125573537do"
+        },
+        {
+          "algorithm": "MD5",
+          "checksumValue": "A0B758B0AE1EAEFDA1DFB8B031F7A915"
+        },
+        {
+          "algorithm": "SHA1",
+          "checksumValue": "4F360CD116C9366F8090F987D06A0F415F0C71B8"
+        }
+      ],
+      "licenseConcluded": "NOASSERTION",
+      "licenseInfoInFiles": [
+        "No_license_found"
+      ],
+      "copyrightText": "NOASSERTION"
+    }
+  ],
+  "snippets": [],
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-Package-1",
+      "relatedSpdxElement": "SPDXRef-File-1",
+      "relationshipType": "CONTAINS",
+      "comment": null
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-1",
+      "relatedSpdxElement": "SPDXRef-File-2",
+      "relationshipType": "CONTAINS",
+      "comment": null
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-1",
+      "relatedSpdxElement": "SPDXRef-File-3",
+      "relationshipType": "CONTAINS",
+      "comment": null
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-1",
+      "relatedSpdxElement": "SPDXRef-File-4",
+      "relationshipType": "CONTAINS",
+      "comment": null
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-2",
+      "relatedSpdxElement": "SPDXRef-File-5",
+      "relationshipType": "CONTAINS",
+      "comment": null
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-2",
+      "relatedSpdxElement": "SPDXRef-File-6",
+      "relationshipType": "CONTAINS",
+      "comment": null
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-2",
+      "relatedSpdxElement": "SPDXRef-File-7",
+      "relationshipType": "CONTAINS",
+      "comment": null
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-2",
+      "relatedSpdxElement": "SPDXRef-File-8",
+      "relationshipType": "CONTAINS",
+      "comment": null
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-3",
+      "relatedSpdxElement": "SPDXRef-File-9",
+      "relationshipType": "CONTAINS",
+      "comment": null
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-3",
+      "relatedSpdxElement": "SPDXRef-File-10",
+      "relationshipType": "CONTAINS",
+      "comment": null
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-3",
+      "relatedSpdxElement": "SPDXRef-File-11",
+      "relationshipType": "CONTAINS",
+      "comment": null
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-3",
+      "relatedSpdxElement": "SPDXRef-File-12",
+      "relationshipType": "CONTAINS",
+      "comment": null
+    }
+  ],
+  "annotations": []
+}

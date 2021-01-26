@@ -191,12 +191,14 @@ fn main() {
         // Process evaluate subcommand.
         SubCommand::Evaluate(evaluate_arguments) => {
             let policy =
-                Policy::from_files(evaluate_arguments.policies, &evaluate_arguments.context);
+                Policy::from_files(&evaluate_arguments.policies, &evaluate_arguments.context);
             let policy_engine = PolicyEngine::new(policy);
 
             let spdx = SPDX::from_file(&evaluate_arguments.spdx);
 
-            let _result = policy_engine.evaluate_spdx(&spdx);
+            let result = policy_engine.evaluate_spdx(&spdx);
+
+            println!("{:#?}", result);
         }
 
         // Process notice subcommand.
