@@ -117,6 +117,19 @@ impl FileInformation {
             false
         }
     }
+
+    /// Get checksum
+    pub fn checksum(&self, algorithm: Algorithm) -> Option<&str> {
+        let checksum = self
+            .file_checksum
+            .iter()
+            .find(|&checksum| checksum.algorithm == algorithm);
+
+        match checksum {
+            Some(checksum) => Some(&checksum.value),
+            None => None,
+        }
+    }
 }
 
 #[cfg(test)]
@@ -141,5 +154,24 @@ mod test {
         assert!(file_md5.equal_by_hash(Algorithm::MD5, "test"));
         assert!(!file_md5.equal_by_hash(Algorithm::MD5, "no_test"));
         assert!(!file_md5.equal_by_hash(Algorithm::SHA1, "test"));
+    }
+
+    #[test]
+    fn get_checksum() {
+        let mut id = 1;
+        let mut file_sha256 = FileInformation::new("sha256", &mut id);
+        file_sha256
+            .file_checksum
+            .push(Checksum::new(Algorithm::SHA256, "test"));
+
+        assert_eq!(file_sha256.checksum(Algorithm::SHA256), Some("test"));
+        assert_eq!(file_sha256.checksum(Algorithm::MD2), None);
+
+        let mut file_md5 = FileInformation::new("md5", &mut id);
+        file_md5
+            .file_checksum
+            .push(Checksum::new(Algorithm::MD5, "test"));
+
+        assert_eq!(file_md5.checksum(Algorithm::MD5), Some("test"));
     }
 }

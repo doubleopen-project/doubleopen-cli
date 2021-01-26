@@ -11,7 +11,8 @@
 
 use log::{debug, info};
 use rayon::prelude::*;
-use std::{fs::read_to_string, path::Path, path::PathBuf};
+use spdx::FileType;
+use std::{collections::HashMap, fs::read_to_string, path::Path, path::PathBuf};
 use {
     fossology::Fossology,
     spdx::{
@@ -220,6 +221,7 @@ impl From<Yocto> for SPDX {
         let mut spdx = SPDX::new(&yocto.image_name);
 
         // Add all packages used in the image to the SPDX.
+        debug!("Adding source files from Yocto to the SPDX.");
         for package in &yocto.packages {
             let mut spdx_package =
                 PackageInformation::new(&package.name, &mut spdx.spdx_ref_counter);
@@ -258,18 +260,26 @@ impl From<Yocto> for SPDX {
             spdx.package_information.push(spdx_package);
         }
 
+        debug!("Adding binary files from Yocto to the SPDX.");
+        // Create a hashmap for sha256 as key and spdx id as value to make lookups faster.
+        let mut file_hashes_and_ids: HashMap<String, String> = HashMap::new();
+        for spdx_file in &spdx.file_information {
+            file_hashes_and_ids.insert(
+                spdx_file.checksum(Algorithm::SHA256).unwrap().to_string(),
+                spdx_file.file_spdx_identifier.to_string(),
+            );
+        }
+
         for package in &yocto.packages {
             for binary in &package.binaries {
-                let spdx_binary = FileInformation::new(&binary.name, &mut spdx.spdx_ref_counter);
+                let mut spdx_binary = FileInformation::new(&binary.name, &mut spdx.spdx_ref_counter);
+                spdx_binary.file_type.push(FileType::Binary);
                 for source in &binary.source_hashes {
-                    let spdx_source = spdx
-                        .file_information
-                        .iter()
-                        .find(|&file| file.equal_by_hash(Algorithm::SHA256, source));
+                    let spdx_source = file_hashes_and_ids.get::<str>(&source);
 
                     if let Some(spdx_source) = spdx_source {
                         let relationship = Relationship::new(
-                            &spdx_source.file_spdx_identifier,
+                            &spdx_source,
                             &spdx_binary.file_spdx_identifier,
                             RelationshipType::Generates,
                             None,
@@ -277,6 +287,7 @@ impl From<Yocto> for SPDX {
                         spdx.relationships.push(relationship);
                     }
                 }
+                spdx.file_information.push(spdx_binary);
             }
         }
 
