@@ -105,7 +105,7 @@ impl Yocto {
             // many devtool calls are made simultaneously. Might be able to accelerate this with
             // par_iter but limiting the number of threads to something reasonable.
             .iter()
-            .map(|recipe| recipe.analyze_source(&self.build_directory, &self.pkgdata_path()));
+            .map(|recipe| recipe.analyze_source(&self.build_directory, &self.pkgdata_path(), &self.sources_path()));
 
         let (packages, _errors): (Vec<_>, Vec<_>) = packages.partition(Result::is_ok);
         let packages = packages.into_iter().map(Result::unwrap).collect::<Vec<_>>();
@@ -171,6 +171,16 @@ impl Yocto {
         tmp_directory
             .join("pkgdata/")
             .join(self.architecture.clone())
+    }
+
+    pub fn sources_path(&self) -> PathBuf {
+        let mut tmp_directory = self.manifest_path.clone();
+        tmp_directory.pop();
+        tmp_directory.pop();
+        tmp_directory.pop();
+        tmp_directory.pop();
+        tmp_directory
+            .join("deploy/spdx/")
     }
 
     /// Upload the source code of the image to Fossology.

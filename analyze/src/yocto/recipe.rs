@@ -2,11 +2,15 @@
 //
 // SPDX-License-Identifier: MIT
 
-use std::{collections::HashMap, fs::read_to_string, path::Path, process::Command};
+use std::{
+    collections::HashMap,
+    fs::read_to_string,
+    path::{Path, PathBuf},
+    process::Command,
+};
 
-use flate2::{write::GzEncoder, Compression};
 use log::{debug, error, info};
-use tempfile::{tempdir, TempDir};
+use tempfile::TempDir;
 use walkdir::WalkDir;
 
 use {
@@ -97,9 +101,10 @@ impl Recipe {
         &self,
         build_directory: P,
         pkgdata_path: P,
+        sources_path: P,
     ) -> Result<Package, AnalyzerError> {
         debug!("Analyzing source for recipe {}.", &self.name);
-        let tempdir = self.get_recipe_source(&build_directory)?;
+        let tempdir = self.get_recipe_source(&build_directory, &sources_path)?;
 
         // Find the srclist file for the package.
         debug!("Searching for srclist for {}", &self.name);
@@ -229,13 +234,48 @@ impl Recipe {
         })
     }
 
+    // Find the source archive saved by meta-doubleopen for the recipe.
+    pub fn get_source_tar<P: AsRef<Path>>(
+        &self,
+        sources_path: P,
+    ) -> Result<PathBuf, AnalyzerError> {
+        let sources_directory = WalkDir::new(sources_path);
+
+        let source_tar_path = &sources_directory.into_iter().find(|entry| match entry {
+            Ok(entry) => {
+                let name_version = format!("{}-{}", &self.name, &self.version);
+                entry
+                    .file_name()
+                    .to_string_lossy()
+                    .starts_with(&name_version)
+                    && entry.file_name().to_string_lossy().ends_with(".tar.bz2")
+            }
+            Err(_) => false,
+        });
+
+        match source_tar_path {
+            Some(source_tar) => match source_tar {
+                Ok(source_tar) => Ok(source_tar.path().to_path_buf()),
+                Err(_) => Err(AnalyzerError::ParseError(
+                    "No source archive found".to_string(),
+                )),
+            },
+            None => Err(AnalyzerError::ParseError(
+                "No source archive found".to_string(),
+            )),
+        }
+    }
+
     /// Get the source for the recipe with Yocto's `devtool extract` and save it in
     /// a temporary directory for analysis.
     pub fn get_recipe_source<P: AsRef<Path>>(
         &self,
         build_directory: P,
+        sources_path: P,
     ) -> Result<TempDir, AnalyzerError> {
         info!("Extracting source for {}", &self.name);
+        let source_tar_path = self.get_source_tar(sources_path);
+        info!("Source: {:?}", source_tar_path);
 
         debug!("Running devtool extract for {}.", &self.name);
         let mut command = Command::new("devtool");
@@ -288,42 +328,11 @@ impl Recipe {
     ) -> Result<(), AnalyzerError> {
         info!("Uploading source of recipe {} to Fossology.", &self.name);
 
-        // Get a temporary directory with the source of the recipe.
-        let source_directory = self.get_recipe_source(&yocto.build_directory)?;
-
-        // Get the amount of files in the source directory.
-        // TODO: Might want to filter if no files in source?
-        let source_len = WalkDir::new(&source_directory).into_iter().count();
-        debug!("{} includes {} files", &self.name, source_len);
-
-        // Create a temporary directory for the archive and create an archive of
-        // the source.
-        let tempdir = tempdir()?;
-        debug!("Created a temporary directory.");
-        let tar_gz = std::fs::File::create(
-            &tempdir
-                .path()
-                .join(format!("{}-{}.tar.gz", &self.name, &self.version)),
-        )?;
-        debug!("Created a tar gz.");
-        let enc = GzEncoder::new(tar_gz, Compression::default());
-        debug!("Created an encoder");
-        let mut tar = tar::Builder::new(enc);
-        // Deterministic mode required to produce same hash value.
-        tar.mode(tar::HeaderMode::Deterministic);
-        debug!("Created a tar builder.");
-        tar.follow_symlinks(false);
-        tar.append_dir_all("", &source_directory.path())?;
-        tar.into_inner()?;
-        debug!("Added files to tar");
+        let source_tar = self.get_source_tar(&yocto.sources_path())?;
 
         // Get sha256 value for the source archive.
         debug!("Calculating hash");
-        let sha_256 = hash256_for_path(
-            &tempdir
-                .path()
-                .join(format!("{}-{}.tar.gz", &self.name, &self.version)),
-        );
+        let sha_256 = hash256_for_path(&source_tar);
         debug!("SHA256 for {} is {}.", self.name, sha_256);
 
         // If the source archive does not exist in Fossology based on the sha256
@@ -331,12 +340,7 @@ impl Recipe {
         let exists = fossology.file_exists(&sha_256).unwrap();
         if !exists {
             info!("{} was not found on Fossology, uploading now.", self.name);
-            fossology.upload(
-                &tempdir
-                    .path()
-                    .join(format!("{}-{}.tar.gz", &self.name, &self.version)),
-                &folder_id,
-            );
+            fossology.upload(&source_tar, &folder_id);
         } else {
             info!(
                 "{} was already found on Fossology, did not upload it again.",
