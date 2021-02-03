@@ -2,157 +2,160 @@
 //
 // SPDX-License-Identifier: MIT
 
-use std::path::Path;
 
-use super::{license::License, policy_file::PolicyFile, resolution::Resolution};
 use serde::{Deserialize, Serialize};
 
 /// Struct for a license policy to be used with the Policy Engine.
 #[derive(Serialize, Deserialize, Debug, PartialEq, Clone)]
 pub struct Policy {
-    /// Allowlisted licenses.
-    pub licenses_allow: Vec<License>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    license_rules: Vec<LicenseRule>,
 
-    /// Denylisted licenses.
-    pub licenses_deny: Vec<License>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    package_rules: Vec<PackageRule>,
+}
 
-    /// Resolutions for rule violations.
-    pub resolutions: Vec<Resolution>,
+#[derive(Serialize, Deserialize, Debug, PartialEq, Clone)]
+pub struct LicenseRule {
+    #[serde(flatten)]
+    pub target: TargetLicense,
+
+    pub license_source: LicenseSource,
+
+    pub policy_rule: PolicyRule,
+}
+
+impl LicenseRule {
+    pub fn new(
+        target: TargetLicense,
+        license_source: LicenseSource,
+        policy_rule: PolicyRule,
+    ) -> Self {
+        Self {
+            target,
+            license_source,
+            policy_rule,
+        }
+    }
+}
+
+#[derive(Serialize, Deserialize, Debug, PartialEq, Clone)]
+pub enum TargetLicense {
+    #[serde(rename = "grouping")]
+    Grouping(String),
+    SPDXId(String),
+}
+
+#[derive(Serialize, Deserialize, Debug, PartialEq, Clone)]
+pub struct PackageRule {
+    pub package_name: String,
+
+    pub package_version: String,
+
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub files: Option<String>,
+
+    pub policy_rule: PolicyRule,
+}
+
+impl PackageRule {
+    pub fn new(
+        package_name: &str,
+        package_version: &str,
+        files: Option<String>,
+        policy_rule: PolicyRule,
+    ) -> Self {
+        Self {
+            package_name: package_name.to_string(),
+            package_version: package_version.to_string(),
+            files,
+            policy_rule,
+        }
+    }
+}
+
+#[derive(Serialize, Deserialize, Debug, PartialEq, Clone)]
+pub enum LicenseSource {
+    Concluded,
+    Scanner,
+}
+
+#[derive(Serialize, Deserialize, Debug, PartialEq, Clone)]
+pub enum PolicyRule {
+    Allowed,
+    Denied,
 }
 
 impl Policy {
-    /// Creates a policy from an undefined amount of Policy Files. Provide context
-    /// of the application.
-    pub fn from_files<P: AsRef<Path>>(files: &[P], context: &str) -> Self {
-        let combined_files = PolicyFile::from_multiple_files(&files);
-        Self::from_policy_file(combined_files, context)
+    pub fn new() -> Self {
+        Self {
+            ..Default::default()
+        }
     }
+}
 
-    /// Creates A policy from single PolicyFile struct based on context..
-    pub fn from_policy_file(policy_file: PolicyFile, context: &str) -> Self {
-        let allowed_licensens: Vec<License> = policy_file
-            .licenses
-            .iter()
-            .filter_map(|lic| {
-                let find_context = lic
-                    .allowed_contexts
-                    .iter()
-                    .find(|ctx| ctx.context == context);
-                match find_context {
-                    Some(ctx) => Some(License {
-                        message: ctx.description.clone(),
-                        spdx_expression: lic.spdx_id.clone(),
-                    }),
-                    None => None,
-                }
-            })
-            .collect();
-
-        let denied_licensens: Vec<License> = policy_file
-            .licenses
-            .iter()
-            .filter_map(|lic| {
-                let find_context = lic
-                    .denied_contexts
-                    .iter()
-                    .find(|ctx| ctx.context == context);
-                match find_context {
-                    Some(ctx) => Some(License {
-                        message: ctx.description.clone(),
-                        spdx_expression: lic.spdx_id.clone(),
-                    }),
-                    None => None,
-                }
-            })
-            .collect();
-
-        let resolutions: Vec<Resolution> = policy_file
-            .resolutions
-            .iter()
-            .filter_map(|res| {
-                let find_context = res.contexts.iter().find(|ctx| ctx.as_str() == context);
-                match find_context {
-                    Some(_) => Some(Resolution {
-                        license: res.spdx_id.clone(),
-                        package: res.package.clone(),
-                        reason: res.description.clone(),
-                    }),
-                    None => None,
-                }
-            })
-            .collect();
-        Policy {
-            licenses_allow: allowed_licensens,
-            licenses_deny: denied_licensens,
-            resolutions,
+impl Default for Policy {
+    fn default() -> Self {
+        Self {
+            license_rules: Vec::new(),
+            package_rules: Vec::new(),
         }
     }
 }
 
 #[cfg(test)]
 mod test {
+    use std::fs;
+
+
     use super::*;
 
     #[test]
-    fn create_policy_from_two_files() {
-        let policy_1 = r#"
-          licenses:
-          - spdx_id: "MIT"
-            allowed_contexts: 
-            - context: "saas"
-            - context: "consumer software"
-              description: "Is good"
-            - context: "internal"
-          - spdx_id: "GPL-2.0-only"
-            allowed_contexts:
-            - context: "saas"
-            - context: "internal"
-            denied_contexts:
-            - context: "consumer software"
-              description: "Not good"
-          resolutions:
-          - package: "application-1.0.0"
-            contexts:
-            - "consumer software"
-            spdx_id: GPL-2.0-only
-            description: "Licensed by the author separately."
-          - package: "application-2.0.0"
-            contexts:
-            - "saas"
-            spdx_id: GPL-2.0-only
-            description: "Licensed by the author separately."
-       "#;
+    fn create_example_policy() {
+        let mut example_policy = Policy::new();
+        example_policy.license_rules.push(LicenseRule::new(
+            TargetLicense::Grouping("Permissive".into()),
+            LicenseSource::Concluded,
+            PolicyRule::Allowed,
+        ));
+        example_policy.license_rules.push(LicenseRule::new(
+            TargetLicense::SPDXId("MPL-2.0".into()),
+            LicenseSource::Concluded,
+            PolicyRule::Allowed,
+        ));
+        example_policy.package_rules.push(PackageRule::new(
+            "bash",
+            "1.22",
+            None,
+            PolicyRule::Allowed,
+        ));
+        example_policy.package_rules.push(PackageRule::new(
+            "bash",
+            "1.*",
+            None,
+            PolicyRule::Allowed,
+        ));
+        example_policy.package_rules.push(PackageRule::new(
+            "bash",
+            "1.22",
+            Some("build/*.tar".into()),
+            PolicyRule::Denied,
+        ));
 
-        let policy_2 = r#"
-          licenses:
-          - spdx_id: "GPL-2.0-only"
-            denied_contexts:
-            - context: "saas"
-              description: "No GPL in saas for this project"
-       "#;
+        let json = serde_json::to_string_pretty(&example_policy).unwrap();
+        fs::write("../tests/examples/policy_engine/example_policy.json", json)
+            .expect("Unable to write file");
+        let yaml = serde_yaml::to_string(&example_policy).unwrap();
+        fs::write("../tests/examples/policy_engine/example_policy.yml", yaml)
+            .expect("Unable to write file");
 
-        let mut policy1: PolicyFile = serde_yaml::from_str(policy_1).unwrap();
-        let policy2: PolicyFile = serde_yaml::from_str(policy_2).unwrap();
-        policy1.add_overriding_policy(&policy2);
+        let json_string = fs::read_to_string("../tests/examples/policy_engine/example_policy.json").unwrap();
+        let de_json: Policy = serde_json::from_str(&json_string).unwrap();
+        let yaml_string = fs::read_to_string("../tests/examples/policy_engine/example_policy.yml").unwrap();
+        let de_yaml: Policy = serde_yaml::from_str(&yaml_string).unwrap();
 
-        let policy = Policy::from_policy_file(policy1, "saas");
+        assert_eq!(de_json, example_policy);
+        assert_eq!(de_yaml, example_policy);
 
-        let expected_policy = Policy {
-            licenses_allow: vec![License {
-                spdx_expression: "MIT".into(),
-                message: None,
-            }],
-            licenses_deny: vec![License {
-                spdx_expression: "GPL-2.0-only".into(),
-                message: Some("No GPL in saas for this project".into()),
-            }],
-            resolutions: vec![Resolution {
-                license: "GPL-2.0-only".into(),
-                package: "application-2.0.0".into(),
-                reason: "Licensed by the author separately.".into(),
-            }],
-        };
-
-        assert_eq!(policy, expected_policy);
     }
 }

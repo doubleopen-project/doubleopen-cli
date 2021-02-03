@@ -1,0 +1,19 @@
+---
+license_rules:
+  - grouping: Permissive
+    license_source: Concluded
+    policy_rule: Allowed
+  - SPDXId: MPL-2.0
+    license_source: Concluded
+    policy_rule: Allowed
+package_rules:
+  - package_name: bash
+    package_version: "1.22"
+    policy_rule: Allowed
+  - package_name: bash
+    package_version: 1.*
+    policy_rule: Allowed
+  - package_name: bash
+    package_version: "1.22"
+    files: build/*.tar
+    policy_rule: Denied

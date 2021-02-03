@@ -11,8 +11,7 @@ use notice::Notice;
 use spdx::SPDX;
 use std::path::PathBuf;
 
-use policy_engine::policy::Policy;
-use policy_engine::PolicyEngine;
+// use policy_engine::PolicyEngine;
 
 /// Command line options.
 #[derive(Clap, Debug)]
@@ -189,16 +188,7 @@ fn main() {
         },
 
         // Process evaluate subcommand.
-        SubCommand::Evaluate(evaluate_arguments) => {
-            let policy =
-                Policy::from_files(&evaluate_arguments.policies, &evaluate_arguments.context);
-            let policy_engine = PolicyEngine::new(policy);
-
-            let spdx = SPDX::from_file(&evaluate_arguments.spdx);
-
-            let result = policy_engine.evaluate_spdx(&spdx);
-
-            println!("{:#?}", result);
+        SubCommand::Evaluate(_evaluate_arguments) => {
         }
 
         // Process notice subcommand.

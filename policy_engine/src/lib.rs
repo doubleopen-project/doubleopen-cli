@@ -11,9 +11,7 @@ use spdx::{FileInformation, PackageInformation, SPDX};
 use self::{evaluation_result::EvaluationResult, policy_violation::PolicyViolation};
 
 pub mod evaluation_result;
-pub mod license;
 pub mod policy;
-mod policy_file;
 pub mod policy_violation;
 pub mod resolution;
 
@@ -29,11 +27,7 @@ pub struct PolicyEngine {
 impl PolicyEngine {
     /// Create new Engine based on Policy. Creates the required HashMap for evaluation
     pub fn new(policy: Policy) -> Self {
-        let mut allowed_licenses: HashMap<String, bool> = HashMap::new();
-
-        policy.licenses_allow.iter().for_each(|license| {
-            allowed_licenses.insert(license.spdx_expression.to_string(), true);
-        });
+        let allowed_licenses: HashMap<String, bool> = HashMap::new();
 
         Self {
             _policy: policy,
@@ -81,83 +75,5 @@ impl PolicyEngine {
             }
             true => None,
         }
-    }
-}
-
-#[cfg(test)]
-mod test_policy_engine {
-    use std::collections::HashMap;
-
-    use spdx::{FileInformation, PackageInformation, SPDXExpression, SPDX};
-
-    use super::{
-        license::License, policy::Policy, policy_violation::PolicyViolation, PolicyEngine,
-    };
-
-    #[test]
-    fn create_engine() {
-        let allowed_licenses: Vec<License> = vec![License {
-            spdx_expression: "MIT".into(),
-            message: Some("Allowed license.".into()),
-        }];
-
-        let policy = Policy {
-            licenses_allow: allowed_licenses,
-            licenses_deny: vec![],
-            resolutions: vec![],
-        };
-
-        let engine = PolicyEngine::new(policy.clone());
-
-        let mut expected_hashmap: HashMap<String, bool> = HashMap::new();
-        expected_hashmap.insert("MIT".into(), true);
-
-        assert_eq!(engine.allowed_licenses, expected_hashmap);
-        assert_eq!(engine._policy, policy);
-    }
-
-    #[test]
-    fn evaluates_file_correctly() {
-        let mut id = 1;
-        let package = PackageInformation::new("test_package", &mut id);
-        let mut file = FileInformation::new("test_file", &mut id);
-
-        file.concluded_license = SPDXExpression("MIT".into());
-
-        let allowed_licenses: Vec<License> = vec![License {
-            spdx_expression: "MIT".into(),
-            message: Some("Allowed license.".into()),
-        }];
-
-        let policy = Policy {
-            licenses_allow: allowed_licenses,
-            licenses_deny: vec![],
-            resolutions: vec![],
-        };
-
-        let engine = PolicyEngine::new(policy);
-
-        let result = engine.evaluate_file(&file, &package);
-        assert!(result.is_none());
-
-        file.concluded_license = SPDXExpression("MIT AND GPL-2.0-only".into());
-
-        let result = engine.evaluate_file(&file, &package).unwrap();
-        let expected_violation = PolicyViolation {
-            file_id: "SPDXRef-3".into(),
-            file_license: "MIT AND GPL-2.0-only".into(),
-            file_name: "test_file".into(),
-            package_id: "SPDXRef-2".into(),
-            package_name: "test_package".into(),
-        };
-
-        assert_eq!(result, expected_violation);
-    }
-
-    #[test]
-    fn test_policy_engine() {
-        let spdx_file = SPDX::from_file("../tests/examples/policy_engine/minimal.spdx.json");
-        let policy =
-            Policy::from_files(&["../tests/examples/policy_engine/policy.yml"], "hardware");
     }
 }
