@@ -2,7 +2,6 @@
 //
 // SPDX-License-Identifier: MIT
 
-
 use serde::{Deserialize, Serialize};
 
 /// Struct for a license policy to be used with the Policy Engine.
@@ -56,6 +55,9 @@ pub struct PackageRule {
     pub files: Option<String>,
 
     pub policy_rule: PolicyRule,
+
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub target_licenses: Vec<TargetLicense>,
 }
 
 impl PackageRule {
@@ -64,12 +66,14 @@ impl PackageRule {
         package_version: &str,
         files: Option<String>,
         policy_rule: PolicyRule,
+        target_licenses: Vec<TargetLicense>,
     ) -> Self {
         Self {
             package_name: package_name.to_string(),
             package_version: package_version.to_string(),
             files,
             policy_rule,
+            target_licenses,
         }
     }
 }
@@ -107,7 +111,6 @@ impl Default for Policy {
 mod test {
     use std::fs;
 
-
     use super::*;
 
     #[test]
@@ -128,18 +131,28 @@ mod test {
             "1.22",
             None,
             PolicyRule::Allowed,
+            vec![
+                TargetLicense::Grouping("Copyleft".into()),
+                TargetLicense::Grouping("Copyleft Limited".into()),
+                TargetLicense::Grouping("Permissive".into()),
+            ],
         ));
         example_policy.package_rules.push(PackageRule::new(
             "bash",
             "1.*",
             None,
             PolicyRule::Allowed,
+            vec![
+                TargetLicense::Grouping("Copyleft".into()),
+                TargetLicense::SPDXId("GPL-2.0-or-later".into()),
+            ],
         ));
         example_policy.package_rules.push(PackageRule::new(
             "bash",
             "1.22",
             Some("build/*.tar".into()),
             PolicyRule::Denied,
+            vec![],
         ));
 
         let json = serde_json::to_string_pretty(&example_policy).unwrap();
@@ -149,13 +162,14 @@ mod test {
         fs::write("../tests/examples/policy_engine/example_policy.yml", yaml)
             .expect("Unable to write file");
 
-        let json_string = fs::read_to_string("../tests/examples/policy_engine/example_policy.json").unwrap();
+        let json_string =
+            fs::read_to_string("../tests/examples/policy_engine/example_policy.json").unwrap();
         let de_json: Policy = serde_json::from_str(&json_string).unwrap();
-        let yaml_string = fs::read_to_string("../tests/examples/policy_engine/example_policy.yml").unwrap();
+        let yaml_string =
+            fs::read_to_string("../tests/examples/policy_engine/example_policy.yml").unwrap();
         let de_yaml: Policy = serde_yaml::from_str(&yaml_string).unwrap();
 
         assert_eq!(de_json, example_policy);
         assert_eq!(de_yaml, example_policy);
-
     }
 }

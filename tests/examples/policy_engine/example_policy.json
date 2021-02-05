@@ -15,12 +15,31 @@
     {
       "package_name": "bash",
       "package_version": "1.22",
-      "policy_rule": "Allowed"
+      "policy_rule": "Allowed",
+      "target_licenses": [
+        {
+          "grouping": "Copyleft"
+        },
+        {
+          "grouping": "Copyleft Limited"
+        },
+        {
+          "grouping": "Permissive"
+        }
+      ]
     },
     {
       "package_name": "bash",
       "package_version": "1.*",
-      "policy_rule": "Allowed"
+      "policy_rule": "Allowed",
+      "target_licenses": [
+        {
+          "grouping": "Copyleft"
+        },
+        {
+          "SPDXId": "GPL-2.0-or-later"
+        }
+      ]
     },
     {
       "package_name": "bash",
