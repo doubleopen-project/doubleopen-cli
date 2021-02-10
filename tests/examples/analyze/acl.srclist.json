@@ -1,0 +1,890 @@
+[
+  {
+    "path": "/home/mikko/doubleopen/poky/build/tmp/work/core2-64-poky-linux/acl/2.2.52-r0/package/usr/bin/getfacl",
+    "sha256": "cfa7a01ebec7f8ea896d7c869843b340fa941025e7f2f067ecf7a379eac59e50",
+    "sources": [
+      {
+        "path": "/usr/src/debug/glibc/2.30-r0/git/sysdeps/x86_64/start.S",
+        "sha256": null
+      },
+      {
+        "path": "/usr/src/debug/glibc/2.30-r0/git/csu/init.c",
+        "sha256": null
+      },
+      {
+        "path": "/usr/src/debug/glibc/2.30-r0/git/sysdeps/x86_64/crti.S",
+        "sha256": null
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/getfacl/getfacl.c",
+        "sha256": "10c64c686dbb1c9fe571d104ccf200d061e74ea34fcdfa1bbd0203608a66084b"
+      },
+      {
+        "path": "/usr/include/bits/stdio2.h",
+        "sha256": "da7ee4876646a5f056ebe3f4cfbd62f2feaf6c01acc9346772c749df03d7dcd7"
+      },
+      {
+        "path": "/usr/include/bits/string_fortified.h",
+        "sha256": "a2bacf8dfcc514e47b77a9defecdf4d701c93847add52c6c72dddb16bfe59122"
+      },
+      {
+        "path": "/usr/include/sys/stat.h",
+        "sha256": "9ace381871f4a991e7da7a590bc0e20ee48d9b4df0469cc898d0158f442b7906"
+      },
+      {
+        "path": "/usr/lib/x86_64-poky-linux/gcc/x86_64-poky-linux/9.2.0/include/stddef.h",
+        "sha256": null
+      },
+      {
+        "path": "/usr/include/bits/types.h",
+        "sha256": "4925b205d39440d11f9056e00870999d632ee6374a469732f71616b0d528c1bb"
+      },
+      {
+        "path": "/usr/include/bits/types/struct_FILE.h",
+        "sha256": "b7979a70aa1b61a7d0bda93f5cc1c04ce7755da35bd8eef37181f9fe19de4089"
+      },
+      {
+        "path": "/usr/include/bits/types/FILE.h",
+        "sha256": "37515f78be386f2edad4746f2947c928f480728c56d9a94e25302ebbdaef3c96"
+      },
+      {
+        "path": "/usr/include/stdio.h",
+        "sha256": "5564d5e9a733e4ee4f11c25ea1f2775fbcd8415266922883490c3f8993e54131"
+      },
+      {
+        "path": "/usr/include/bits/sys_errlist.h",
+        "sha256": "02ed5b589958c333ccb100652aa33ee10a74bf5bc5102d189d681bcac9bc8899"
+      },
+      {
+        "path": "/usr/include/errno.h",
+        "sha256": "7d0151aec2b195ae4ad14939132cddc0585d4fe6361fd6a337bb08505db49c25"
+      },
+      {
+        "path": "/usr/include/sys/types.h",
+        "sha256": "496abd2f7162de26afc44bbfaeada1fa91e42cb2d9e85daff6fa301a5f03a66b"
+      },
+      {
+        "path": "/usr/include/bits/types/struct_timespec.h",
+        "sha256": "e9a310a50b8a14aeea4bde3e8b623506631de37a7a37dc422757f3275fc93755"
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/include/sys/acl.h",
+        "sha256": "287dbc9269df3fe9e6b0a1dc6c0aac8e90b925867bf235a554a02414f6fcedfd"
+      },
+      {
+        "path": "/usr/include/unistd.h",
+        "sha256": "e60922f842b8d20d5d9b1e08cac0727ebde6450cbc57fe77b35cf4a725b69c6a"
+      },
+      {
+        "path": "/usr/include/bits/getopt_core.h",
+        "sha256": "1923be731ac79fb7449c431ddf45f2ca3b2f7ad82eeacc9e8101e8fe7c2ffd6e"
+      },
+      {
+        "path": "/usr/include/bits/stat.h",
+        "sha256": "b7ec49a3820b81ea3f9c064a1ff1f5d679aae80ad574cd2701e26b2d9ebfaad5"
+      },
+      {
+        "path": "/usr/include/bits/getopt_ext.h",
+        "sha256": "4c670230c4e2e93b5a427b4be2cf5dc7172b2ab41d461a3ad71d250f9d55b105"
+      },
+      {
+        "path": "/usr/include/libgen.h",
+        "sha256": "645726f90076b78d32734b9326794d491ba57992a1d12c2d15761271b1e7db30"
+      },
+      {
+        "path": "/usr/include/stdlib.h",
+        "sha256": "5a25232541e58a8d0b9115283ae4d476eea3877e4c99b5895c1d831f35fc6a9a"
+      },
+      {
+        "path": "/usr/include/locale.h",
+        "sha256": "a5f6c04df62ec56317439c2b13838a5a52174ceec7659cb389b01ea23a5f5fcb"
+      },
+      {
+        "path": "/usr/include/libintl.h",
+        "sha256": "88654adf6ce632f19c8d68fc59d12575342781c6f448dec9104ee01cab5f21d2"
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/include/walk_tree.h",
+        "sha256": "3147ddade0ab67feab521a9e855ddb125960ca3b183a27486f2086038ec84948"
+      },
+      {
+        "path": "/usr/include/string.h",
+        "sha256": "429d9e0ca97e3b5f1c682a04b35ac9c3d765532e6521fd71769d8d4585ed358f"
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/include/misc.h",
+        "sha256": "0cd11cf77fe5fa74d0809a77e8f1dcc70e04ceaf2c232bf76eec1872fa38a56f"
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/include/acl/libacl.h",
+        "sha256": "21366c9f8ffe4018cc3753a73e0c81f0c54102435031de8f5325675f55a42bf2"
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/getfacl/user_group.h",
+        "sha256": "6b6913dda5fb1ff73b1c1e9fd71f0e60342e8b31a3074a0b66885ecb7f685b7b"
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/getfacl/<built-in>",
+        "sha256": null
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/getfacl/user_group.c",
+        "sha256": "7d9200554126105df25a44e5bbc2df51920903dcbf841f53c41168d9f73139c7"
+      },
+      {
+        "path": "/usr/include/pwd.h",
+        "sha256": "2b5ad7d5425677cf6fab3ac824b7369129006bb2fce81ed378570370b070f47b"
+      },
+      {
+        "path": "/usr/include/grp.h",
+        "sha256": "870fc616139d06956b93bb4acf692a138a9beacecd6fa03f7e6a6aceb49ce04a"
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/libmisc/quote.c",
+        "sha256": "86b6e2d7dd3e2befc2cd4b21b2b793fb46d931fca21b8b51dcd9a2a46635a6a7"
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/libmisc/high_water_alloc.c",
+        "sha256": "a171f25c8b4e02e8523d316b33e58352e11cb2c8639d4d52ca39eeddefa08cab"
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/libmisc/next_line.c",
+        "sha256": "db818415cd97c174a4247eca5e79331e9368cce08a8f95de5f55fb3f1aad1168"
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/libmisc/<built-in>",
+        "sha256": null
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/libmisc/walk_tree.c",
+        "sha256": "43b42e35ecc413f38c672cdd735c6f83eff50adba26e031fa1de08cb57bfe9ae"
+      },
+      {
+        "path": "/usr/include/sys/time.h",
+        "sha256": "5159793387d99cc7d8ba99678fd7da213d6ca3852644856c1b9f2535d2b9c17c"
+      },
+      {
+        "path": "/usr/include/bits/resource.h",
+        "sha256": "5dca00b737889d0320e21554d30555e25ccf21729f43c46c444461d22e7e1caa"
+      },
+      {
+        "path": "/usr/include/bits/dirent.h",
+        "sha256": "e73c3c2488d14685339bbc68d3d39660423ffd4aa6468157cbdabf2b0de822b6"
+      },
+      {
+        "path": "/usr/include/sys/resource.h",
+        "sha256": "e068a129d715be92571119f1761e7d5e966cfc535da17c9841a533c4a5e445b8"
+      },
+      {
+        "path": "/usr/include/dirent.h",
+        "sha256": "c4735b928a8e0c985f8ae106c392ea22ab6e71cf4d4db6c7a52771f69be0e452"
+      },
+      {
+        "path": "/usr/src/debug/glibc/2.30-r0/git/csu/elf-init.c",
+        "sha256": null
+      },
+      {
+        "path": "/usr/src/debug/glibc/2.30-r0/git/sysdeps/x86_64/crtn.S",
+        "sha256": null
+      }
+    ]
+  },
+  {
+    "path": "/home/mikko/doubleopen/poky/build/tmp/work/core2-64-poky-linux/acl/2.2.52-r0/package/lib/libacl.so.1.1.0",
+    "sha256": "019974bd2ef8bb16dbf2cc023af1d93cd49f0a1e60e5fec552b957ca9c236a93",
+    "sources": [
+      {
+        "path": "/usr/src/debug/glibc/2.30-r0/git/sysdeps/x86_64/crti.S",
+        "sha256": null
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/libacl/acl_add_perm.c",
+        "sha256": "691e29d9cf275aeea4c36d52564dc35a380cb044d1449f20e167e71603c4a68d"
+      },
+      {
+        "path": "/usr/include/errno.h",
+        "sha256": "7d0151aec2b195ae4ad14939132cddc0585d4fe6361fd6a337bb08505db49c25"
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/include/sys/acl.h",
+        "sha256": "287dbc9269df3fe9e6b0a1dc6c0aac8e90b925867bf235a554a02414f6fcedfd"
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/libacl/libobj.h",
+        "sha256": "1dc023c987d9d66f506dced65df8cf6eb1aaec23b811ce4b66bcfe81071cf5bf"
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/libacl/libacl.h",
+        "sha256": "0c547070082afb58f996d8f182c24e820dad23d944895666b97e6bca05ea1aa7"
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/libacl/acl_calc_mask.c",
+        "sha256": "0eb00d77bf13d9ec7aa039af822de2d103eccbba0d9c99ab975c1c75a820da1b"
+      },
+      {
+        "path": "/usr/include/bits/types.h",
+        "sha256": "4925b205d39440d11f9056e00870999d632ee6374a469732f71616b0d528c1bb"
+      },
+      {
+        "path": "/usr/include/sys/types.h",
+        "sha256": "496abd2f7162de26afc44bbfaeada1fa91e42cb2d9e85daff6fa301a5f03a66b"
+      },
+      {
+        "path": "/usr/lib/x86_64-poky-linux/gcc/x86_64-poky-linux/9.2.0/include/stddef.h",
+        "sha256": null
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/libacl/acl_clear_perms.c",
+        "sha256": "dcc08c49cbbadd7e02c200e7ba5fcbd5fb9c8432a04f1565eaebfc471cba4252"
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/libacl/acl_copy_entry.c",
+        "sha256": "30c8e288576b656cfc3fb8d01cc7990f0d44db10649f5334e344e1825b3d0313"
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/libacl/acl_copy_ext.c",
+        "sha256": "0b1776d747fa49bf4bf9690a7d4a47b276bea7139b422b40a88589202c8cfec0"
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/libacl/acl_copy_int.c",
+        "sha256": "b5c87a4f30feb53a2c044214c5abba39f4a1906dc4d5a1cd4609d95ebe1b5574"
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/libacl/acl_create_entry.c",
+        "sha256": "546aeb48af5907cb78f17c5925a4cfc1d71606051abdd2a313efb615db73a72f"
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/libacl/acl_delete_def_file.c",
+        "sha256": "c4b12a2972c1bcc4d4ac2ef6fc18656b4f1cd773389df203808c3a44a3103239"
+      },
+      {
+        "path": "/usr/include/attr/xattr.h",
+        "sha256": "0da8f0b3bedb511e3a3fb0cfd5562c22abde9f12f81c42e6b4d1e0d21ecdb501"
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/libacl/acl_delete_entry.c",
+        "sha256": "05f2478953463cf03cfd4223d0942c77bc330f19d7a6061f5036af904cb18f7e"
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/libacl/acl_delete_perm.c",
+        "sha256": "582b5023400d7091af5fc8821f49bcb3cd2b13dcac79b0bf413f42fbd90c43fa"
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/libacl/acl_dup.c",
+        "sha256": "9897a2041abd8a0f5f28595e4a37a73bf0f12abe7d191d08c25936e991e299d6"
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/libacl/acl_free.c",
+        "sha256": "2f6b8e2ff5d84e4d203250af287cf8435b31fa96ce166f268894c02172d526de"
+      },
+      {
+        "path": "/usr/include/stdlib.h",
+        "sha256": "5a25232541e58a8d0b9115283ae4d476eea3877e4c99b5895c1d831f35fc6a9a"
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/libacl/acl_from_text.c",
+        "sha256": "73796ea7fd606ade33e397070f2ff29a6acd365ac77b4075c3c8e667feef9208"
+      },
+      {
+        "path": "/usr/include/bits/string_fortified.h",
+        "sha256": "a2bacf8dfcc514e47b77a9defecdf4d701c93847add52c6c72dddb16bfe59122"
+      },
+      {
+        "path": "/usr/include/pwd.h",
+        "sha256": "2b5ad7d5425677cf6fab3ac824b7369129006bb2fce81ed378570370b070f47b"
+      },
+      {
+        "path": "/usr/include/grp.h",
+        "sha256": "870fc616139d06956b93bb4acf692a138a9beacecd6fa03f7e6a6aceb49ce04a"
+      },
+      {
+        "path": "/usr/include/string.h",
+        "sha256": "429d9e0ca97e3b5f1c682a04b35ac9c3d765532e6521fd71769d8d4585ed358f"
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/include/misc.h",
+        "sha256": "0cd11cf77fe5fa74d0809a77e8f1dcc70e04ceaf2c232bf76eec1872fa38a56f"
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/libacl/<built-in>",
+        "sha256": null
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/libacl/acl_get_entry.c",
+        "sha256": "79c5b297b0baff344000decdeb1c43c9c9f52ca4ad0c5b242febddbc332cdb44"
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/libacl/acl_get_fd.c",
+        "sha256": "4bc92ed0e1a271af26350da87d9e8610a92bf96e334de7ce4d06c9e20333bc93"
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/include/acl_ea.h",
+        "sha256": "6121d9b6253c00902a1d12b8924568245fac310fdcdb6c6ebeac588a6b8ffeaa"
+      },
+      {
+        "path": "/usr/include/sys/stat.h",
+        "sha256": "9ace381871f4a991e7da7a590bc0e20ee48d9b4df0469cc898d0158f442b7906"
+      },
+      {
+        "path": "/usr/include/bits/types/struct_timespec.h",
+        "sha256": "e9a310a50b8a14aeea4bde3e8b623506631de37a7a37dc422757f3275fc93755"
+      },
+      {
+        "path": "/usr/include/bits/stat.h",
+        "sha256": "b7ec49a3820b81ea3f9c064a1ff1f5d679aae80ad574cd2701e26b2d9ebfaad5"
+      },
+      {
+        "path": "/usr/include/unistd.h",
+        "sha256": "e60922f842b8d20d5d9b1e08cac0727ebde6450cbc57fe77b35cf4a725b69c6a"
+      },
+      {
+        "path": "/usr/include/bits/getopt_core.h",
+        "sha256": "1923be731ac79fb7449c431ddf45f2ca3b2f7ad82eeacc9e8101e8fe7c2ffd6e"
+      },
+      {
+        "path": "/usr/include/bits/types/struct_FILE.h",
+        "sha256": "b7979a70aa1b61a7d0bda93f5cc1c04ce7755da35bd8eef37181f9fe19de4089"
+      },
+      {
+        "path": "/usr/include/bits/types/FILE.h",
+        "sha256": "37515f78be386f2edad4746f2947c928f480728c56d9a94e25302ebbdaef3c96"
+      },
+      {
+        "path": "/usr/include/stdio.h",
+        "sha256": "5564d5e9a733e4ee4f11c25ea1f2775fbcd8415266922883490c3f8993e54131"
+      },
+      {
+        "path": "/usr/include/bits/sys_errlist.h",
+        "sha256": "02ed5b589958c333ccb100652aa33ee10a74bf5bc5102d189d681bcac9bc8899"
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/libacl/__acl_from_xattr.h",
+        "sha256": "2f0c73951af9b9b0a654e24e378a92b267a0f2bc318084ae15fa6701485ae398"
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/include/acl/libacl.h",
+        "sha256": "21366c9f8ffe4018cc3753a73e0c81f0c54102435031de8f5325675f55a42bf2"
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/libacl/acl_get_file.c",
+        "sha256": "d4bf99bed5fab002669c2c5381ff0ef6f3715dc14169e544e2778b3a647d6eb7"
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/libacl/acl_get_perm.c",
+        "sha256": "d57966b8775401cea03175dc0e4e3a3645d820aa8e2ab74cf54f525ba7608956"
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/libacl/acl_get_permset.c",
+        "sha256": "515bbb68a37ebee3201e0e32201ec0629e8e463315d41b6df5749635b2b2dcde"
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/libacl/acl_get_qualifier.c",
+        "sha256": "9e42a91e7cd97605611e35184bc96571e634d8e408ea9399343314b6cb42da42"
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/libacl/acl_get_tag_type.c",
+        "sha256": "1630cea5c6a765b3169c3947799c3b8413e179c578569beb6fc37dd4f5f0b002"
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/libacl/acl_init.c",
+        "sha256": "b198c11b53237748af6c9636e9e2961a2a7db0221128221daf0113206fa4ac22"
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/libacl/acl_set_fd.c",
+        "sha256": "a195917220a0108857c5bfc3b2b72739633911aae9b36004823adf407955cadf"
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/libacl/__acl_to_xattr.h",
+        "sha256": "53928b842dcd9ddc6e3085f26458e38827717a5cc264b2c9ccf4cda04c524a72"
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/libacl/acl_set_file.c",
+        "sha256": "985308db88b60c1b9062fc80997451161573eca45bca0a14bc21efe2feb6b5fd"
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/libacl/acl_set_permset.c",
+        "sha256": "880003654b24dbf0810e5d755ed4ed38d87d89e320dc86d2d22bd0048b6a7c25"
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/libacl/acl_set_qualifier.c",
+        "sha256": "81066fa795faaf70959e6fdb530d6ec9a964a562c1ca0a57c706eb1bfbf8674a"
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/libacl/acl_set_tag_type.c",
+        "sha256": "5fd0df96f36c04971af9fa965e457bf31949218bb6e213c3d6ac0915d04793a5"
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/libacl/acl_to_text.c",
+        "sha256": "ff9bedd64d754d7fbf3d0b089eecfe5245eab7b5e12e8b793452a996e25bf10e"
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/libacl/acl_valid.c",
+        "sha256": "9fe3c0a15173d8628eca45c70a801a40eecadc5c7ceef8fe3d128178816aaf78"
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/libacl/acl_size.c",
+        "sha256": "e27ab81867e82208d3bcac0c2938b64cc2dffe139cc0b52e02eed8d6b067be97"
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/libacl/acl_to_any_text.c",
+        "sha256": "f08fab1173a59a6b65e392afacd2f9315f61e1232026e2651413d57c08a0bf8a"
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/libacl/acl_entries.c",
+        "sha256": "52a471af4c6e1f1cdd772d28102c1545e1f359c351fe8666172e909b6490436b"
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/libacl/acl_check.c",
+        "sha256": "28e0b3ee20c2f56049a7513e1b5cab9476ce9ee4d04486fcd8a73ade124a0e49"
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/libacl/acl_error.c",
+        "sha256": "0fe7a8ed867b0bad35fa643b150c9d67da77940ff8505974821968494ee5b8ce"
+      },
+      {
+        "path": "/usr/include/libintl.h",
+        "sha256": "88654adf6ce632f19c8d68fc59d12575342781c6f448dec9104ee01cab5f21d2"
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/libacl/acl_cmp.c",
+        "sha256": "1f677eea1fd018fafa4eddc8fa02e295e43595124cdde5f3f8788cfddc0ac0fa"
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/libacl/acl_extended_fd.c",
+        "sha256": "2ed65e8110ab4fd0f7d4603861da7dd9f87684a1c6fc08eb2630032a04cedde8"
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/libacl/acl_extended_file.c",
+        "sha256": "0a87e690db3949121d9aed92ea5f50eba466b7c01760ff2a0f9fb7e4d542b4d3"
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/libacl/__acl_extended_file.h",
+        "sha256": "d3db94c3ef6768ecd936e0bab5a6f44bf8ee46f16e80a3dc49d4662ff35fb24e"
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/libacl/acl_equiv_mode.c",
+        "sha256": "0ce292e06bc331cb2cb13f3b89efba593d187bb3cd34480bd425587df766c004"
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/libacl/acl_from_mode.c",
+        "sha256": "dcb64c8283ea65601b787642b5cc5125238653e01fd49287372d721bd06a57ff"
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/libacl/acl_extended_file_nofollow.c",
+        "sha256": "aad116ae73ce3d75923fb554d4bf14f220eeb9bdf290871f23e3dfb9a4e9813b"
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/libacl/__acl_extended_file.c",
+        "sha256": "833a09582eb0aa287b7cd05fcdabb141053082c1698bba632fb5741825f1499c"
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/libacl/__acl_to_any_text.c",
+        "sha256": "458a3baae3c9224cfe6fe43a7c553964aeaaea21abbce60ff9a14eb1e1192a93"
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/libacl/__acl_to_xattr.c",
+        "sha256": "c2696c7cd81c4e601239753f2af3e83ab0ca268c52dde88612dafd11b3be7d28"
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/libacl/__acl_from_xattr.c",
+        "sha256": "9733591cf8c7892a81205bee669d6bc6f1fcd0dc98a5415ba921aa42a38b6694"
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/libacl/__acl_reorder_obj_p.c",
+        "sha256": "8582482b6ed5506ed243a17f2532a94266e0f268604641735e6349e319031bc3"
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/libacl/__libobj.c",
+        "sha256": "1da83617ed8e23a8919ceb26d7b70d03fdd1bbb9e7c717d541b97f84c9a223d7"
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/libacl/__apply_mask_to_mode.c",
+        "sha256": "c3b2379f45cfce0634fe4e7c1623c8b0d8e7ef600b59591b2a38f196e5ec66ea"
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/libacl/perm_copy_fd.c",
+        "sha256": "4c6aa858767350fdb2d716b20ae45bb0e7131f5c6e0732416b6e6893d8853167"
+      },
+      {
+        "path": "/usr/include/attr/error_context.h",
+        "sha256": "73aed837d2440b941266c854844a1d834dd2ee9bd8545de24d5aa322f48a319e"
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/libacl/perm_copy_file.c",
+        "sha256": "1c66a08a4d90520d900bb644442ba00ef4f20cd09b47331cccb653f51ca22d4e"
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/libmisc/quote.c",
+        "sha256": "86b6e2d7dd3e2befc2cd4b21b2b793fb46d931fca21b8b51dcd9a2a46635a6a7"
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/libmisc/unquote.c",
+        "sha256": "bf65f45ace9cfa6090c11954bdc28de65f1396be6bee2a7acf21594f6248709b"
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/libmisc/high_water_alloc.c",
+        "sha256": "a171f25c8b4e02e8523d316b33e58352e11cb2c8639d4d52ca39eeddefa08cab"
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/libmisc/next_line.c",
+        "sha256": "db818415cd97c174a4247eca5e79331e9368cce08a8f95de5f55fb3f1aad1168"
+      },
+      {
+        "path": "/usr/include/bits/stdio2.h",
+        "sha256": "da7ee4876646a5f056ebe3f4cfbd62f2feaf6c01acc9346772c749df03d7dcd7"
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/libmisc/<built-in>",
+        "sha256": null
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/libmisc/walk_tree.c",
+        "sha256": "43b42e35ecc413f38c672cdd735c6f83eff50adba26e031fa1de08cb57bfe9ae"
+      },
+      {
+        "path": "/usr/include/sys/time.h",
+        "sha256": "5159793387d99cc7d8ba99678fd7da213d6ca3852644856c1b9f2535d2b9c17c"
+      },
+      {
+        "path": "/usr/include/bits/resource.h",
+        "sha256": "5dca00b737889d0320e21554d30555e25ccf21729f43c46c444461d22e7e1caa"
+      },
+      {
+        "path": "/usr/include/bits/dirent.h",
+        "sha256": "e73c3c2488d14685339bbc68d3d39660423ffd4aa6468157cbdabf2b0de822b6"
+      },
+      {
+        "path": "/usr/include/sys/resource.h",
+        "sha256": "e068a129d715be92571119f1761e7d5e966cfc535da17c9841a533c4a5e445b8"
+      },
+      {
+        "path": "/usr/include/dirent.h",
+        "sha256": "c4735b928a8e0c985f8ae106c392ea22ab6e71cf4d4db6c7a52771f69be0e452"
+      },
+      {
+        "path": "/usr/src/debug/glibc/2.30-r0/git/sysdeps/x86_64/crtn.S",
+        "sha256": null
+      }
+    ]
+  },
+  {
+    "path": "/home/mikko/doubleopen/poky/build/tmp/work/core2-64-poky-linux/acl/2.2.52-r0/package/usr/bin/setfacl",
+    "sha256": "936c16ab6f29596ddbd097f93e56a27c1dd9bd5de8e8251ad458e4e7a41f41a4",
+    "sources": [
+      {
+        "path": "/usr/src/debug/glibc/2.30-r0/git/sysdeps/x86_64/start.S",
+        "sha256": null
+      },
+      {
+        "path": "/usr/src/debug/glibc/2.30-r0/git/csu/init.c",
+        "sha256": null
+      },
+      {
+        "path": "/usr/src/debug/glibc/2.30-r0/git/sysdeps/x86_64/crti.S",
+        "sha256": null
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/setfacl/setfacl.c",
+        "sha256": "c872a395f7b4fd086a53205686f49a6b79b4905145f48f34a57b14f8236f7571"
+      },
+      {
+        "path": "/usr/include/bits/stdio2.h",
+        "sha256": "da7ee4876646a5f056ebe3f4cfbd62f2feaf6c01acc9346772c749df03d7dcd7"
+      },
+      {
+        "path": "/usr/include/bits/string_fortified.h",
+        "sha256": "a2bacf8dfcc514e47b77a9defecdf4d701c93847add52c6c72dddb16bfe59122"
+      },
+      {
+        "path": "/usr/include/sys/stat.h",
+        "sha256": "9ace381871f4a991e7da7a590bc0e20ee48d9b4df0469cc898d0158f442b7906"
+      },
+      {
+        "path": "/usr/lib/x86_64-poky-linux/gcc/x86_64-poky-linux/9.2.0/include/stddef.h",
+        "sha256": null
+      },
+      {
+        "path": "/usr/include/bits/types.h",
+        "sha256": "4925b205d39440d11f9056e00870999d632ee6374a469732f71616b0d528c1bb"
+      },
+      {
+        "path": "/usr/include/bits/types/struct_FILE.h",
+        "sha256": "b7979a70aa1b61a7d0bda93f5cc1c04ce7755da35bd8eef37181f9fe19de4089"
+      },
+      {
+        "path": "/usr/include/bits/types/FILE.h",
+        "sha256": "37515f78be386f2edad4746f2947c928f480728c56d9a94e25302ebbdaef3c96"
+      },
+      {
+        "path": "/usr/include/stdio.h",
+        "sha256": "5564d5e9a733e4ee4f11c25ea1f2775fbcd8415266922883490c3f8993e54131"
+      },
+      {
+        "path": "/usr/include/bits/sys_errlist.h",
+        "sha256": "02ed5b589958c333ccb100652aa33ee10a74bf5bc5102d189d681bcac9bc8899"
+      },
+      {
+        "path": "/usr/include/unistd.h",
+        "sha256": "e60922f842b8d20d5d9b1e08cac0727ebde6450cbc57fe77b35cf4a725b69c6a"
+      },
+      {
+        "path": "/usr/include/bits/getopt_core.h",
+        "sha256": "1923be731ac79fb7449c431ddf45f2ca3b2f7ad82eeacc9e8101e8fe7c2ffd6e"
+      },
+      {
+        "path": "/usr/include/errno.h",
+        "sha256": "7d0151aec2b195ae4ad14939132cddc0585d4fe6361fd6a337bb08505db49c25"
+      },
+      {
+        "path": "/usr/include/bits/types/struct_timespec.h",
+        "sha256": "e9a310a50b8a14aeea4bde3e8b623506631de37a7a37dc422757f3275fc93755"
+      },
+      {
+        "path": "/usr/include/bits/stat.h",
+        "sha256": "b7ec49a3820b81ea3f9c064a1ff1f5d679aae80ad574cd2701e26b2d9ebfaad5"
+      },
+      {
+        "path": "/usr/include/bits/getopt_ext.h",
+        "sha256": "4c670230c4e2e93b5a427b4be2cf5dc7172b2ab41d461a3ad71d250f9d55b105"
+      },
+      {
+        "path": "/usr/include/sys/types.h",
+        "sha256": "496abd2f7162de26afc44bbfaeada1fa91e42cb2d9e85daff6fa301a5f03a66b"
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/include/sys/acl.h",
+        "sha256": "287dbc9269df3fe9e6b0a1dc6c0aac8e90b925867bf235a554a02414f6fcedfd"
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/setfacl/sequence.h",
+        "sha256": "ff44ebd5dbb46c2eb87933062ec8e30221ce4a52864e056330cd2554382d8b42"
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/setfacl/do_set.h",
+        "sha256": "33585306422bac4140a149d49b007670dd15ce7579373e41f78121b6692da229"
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/include/misc.h",
+        "sha256": "0cd11cf77fe5fa74d0809a77e8f1dcc70e04ceaf2c232bf76eec1872fa38a56f"
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/setfacl/parse.h",
+        "sha256": "9814eba55229cbfdaa536d2cf92a9e9538cd9e939a19df913049a349d3b01b70"
+      },
+      {
+        "path": "/usr/include/string.h",
+        "sha256": "429d9e0ca97e3b5f1c682a04b35ac9c3d765532e6521fd71769d8d4585ed358f"
+      },
+      {
+        "path": "/usr/include/libintl.h",
+        "sha256": "88654adf6ce632f19c8d68fc59d12575342781c6f448dec9104ee01cab5f21d2"
+      },
+      {
+        "path": "/usr/include/libgen.h",
+        "sha256": "645726f90076b78d32734b9326794d491ba57992a1d12c2d15761271b1e7db30"
+      },
+      {
+        "path": "/usr/include/stdlib.h",
+        "sha256": "5a25232541e58a8d0b9115283ae4d476eea3877e4c99b5895c1d831f35fc6a9a"
+      },
+      {
+        "path": "/usr/include/locale.h",
+        "sha256": "a5f6c04df62ec56317439c2b13838a5a52174ceec7659cb389b01ea23a5f5fcb"
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/include/walk_tree.h",
+        "sha256": "3147ddade0ab67feab521a9e855ddb125960ca3b183a27486f2086038ec84948"
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/setfacl/do_set.c",
+        "sha256": "989c182ac0ba6c2c1c99ebd236e39326c977ae434d45a7006a54ce695719004c"
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/include/acl/libacl.h",
+        "sha256": "21366c9f8ffe4018cc3753a73e0c81f0c54102435031de8f5325675f55a42bf2"
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/setfacl/sequence.c",
+        "sha256": "b9c7458561b4d167f3668272be15db66c9134afe0f9eadf70bc5750e9b4f0af5"
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/setfacl/parse.c",
+        "sha256": "2e84c85fb35711393e82f930cfedc6f2330da7788343ee23cab57d276b69e62c"
+      },
+      {
+        "path": "/usr/include/pwd.h",
+        "sha256": "2b5ad7d5425677cf6fab3ac824b7369129006bb2fce81ed378570370b070f47b"
+      },
+      {
+        "path": "/usr/include/grp.h",
+        "sha256": "870fc616139d06956b93bb4acf692a138a9beacecd6fa03f7e6a6aceb49ce04a"
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/setfacl/<built-in>",
+        "sha256": null
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/libmisc/quote.c",
+        "sha256": "86b6e2d7dd3e2befc2cd4b21b2b793fb46d931fca21b8b51dcd9a2a46635a6a7"
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/libmisc/unquote.c",
+        "sha256": "bf65f45ace9cfa6090c11954bdc28de65f1396be6bee2a7acf21594f6248709b"
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/libmisc/high_water_alloc.c",
+        "sha256": "a171f25c8b4e02e8523d316b33e58352e11cb2c8639d4d52ca39eeddefa08cab"
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/libmisc/next_line.c",
+        "sha256": "db818415cd97c174a4247eca5e79331e9368cce08a8f95de5f55fb3f1aad1168"
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/libmisc/<built-in>",
+        "sha256": null
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/libmisc/walk_tree.c",
+        "sha256": "43b42e35ecc413f38c672cdd735c6f83eff50adba26e031fa1de08cb57bfe9ae"
+      },
+      {
+        "path": "/usr/include/sys/time.h",
+        "sha256": "5159793387d99cc7d8ba99678fd7da213d6ca3852644856c1b9f2535d2b9c17c"
+      },
+      {
+        "path": "/usr/include/bits/resource.h",
+        "sha256": "5dca00b737889d0320e21554d30555e25ccf21729f43c46c444461d22e7e1caa"
+      },
+      {
+        "path": "/usr/include/bits/dirent.h",
+        "sha256": "e73c3c2488d14685339bbc68d3d39660423ffd4aa6468157cbdabf2b0de822b6"
+      },
+      {
+        "path": "/usr/include/sys/resource.h",
+        "sha256": "e068a129d715be92571119f1761e7d5e966cfc535da17c9841a533c4a5e445b8"
+      },
+      {
+        "path": "/usr/include/dirent.h",
+        "sha256": "c4735b928a8e0c985f8ae106c392ea22ab6e71cf4d4db6c7a52771f69be0e452"
+      },
+      {
+        "path": "/usr/src/debug/glibc/2.30-r0/git/csu/elf-init.c",
+        "sha256": null
+      },
+      {
+        "path": "/usr/src/debug/glibc/2.30-r0/git/sysdeps/x86_64/crtn.S",
+        "sha256": null
+      }
+    ]
+  },
+  {
+    "path": "/home/mikko/doubleopen/poky/build/tmp/work/core2-64-poky-linux/acl/2.2.52-r0/package/usr/bin/chacl",
+    "sha256": "1e1079ec5787a0576dcacc02e4cad3a5927403d4758d7d0566ada4c6a8e65a99",
+    "sources": [
+      {
+        "path": "/usr/src/debug/glibc/2.30-r0/git/sysdeps/x86_64/start.S",
+        "sha256": null
+      },
+      {
+        "path": "/usr/src/debug/glibc/2.30-r0/git/csu/init.c",
+        "sha256": null
+      },
+      {
+        "path": "/usr/src/debug/glibc/2.30-r0/git/sysdeps/x86_64/crti.S",
+        "sha256": null
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/chacl/chacl.c",
+        "sha256": "4f9794224bf9fee747ba6a5db2f052986dae4a652865ba3859e95d2ec41f0aa9"
+      },
+      {
+        "path": "/usr/include/bits/stdio2.h",
+        "sha256": "da7ee4876646a5f056ebe3f4cfbd62f2feaf6c01acc9346772c749df03d7dcd7"
+      },
+      {
+        "path": "/usr/lib/x86_64-poky-linux/gcc/x86_64-poky-linux/9.2.0/include/stddef.h",
+        "sha256": null
+      },
+      {
+        "path": "/usr/include/bits/types.h",
+        "sha256": "4925b205d39440d11f9056e00870999d632ee6374a469732f71616b0d528c1bb"
+      },
+      {
+        "path": "/usr/include/unistd.h",
+        "sha256": "e60922f842b8d20d5d9b1e08cac0727ebde6450cbc57fe77b35cf4a725b69c6a"
+      },
+      {
+        "path": "/usr/include/bits/getopt_core.h",
+        "sha256": "1923be731ac79fb7449c431ddf45f2ca3b2f7ad82eeacc9e8101e8fe7c2ffd6e"
+      },
+      {
+        "path": "/usr/include/bits/types/struct_FILE.h",
+        "sha256": "b7979a70aa1b61a7d0bda93f5cc1c04ce7755da35bd8eef37181f9fe19de4089"
+      },
+      {
+        "path": "/usr/include/bits/types/FILE.h",
+        "sha256": "37515f78be386f2edad4746f2947c928f480728c56d9a94e25302ebbdaef3c96"
+      },
+      {
+        "path": "/usr/include/stdio.h",
+        "sha256": "5564d5e9a733e4ee4f11c25ea1f2775fbcd8415266922883490c3f8993e54131"
+      },
+      {
+        "path": "/usr/include/bits/sys_errlist.h",
+        "sha256": "02ed5b589958c333ccb100652aa33ee10a74bf5bc5102d189d681bcac9bc8899"
+      },
+      {
+        "path": "/usr/include/errno.h",
+        "sha256": "7d0151aec2b195ae4ad14939132cddc0585d4fe6361fd6a337bb08505db49c25"
+      },
+      {
+        "path": "/usr/include/bits/dirent.h",
+        "sha256": "e73c3c2488d14685339bbc68d3d39660423ffd4aa6468157cbdabf2b0de822b6"
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/include/sys/acl.h",
+        "sha256": "287dbc9269df3fe9e6b0a1dc6c0aac8e90b925867bf235a554a02414f6fcedfd"
+      },
+      {
+        "path": "/usr/include/dirent.h",
+        "sha256": "c4735b928a8e0c985f8ae106c392ea22ab6e71cf4d4db6c7a52771f69be0e452"
+      },
+      {
+        "path": "/usr/include/string.h",
+        "sha256": "429d9e0ca97e3b5f1c682a04b35ac9c3d765532e6521fd71769d8d4585ed358f"
+      },
+      {
+        "path": "/usr/include/stdlib.h",
+        "sha256": "5a25232541e58a8d0b9115283ae4d476eea3877e4c99b5895c1d831f35fc6a9a"
+      },
+      {
+        "path": "/usr/include/libintl.h",
+        "sha256": "88654adf6ce632f19c8d68fc59d12575342781c6f448dec9104ee01cab5f21d2"
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/include/acl/libacl.h",
+        "sha256": "21366c9f8ffe4018cc3753a73e0c81f0c54102435031de8f5325675f55a42bf2"
+      },
+      {
+        "path": "/usr/include/libgen.h",
+        "sha256": "645726f90076b78d32734b9326794d491ba57992a1d12c2d15761271b1e7db30"
+      },
+      {
+        "path": "/usr/include/locale.h",
+        "sha256": "a5f6c04df62ec56317439c2b13838a5a52174ceec7659cb389b01ea23a5f5fcb"
+      },
+      {
+        "path": "/usr/src/debug/acl/2.2.52-r0/acl-2.2.52/chacl/<built-in>",
+        "sha256": null
+      },
+      {
+        "path": "/usr/src/debug/glibc/2.30-r0/git/csu/elf-init.c",
+        "sha256": null
+      },
+      {
+        "path": "/usr/src/debug/glibc/2.30-r0/git/sysdeps/x86_64/crtn.S",
+        "sha256": null
+      }
+    ]
+  }
+]

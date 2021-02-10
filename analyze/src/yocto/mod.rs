@@ -26,6 +26,7 @@ use self::recipe::Recipe;
 use super::{AnalyzerError, Package};
 
 mod recipe;
+mod srclist;
 
 /// Representation of a Yocto image and its source. Includes all the relevant
 /// information to store the bill of materials in an SPDX document.
