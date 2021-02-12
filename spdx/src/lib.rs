@@ -129,6 +129,30 @@ impl SPDX {
         }
     }
 
+    /// Concatenates SPDX Documents.
+    ///
+    /// Currently only combines packages, files and relationships. Doesn't preserve
+    /// metadata of the SPDX Document.
+    pub fn concatenate_spdx_documents(name: &str, spdx_documents: Vec<SPDX>) -> SPDX {
+        let mut new_spdx = SPDX::new(name);
+
+        for spdx in spdx_documents {
+            for package in spdx.package_information {
+                new_spdx.package_information.push(package);
+            }
+
+            for file in spdx.file_information {
+                new_spdx.file_information.push(file);
+            }
+
+            for relationship in spdx.relationships {
+                new_spdx.relationships.push(relationship);
+            }
+        }
+
+        new_spdx
+    }
+
     /// Get unique hashes for all files in all packages of the SPDX.
     pub fn get_unique_hashes(&self, algorithm: Algorithm) -> Vec<String> {
         info!("Getting unique hashes for files in SPDX.");
@@ -321,7 +345,10 @@ impl SPDX {
 /// with more than two licenses, so all license combinations with 3 or more licenses
 /// are interpreted as AND licenses.
 pub fn spdx_expression_from_api_licenses(mut fossology_licenses: Vec<String>) -> SPDXExpression {
-    info!("Transforming {:?} from Fossology to SPDX expression.", &fossology_licenses);
+    info!(
+        "Transforming {:?} from Fossology to SPDX expression.",
+        &fossology_licenses
+    );
 
     if fossology_licenses.len() == 3 && fossology_licenses.contains(&"Dual-license".into()) {
         let dual_license_position = fossology_licenses
@@ -1114,5 +1141,45 @@ compatible system run time libraries."#
         assert_eq!(not_listed_2, false);
         assert_eq!(listed_1, true);
         assert_eq!(listed_2, true);
+    }
+
+    #[test]
+    fn concatenate_spdx_documents_correctly() {
+        let mut spdx1 = SPDX::new("SPDX1");
+        let mut spdx2 = SPDX::new("SPDX2");
+
+        let mut file_counter = 1;
+        let mut package_counter = 1;
+        let package1 = PackageInformation::new("package1", &mut package_counter);
+        let package2 = PackageInformation::new("package2", &mut package_counter);
+        let file1 = FileInformation::new("file1", &mut file_counter);
+        let file2 = FileInformation::new("file2", &mut file_counter);
+        let relationship1 = Relationship::new(
+            &package1.package_spdx_identifier,
+            &file1.file_spdx_identifier,
+            RelationshipType::Contains,
+            None,
+        );
+        let relationship2 = Relationship::new(
+            &package2.package_spdx_identifier,
+            &file2.file_spdx_identifier,
+            RelationshipType::Contains,
+            None,
+        );
+
+        spdx1.package_information.push(package1);
+        spdx1.file_information.push(file1);
+        spdx1.relationships.push(relationship1);
+        spdx2.package_information.push(package2);
+        spdx2.file_information.push(file2);
+        spdx2.relationships.push(relationship2);
+
+        let spdx_documents = vec![spdx1, spdx2];
+
+        let combined_spdx = SPDX::concatenate_spdx_documents("combined", spdx_documents);
+
+        assert_eq!(combined_spdx.package_information.len(), 2);
+        assert_eq!(combined_spdx.file_information.len(), 2);
+        assert_eq!(combined_spdx.relationships.len(), 2);
     }
 }
