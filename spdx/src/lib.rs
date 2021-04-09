@@ -64,24 +64,30 @@ pub struct SPDX {
     // TODO: Valid SPDX?
     /// https://spdx.github.io/spdx-spec/3-package-information/
     #[serde(rename = "packages")]
+    #[serde(default)]
     pub package_information: Vec<PackageInformation>,
 
     /// https://spdx.github.io/spdx-spec/6-other-licensing-information-detected/
     #[serde(rename = "hasExtractedLicensingInfos")]
+    #[serde(default)]
     pub other_licensing_information_detected: Vec<OtherLicensingInformationDetected>,
 
     /// https://spdx.github.io/spdx-spec/4-file-information/
     #[serde(rename = "files")]
+    #[serde(default)]
     pub file_information: Vec<FileInformation>,
 
     /// https://spdx.github.io/spdx-spec/5-snippet-information/
     #[serde(rename = "snippets")]
+    #[serde(default)]
     pub snippet_information: Vec<Snippet>,
 
     /// https://spdx.github.io/spdx-spec/7-relationships-between-SPDX-elements/
+    #[serde(default)]
     pub relationships: Vec<Relationship>,
 
     /// https://spdx.github.io/spdx-spec/8-annotations/
+    #[serde(default)]
     pub annotations: Vec<Annotation>,
 
     /// Counter for creating SPDXRefs. Is not part of the spec, so don't serialize.
@@ -212,10 +218,15 @@ impl SPDX {
                     Some(_) => {}
                     None => {
                         let license_data = fossology.license_by_short_name(&license)?;
+                        let license_text = if !license_data.text.is_empty() {
+                            license_data.text
+                        } else {
+                            "NOASSERTION".into()
+                        };
                         self.other_licensing_information_detected.push(
                             OtherLicensingInformationDetected {
                                 license_identifier: license,
-                                extracted_text: license_data.text.to_string(),
+                                extracted_text: license_text,
                                 license_name: Some(license_data.full_name.to_string()),
                                 license_cross_reference: Vec::new(),
                                 license_comment: None,
@@ -254,23 +265,30 @@ impl SPDX {
 
                     // Add MD5 to the file in SPDX.
                     if let Some(md5) = &response.hash.md5 {
-                        file_information.file_checksum.push(Checksum {
-                            algorithm: Algorithm::MD5,
-                            value: md5.to_string(),
-                        })
+                        if file_information.checksum(Algorithm::MD5).is_none() {
+                            file_information
+                                .file_checksum
+                                .push(Checksum::new(Algorithm::MD5, &md5))
+                        }
                     }
 
                     // Add SHA1 to the file in SPDX.
                     if let Some(sha1) = &response.hash.sha1 {
-                        file_information.file_checksum.push(Checksum {
-                            algorithm: Algorithm::SHA1,
-                            value: sha1.to_string(),
-                        })
+                        if file_information.checksum(Algorithm::SHA1).is_none() {
+                            file_information
+                                .file_checksum
+                                .push(Checksum::new(Algorithm::SHA1, &sha1))
+                        }
                     }
 
                     // Add license findings to the file in SPDX.
                     if let Some(findings) = &response.findings {
-                        file_information.license_information_in_file = findings.scanner.clone();
+                        file_information.license_information_in_file = findings
+                            .scanner
+                            .iter()
+                            .filter(|&lic| lic != "No_license_found")
+                            .cloned()
+                            .collect();
 
                         if !findings.conclusion.is_empty() {
                             // TODO: Transform Fossology output to SPDX expression.

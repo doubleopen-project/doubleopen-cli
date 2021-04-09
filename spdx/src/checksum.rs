@@ -25,7 +25,7 @@ impl Checksum {
     pub fn new(algorithm: Algorithm, value: &str) -> Self {
         Self {
             algorithm,
-            value: value.to_string(),
+            value: value.to_lowercase(),
         }
     }
 }

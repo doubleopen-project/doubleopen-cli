@@ -12,6 +12,8 @@ pub struct ExternalPackageReference {
     pub reference_type: String,
     pub reference_locator: String,
     #[serde(rename = "comment")]
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[serde(default)]
     pub reference_comment: Option<String>,
 }
 

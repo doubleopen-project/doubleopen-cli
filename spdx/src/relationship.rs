@@ -18,6 +18,8 @@ pub struct Relationship {
     pub relationship_type: RelationshipType,
 
     /// https://spdx.github.io/spdx-spec/7-relationships-between-SPDX-elements/#72-relationship-comment
+    #[serde(skip_serializing_if = "Option::is_none")]
+    #[serde(default)]
     pub comment: Option<String>,
 }
 
