@@ -17,6 +17,7 @@ pub mod package_verification_code;
 pub mod relationship;
 pub mod snippet;
 pub mod spdx_expression;
+pub mod license_list;
 pub use algorithm::*;
 pub use annotation::*;
 pub use checksum::*;
@@ -30,6 +31,7 @@ use fossology::{
     api_objects::{requests::HashQueryInput, responses::HashQueryResponse},
     Fossology, FossologyError,
 };
+use license_list::LicenseList;
 use log::info;
 pub use other_licensing_information_detected::*;
 pub use package_information::*;
@@ -39,7 +41,6 @@ use serde::{Deserialize, Serialize};
 pub use snippet::*;
 pub use spdx_expression::*;
 use std::{
-    collections::HashMap,
     fs::{self},
     io::BufReader,
     path::Path,
@@ -187,6 +188,7 @@ impl SPDX {
     pub fn query_fossology_for_licenses(
         &mut self,
         fossology: &Fossology,
+        license_list: &LicenseList
     ) -> Result<(), FossologyError> {
         info!("Populating SPDX from Fossology.");
 
@@ -202,15 +204,14 @@ impl SPDX {
             .collect();
 
         let response = fossology.licenses_for_hashes(&input)?;
-        let mut spdx_license_cache: HashMap<String, bool> = HashMap::new();
 
-        self.process_fossology_response(response, &mut spdx_license_cache);
+        self.process_fossology_response(response, &license_list);
 
         // Add license texts to SPDX for licenses not on the SPDX license list.
         let licenses = self.get_license_ids();
 
         for license in licenses {
-            if !is_in_spdx_license_list(&license, &mut spdx_license_cache) {
+            if !license_list.includes_license(&license) {
                 let spdx_license = self
                     .other_licensing_information_detected
                     .iter()
@@ -259,7 +260,7 @@ impl SPDX {
     pub fn process_fossology_response(
         &mut self,
         mut responses: Vec<HashQueryResponse>,
-        mut spdx_license_cache: &mut HashMap<String, bool>,
+        license_list: &LicenseList
     ) {
         info!("Processing Fossology response");
 
@@ -309,7 +310,7 @@ impl SPDX {
                             .cloned()
                             .map(|lic| {
                                 if lic.starts_with("LicenseRef-")
-                                    || is_in_spdx_license_list(&lic, &mut spdx_license_cache)
+                                    || license_list.includes_license(&lic)
                                 {
                                     lic
                                 } else {
@@ -322,7 +323,7 @@ impl SPDX {
                             // TODO: Transform Fossology output to SPDX expression.
                             file_information.concluded_license = spdx_expression_from_api_licenses(
                                 findings.conclusion.clone(),
-                                spdx_license_cache,
+                                license_list,
                             );
                         };
 
@@ -394,7 +395,7 @@ impl SPDX {
 /// are interpreted as AND licenses.
 pub fn spdx_expression_from_api_licenses(
     fossology_licenses: Vec<String>,
-    mut spdx_license_cache: &mut HashMap<String, bool>,
+    license_list: &LicenseList
 ) -> SPDXExpression {
     info!(
         "Transforming {:?} from Fossology to SPDX expression.",
@@ -408,7 +409,7 @@ pub fn spdx_expression_from_api_licenses(
                 return lic;
             };
 
-            if is_in_spdx_license_list(&lic, &mut spdx_license_cache) {
+            if license_list.includes_license(&lic) {
                 lic
             } else {
                 if !lic.ends_with('+') {
@@ -437,41 +438,6 @@ pub fn spdx_expression_from_api_licenses(
             .join(" AND ");
         SPDXExpression(expression)
     }
-}
-
-/// Test if license is in the SPDX license list.
-pub fn is_in_spdx_license_list(spdx_id: &str, cache: &mut HashMap<String, bool>) -> bool {
-    info!("Checking if {} is in SPDX License List.", &spdx_id);
-
-    if spdx_id == "NONE" || spdx_id == "NOASSERTION" {
-        return true;
-    }
-
-    if cache.contains_key(spdx_id) {
-        return *cache.get(spdx_id).expect("Should always exist.");
-    };
-
-    let url = format!(
-        "https://raw.githubusercontent.com/spdx/license-list-data/master/text/{}.txt",
-        spdx_id
-    );
-    let body = reqwest::blocking::get(&url).unwrap().text().unwrap();
-
-    if body == "404: Not Found" {
-        let url = format!(
-            "https://raw.githubusercontent.com/spdx/license-list-data/master/text/deprecated_{}.txt",
-            spdx_id
-        );
-        let body = reqwest::blocking::get(&url).unwrap().text().unwrap();
-        if body == "404: Not Found" {
-            cache.insert(spdx_id.into(), false);
-        } else {
-            cache.insert(spdx_id.into(), true);
-        }
-    } else {
-        cache.insert(spdx_id.into(), true);
-    };
-    *cache.get(spdx_id).expect("Should always exist.")
 }
 
 #[cfg(test)]
@@ -1176,7 +1142,7 @@ compatible system run time libraries."#
 
     #[test]
     fn test_spdx_expression_from_fossology() {
-        let mut spdx_license_cache = HashMap::new();
+        let mut license_list = LicenseList::from_github();
         let input_1 = vec![
             "MIT".to_string(),
             "Dual-license".to_string(),
@@ -1187,7 +1153,7 @@ compatible system run time libraries."#
 
         assert_eq!(
             expected_1,
-            spdx_expression_from_api_licenses(input_1, &mut spdx_license_cache)
+            spdx_expression_from_api_licenses(input_1, &mut license_list)
         );
 
         let input_2 = vec!["MIT".to_string(), "ISC".to_string()];
@@ -1196,7 +1162,7 @@ compatible system run time libraries."#
 
         assert_eq!(
             expected_2,
-            spdx_expression_from_api_licenses(input_2, &mut spdx_license_cache)
+            spdx_expression_from_api_licenses(input_2, &mut license_list)
         );
 
         let input_3 = vec![
@@ -1210,7 +1176,7 @@ compatible system run time libraries."#
 
         assert_eq!(
             expected_3,
-            spdx_expression_from_api_licenses(input_3, &mut spdx_license_cache)
+            spdx_expression_from_api_licenses(input_3, &mut license_list)
         );
 
         let input_3 = vec![
@@ -1225,7 +1191,7 @@ compatible system run time libraries."#
 
         assert_eq!(
             expected_3,
-            spdx_expression_from_api_licenses(input_3, &mut spdx_license_cache)
+            spdx_expression_from_api_licenses(input_3, &mut license_list)
         );
     }
 
@@ -1245,21 +1211,6 @@ compatible system run time libraries."#
         expected.sort();
 
         assert_eq!(expected, actual);
-    }
-
-    #[test]
-    fn check_if_license_is_in_spdx_list() {
-        let mut spdx_license_cache: HashMap<String, bool> = HashMap::new();
-
-        let deprecated = is_in_spdx_license_list("GPL-2.0+", &mut spdx_license_cache);
-        let not_listed_1 = is_in_spdx_license_list("DOESNOT", &mut spdx_license_cache);
-        let listed_1 = is_in_spdx_license_list("MIT", &mut spdx_license_cache);
-        let listed_2 = is_in_spdx_license_list("GPL-2.0-or-later", &mut spdx_license_cache);
-
-        assert_eq!(deprecated, true);
-        assert_eq!(not_listed_1, false);
-        assert_eq!(listed_1, true);
-        assert_eq!(listed_2, true);
     }
 
     #[test]

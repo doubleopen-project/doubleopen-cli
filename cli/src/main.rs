@@ -8,7 +8,7 @@ use analyze::yocto::Yocto;
 use clap::{Clap, ValueHint};
 use fossology::Fossology;
 use notice::Notice;
-use spdx::SPDX;
+use spdx::{SPDX, license_list::LicenseList};
 use std::path::PathBuf;
 
 // use policy_engine::PolicyEngine;
@@ -182,7 +182,8 @@ fn main() {
                 let mut spdx = SPDX::from_file(&input);
                 let fossology =
                     Fossology::new(&fossology_arguments.uri, &fossology_arguments.token);
-                spdx.query_fossology_for_licenses(&fossology).unwrap();
+                let license_list = LicenseList::from_github();
+                spdx.query_fossology_for_licenses(&fossology, &license_list).unwrap();
                 spdx.save_as_json(&output);
             }
         },
