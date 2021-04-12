@@ -219,21 +219,34 @@ impl SPDX {
                 match spdx_license {
                     Some(_) => {}
                     None => {
-                        let license_data = fossology.license_by_short_name(&license)?;
-                        let license_text = if !license_data.text.is_empty() {
-                            license_data.text
-                        } else {
-                            "NOASSERTION".into()
-                        };
-                        self.other_licensing_information_detected.push(
-                            OtherLicensingInformationDetected {
-                                license_identifier: license,
-                                extracted_text: license_text,
-                                license_name: Some(license_data.full_name.to_string()),
-                                license_cross_reference: Vec::new(),
-                                license_comment: None,
-                            },
-                        )
+                        let license_data = fossology.license_by_short_name(&license);
+                        match license_data {
+                            Ok(license_data) => {
+                                let license_text = if !license_data.text.is_empty() {
+                                    license_data.text
+                                } else {
+                                    "NOASSERTION".into()
+                                };
+                                self.other_licensing_information_detected.push(
+                                    OtherLicensingInformationDetected {
+                                        license_identifier: license,
+                                        extracted_text: license_text,
+                                        license_name: license_data.full_name.to_string(),
+                                        license_cross_reference: Vec::new(),
+                                        license_comment: None,
+                                    },
+                                )
+                            }
+                            Err(_) => self.other_licensing_information_detected.push(
+                                OtherLicensingInformationDetected {
+                                    license_identifier: license,
+                                    extracted_text: "NOASSERTION".into(),
+                                    license_name: "NOASSERTION".into(),
+                                    license_cross_reference: Vec::new(),
+                                    license_comment: None,
+                                },
+                            ),
+                        }
                     }
                 }
             }
@@ -307,8 +320,10 @@ impl SPDX {
 
                         if !findings.conclusion.is_empty() {
                             // TODO: Transform Fossology output to SPDX expression.
-                            file_information.concluded_license =
-                                spdx_expression_from_api_licenses(findings.conclusion.clone());
+                            file_information.concluded_license = spdx_expression_from_api_licenses(
+                                findings.conclusion.clone(),
+                                spdx_license_cache,
+                            );
                         };
 
                         if !findings.copyright.is_empty() {
@@ -377,11 +392,32 @@ impl SPDX {
 /// Fossology's Dual-license tag doesn't allow accurate representation of OR licenses
 /// with more than two licenses, so all license combinations with 3 or more licenses
 /// are interpreted as AND licenses.
-pub fn spdx_expression_from_api_licenses(mut fossology_licenses: Vec<String>) -> SPDXExpression {
+pub fn spdx_expression_from_api_licenses(
+    fossology_licenses: Vec<String>,
+    mut spdx_license_cache: &mut HashMap<String, bool>,
+) -> SPDXExpression {
     info!(
         "Transforming {:?} from Fossology to SPDX expression.",
         &fossology_licenses
     );
+
+    let mut fossology_licenses: Vec<String> = fossology_licenses
+        .into_iter()
+        .map(|mut lic| {
+            if lic == "Dual-license" || lic == "NOASSERTION" || lic == "NONE" {
+                return lic;
+            };
+
+            if is_in_spdx_license_list(&lic, &mut spdx_license_cache) {
+                lic
+            } else {
+                if !lic.ends_with('+') {
+                    lic = lic.replace("+", "-or-later");
+                }
+                format!("LicenseRef-{}", lic)
+            }
+        })
+        .collect();
 
     if fossology_licenses.len() == 3 && fossology_licenses.contains(&"Dual-license".into()) {
         let dual_license_position = fossology_licenses
@@ -1019,7 +1055,7 @@ compatible system run time libraries."#
                 let spdx = SPDX::from_file("../tests/examples/spdx/SPDXJSONExample-v2.2.spdx.json");
                 assert_eq!(
                     spdx.other_licensing_information_detected[2].license_name,
-                    Some("CyberNeko License".to_string())
+                    "CyberNeko License".to_string()
                 )
             }
             #[test]
@@ -1140,6 +1176,7 @@ compatible system run time libraries."#
 
     #[test]
     fn test_spdx_expression_from_fossology() {
+        let mut spdx_license_cache = HashMap::new();
         let input_1 = vec![
             "MIT".to_string(),
             "Dual-license".to_string(),
@@ -1148,13 +1185,19 @@ compatible system run time libraries."#
 
         let expected_1 = SPDXExpression("MIT OR ISC".into());
 
-        assert_eq!(expected_1, spdx_expression_from_api_licenses(input_1));
+        assert_eq!(
+            expected_1,
+            spdx_expression_from_api_licenses(input_1, &mut spdx_license_cache)
+        );
 
         let input_2 = vec!["MIT".to_string(), "ISC".to_string()];
 
         let expected_2 = SPDXExpression("MIT AND ISC".into());
 
-        assert_eq!(expected_2, spdx_expression_from_api_licenses(input_2));
+        assert_eq!(
+            expected_2,
+            spdx_expression_from_api_licenses(input_2, &mut spdx_license_cache)
+        );
 
         let input_3 = vec![
             "MIT".to_string(),
@@ -1165,7 +1208,25 @@ compatible system run time libraries."#
 
         let expected_3 = SPDXExpression("MIT AND ISC AND GPL-2.0-only".into());
 
-        assert_eq!(expected_3, spdx_expression_from_api_licenses(input_3));
+        assert_eq!(
+            expected_3,
+            spdx_expression_from_api_licenses(input_3, &mut spdx_license_cache)
+        );
+
+        let input_3 = vec![
+            "Custom-license".to_string(),
+            "Dual-license".to_string(),
+            "ISC".to_string(),
+            "GPL-2.0-only".to_string(),
+        ];
+
+        let expected_3 =
+            SPDXExpression("LicenseRef-Custom-license AND ISC AND GPL-2.0-only".into());
+
+        assert_eq!(
+            expected_3,
+            spdx_expression_from_api_licenses(input_3, &mut spdx_license_cache)
+        );
     }
 
     #[test]

@@ -17,7 +17,8 @@ pub struct OtherLicensingInformationDetected {
 
     /// https://spdx.github.io/spdx-spec/6-other-licensing-information-detected/#63-license-name
     #[serde(rename = "name")]
-    pub license_name: Option<String>,
+    #[serde(default = "default_noassertion")]
+    pub license_name: String,
 
     /// https://spdx.github.io/spdx-spec/6-other-licensing-information-detected/#64-license-cross-reference
     #[serde(rename = "seeAlsos", skip_serializing_if = "Vec::is_empty", default)]
@@ -26,4 +27,8 @@ pub struct OtherLicensingInformationDetected {
     /// https://spdx.github.io/spdx-spec/6-other-licensing-information-detected/#65-license-comment
     #[serde(rename = "comment", skip_serializing_if = "Option::is_none", default)]
     pub license_comment: Option<String>,
+}
+
+fn default_noassertion() -> String {
+    "NOASSERTION".into()
 }

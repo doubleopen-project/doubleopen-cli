@@ -160,6 +160,12 @@ impl Fossology {
 
     /// Get license details by short name.
     pub fn license_by_short_name(&self, short_name: &str) -> Result<responses::GetLicense, FossologyError> {
+        let short_name = if short_name.starts_with("LicenseRef-") {
+            short_name.strip_prefix("LicenseRef-").expect("Should always exist.")
+        } else {
+            short_name
+        };
+
         let response: responses::GetLicense = self
             .client
             .get(&format!("{}/license", self.uri))
