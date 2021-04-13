@@ -11,13 +11,13 @@ pub mod external_document_reference;
 pub mod external_package_reference;
 pub mod file_information;
 pub mod file_type;
+pub mod license_list;
 pub mod other_licensing_information_detected;
 pub mod package_information;
 pub mod package_verification_code;
 pub mod relationship;
 pub mod snippet;
 pub mod spdx_expression;
-pub mod license_list;
 pub use algorithm::*;
 pub use annotation::*;
 pub use checksum::*;
@@ -188,7 +188,7 @@ impl SPDX {
     pub fn query_fossology_for_licenses(
         &mut self,
         fossology: &Fossology,
-        license_list: &LicenseList
+        license_list: &LicenseList,
     ) -> Result<(), FossologyError> {
         info!("Populating SPDX from Fossology.");
 
@@ -260,7 +260,7 @@ impl SPDX {
     pub fn process_fossology_response(
         &mut self,
         mut responses: Vec<HashQueryResponse>,
-        license_list: &LicenseList
+        license_list: &LicenseList,
     ) {
         info!("Processing Fossology response");
 
@@ -313,7 +313,13 @@ impl SPDX {
                                     || license_list.includes_license(&lic)
                                 {
                                     lic
+                                } else if license_list
+                                    .includes_license(&lic.replace("+", "-or-later"))
+                                {
+                                    lic.replace("+", "-or-later")
                                 } else {
+                                    let lic = lic.replace(&['(', ')', '[', ']'][..], "");
+                                    let lic = lic.replace("+", "-or-later");
                                     format!("LicenseRef-{}", lic)
                                 }
                             })
@@ -395,7 +401,7 @@ impl SPDX {
 /// are interpreted as AND licenses.
 pub fn spdx_expression_from_api_licenses(
     fossology_licenses: Vec<String>,
-    license_list: &LicenseList
+    license_list: &LicenseList,
 ) -> SPDXExpression {
     info!(
         "Transforming {:?} from Fossology to SPDX expression.",
@@ -409,8 +415,14 @@ pub fn spdx_expression_from_api_licenses(
                 return lic;
             };
 
+            // Make license identifier SPDX compliant
+            // TODO: this makes the license text query from Fossology fail.
+            lic = lic.replace(&['(', ')'][..], "");
+
             if license_list.includes_license(&lic) {
                 lic
+            } else if license_list.includes_license(&lic.replace("+", "-or-later")) {
+                lic.replace("+", "-or-later")
             } else {
                 if !lic.ends_with('+') {
                     lic = lic.replace("+", "-or-later");
@@ -436,7 +448,7 @@ pub fn spdx_expression_from_api_licenses(
             .cloned()
             .collect::<Vec<_>>()
             .join(" AND ");
-        SPDXExpression(expression)
+        SPDXExpression(format!("({})", expression))
     }
 }
 
