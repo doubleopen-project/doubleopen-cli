@@ -440,7 +440,7 @@ pub fn spdx_expression_from_api_licenses(
 
         fossology_licenses.remove(dual_license_position);
         let expression = fossology_licenses.join(" OR ");
-        SPDXExpression(expression)
+        SPDXExpression(format!("({})", expression))
     } else {
         let expression = fossology_licenses
             .iter()
@@ -1161,7 +1161,7 @@ compatible system run time libraries."#
             "ISC".to_string(),
         ];
 
-        let expected_1 = SPDXExpression("MIT OR ISC".into());
+        let expected_1 = SPDXExpression("(MIT OR ISC)".into());
 
         assert_eq!(
             expected_1,
@@ -1170,7 +1170,7 @@ compatible system run time libraries."#
 
         let input_2 = vec!["MIT".to_string(), "ISC".to_string()];
 
-        let expected_2 = SPDXExpression("MIT AND ISC".into());
+        let expected_2 = SPDXExpression("(MIT AND ISC)".into());
 
         assert_eq!(
             expected_2,
@@ -1184,7 +1184,7 @@ compatible system run time libraries."#
             "GPL-2.0-only".to_string(),
         ];
 
-        let expected_3 = SPDXExpression("MIT AND ISC AND GPL-2.0-only".into());
+        let expected_3 = SPDXExpression("(MIT AND ISC AND GPL-2.0-only)".into());
 
         assert_eq!(
             expected_3,
@@ -1199,7 +1199,7 @@ compatible system run time libraries."#
         ];
 
         let expected_3 =
-            SPDXExpression("LicenseRef-Custom-license AND ISC AND GPL-2.0-only".into());
+            SPDXExpression("(LicenseRef-Custom-license AND ISC AND GPL-2.0-only)".into());
 
         assert_eq!(
             expected_3,
