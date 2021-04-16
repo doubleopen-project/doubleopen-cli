@@ -1154,7 +1154,7 @@ compatible system run time libraries."#
 
     #[test]
     fn test_spdx_expression_from_fossology() {
-        let mut license_list = LicenseList::from_github();
+        let license_list = LicenseList::from_github();
         let input_1 = vec![
             "MIT".to_string(),
             "Dual-license".to_string(),
@@ -1165,7 +1165,7 @@ compatible system run time libraries."#
 
         assert_eq!(
             expected_1,
-            spdx_expression_from_api_licenses(input_1, &mut license_list)
+            spdx_expression_from_api_licenses(input_1, &license_list)
         );
 
         let input_2 = vec!["MIT".to_string(), "ISC".to_string()];
@@ -1174,7 +1174,7 @@ compatible system run time libraries."#
 
         assert_eq!(
             expected_2,
-            spdx_expression_from_api_licenses(input_2, &mut license_list)
+            spdx_expression_from_api_licenses(input_2, &license_list)
         );
 
         let input_3 = vec![
@@ -1188,7 +1188,7 @@ compatible system run time libraries."#
 
         assert_eq!(
             expected_3,
-            spdx_expression_from_api_licenses(input_3, &mut license_list)
+            spdx_expression_from_api_licenses(input_3, &license_list)
         );
 
         let input_3 = vec![
@@ -1203,7 +1203,7 @@ compatible system run time libraries."#
 
         assert_eq!(
             expected_3,
-            spdx_expression_from_api_licenses(input_3, &mut license_list)
+            spdx_expression_from_api_licenses(input_3, &license_list)
         );
     }
 
