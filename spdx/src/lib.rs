@@ -7,6 +7,7 @@ pub mod annotation;
 pub mod checksum;
 pub mod creation_info;
 pub mod document_creation_information;
+pub mod doubleopen;
 pub mod external_document_reference;
 pub mod external_package_reference;
 pub mod file_information;
@@ -23,6 +24,7 @@ pub use annotation::*;
 pub use checksum::*;
 pub use creation_info::*;
 pub use document_creation_information::*;
+use doubleopen::{is_do_license, parse_doubleopen_license};
 pub use external_document_reference::*;
 pub use external_package_reference::*;
 pub use file_information::*;
@@ -408,48 +410,53 @@ pub fn spdx_expression_from_api_licenses(
         &fossology_licenses
     );
 
-    let mut fossology_licenses: Vec<String> = fossology_licenses
-        .into_iter()
-        .map(|mut lic| {
-            if lic == "Dual-license" || lic == "NOASSERTION" || lic == "NONE" {
-                return lic;
-            };
-
-            // Make license identifier SPDX compliant
-            // TODO: this makes the license text query from Fossology fail.
-            lic = lic.replace(&['(', ')'][..], "");
-
-            if license_list.includes_license(&lic) {
-                lic
-            } else if license_list.includes_license(&lic.replace("+", "-or-later")) {
-                lic.replace("+", "-or-later")
-            } else {
-                if !lic.ends_with('+') {
-                    lic = lic.replace("+", "-or-later");
-                }
-                format!("LicenseRef-{}", lic)
-            }
-        })
-        .collect();
-
-    if fossology_licenses.len() == 3 && fossology_licenses.contains(&"Dual-license".into()) {
-        let dual_license_position = fossology_licenses
-            .iter()
-            .position(|lic| lic == "Dual-license")
-            .expect("Should always exist here");
-
-        fossology_licenses.remove(dual_license_position);
-        let expression = fossology_licenses.join(" OR ");
-        SPDXExpression(format!("({})", expression))
+    let expression = if fossology_licenses.iter().any(|lic| is_do_license(&lic)) {
+        parse_doubleopen_license(fossology_licenses)
     } else {
-        let expression = fossology_licenses
-            .iter()
-            .filter(|&lic| lic != &"Dual-license".to_string())
-            .cloned()
-            .collect::<Vec<_>>()
-            .join(" AND ");
-        SPDXExpression(format!("({})", expression))
-    }
+        let mut fossology_licenses: Vec<String> = fossology_licenses
+            .into_iter()
+            .map(|mut lic| {
+                if lic == "Dual-license" || lic == "NOASSERTION" || lic == "NONE" {
+                    return lic;
+                };
+
+                // Make license identifier SPDX compliant
+                // TODO: this makes the license text query from Fossology fail.
+                lic = lic.replace(&['(', ')'][..], "");
+
+                if license_list.includes_license(&lic) {
+                    lic
+                } else if license_list.includes_license(&lic.replace("+", "-or-later")) {
+                    lic.replace("+", "-or-later")
+                } else {
+                    if !lic.ends_with('+') {
+                        lic = lic.replace("+", "-or-later");
+                    }
+                    format!("LicenseRef-{}", lic)
+                }
+            })
+            .collect();
+
+        if fossology_licenses.len() == 3 && fossology_licenses.contains(&"Dual-license".into()) {
+            let dual_license_position = fossology_licenses
+                .iter()
+                .position(|lic| lic == "Dual-license")
+                .expect("Should always exist here");
+
+            fossology_licenses.remove(dual_license_position);
+            
+            fossology_licenses.join(" OR ")
+        } else {
+            let expression = fossology_licenses
+                .iter()
+                .filter(|&lic| lic != &"Dual-license".to_string())
+                .cloned()
+                .collect::<Vec<_>>()
+                .join(" AND ");
+            expression
+        }
+    };
+    SPDXExpression(format!("({})", expression))
 }
 
 #[cfg(test)]
