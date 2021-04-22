@@ -52,10 +52,16 @@ fn dolicense_to_spdx(license: String) -> String {
             license
         };
 
-        license
+        gpl_or_later_conversion(license)
     } else {
         license
     }
+}
+
+pub fn gpl_or_later_conversion(license: String) -> String {
+    license
+        .replace("GPL-2.0+", "GPL-2.0-or-later")
+        .replace("GPL-3.0+", "GPL-3.0-or-later")
 }
 
 pub fn is_do_license(license: &str) -> bool {
