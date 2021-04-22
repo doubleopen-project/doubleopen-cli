@@ -305,27 +305,8 @@ impl SPDX {
 
                     // Add license findings to the file in SPDX.
                     if let Some(findings) = &response.findings {
-                        file_information.license_information_in_file = findings
-                            .scanner
-                            .iter()
-                            .filter(|&lic| lic != "No_license_found")
-                            .cloned()
-                            .map(|lic| {
-                                if lic.starts_with("LicenseRef-")
-                                    || license_list.includes_license(&lic)
-                                {
-                                    lic
-                                } else if license_list
-                                    .includes_license(&lic.replace("+", "-or-later"))
-                                {
-                                    lic.replace("+", "-or-later")
-                                } else {
-                                    let lic = lic.replace(&['(', ')', '[', ']'][..], "");
-                                    let lic = lic.replace("+", "-or-later");
-                                    format!("LicenseRef-{}", lic)
-                                }
-                            })
-                            .collect();
+                        file_information.license_information_in_file =
+                            license_information_to_spdx_expressions(findings.scanner.clone());
 
                         if !findings.conclusion.is_empty() {
                             // TODO: Transform Fossology output to SPDX expression.
@@ -397,6 +378,32 @@ impl SPDX {
     }
 }
 
+pub fn concluded_licenses_to_spdx_expression(concluded_licenses: Vec<String>) -> SPDXExpression {
+    todo!()
+}
+
+pub fn license_information_to_spdx_expressions(license_information: Vec<String>) -> Vec<String> {
+    license_information
+        .into_iter()
+        // Remove No_license_found
+        .filter(|lic| lic != "No_license_found")
+        // Remove Dual-license
+        .filter(|lic| lic != "Dual-license")
+        // Sanitize characters
+        .map(sanitize_spdx_expression)
+        // Add scanner identifier
+        .map(|lic| format!("Scanner-{}", lic))
+        // Add LicenseRefs
+        .map(|lic| format!("LicenseRef-{}", lic))
+        .collect()
+}
+
+pub fn sanitize_spdx_expression(lic: String) -> String {
+    let lic = lic.replace(&['(', ')', '[', ']'][..], "");
+    // TODO: No need to replace + if it's the last character.
+    lic.replace("+", "-or-later")
+}
+
 /// Transform a list of licenses returned by Fossology to an SPDX license expression.
 /// Fossology's Dual-license tag doesn't allow accurate representation of OR licenses
 /// with more than two licenses, so all license combinations with 3 or more licenses
@@ -444,7 +451,7 @@ pub fn spdx_expression_from_api_licenses(
                 .expect("Should always exist here");
 
             fossology_licenses.remove(dual_license_position);
-            
+
             fossology_licenses.join(" OR ")
         } else {
             let expression = fossology_licenses
