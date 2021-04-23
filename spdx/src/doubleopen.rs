@@ -1,3 +1,5 @@
+use crate::{license_list::LicenseList, SPDXExpression};
+
 pub fn parse_doubleopen_license(licenses: Vec<String>) -> String {
     let mut or_operator_list: Vec<String> = Vec::new();
     let mut other_licenses_list: Vec<String> = Vec::new();
@@ -76,9 +78,212 @@ fn is_do_exception_license(license: &str) -> bool {
     license.starts_with("SPDXException-")
 }
 
+pub fn fossology_conclusions_to_spdx_expression(
+    conclusions: Vec<String>,
+    license_list: &LicenseList,
+) -> SPDXExpression {
+    // Convert all conclusions to be SPDX compliant.
+    let conclusions: Vec<String> = conclusions
+        .into_iter()
+        .map(|lic| {
+            if license_list.includes_license(&lic)
+                || license_list.includes_exception(&lic)
+                || is_do_license(&lic)
+                || lic.starts_with("LicenseRef-")
+                || lic == "Dual-license"
+                || lic == "NOASSERTION"
+                || lic == "NONE"
+            {
+                lic
+            } else {
+                format!("LicenseRef-{}", lic)
+            }
+        })
+        .collect();
+
+    // Join licenses with AND or OR.
+    let expression = if conclusions.len() == 3 && conclusions.contains(&"Dual-license".to_string())
+    {
+        let conclusions = filter_dual_license(conclusions);
+        conclusions.join(" OR ")
+    } else {
+        let conclusions = filter_dual_license(conclusions);
+        conclusions.join(" AND ")
+    };
+
+    SPDXExpression(expression)
+}
+
+fn filter_dual_license(conclusions: Vec<String>) -> Vec<String> {
+    conclusions
+        .into_iter()
+        .filter(|lic| lic != "Dual-license")
+        .collect::<Vec<String>>()
+}
+
 #[cfg(test)]
 mod test_super {
     use super::*;
+
+    #[cfg(test)]
+    mod conclusions_to_spdx_expression {
+        use super::*;
+
+        #[test]
+        fn single_licenses_are_converted_correctly() {
+            let input1 = vec!["MIT".to_string()];
+            let input2 = vec!["CustomLicense".to_string()];
+            let input3 = vec!["Autoconf-exception-2.0".to_string()];
+            let input4 = vec!["NONE".to_string()];
+            let input5 = vec!["NOASSERTION".to_string()];
+
+            let license_list = LicenseList::from_github();
+
+            let result1 = fossology_conclusions_to_spdx_expression(input1, &license_list);
+            let result2 = fossology_conclusions_to_spdx_expression(input2, &license_list);
+            let result3 = fossology_conclusions_to_spdx_expression(input3, &license_list);
+            let result4 = fossology_conclusions_to_spdx_expression(input4, &license_list);
+            let result5 = fossology_conclusions_to_spdx_expression(input5, &license_list);
+
+            assert_eq!(result1, SPDXExpression("MIT".to_string()));
+            assert_eq!(
+                result2,
+                SPDXExpression("LicenseRef-CustomLicense".to_string())
+            );
+            assert_eq!(
+                result3,
+                SPDXExpression("Autoconf-exception-2.0".to_string())
+            );
+            assert_eq!(result4, SPDXExpression("NONE".to_string()));
+            assert_eq!(result5, SPDXExpression("NOASSERTION".to_string()));
+        }
+
+        #[test]
+        fn simple_and_licenses_are_converted_correctly() {
+            let input1 = vec!["MIT".to_string(), "Apache-2.0".to_string()];
+            let input2 = vec!["CustomLicense".to_string(), "MIT".to_string()];
+            let input3 = vec!["Autoconf-exception-2.0".to_string(), "MIT".to_string()];
+
+            let license_list = LicenseList::from_github();
+
+            let result1 = fossology_conclusions_to_spdx_expression(input1, &license_list);
+            let result2 = fossology_conclusions_to_spdx_expression(input2, &license_list);
+            let result3 = fossology_conclusions_to_spdx_expression(input3, &license_list);
+
+            assert_eq!(result1, SPDXExpression("MIT AND Apache-2.0".to_string()));
+            assert_eq!(
+                result2,
+                SPDXExpression("LicenseRef-CustomLicense AND MIT".to_string())
+            );
+            assert_eq!(
+                result3,
+                SPDXExpression("Autoconf-exception-2.0 AND MIT".to_string())
+            );
+        }
+
+        #[test]
+        fn simple_or_licenses_are_converted_correctly() {
+            let input1 = vec![
+                "MIT".to_string(),
+                "Apache-2.0".to_string(),
+                "Dual-license".to_string(),
+            ];
+            let input2 = vec![
+                "CustomLicense".to_string(),
+                "MIT".to_string(),
+                "Dual-license".to_string(),
+            ];
+            let input3 = vec![
+                "Autoconf-exception-2.0".to_string(),
+                "MIT".to_string(),
+                "Dual-license".to_string(),
+            ];
+
+            let license_list = LicenseList::from_github();
+
+            let result1 = fossology_conclusions_to_spdx_expression(input1, &license_list);
+            let result2 = fossology_conclusions_to_spdx_expression(input2, &license_list);
+            let result3 = fossology_conclusions_to_spdx_expression(input3, &license_list);
+
+            assert_eq!(result1, SPDXExpression("MIT OR Apache-2.0".to_string()));
+            assert_eq!(
+                result2,
+                SPDXExpression("LicenseRef-CustomLicense OR MIT".to_string())
+            );
+            assert_eq!(
+                result3,
+                SPDXExpression("Autoconf-exception-2.0 OR MIT".to_string())
+            );
+        }
+
+        #[test]
+        fn or_licenses_with_three_are_converted_to_and() {
+            let input1 = vec![
+                "MIT".to_string(),
+                "Apache-2.0".to_string(),
+                "ISC".to_string(),
+                "Dual-license".to_string(),
+            ];
+            let input2 = vec![
+                "CustomLicense".to_string(),
+                "MIT".to_string(),
+                "Dual-license".to_string(),
+                "GPL-2.0-or-later".to_string(),
+            ];
+
+            let license_list = LicenseList::from_github();
+
+            let result1 = fossology_conclusions_to_spdx_expression(input1, &license_list);
+            let result2 = fossology_conclusions_to_spdx_expression(input2, &license_list);
+
+            assert_eq!(
+                result1,
+                SPDXExpression("MIT AND Apache-2.0 AND ISC".to_string())
+            );
+            assert_eq!(
+                result2,
+                SPDXExpression("LicenseRef-CustomLicense AND MIT AND GPL-2.0-or-later".to_string())
+            );
+        }
+
+        #[test]
+        fn doubleopen_license_is_converted_correctly() {
+            let license_list = LicenseList::from_github();
+
+            let input_1 = vec![
+                "DOLicense-LGPL-2.1-AND-Zlib-OR".to_string(),
+                "DOLicense-SPDXException-GPL-2.0+-with-Autoconf-exception".to_string(),
+                "MIT".to_string(),
+                "DOLicense-BSD-3-Clause-AND-GPL-2.0-OR".to_string(),
+            ];
+            let expected_1 = SPDXExpression("LGPL-2.1 AND Zlib OR BSD-3-Clause AND GPL-2.0 OR GPL-2.0+ WITH Autoconf-exception AND MIT".to_string());
+            assert_eq!(
+                fossology_conclusions_to_spdx_expression(input_1, &license_list),
+                expected_1
+            );
+
+            let input_2 = vec![
+                "DOLicense-LGPL-2.1-OR".to_string(),
+                "BSD-3-Clause".to_string(),
+                "MIT".to_string(),
+            ];
+            let expected_2 = SPDXExpression("LGPL-2.1 OR BSD-3-Clause AND MIT".to_string());
+            assert_eq!(
+                fossology_conclusions_to_spdx_expression(input_2, &license_list),
+                expected_2
+            );
+
+            let input_3 = vec![
+                "DOLicense-paro-LGPL-2.1-OR-BSD-3-Clause-parc".to_string(),
+                "MIT".to_string(),
+            ];
+            let expected_3 = SPDXExpression("(LGPL-2.1 OR BSD-3-Clause) AND MIT".to_string());
+            assert_eq!(
+                fossology_conclusions_to_spdx_expression(input_3, &license_list),
+                expected_3
+            );
+        }
+    }
 
     #[test]
     fn is_do_license_works() {
