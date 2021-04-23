@@ -305,16 +305,29 @@ impl SPDX {
 
                     // Add license findings to the file in SPDX.
                     if let Some(findings) = &response.findings {
-                        file_information.license_information_in_file =
-                            license_information_to_spdx_expressions(findings.scanner.clone());
+                        // If scanner result is No_license_found and conlcusion is NOASSERTION
+                        // conclude as NONE.
+                        if findings.scanner.len() == 1
+                            && findings.scanner.contains(&"No_license_found".to_string())
+                            && findings.conclusion.len() == 1
+                            && findings.conclusion.contains(&"NOASSERTION".to_string())
+                        {
+                            file_information.license_information_in_file =
+                                license_information_to_spdx_expressions(findings.scanner.clone());
+                            file_information.concluded_license = SPDXExpression("NONE".to_string());
+                        } else {
+                            file_information.license_information_in_file =
+                                license_information_to_spdx_expressions(findings.scanner.clone());
 
-                        if !findings.conclusion.is_empty() {
-                            // TODO: Transform Fossology output to SPDX expression.
-                            file_information.concluded_license = spdx_expression_from_api_licenses(
-                                findings.conclusion.clone(),
-                                license_list,
-                            );
-                        };
+                            if !findings.conclusion.is_empty() {
+                                // TODO: Transform Fossology output to SPDX expression.
+                                file_information.concluded_license =
+                                    spdx_expression_from_api_licenses(
+                                        findings.conclusion.clone(),
+                                        license_list,
+                                    );
+                            };
+                        }
 
                         if !findings.copyright.is_empty() {
                             file_information.copyright_text = findings.copyright.join("\n");
