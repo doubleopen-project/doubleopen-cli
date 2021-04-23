@@ -9,9 +9,11 @@
 #![deny(clippy::all)]
 use self::api_objects::{requests::*, responses::*};
 use api_objects::responses;
+use log::info;
 use reqwest::blocking::{multipart::Form, Client};
 use serde::{Deserialize, Serialize};
-use std::{path::Path, thread, time};
+use utilities::hash256_for_path;
+use std::{fs::read_dir, path::Path, thread, time};
 use time::Duration;
 pub mod api_objects;
 
@@ -175,6 +177,23 @@ impl Fossology {
             .json()?;
 
         Ok(response)
+    }
+    
+    pub fn upload_files_in_dir<P: AsRef<Path>>(&self, path_to_dir: P, folder_id: &i32) -> Result<(), FossologyError> {
+        let files_in_dir = read_dir(path_to_dir).expect("Error reading directory.");
+        for file in files_in_dir {
+            let path = file.unwrap().path();
+            if path.to_str().unwrap().ends_with("tar.bz2") {
+                let sha256 = hash256_for_path(&path);
+                if !self.file_exists(&sha256)? {
+                    info!("Uploading {}", &path.display());
+                    self.upload(&path, folder_id);
+                } else {
+                    info!("{} exist on Fossology, did not upload again.", &path.display());
+                }
+            }
+        }
+        Ok(())
     }
 }
 

@@ -4,11 +4,11 @@
 
 //! Double Open Command Line Utility.
 
-use analyze::yocto::Yocto;
+use analyze::{yocto::Yocto};
 use clap::{Clap, ValueHint};
 use fossology::Fossology;
 use notice::Notice;
-use spdx::{SPDX, license_list::LicenseList};
+use spdx::{license_list::LicenseList, SPDX};
 use std::path::PathBuf;
 
 // use policy_engine::PolicyEngine;
@@ -80,16 +80,11 @@ struct FossologyArguments {
 /// Sub(sub)commands for the Fossology subcommands.
 #[derive(Clap, Debug)]
 enum FossologyAction {
-    /// Upload the source for a Yocto build to Fossology.
+    /// Upload source archives in a directory to Fossology.
     Upload {
-        /// Manifest file of the Yocto build. Default location at
-        /// `build/tmp/deploy/images/<arch>/<image>.manifest`.
-        #[clap(short, long, parse(from_os_str), value_hint = ValueHint::FilePath)]
-        manifest: PathBuf,
-
-        /// Build directory of the Yocto build. Default location at `build/`.
+        /// Directory containing the source archives to upload.
         #[clap(short, long, parse(from_os_str), value_hint = ValueHint::DirPath)]
-        build: PathBuf,
+        source_dir_path: PathBuf,
 
         /// ID of the folder in Fossology to upload the source to.
         #[clap(short, long)]
@@ -164,16 +159,14 @@ fn main() {
         SubCommand::Fossology(fossology_arguments) => match fossology_arguments.action {
             // Process upload subcommand of Fossology.
             FossologyAction::Upload {
-                manifest,
-                build,
+                source_dir_path,
                 folder,
             } => {
-                let yocto = Yocto::new(&build, &manifest).unwrap();
                 let fossology =
                     Fossology::new(&fossology_arguments.uri, &fossology_arguments.token);
 
-                yocto
-                    .upload_source_to_fossology(&fossology, &folder)
+                fossology
+                    .upload_files_in_dir(&source_dir_path, &folder)
                     .unwrap();
             }
 
@@ -183,14 +176,14 @@ fn main() {
                 let fossology =
                     Fossology::new(&fossology_arguments.uri, &fossology_arguments.token);
                 let license_list = LicenseList::from_github();
-                spdx.query_fossology_for_licenses(&fossology, &license_list).unwrap();
+                spdx.query_fossology_for_licenses(&fossology, &license_list)
+                    .unwrap();
                 spdx.save_as_json(&output);
             }
         },
 
         // Process evaluate subcommand.
-        SubCommand::Evaluate(_evaluate_arguments) => {
-        }
+        SubCommand::Evaluate(_evaluate_arguments) => {}
 
         // Process notice subcommand.
         SubCommand::Notice(notice_arguments) => {
