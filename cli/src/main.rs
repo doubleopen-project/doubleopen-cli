@@ -4,7 +4,6 @@
 
 //! Double Open Command Line Utility.
 
-use analyze::{yocto::Yocto};
 use clap::{Clap, ValueHint};
 use fossology::Fossology;
 use spdx::{license_list::LicenseList, SPDX};
@@ -21,34 +20,12 @@ struct Opts {
     subcmd: SubCommand,
 }
 
-/// Analyze software projects for their bill of materials, get license and copyright data for them,
-/// evaluate license compliance and build notice files.
+/// Interact with Fossology and process SPDX document with the data.
 #[derive(Clap, Debug)]
 enum SubCommand {
-    /// Analyze a Yocto project and save the bill of materials as an SPDX document.
-    #[clap(author, version)]
-    Analyze(AnalyzeArguments),
-
     /// Interact with Fossology.
     #[clap(author, version)]
     Fossology(FossologyArguments),
-}
-
-/// Arguments for the analyze subcommand.
-#[derive(Clap, Debug)]
-struct AnalyzeArguments {
-    /// Manifest file of the Yocto build. Default location at
-    /// `build/tmp/deploy/images/<arch>/<image>.manifest`.
-    #[clap(short, long, parse(from_os_str), value_hint = ValueHint::FilePath)]
-    manifest: PathBuf,
-
-    /// Build directory of the Yocto build. Default location at `build/`.
-    #[clap(short, long, parse(from_os_str), value_hint = ValueHint::DirPath)]
-    build: PathBuf,
-
-    /// Path to output the SPDX document to.
-    #[clap(short, long, parse(from_os_str), value_hint = ValueHint::DirPath)]
-    output: PathBuf,
 }
 
 /// Arguments for the Fossology subcommand.
@@ -103,16 +80,6 @@ fn main() {
 
     // Process subcommands.
     match opts.subcmd {
-        // Process analyze subcommand.
-        SubCommand::Analyze(analyze_arguments) => {
-            // TODO: Don't unwrap.
-            let mut yocto_build =
-                Yocto::new(&analyze_arguments.build, &analyze_arguments.manifest).unwrap();
-            yocto_build.analyze().unwrap();
-            let spdx: SPDX = yocto_build.into();
-            spdx.save_as_json(&analyze_arguments.output);
-        }
-
         // Process Fossology subcommand.
         SubCommand::Fossology(fossology_arguments) => match fossology_arguments.action {
             // Process upload subcommand of Fossology.

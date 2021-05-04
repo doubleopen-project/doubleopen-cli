@@ -13,7 +13,6 @@ license = "MIT"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-analyze = { path = "../analyze" }
 fossology = { path = "../fossology" }
 spdx = { path = "../spdx" }
 utilities = { path = "../utilities" }
