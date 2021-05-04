@@ -8,7 +8,6 @@ members = [
   "analyze",
   "cli",
   "fossology",
-  "policy_engine",
   "spdx",
   "utilities",
 ]

@@ -16,7 +16,6 @@ license = "MIT"
 analyze = { path = "../analyze" }
 fossology = { path = "../fossology" }
 spdx = { path = "../spdx" }
-policy_engine = { path = "../policy_engine" }
 utilities = { path = "../utilities" }
 clap = "3.0.0-beta.2"
 env_logger = "0.8"

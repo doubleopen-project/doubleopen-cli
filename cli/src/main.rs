@@ -32,10 +32,6 @@ enum SubCommand {
     /// Interact with Fossology.
     #[clap(author, version)]
     Fossology(FossologyArguments),
-
-    /// Evaluate the license compliance of an SPDX file with a provided policy.
-    #[clap(author, version)]
-    Evaluate(EvaluateArguments),
 }
 
 /// Arguments for the analyze subcommand.
@@ -98,23 +94,6 @@ enum FossologyAction {
     },
 }
 
-/// Arguments for the evaluate subcommand.
-#[derive(Clap, Debug)]
-struct EvaluateArguments {
-    /// Path to the input SPDX.
-    #[clap(short, long, parse(from_os_str), value_hint = ValueHint::FilePath)]
-    spdx: PathBuf,
-
-    /// List of policies to use in the evaluation. Latter policies take precedence over earlier
-    /// ones.
-    #[clap(short, long, parse(from_os_str), value_hint = ValueHint::FilePath)]
-    policies: Vec<PathBuf>,
-
-    /// The context from the policies to use.
-    #[clap(short, long)]
-    context: String,
-}
-
 fn main() {
     // Initialize logging.
     env_logger::init();
@@ -160,8 +139,5 @@ fn main() {
                 spdx.save_as_json(&output);
             }
         },
-
-        // Process evaluate subcommand.
-        SubCommand::Evaluate(_evaluate_arguments) => {}
     }
 }
