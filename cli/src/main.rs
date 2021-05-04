@@ -7,7 +7,6 @@
 use analyze::{yocto::Yocto};
 use clap::{Clap, ValueHint};
 use fossology::Fossology;
-use notice::Notice;
 use spdx::{license_list::LicenseList, SPDX};
 use std::path::PathBuf;
 
@@ -37,10 +36,6 @@ enum SubCommand {
     /// Evaluate the license compliance of an SPDX file with a provided policy.
     #[clap(author, version)]
     Evaluate(EvaluateArguments),
-
-    /// Create a notice file from an SPDX Document.
-    #[clap(author, version)]
-    Notice(NoticeArguments),
 }
 
 /// Arguments for the analyze subcommand.
@@ -120,22 +115,6 @@ struct EvaluateArguments {
     context: String,
 }
 
-/// Arguments for the notice subcommand.
-#[derive(Clap, Debug)]
-struct NoticeArguments {
-    /// Path to the input SPDX.
-    #[clap(short, long, parse(from_os_str), value_hint = ValueHint::FilePath)]
-    input: PathBuf,
-
-    /// Path to output the notice file to.
-    #[clap(short, long, parse(from_os_str), value_hint = ValueHint::FilePath)]
-    output: PathBuf,
-
-    /// Path to a template for the notice.
-    #[clap(short, long, parse(from_os_str), value_hint = ValueHint::FilePath)]
-    template: PathBuf,
-}
-
 fn main() {
     // Initialize logging.
     env_logger::init();
@@ -184,14 +163,5 @@ fn main() {
 
         // Process evaluate subcommand.
         SubCommand::Evaluate(_evaluate_arguments) => {}
-
-        // Process notice subcommand.
-        SubCommand::Notice(notice_arguments) => {
-            let spdx = SPDX::from_file(&notice_arguments.input);
-            let notice = Notice::from(&spdx);
-            notice
-                .render_notice_to_file(&notice_arguments.template, &notice_arguments.output)
-                .expect("Error rendering notice.");
-        }
     }
 }
