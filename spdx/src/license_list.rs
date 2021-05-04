@@ -101,4 +101,12 @@ mod test_license_list {
         assert!(!license_list.licenses.is_empty());
         assert!(!license_list.exceptions.is_empty());
     }
+
+    #[test]
+    fn bsd_works() {
+        let license_list = LicenseList::from_github();
+        
+        assert!(!license_list.includes_license("BSD"));
+        assert!(!license_list.includes_exception("BSD"));
+    }
 }

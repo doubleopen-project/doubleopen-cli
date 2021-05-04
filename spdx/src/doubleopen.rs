@@ -62,8 +62,11 @@ fn dolicense_to_spdx(license: String) -> String {
 
 pub fn gpl_or_later_conversion(license: String) -> String {
     license
+        .replace("gpl-2.0+", "GPL-2.0-or-later")
         .replace("GPL-2.0+", "GPL-2.0-or-later")
+        .replace("gpl-3.0+", "GPL-3.0-or-later")
         .replace("GPL-3.0+", "GPL-3.0-or-later")
+        .replace("GFDL-1.1+", "GFDL-1-1-or-later")
 }
 
 pub fn is_do_license(license: &str) -> bool {
@@ -85,6 +88,7 @@ pub fn fossology_conclusions_to_spdx_expression(
     // Convert all conclusions to be SPDX compliant.
     let conclusions: Vec<String> = conclusions
         .into_iter()
+        .map(|lic| gpl_or_later_conversion(lic))
         .map(|lic| {
             if license_list.includes_license(&lic)
                 || license_list.includes_exception(&lic)
@@ -102,13 +106,28 @@ pub fn fossology_conclusions_to_spdx_expression(
         .collect();
 
     // Join licenses with AND or OR.
-    let expression = if conclusions.len() == 3 && conclusions.contains(&"Dual-license".to_string())
+    let expression = if (conclusions.len() == 2
+        || (conclusions.len() == 3 && conclusions.contains(&"Dual-license".to_string())))
+        && conclusions
+            .iter()
+            .any(|lic| license_list.includes_exception(&lic))
     {
+        let mut sorted_conclusions: Vec<String> = Vec::new();
+        for lic in conclusions {
+            if license_list.includes_exception(&lic) {
+                sorted_conclusions.push(lic)
+            } else {
+                sorted_conclusions.insert(0, lic)
+            }
+        }
+        filter_dual_license(sorted_conclusions).join(" WITH ")
+    } else if conclusions.len() == 3 && conclusions.contains(&"Dual-license".to_string()) {
         let conclusions = filter_dual_license(conclusions);
         conclusions.join(" OR ")
     } else {
         let conclusions = filter_dual_license(conclusions);
-        conclusions.join(" AND ")
+        let conclusions = add_licenserefs(conclusions, &license_list);
+        parse_doubleopen_license(conclusions)
     };
 
     SPDXExpression(expression)
@@ -119,6 +138,24 @@ fn filter_dual_license(conclusions: Vec<String>) -> Vec<String> {
         .into_iter()
         .filter(|lic| lic != "Dual-license")
         .collect::<Vec<String>>()
+}
+
+fn add_licenserefs(conclusions: Vec<String>, license_list: &LicenseList) -> Vec<String> {
+    conclusions
+        .into_iter()
+        .map(|lic| {
+            if license_list.includes_license(&lic)
+                || lic.starts_with("LicenseRef-")
+                || is_do_license(&lic)
+                || lic == "NOASSERTION"
+                || lic == "NONE"
+            {
+                lic
+            } else {
+                format!("LicenseRef-{}", lic)
+            }
+        })
+        .collect()
 }
 
 #[cfg(test)]
@@ -177,7 +214,7 @@ mod test_super {
             );
             assert_eq!(
                 result3,
-                SPDXExpression("Autoconf-exception-2.0 AND MIT".to_string())
+                SPDXExpression("MIT WITH Autoconf-exception-2.0".to_string())
             );
         }
 
@@ -212,7 +249,7 @@ mod test_super {
             );
             assert_eq!(
                 result3,
-                SPDXExpression("Autoconf-exception-2.0 OR MIT".to_string())
+                SPDXExpression("MIT WITH Autoconf-exception-2.0".to_string())
             );
         }
 
@@ -256,7 +293,7 @@ mod test_super {
                 "MIT".to_string(),
                 "DOLicense-BSD-3-Clause-AND-GPL-2.0-OR".to_string(),
             ];
-            let expected_1 = SPDXExpression("LGPL-2.1 AND Zlib OR BSD-3-Clause AND GPL-2.0 OR GPL-2.0+ WITH Autoconf-exception AND MIT".to_string());
+            let expected_1 = SPDXExpression("LGPL-2.1 AND Zlib OR BSD-3-Clause AND GPL-2.0 OR GPL-2.0-or-later WITH Autoconf-exception AND MIT".to_string());
             assert_eq!(
                 fossology_conclusions_to_spdx_expression(input_1, &license_list),
                 expected_1
@@ -281,6 +318,26 @@ mod test_super {
             assert_eq!(
                 fossology_conclusions_to_spdx_expression(input_3, &license_list),
                 expected_3
+            );
+        }
+
+        #[test]
+        fn with_licenses_are_converted_correctly() {
+            let input1 = vec!["Bison-exception-2.2".to_string(), "GPL-3.0+".to_string()];
+            let input2 = vec!["GPL-3.0+".to_string(), "Bison-exception-2.2".to_string()];
+
+            let license_list = LicenseList::from_github();
+
+            let result1 = fossology_conclusions_to_spdx_expression(input1, &license_list);
+            let result2 = fossology_conclusions_to_spdx_expression(input2, &license_list);
+
+            assert_eq!(
+                result1,
+                SPDXExpression("GPL-3.0-or-later WITH Bison-exception-2.2".to_string())
+            );
+            assert_eq!(
+                result2,
+                SPDXExpression("GPL-3.0-or-later WITH Bison-exception-2.2".to_string())
             );
         }
     }
@@ -320,7 +377,7 @@ mod test_super {
         let expected_2 = "LGPL-2.1 AND Zlib OR";
 
         let input_3 = "DOLicense-SPDXException-GPL-2.0+-with-Autoconf-exception";
-        let expected_3 = "GPL-2.0+ WITH Autoconf-exception";
+        let expected_3 = "GPL-2.0-or-later WITH Autoconf-exception";
 
         let input_4 = "DOLicense-LGPL-2.1-OR";
         let expected_4 = "LGPL-2.1 OR";
@@ -339,7 +396,7 @@ mod test_super {
             "MIT".to_string(),
             "DOLicense-BSD-3-Clause-AND-GPL-2.0-OR".to_string(),
         ];
-        let expected_1 = "LGPL-2.1 AND Zlib OR BSD-3-Clause AND GPL-2.0 OR GPL-2.0+ WITH Autoconf-exception AND MIT".to_string();
+        let expected_1 = "LGPL-2.1 AND Zlib OR BSD-3-Clause AND GPL-2.0 OR GPL-2.0-or-later WITH Autoconf-exception AND MIT".to_string();
         assert_eq!(parse_doubleopen_license(input_1), expected_1);
 
         let input_2 = vec![

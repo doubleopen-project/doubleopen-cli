@@ -24,7 +24,7 @@ pub use annotation::*;
 pub use checksum::*;
 pub use creation_info::*;
 pub use document_creation_information::*;
-use doubleopen::{is_do_license, parse_doubleopen_license};
+use doubleopen::{fossology_conclusions_to_spdx_expression, is_do_license, parse_doubleopen_license};
 pub use external_document_reference::*;
 pub use external_package_reference::*;
 pub use file_information::*;
@@ -322,7 +322,7 @@ impl SPDX {
                             if !findings.conclusion.is_empty() {
                                 // TODO: Transform Fossology output to SPDX expression.
                                 file_information.concluded_license =
-                                    spdx_expression_from_api_licenses(
+                                    fossology_conclusions_to_spdx_expression(
                                         findings.conclusion.clone(),
                                         license_list,
                                     );
