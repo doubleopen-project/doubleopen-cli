@@ -58,6 +58,8 @@ pub struct License {
     pub license_id: String,
     pub see_also: Vec<String>,
     pub is_osi_approved: bool,
+    #[serde(default)]
+    pub is_fsf_libre: bool,
 }
 
 #[derive(Serialize, Deserialize, Debug)]
