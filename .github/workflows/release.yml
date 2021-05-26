@@ -21,4 +21,4 @@ jobs:
         with:
           files: target/release/doubleopen_cli
         env:
-          GITHUB_TOKE : ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN : ${{ secrets.GITHUB_TOKEN }}
