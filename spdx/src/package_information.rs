@@ -23,7 +23,11 @@ pub struct PackageInformation {
     pub package_spdx_identifier: String,
 
     /// https://spdx.github.io/spdx-spec/3-package-information/#33-package-version
-    #[serde(rename = "versionInfo", skip_serializing_if = "Option::is_none", default)]
+    #[serde(
+        rename = "versionInfo",
+        skip_serializing_if = "Option::is_none",
+        default
+    )]
     pub package_version: Option<String>,
 
     /// https://spdx.github.io/spdx-spec/3-package-information/#34-package-file-name
@@ -35,7 +39,11 @@ pub struct PackageInformation {
     pub package_supplier: Option<String>,
 
     /// https://spdx.github.io/spdx-spec/3-package-information/#36-package-originator
-    #[serde(rename = "originator", skip_serializing_if = "Option::is_none", default)]
+    #[serde(
+        rename = "originator",
+        skip_serializing_if = "Option::is_none",
+        default
+    )]
     pub package_originator: Option<String>,
 
     /// https://spdx.github.io/spdx-spec/3-package-information/#37-package-download-location
@@ -59,7 +67,11 @@ pub struct PackageInformation {
     pub package_home_page: Option<String>,
 
     /// https://spdx.github.io/spdx-spec/3-package-information/#312-source-information
-    #[serde(rename = "sourceInfo", skip_serializing_if = "Option::is_none", default)]
+    #[serde(
+        rename = "sourceInfo",
+        skip_serializing_if = "Option::is_none",
+        default
+    )]
     pub source_information: Option<String>,
 
     /// https://spdx.github.io/spdx-spec/3-package-information/#313-concluded-license
@@ -67,7 +79,11 @@ pub struct PackageInformation {
     pub concluded_license: SPDXExpression,
 
     /// https://spdx.github.io/spdx-spec/3-package-information/#314-all-licenses-information-from-files
-    #[serde(rename = "licenseInfoFromFiles", skip_serializing_if = "Vec::is_empty", default)]
+    #[serde(
+        rename = "licenseInfoFromFiles",
+        skip_serializing_if = "Vec::is_empty",
+        default
+    )]
     pub all_licenses_information_from_files: Vec<String>,
 
     /// https://spdx.github.io/spdx-spec/3-package-information/#315-declared-license
@@ -75,7 +91,11 @@ pub struct PackageInformation {
     pub declared_license: SPDXExpression,
 
     /// https://spdx.github.io/spdx-spec/3-package-information/#316-comments-on-license
-    #[serde(rename = "licenseComments", skip_serializing_if = "Option::is_none", default)]
+    #[serde(
+        rename = "licenseComments",
+        skip_serializing_if = "Option::is_none",
+        default
+    )]
     pub comments_on_license: Option<String>,
 
     /// https://spdx.github.io/spdx-spec/3-package-information/#317-copyright-text
@@ -86,7 +106,11 @@ pub struct PackageInformation {
     pub package_summary_description: Option<String>,
 
     /// https://spdx.github.io/spdx-spec/3-package-information/#319-package-detailed-description
-    #[serde(rename = "description", skip_serializing_if = "Option::is_none", default)]
+    #[serde(
+        rename = "description",
+        skip_serializing_if = "Option::is_none",
+        default
+    )]
     pub package_detailed_description: Option<String>,
 
     /// https://spdx.github.io/spdx-spec/3-package-information/#320-package-comment
@@ -94,11 +118,19 @@ pub struct PackageInformation {
     pub package_comment: Option<String>,
 
     /// https://spdx.github.io/spdx-spec/3-package-information/#321-external-reference
-    #[serde(rename = "externalRefs", skip_serializing_if = "Vec::is_empty", default)]
+    #[serde(
+        rename = "externalRefs",
+        skip_serializing_if = "Vec::is_empty",
+        default
+    )]
     pub external_reference: Vec<ExternalPackageReference>,
 
     /// https://spdx.github.io/spdx-spec/3-package-information/#323-package-attribution-text
-    #[serde(rename = "attributionTexts", skip_serializing_if = "Vec::is_empty", default)]
+    #[serde(
+        rename = "attributionTexts",
+        skip_serializing_if = "Vec::is_empty",
+        default
+    )]
     pub package_attribution_text: Vec<String>,
 
     /// List of "files in the package". Not sure which relationship type this maps to.

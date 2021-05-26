@@ -24,7 +24,7 @@ pub use annotation::*;
 pub use checksum::*;
 pub use creation_info::*;
 pub use document_creation_information::*;
-use doubleopen::{fossology_conclusions_to_spdx_expression, is_do_license, parse_doubleopen_license};
+use doubleopen::fossology_conclusions_to_spdx_expression;
 pub use external_document_reference::*;
 pub use external_package_reference::*;
 pub use file_information::*;
@@ -42,16 +42,11 @@ pub use relationship::*;
 use serde::{Deserialize, Serialize};
 pub use snippet::*;
 pub use spdx_expression::*;
-use std::{
-    fs::{self},
-    io::BufReader,
-    path::Path,
-};
+use std::{fs, io::BufReader, path::Path};
 use uuid::Uuid;
 
 use self::Relationship;
 
-// TODO: Annotations.
 /// # SPDX 2.2
 ///
 /// Store information about files in SPDX files. Latest spec
@@ -65,7 +60,6 @@ pub struct SPDX {
     #[serde(flatten)]
     pub document_creation_information: DocumentCreationInformation,
 
-    // TODO: Valid SPDX?
     /// https://spdx.github.io/spdx-spec/3-package-information/
     #[serde(rename = "packages")]
     #[serde(default)]
@@ -139,30 +133,6 @@ impl SPDX {
         }
     }
 
-    /// Concatenates SPDX Documents.
-    ///
-    /// Currently only combines packages, files and relationships. Doesn't preserve
-    /// metadata of the SPDX Document.
-    pub fn concatenate_spdx_documents(name: &str, spdx_documents: Vec<SPDX>) -> SPDX {
-        let mut new_spdx = SPDX::new(name);
-
-        for spdx in spdx_documents {
-            for package in spdx.package_information {
-                new_spdx.package_information.push(package);
-            }
-
-            for file in spdx.file_information {
-                new_spdx.file_information.push(file);
-            }
-
-            for relationship in spdx.relationships {
-                new_spdx.relationships.push(relationship);
-            }
-        }
-
-        new_spdx
-    }
-
     /// Get unique hashes for all files in all packages of the SPDX.
     pub fn get_unique_hashes(&self, algorithm: Algorithm) -> Vec<String> {
         info!("Getting unique hashes for files in SPDX.");
@@ -185,6 +155,7 @@ impl SPDX {
         unique_hashes
     }
 
+    // TODO: Should move to Fossology crate.
     /// Get scanner results and license conclusions for the files in SPDX
     /// found on the Fossology instance.
     pub fn query_fossology_for_licenses(
@@ -258,8 +229,9 @@ impl SPDX {
         Ok(())
     }
 
+    // TODO: Should move to Fossology crate.
     /// Add information from Fossology response to the SPDX.
-    pub fn process_fossology_response(
+    fn process_fossology_response(
         &mut self,
         mut responses: Vec<HashQueryResponse>,
         license_list: &LicenseList,
@@ -391,11 +363,9 @@ impl SPDX {
     }
 }
 
-pub fn concluded_licenses_to_spdx_expression(concluded_licenses: Vec<String>) -> SPDXExpression {
-    todo!()
-}
-
-pub fn license_information_to_spdx_expressions(license_information: Vec<String>) -> Vec<String> {
+// TODO: Move to Fossology crate.
+/// Convert scanner hits from Fossology to vec of SPDX expressions.
+fn license_information_to_spdx_expressions(license_information: Vec<String>) -> Vec<String> {
     license_information
         .into_iter()
         // Remove No_license_found
@@ -411,72 +381,11 @@ pub fn license_information_to_spdx_expressions(license_information: Vec<String>)
         .collect()
 }
 
-pub fn sanitize_spdx_expression(lic: String) -> String {
+/// Sanitize string to conform to SPDX license expression spec.
+fn sanitize_spdx_expression(lic: String) -> String {
     let lic = lic.replace(&['(', ')', '[', ']'][..], "");
     // TODO: No need to replace + if it's the last character.
     lic.replace("+", "-or-later")
-}
-
-/// Transform a list of licenses returned by Fossology to an SPDX license expression.
-/// Fossology's Dual-license tag doesn't allow accurate representation of OR licenses
-/// with more than two licenses, so all license combinations with 3 or more licenses
-/// are interpreted as AND licenses.
-pub fn spdx_expression_from_api_licenses(
-    fossology_licenses: Vec<String>,
-    license_list: &LicenseList,
-) -> SPDXExpression {
-    info!(
-        "Transforming {:?} from Fossology to SPDX expression.",
-        &fossology_licenses
-    );
-
-    let expression = if fossology_licenses.iter().any(|lic| is_do_license(&lic)) {
-        parse_doubleopen_license(fossology_licenses)
-    } else {
-        let mut fossology_licenses: Vec<String> = fossology_licenses
-            .into_iter()
-            .map(|mut lic| {
-                if lic == "Dual-license" || lic == "NOASSERTION" || lic == "NONE" {
-                    return lic;
-                };
-
-                // Make license identifier SPDX compliant
-                // TODO: this makes the license text query from Fossology fail.
-                lic = lic.replace(&['(', ')'][..], "");
-
-                if license_list.includes_license(&lic) {
-                    lic
-                } else if license_list.includes_license(&lic.replace("+", "-or-later")) {
-                    lic.replace("+", "-or-later")
-                } else {
-                    if !lic.ends_with('+') {
-                        lic = lic.replace("+", "-or-later");
-                    }
-                    format!("LicenseRef-{}", lic)
-                }
-            })
-            .collect();
-
-        if fossology_licenses.len() == 3 && fossology_licenses.contains(&"Dual-license".into()) {
-            let dual_license_position = fossology_licenses
-                .iter()
-                .position(|lic| lic == "Dual-license")
-                .expect("Should always exist here");
-
-            fossology_licenses.remove(dual_license_position);
-
-            fossology_licenses.join(" OR ")
-        } else {
-            let expression = fossology_licenses
-                .iter()
-                .filter(|&lic| lic != &"Dual-license".to_string())
-                .cloned()
-                .collect::<Vec<_>>()
-                .join(" AND ");
-            expression
-        }
-    };
-    SPDXExpression(format!("({})", expression))
 }
 
 #[cfg(test)]
@@ -1180,61 +1089,6 @@ compatible system run time libraries."#
     }
 
     #[test]
-    fn test_spdx_expression_from_fossology() {
-        let license_list = LicenseList::from_github();
-        let input_1 = vec![
-            "MIT".to_string(),
-            "Dual-license".to_string(),
-            "ISC".to_string(),
-        ];
-
-        let expected_1 = SPDXExpression("(MIT OR ISC)".into());
-
-        assert_eq!(
-            expected_1,
-            spdx_expression_from_api_licenses(input_1, &license_list)
-        );
-
-        let input_2 = vec!["MIT".to_string(), "ISC".to_string()];
-
-        let expected_2 = SPDXExpression("(MIT AND ISC)".into());
-
-        assert_eq!(
-            expected_2,
-            spdx_expression_from_api_licenses(input_2, &license_list)
-        );
-
-        let input_3 = vec![
-            "MIT".to_string(),
-            "Dual-license".to_string(),
-            "ISC".to_string(),
-            "GPL-2.0-only".to_string(),
-        ];
-
-        let expected_3 = SPDXExpression("(MIT AND ISC AND GPL-2.0-only)".into());
-
-        assert_eq!(
-            expected_3,
-            spdx_expression_from_api_licenses(input_3, &license_list)
-        );
-
-        let input_3 = vec![
-            "Custom-license".to_string(),
-            "Dual-license".to_string(),
-            "ISC".to_string(),
-            "GPL-2.0-only".to_string(),
-        ];
-
-        let expected_3 =
-            SPDXExpression("(LicenseRef-Custom-license AND ISC AND GPL-2.0-only)".into());
-
-        assert_eq!(
-            expected_3,
-            spdx_expression_from_api_licenses(input_3, &license_list)
-        );
-    }
-
-    #[test]
     fn get_all_licenses_from_spdx() {
         let spdx_file = SPDX::from_file("../tests/examples/spdx/SPDXJSONExample-v2.2.spdx.json");
 
@@ -1250,45 +1104,5 @@ compatible system run time libraries."#
         expected.sort();
 
         assert_eq!(expected, actual);
-    }
-
-    #[test]
-    fn concatenate_spdx_documents_correctly() {
-        let mut spdx1 = SPDX::new("SPDX1");
-        let mut spdx2 = SPDX::new("SPDX2");
-
-        let mut file_counter = 1;
-        let mut package_counter = 1;
-        let package1 = PackageInformation::new("package1", &mut package_counter);
-        let package2 = PackageInformation::new("package2", &mut package_counter);
-        let file1 = FileInformation::new("file1", &mut file_counter);
-        let file2 = FileInformation::new("file2", &mut file_counter);
-        let relationship1 = Relationship::new(
-            &package1.package_spdx_identifier,
-            &file1.file_spdx_identifier,
-            RelationshipType::Contains,
-            None,
-        );
-        let relationship2 = Relationship::new(
-            &package2.package_spdx_identifier,
-            &file2.file_spdx_identifier,
-            RelationshipType::Contains,
-            None,
-        );
-
-        spdx1.package_information.push(package1);
-        spdx1.file_information.push(file1);
-        spdx1.relationships.push(relationship1);
-        spdx2.package_information.push(package2);
-        spdx2.file_information.push(file2);
-        spdx2.relationships.push(relationship2);
-
-        let spdx_documents = vec![spdx1, spdx2];
-
-        let combined_spdx = SPDX::concatenate_spdx_documents("combined", spdx_documents);
-
-        assert_eq!(combined_spdx.package_information.len(), 2);
-        assert_eq!(combined_spdx.file_information.len(), 2);
-        assert_eq!(combined_spdx.relationships.len(), 2);
     }
 }

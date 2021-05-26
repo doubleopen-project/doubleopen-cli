@@ -26,4 +26,3 @@ pub enum ExternalPackageReferenceCategory {
     PersistentID,
     Other,
 }
-

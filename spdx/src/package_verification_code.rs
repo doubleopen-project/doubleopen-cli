@@ -12,6 +12,10 @@ pub struct PackageVerificationCode {
     pub value: String,
 
     /// Files that were excluded when calculating the verification code.
-    #[serde(rename = "packageVerificationCodeExcludedFiles", skip_serializing_if = "Vec::is_empty", default)]
+    #[serde(
+        rename = "packageVerificationCodeExcludedFiles",
+        skip_serializing_if = "Vec::is_empty",
+        default
+    )]
     pub excludes: Vec<String>,
 }

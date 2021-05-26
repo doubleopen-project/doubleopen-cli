@@ -1,5 +1,6 @@
 use crate::{license_list::LicenseList, SPDXExpression};
 
+/// Parse list of Double Open's license conclusions from Fossology to an SPDX expression.
 pub fn parse_doubleopen_license(licenses: Vec<String>) -> String {
     let mut or_operator_list: Vec<String> = Vec::new();
     let mut other_licenses_list: Vec<String> = Vec::new();
@@ -23,6 +24,7 @@ pub fn parse_doubleopen_license(licenses: Vec<String>) -> String {
     }
 }
 
+/// Convert Double Open's custom Fossology license to SPDX expression.
 fn dolicense_to_spdx(license: String) -> String {
     if is_do_license(&license) {
         // Remove prefix.
@@ -60,6 +62,7 @@ fn dolicense_to_spdx(license: String) -> String {
     }
 }
 
+/// Convert deprecated license ids.
 pub fn gpl_or_later_conversion(license: String) -> String {
     license
         .replace("gpl-2.0+", "GPL-2.0-or-later")
@@ -69,18 +72,22 @@ pub fn gpl_or_later_conversion(license: String) -> String {
         .replace("GFDL-1.1+", "GFDL-1-1-or-later")
 }
 
+/// Check if the string is Double Open's custom Fossology license.
 pub fn is_do_license(license: &str) -> bool {
     license.starts_with("DOLicense-")
 }
 
+/// Check if the string is Double Open's OR license.
 fn is_or_license(license: &str) -> bool {
     license.ends_with("-OR")
 }
 
+/// Check if the string is Double Open's license with SPDX exception.
 fn is_do_exception_license(license: &str) -> bool {
     license.starts_with("SPDXException-")
 }
 
+/// Convert Fossology's conclusions to SPDX Expression.
 pub fn fossology_conclusions_to_spdx_expression(
     conclusions: Vec<String>,
     license_list: &LicenseList,
@@ -133,6 +140,7 @@ pub fn fossology_conclusions_to_spdx_expression(
     SPDXExpression(expression)
 }
 
+/// Filter Fossology's Dual-license from the list of licenses.
 fn filter_dual_license(conclusions: Vec<String>) -> Vec<String> {
     conclusions
         .into_iter()
@@ -140,6 +148,7 @@ fn filter_dual_license(conclusions: Vec<String>) -> Vec<String> {
         .collect::<Vec<String>>()
 }
 
+/// Add SPDX's LicenseRef to a license if it's not on the SPDX license list.
 fn add_licenserefs(conclusions: Vec<String>, license_list: &LicenseList) -> Vec<String> {
     conclusions
         .into_iter()
@@ -189,7 +198,7 @@ mod test_super {
             );
             assert_eq!(
                 result3,
-                SPDXExpression("Autoconf-exception-2.0".to_string())
+                SPDXExpression("LicenseRef-Autoconf-exception-2.0".to_string())
             );
             assert_eq!(result4, SPDXExpression("NONE".to_string()));
             assert_eq!(result5, SPDXExpression("NOASSERTION".to_string()));

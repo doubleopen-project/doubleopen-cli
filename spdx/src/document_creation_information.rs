@@ -32,7 +32,11 @@ pub struct DocumentCreationInformation {
     pub spdx_document_namespace: String,
 
     /// https://spdx.github.io/spdx-spec/2-document-creation-information/#26-external-document-references
-    #[serde(rename = "externalDocumentRefs", skip_serializing_if = "Vec::is_empty", default)]
+    #[serde(
+        rename = "externalDocumentRefs",
+        skip_serializing_if = "Vec::is_empty",
+        default
+    )]
     pub external_document_references: Vec<ExternalDocumentReference>,
 
     pub creation_info: CreationInfo,

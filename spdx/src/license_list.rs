@@ -107,7 +107,7 @@ mod test_license_list {
     #[test]
     fn bsd_works() {
         let license_list = LicenseList::from_github();
-        
+
         assert!(!license_list.includes_license("BSD"));
         assert!(!license_list.includes_exception("BSD"));
     }

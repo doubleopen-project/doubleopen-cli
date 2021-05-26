@@ -12,9 +12,9 @@ use api_objects::responses;
 use log::info;
 use reqwest::blocking::{multipart::Form, Client};
 use serde::{Deserialize, Serialize};
-use utilities::hash256_for_path;
 use std::{fs::read_dir, path::Path, thread, time};
 use time::Duration;
+use utilities::hash256_for_path;
 pub mod api_objects;
 
 /// Fossology instance.
@@ -161,9 +161,14 @@ impl Fossology {
     }
 
     /// Get license details by short name.
-    pub fn license_by_short_name(&self, short_name: &str) -> Result<responses::GetLicense, FossologyError> {
+    pub fn license_by_short_name(
+        &self,
+        short_name: &str,
+    ) -> Result<responses::GetLicense, FossologyError> {
         let short_name = if short_name.starts_with("LicenseRef-") {
-            short_name.strip_prefix("LicenseRef-").expect("Should always exist.")
+            short_name
+                .strip_prefix("LicenseRef-")
+                .expect("Should always exist.")
         } else {
             short_name
         };
@@ -178,8 +183,12 @@ impl Fossology {
 
         Ok(response)
     }
-    
-    pub fn upload_files_in_dir<P: AsRef<Path>>(&self, path_to_dir: P, folder_id: &i32) -> Result<(), FossologyError> {
+
+    pub fn upload_files_in_dir<P: AsRef<Path>>(
+        &self,
+        path_to_dir: P,
+        folder_id: &i32,
+    ) -> Result<(), FossologyError> {
         let files_in_dir = read_dir(path_to_dir).expect("Error reading directory.");
         for file in files_in_dir {
             let path = file.unwrap().path();
@@ -189,7 +198,10 @@ impl Fossology {
                     info!("Uploading {}", &path.display());
                     self.upload(&path, folder_id);
                 } else {
-                    info!("{} exist on Fossology, did not upload again.", &path.display());
+                    info!(
+                        "{} exist on Fossology, did not upload again.",
+                        &path.display()
+                    );
                 }
             }
         }

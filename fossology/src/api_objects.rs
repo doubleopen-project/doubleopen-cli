@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: MIT
 
-//! Fossology API response and request payloads. 
+//! Fossology API response and request payloads.
 
 /// Request payloads for the Fossology API.
 pub mod requests {
@@ -157,7 +157,6 @@ pub mod responses {
         #[serde(rename = "type")]
         pub response_type: String,
     }
-
 
     /// Response for GET to `/uploads/{id}`.
     #[derive(Serialize, Deserialize, Debug)]
