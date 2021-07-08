@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2020 HH Partners
+//
+// SPDX-License-Identifier: MIT
+
 use crate::{license_list::LicenseList, SPDXExpression};
 
 /// Parse list of Double Open's license conclusions from Fossology to an SPDX expression.
