@@ -65,8 +65,13 @@ impl Fossology {
         path_to_source: P,
         folder_id: &i32,
     ) -> Result<(), FossologyError> {
+        info!(
+            "Uploading {} to Fossology.",
+            path_to_source.as_ref().display()
+        );
+
         // Get the file in multipart form.
-        let form = Form::new().file("fileInput", path_to_source).unwrap();
+        let form = Form::new().file("fileInput", &path_to_source).unwrap();
 
         // Upload the file to Fossology.
         let response: UploadPackageResponse = self
@@ -81,6 +86,10 @@ impl Fossology {
 
         // Wait for unpacker to finish.
         while !self.upload_exists_by_id(&response.message) {
+            info!(
+                "Waiting for {} to be unarchived on Fossology.",
+                &path_to_source.as_ref().display()
+            );
             thread::sleep(time::Duration::from_secs(10));
         }
 
@@ -208,13 +217,17 @@ impl Fossology {
         path_to_dir: P,
         folder_id: &i32,
     ) -> Result<(), FossologyError> {
+        info!(
+            "Uploading all archives in {} to Fossology.",
+            &path_to_dir.as_ref().display()
+        );
+
         let files_in_dir = read_dir(path_to_dir).expect("Error reading directory.");
         for file in files_in_dir {
             let path = file.unwrap().path();
             if path.to_str().unwrap().ends_with("tar.bz2") {
                 let sha256 = hash256_for_path(&path);
                 if !self.file_exists(&sha256)? {
-                    info!("Uploading {}", &path.display());
                     match self.upload(&path, folder_id) {
                         Ok(_) => info!("Succesfully uploaded {} to Fossology.", &path.display()),
                         Err(err) => {
@@ -223,7 +236,7 @@ impl Fossology {
                     }
                 } else {
                     info!(
-                        "{} exist on Fossology, did not upload again.",
+                        "{} exists on Fossology, did not upload again.",
                         &path.display()
                     );
                 }
