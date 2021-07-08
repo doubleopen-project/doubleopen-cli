@@ -104,21 +104,28 @@ impl Fossology {
 
     /// Check if an upload exists on Fossology by upload id.
     fn upload_exists_by_id(&self, upload_id: &i32) -> bool {
+        // TODO: Currently returns false if the request for example times out.
+        // Handle with Error instead.
+
         // If an upload with a specified id does not exist, Fossology returns a
         // 503 error. We query the api with an upload id and try to deserialize the
         // response as a successful query. If the deserialization is successful,
         // an upload with the specified id exists.
-        let response: Result<UploadDetailResponse, reqwest::Error> = self
+        let response = self
             .client
             .get(&format!("{}/uploads/{}", self.uri, upload_id))
             .bearer_auth(&self.token)
-            .send()
-            .unwrap()
-            .json();
+            .send();
 
         match response {
-            Ok(_res) => true,
-            Err(_err) => false,
+            Ok(res) => {
+                let response: Result<UploadDetailResponse, reqwest::Error> = res.json();
+                match response {
+                    Ok(_res) => true,
+                    Err(_err) => false,
+                }
+            }
+            Err(_) => false,
         }
     }
 
