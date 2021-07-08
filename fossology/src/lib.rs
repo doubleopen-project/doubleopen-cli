@@ -9,7 +9,7 @@
 #![deny(clippy::all)]
 use self::api_objects::{requests::*, responses::*};
 use api_objects::responses;
-use log::info;
+use log::{debug, error, info};
 use reqwest::blocking::{multipart::Form, Client};
 use serde::{Deserialize, Serialize};
 use std::{fs::read_dir, path::Path, thread, time};
@@ -60,7 +60,11 @@ impl Fossology {
     }
 
     /// Upload a package to Fossology.
-    pub fn upload<P: AsRef<Path>>(&self, path_to_source: P, folder_id: &i32) {
+    pub fn upload<P: AsRef<Path>>(
+        &self,
+        path_to_source: P,
+        folder_id: &i32,
+    ) -> Result<(), FossologyError> {
         // Get the file in multipart form.
         let form = Form::new().file("fileInput", path_to_source).unwrap();
 
@@ -72,22 +76,30 @@ impl Fossology {
             .bearer_auth(&self.token)
             .header("folderId", folder_id.to_string())
             .multipart(form)
-            .send()
-            .unwrap()
-            .json()
-            .unwrap();
+            .send()?
+            .json()?;
 
         // Wait for unpacker to finish.
         while !self.upload_exists_by_id(&response.message) {
             thread::sleep(time::Duration::from_secs(10));
         }
 
-        // Schedule scanner jobs for the upload.
-        self.schedule_jobs(folder_id, &response.message);
+        // Schedule scanner jobs for the upload. Loop until succesful.
+        loop {
+            match self.schedule_jobs(folder_id, &response.message) {
+                Ok(_) => {
+                    debug!("Scheduling job succeeded.");
+                    break;
+                }
+                Err(err) => error!("Scheduling job failed, trying again: {}", err),
+            }
+        }
+
+        Ok(())
     }
 
     /// Schedule all Fossology jobs for an upload.
-    fn schedule_jobs(&self, folder_id: &i32, upload_id: &i32) {
+    fn schedule_jobs(&self, folder_id: &i32, upload_id: &i32) -> Result<(), FossologyError> {
         let input = ScheduleJobsInput::new();
         let _response = self
             .client
@@ -96,10 +108,10 @@ impl Fossology {
             .header("folderId", folder_id.to_string())
             .header("uploadId", upload_id.to_string())
             .json(&input)
-            .send()
-            .unwrap()
-            .text()
-            .unwrap();
+            .send()?
+            .text()?;
+
+        Ok(())
     }
 
     /// Check if an upload exists on Fossology by upload id.
@@ -203,7 +215,12 @@ impl Fossology {
                 let sha256 = hash256_for_path(&path);
                 if !self.file_exists(&sha256)? {
                     info!("Uploading {}", &path.display());
-                    self.upload(&path, folder_id);
+                    match self.upload(&path, folder_id) {
+                        Ok(_) => info!("Succesfully uploaded {} to Fossology.", &path.display()),
+                        Err(err) => {
+                            error!("Failed uploading {} to Fossology: {}", &path.display(), err)
+                        }
+                    }
                 } else {
                     info!(
                         "{} exist on Fossology, did not upload again.",
