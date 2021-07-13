@@ -69,11 +69,25 @@ fn dolicense_to_spdx(license: String) -> String {
 /// Convert deprecated license ids.
 pub fn gpl_or_later_conversion(license: String) -> String {
     license
+        .replace("AGPL-1.0+", "AGPL-1.0-or-later")
+        .replace("AGPL-3.0+", "AGPL-3.0-or-later")
+        .replace("GFDL-1.1-invariants+", "GFDL-1.1-invariants-or-later")
+        .replace("GFDL-1.1-no-invariants+", "GFDL-1.1-no-invariants-or-later")
+        .replace("GFDL-1.1+", "GFDL-1-1-or-later")
+        .replace("GFDL-1.2-invariants+", "GFDL-1.2-invariants-or-later")
+        .replace("GFDL-1.2-no-invariants+", "GFDL-1.2-no-invariants-or-later")
+        .replace("GFDL-1.2+", "GFDL-1-2-or-later")
+        .replace("GFDL-1.3-invariants+", "GFDL-1.3-invariants-or-later")
+        .replace("GFDL-1.3-no-invariants+", "GFDL-1.3-no-invariants-or-later")
+        .replace("GFDL-1.3+", "GFDL-1-3-or-later")
+        .replace("GPL-1.0+", "GPL-1.0-or-later")
         .replace("gpl-2.0+", "GPL-2.0-or-later")
         .replace("GPL-2.0+", "GPL-2.0-or-later")
         .replace("gpl-3.0+", "GPL-3.0-or-later")
         .replace("GPL-3.0+", "GPL-3.0-or-later")
-        .replace("GFDL-1.1+", "GFDL-1-1-or-later")
+        .replace("LGPL-2.0+", "LGPL-2.0-or-later")
+        .replace("LGPL-2.1+", "LGPL-2.1-or-later")
+        .replace("LGPL-3.0+", "LGPL-3.0-or-later")
 }
 
 /// Check if the string is Double Open's custom Fossology license.
