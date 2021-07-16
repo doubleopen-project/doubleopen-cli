@@ -1,12 +1,20 @@
-# SPDX-FileCopyrightText: 2020-2021 HH Partners
+# SPDX-FileCopyrightText: 2020 HH Partners
 # 
 # SPDX-License-Identifier: MIT
 
-[workspace]
+[package]
+name = "doubleopen_cli"
+version = "0.1.3"
+authors = ["HH Partners"]
+edition = "2018"
+description = "A tool for Double Open Project's automation workflow"
+license = "MIT"
 
-members = [
-  "cli",
-  "fossology",
-  "spdx",
-  "utilities",
-]
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+fossology-rs = { git = "https://github.com/doubleopen-project/fossology-rs", branch = "main" }
+spdx-rs = { git = "https://github.com/doubleopen-project/spdx-rs", branch = "main" }
+clap = "3.0.0-beta.2"
+env_logger = "0.8"
+log = "0.4"

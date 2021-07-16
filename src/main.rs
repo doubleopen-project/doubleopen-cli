@@ -5,8 +5,9 @@
 //! Double Open Command Line Utility.
 
 use clap::{Clap, ValueHint};
-use fossology::Fossology;
-use spdx::{license_list::LicenseList, SPDX};
+use doubleopen_cli::populate_spdx_document_from_fossology;
+use fossology_rs::Fossology;
+use spdx_rs::{license_list::LicenseList, SPDX};
 use std::path::PathBuf;
 
 // use policy_engine::PolicyEngine;
@@ -97,13 +98,13 @@ fn main() {
 
             // Process query subcommand of Fossology.
             FossologyAction::Query { input, output } => {
-                let mut spdx = SPDX::from_file(&input);
+                let mut spdx = SPDX::from_file(&input).unwrap();
                 let fossology =
                     Fossology::new(&fossology_arguments.uri, &fossology_arguments.token);
-                let license_list = LicenseList::from_github();
-                spdx.query_fossology_for_licenses(&fossology, &license_list)
+                let license_list = LicenseList::from_github().unwrap();
+                populate_spdx_document_from_fossology(&fossology, &mut spdx, &license_list)
                     .unwrap();
-                spdx.save_as_json(&output);
+                spdx.save_as_json(&output).unwrap();
             }
         },
     }
