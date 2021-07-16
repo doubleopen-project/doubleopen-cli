@@ -4,7 +4,7 @@
 
 [package]
 name = "doubleopen_cli"
-version = "0.1.3"
+version = "0.1.4"
 authors = ["HH Partners"]
 edition = "2018"
 description = "A tool for Double Open Project's automation workflow"
