@@ -2,7 +2,10 @@
 //
 // SPDX-License-Identifier: MIT
 
-use fossology_rs::{api_objects::requests::HashQueryInput, Fossology, FossologyError};
+use fossology_rs::{
+    api_objects::{requests::HashQueryInput, responses::HashQueryResponse},
+    Fossology, FossologyError,
+};
 use log::info;
 use spdx_rs::{
     license_list::LicenseList, Algorithm, Checksum, OtherLicensingInformationDetected,
@@ -17,7 +20,7 @@ mod doubleopen;
 /// found on the Fossology instance.
 pub fn populate_spdx_document_from_fossology(
     fossology: &Fossology,
-    spdx: &mut SPDX,
+    mut spdx: &mut SPDX,
     license_list: &LicenseList,
 ) -> Result<(), FossologyError> {
     info!("Populating SPDX from Fossology.");
@@ -33,8 +36,18 @@ pub fn populate_spdx_document_from_fossology(
         })
         .collect();
 
-    let mut responses = fossology.licenses_for_hashes(&input)?;
+    let responses = fossology.licenses_for_hashes(&input)?;
 
+    process_fossology_responses(&mut spdx, responses, &license_list);
+    add_license_texts_to_spdx(&mut spdx, &license_list, &fossology);
+    Ok(())
+}
+
+fn process_fossology_responses(
+    spdx: &mut SPDX,
+    mut responses: Vec<HashQueryResponse>,
+    license_list: &LicenseList,
+) {
     info!("Processing Fossology response");
 
     // Sort response by sha256 to enable binary search.
@@ -107,7 +120,9 @@ pub fn populate_spdx_document_from_fossology(
             }
         }
     }
+}
 
+fn add_license_texts_to_spdx(spdx: &mut SPDX, license_list: &LicenseList, fossology: &Fossology) {
     // Add license texts to SPDX for licenses not on the SPDX license list.
     let licenses = spdx.get_license_ids();
 
@@ -153,8 +168,6 @@ pub fn populate_spdx_document_from_fossology(
             }
         }
     }
-
-    Ok(())
 }
 
 /// Convert scanner hits from Fossology to vec of SPDX expressions.
