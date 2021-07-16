@@ -17,3 +17,7 @@ License: CC-BY-3.0
 Files: tests/examples/spdx/licenses.json
 Copyright: 2020 SPDX Contributors
 License: CC-BY-3.0
+
+Files: Cargo.lock
+Copyright: 2021 HH Partners
+License: MIT
