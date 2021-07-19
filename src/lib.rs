@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2020 HH Partners
+// SPDX-FileCopyrightText: 2020 HH Par hash: (), findings: (), uploads: (), message: ()  hash: (), findings: (), uploads: (), message: () tners
 //
 // SPDX-License-Identifier: MIT
 
@@ -192,4 +192,103 @@ fn sanitize_spdx_expression(lic: String) -> String {
     let lic = lic.replace(&['(', ')', '[', ']'][..], "");
     // TODO: No need to replace + if it's the last character.
     lic.replace("+", "-or-later")
+}
+
+#[cfg(test)]
+mod test_super {
+    use fossology_rs::api_objects::responses::{Findings, Hash};
+    use spdx_rs::FileInformation;
+
+    use super::*;
+
+    #[test]
+    fn correctly_process_fossology_responses() {
+        let mut spdx = SPDX::new("Test SPDX");
+        let license_list = LicenseList::from_github().unwrap();
+
+        spdx.file_information.push(FileInformation {
+            file_name: "test_file_1".into(),
+            file_spdx_identifier: "SPDXRef-File-1".into(),
+            file_checksum: vec![Checksum {
+                algorithm: Algorithm::SHA256,
+                value: "checksum1".into(),
+            }],
+            ..Default::default()
+        });
+
+        spdx.file_information.push(FileInformation {
+            file_name: "test_file_2".into(),
+            file_spdx_identifier: "SPDXRef-File-2".into(),
+            file_checksum: vec![Checksum {
+                algorithm: Algorithm::SHA256,
+                value: "checksum2".into(),
+            }],
+            ..Default::default()
+        });
+
+        let response_1 = HashQueryResponse {
+            hash: Hash {
+                sha1: Some("sha1".into()),
+                md5: Some("md5".into()),
+                sha256: Some("checksum1".into()),
+                size: Some(100),
+            },
+            findings: Some(Findings {
+                scanner: vec!["MIT".into(), "GPL-2.0-only".into()],
+                conclusion: vec!["MIT".into(), "GPL-2.0-only".into()],
+                copyright: vec!["test copyright 1".into()],
+            }),
+            uploads: None,
+            message: None,
+        };
+
+        let response_2 = HashQueryResponse {
+            hash: Hash {
+                sha1: Some("sha1".into()),
+                md5: Some("md5".into()),
+                sha256: Some("checksum2".into()),
+                size: Some(100),
+            },
+            findings: Some(Findings {
+                scanner: vec!["MIT".into(), "ISC".into(), "Dual-license".into()],
+                conclusion: vec!["MIT".into(), "ISC".into(), "Dual-license".into()],
+                copyright: vec!["test copyright 2".into()],
+            }),
+            uploads: None,
+            message: None,
+        };
+
+        let fossology_responses: Vec<HashQueryResponse> = vec![response_1, response_2];
+
+        process_fossology_responses(&mut spdx, fossology_responses, &license_list);
+
+        let file_1 = spdx
+            .file_information
+            .iter()
+            .find(|file| file.file_spdx_identifier == "SPDXRef-File-1")
+            .unwrap();
+
+        let file_2 = spdx
+            .file_information
+            .iter()
+            .find(|file| file.file_spdx_identifier == "SPDXRef-File-2")
+            .unwrap();
+
+        assert_eq!(
+            file_1.license_information_in_file,
+            vec!["LicenseRef-Scanner-MIT", "LicenseRef-Scanner-GPL-2.0-only"]
+        );
+        assert_eq!(
+            file_1.concluded_license,
+            SPDXExpression("MIT AND GPL-2.0-only".to_string())
+        );
+        assert_eq!(
+            file_2.license_information_in_file,
+            vec!["LicenseRef-Scanner-MIT", "LicenseRef-Scanner-ISC"]
+        );
+        assert_eq!(
+            file_2.concluded_license,
+            SPDXExpression("MIT OR ISC".to_string())
+        );
+    }
 }
