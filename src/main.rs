@@ -85,29 +85,28 @@ fn main() {
     // Process subcommands.
     match opts.subcmd {
         // Process Fossology subcommand.
-        SubCommand::Fossology(fossology_arguments) => match fossology_arguments.action {
-            // Process upload subcommand of Fossology.
-            FossologyAction::Upload {
-                source_dir_path,
-                folder,
-            } => {
-                let fossology =
-                    Fossology::new(&fossology_arguments.uri, &fossology_arguments.token);
+        SubCommand::Fossology(fossology_arguments) => {
+            let fossology = Fossology::new(&fossology_arguments.uri, &fossology_arguments.token);
 
-                upload_missing_archives_to_fossology(source_dir_path, &fossology, &folder)
-                    .expect("upload to work");
-            }
+            match fossology_arguments.action {
+                // Process upload subcommand of Fossology.
+                FossologyAction::Upload {
+                    source_dir_path,
+                    folder,
+                } => {
+                    upload_missing_archives_to_fossology(source_dir_path, &fossology, &folder)
+                        .expect("upload to work");
+                }
 
-            // Process query subcommand of Fossology.
-            FossologyAction::Query { input, output } => {
-                let mut spdx = SPDX::from_file(&input).unwrap();
-                let fossology =
-                    Fossology::new(&fossology_arguments.uri, &fossology_arguments.token);
-                let license_list = LicenseList::from_github().unwrap();
-                populate_spdx_document_from_fossology(&fossology, &mut spdx, &license_list)
-                    .unwrap();
-                spdx.save_as_json(&output).unwrap();
+                // Process query subcommand of Fossology.
+                FossologyAction::Query { input, output } => {
+                    let mut spdx = SPDX::from_file(&input).unwrap();
+                    let license_list = LicenseList::from_github().unwrap();
+                    populate_spdx_document_from_fossology(&fossology, &mut spdx, &license_list)
+                        .unwrap();
+                    spdx.save_as_json(&output).unwrap();
+                }
             }
-        },
+        }
     }
 }
