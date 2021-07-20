@@ -29,7 +29,7 @@ pub fn parse_doubleopen_license(licenses: Vec<String>) -> String {
 }
 
 /// Convert Double Open's custom Fossology license to SPDX expression.
-fn dolicense_to_spdx(license: String) -> String {
+pub(crate) fn dolicense_to_spdx(license: String) -> String {
     if is_do_license(&license) {
         // Remove prefix.
         let license = license.strip_prefix("DOLicense-").expect("Always exists.");

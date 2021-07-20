@@ -12,7 +12,7 @@ use spdx_rs::{
     SPDXExpression, SPDX,
 };
 
-use crate::doubleopen::fossology_conclusions_to_spdx_expression;
+use crate::doubleopen::{dolicense_to_spdx, fossology_conclusions_to_spdx_expression};
 
 mod doubleopen;
 
@@ -180,6 +180,10 @@ fn license_information_to_spdx_expressions(license_information: Vec<String>) -> 
         .filter(|lic| lic != "Dual-license")
         // Sanitize characters
         .map(sanitize_spdx_expression)
+        // Process DOLicenses in scanner findings.
+        .map(dolicense_to_spdx)
+        // Processed DOLicenses may include spaces. Convert them to dashes.
+        .map(|lic| lic.replace(" ", "-"))
         // Add scanner identifier
         .map(|lic| format!("Scanner-{}", lic))
         // Add LicenseRefs
@@ -226,6 +230,16 @@ mod test_super {
             ..Default::default()
         });
 
+        spdx.file_information.push(FileInformation {
+            file_name: "test_file_3".into(),
+            file_spdx_identifier: "SPDXRef-File-3".into(),
+            file_checksum: vec![Checksum {
+                algorithm: Algorithm::SHA256,
+                value: "checksum3".into(),
+            }],
+            ..Default::default()
+        });
+
         let response_1 = HashQueryResponse {
             hash: Hash {
                 sha1: Some("sha1".into()),
@@ -258,7 +272,28 @@ mod test_super {
             message: None,
         };
 
-        let fossology_responses: Vec<HashQueryResponse> = vec![response_1, response_2];
+        let response_3 = HashQueryResponse {
+            hash: Hash {
+                sha1: Some("sha1".into()),
+                md5: Some("md5".into()),
+                sha256: Some("checksum3".into()),
+                size: Some(100),
+            },
+            findings: Some(Findings {
+                scanner: vec![
+                    "DOLicense-SPDXException-GPL-2.0-or-later-with-Autoconf-exception-2.0".into(),
+                    "GPL-2.0-or-later".into(),
+                ],
+                conclusion: vec![
+                    "DOLicense-SPDXException-GPL-2.0-or-later-with-Autoconf-exception-2.0".into(),
+                ],
+                copyright: vec!["test copyright 3".into()],
+            }),
+            uploads: None,
+            message: None,
+        };
+
+        let fossology_responses: Vec<HashQueryResponse> = vec![response_1, response_2, response_3];
 
         process_fossology_responses(&mut spdx, fossology_responses, &license_list);
 
@@ -272,6 +307,12 @@ mod test_super {
             .file_information
             .iter()
             .find(|file| file.file_spdx_identifier == "SPDXRef-File-2")
+            .unwrap();
+
+        let file_3 = spdx
+            .file_information
+            .iter()
+            .find(|file| file.file_spdx_identifier == "SPDXRef-File-3")
             .unwrap();
 
         assert_eq!(
@@ -289,6 +330,17 @@ mod test_super {
         assert_eq!(
             file_2.concluded_license,
             SPDXExpression("MIT OR ISC".to_string())
+        );
+        assert_eq!(
+            file_3.license_information_in_file,
+            vec![
+                "LicenseRef-Scanner-GPL-2.0-or-later-WITH-Autoconf-exception-2.0".to_string(),
+                "LicenseRef-Scanner-GPL-2.0-or-later".to_string()
+            ]
+        );
+        assert_eq!(
+            file_3.concluded_license,
+            SPDXExpression("GPL-2.0-or-later WITH Autoconf-exception-2.0".to_string())
         );
     }
 }
