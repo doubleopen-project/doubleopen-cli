@@ -5,12 +5,15 @@
 //! Double Open Command Line Utility.
 
 use clap::{Clap, ValueHint};
+use commands::upload_missing_archives_to_fossology;
 use doubleopen_cli::populate_spdx_document_from_fossology;
 use fossology_rs::Fossology;
 use spdx_rs::{license_list::LicenseList, SPDX};
 use std::path::PathBuf;
 
 // use policy_engine::PolicyEngine;
+mod commands;
+mod utilities;
 
 /// Command line options.
 #[derive(Clap, Debug)]
@@ -52,8 +55,8 @@ enum FossologyAction {
     /// Upload source archives in a directory to Fossology.
     Upload {
         /// Directory containing the source archives to upload.
-        #[clap(short, long, parse(from_os_str), value_hint = ValueHint::DirPath)]
-        source_dir_path: PathBuf,
+        #[clap(short, long, parse(from_os_str), value_hint = ValueHint::FilePath)]
+        source_dir_path: Vec<PathBuf>,
 
         /// ID of the folder in Fossology to upload the source to.
         #[clap(short, long)]
@@ -91,9 +94,8 @@ fn main() {
                 let fossology =
                     Fossology::new(&fossology_arguments.uri, &fossology_arguments.token);
 
-                fossology
-                    .upload_files_in_dir(&source_dir_path, &folder)
-                    .unwrap();
+                upload_missing_archives_to_fossology(source_dir_path, &fossology, &folder)
+                    .expect("upload to work");
             }
 
             // Process query subcommand of Fossology.
