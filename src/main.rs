@@ -52,11 +52,11 @@ struct FossologyArguments {
 /// Sub(sub)commands for the Fossology subcommands.
 #[derive(Clap, Debug)]
 enum FossologyAction {
-    /// Upload source archives in a directory to Fossology.
+    /// Upload source archives to Fossology.
     Upload {
-        /// Directory containing the source archives to upload.
+        /// Source archives to upload to Fossology. Use pattern matching to upload multiple files.
         #[clap(short, long, parse(from_os_str), value_hint = ValueHint::FilePath)]
-        source_dir_path: Vec<PathBuf>,
+        source_archive_paths: Vec<PathBuf>,
 
         /// ID of the folder in Fossology to upload the source to.
         #[clap(short, long)]
@@ -91,10 +91,10 @@ fn main() {
             match fossology_arguments.action {
                 // Process upload subcommand of Fossology.
                 FossologyAction::Upload {
-                    source_dir_path,
+                    source_archive_paths,
                     folder,
                 } => {
-                    upload_missing_archives_to_fossology(source_dir_path, &fossology, &folder)
+                    upload_missing_archives_to_fossology(source_archive_paths, &fossology, &folder)
                         .expect("upload to work");
                 }
 
