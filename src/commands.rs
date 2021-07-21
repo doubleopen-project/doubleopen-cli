@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2021 HH Partners
+//
+// SPDX-License-Identifier: MIT
+
 use std::path::Path;
 
 use fossology_rs::{Fossology, FossologyError};
