@@ -7,6 +7,7 @@
 use clap::{Clap, ValueHint};
 use commands::upload_missing_archives_to_fossology;
 use doubleopen_cli::populate_spdx_document_from_fossology;
+use env_logger::Env;
 use fossology_rs::Fossology;
 use spdx_rs::{license_list::LicenseList, SPDX};
 use std::path::PathBuf;
@@ -77,7 +78,9 @@ enum FossologyAction {
 
 fn main() {
     // Initialize logging.
-    env_logger::init();
+    let env = Env::default().filter_or("RUST_LOG", "info");
+
+    env_logger::init_from_env(env);
 
     // Get the command line arguments.
     let opts: Opts = Opts::parse();
