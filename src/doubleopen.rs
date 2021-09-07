@@ -1,4 +1,7 @@
-use spdx_rs::{license_list::LicenseList, SPDXExpression};
+use std::path::Path;
+
+use regex::Regex;
+use spdx_rs::{license_list::LicenseList, PackageInformation, SPDXExpression};
 
 // SPDX-FileCopyrightText: 2020 HH Partners
 //
@@ -185,8 +188,46 @@ fn add_licenserefs(conclusions: Vec<String>, license_list: &LicenseList) -> Vec<
         .collect()
 }
 
+/// Check if the package contains a declared license with "CLOSED".
+pub fn get_packages_with_closed_license(
+    package_information: &[PackageInformation],
+) -> Vec<&PackageInformation> {
+    package_information
+        .iter()
+        .filter(|package| package.declared_license.0.contains("CLOSED"))
+        .collect()
+}
+
+/// Check if the archive at path should not be uploaded.
+pub fn skip_package_upload<P: AsRef<Path>>(
+    archive_path: P,
+    packages_to_skip: &[&PackageInformation],
+) -> bool {
+    let mut packages_to_skip_regex = packages_to_skip.iter().map(|package| {
+        if let Some(version) = &package.package_version {
+            Regex::new(&format!("^{}.*{}.*", &package.package_name, version))
+                .expect("Regex creation to succeed")
+        } else {
+            Regex::new(&format!("^{}.*", &package.package_name)).expect("Regex creation to succeed")
+        }
+    });
+
+    packages_to_skip_regex.any(|package| {
+        let file_name = archive_path.as_ref().file_name();
+
+        if let Some(file_name) = file_name {
+            let file_name = file_name.to_string_lossy();
+            package.is_match(&file_name)
+        } else {
+            false
+        }
+    })
+}
+
 #[cfg(test)]
 mod test_super {
+    use spdx_rs::SPDX;
+
     use super::*;
 
     #[cfg(test)]
@@ -440,5 +481,84 @@ mod test_super {
         ];
         let expected_3 = "(LGPL-2.1 OR BSD-3-Clause) AND MIT".to_string();
         assert_eq!(parse_doubleopen_license(input_3), expected_3);
+    }
+
+    #[test]
+    fn get_packages_with_closed_source() {
+        let mut spdx = SPDX::new("test_spdx");
+        let mut packages: Vec<PackageInformation> = vec![
+            PackageInformation {
+                package_name: "nginx".to_string(),
+                package_version: Some("1.16.1".to_string()),
+                declared_license: SPDXExpression("MIT".to_string()),
+                ..Default::default()
+            },
+            PackageInformation {
+                package_name: "tzdata".to_string(),
+                package_version: Some("2021a".to_string()),
+                declared_license: SPDXExpression("CLOSED".to_string()),
+                ..Default::default()
+            },
+            PackageInformation {
+                package_name: "systemd".to_string(),
+                package_version: Some("1_244.5".to_string()),
+                declared_license: SPDXExpression("MIT AND CLOSED AND Apache-2.0".to_string()),
+                ..Default::default()
+            },
+        ];
+
+        spdx.package_information.append(&mut packages);
+
+        let closed_packages: Vec<&PackageInformation> =
+            get_packages_with_closed_license(&spdx.package_information);
+
+        assert_eq!(closed_packages.len(), 2);
+        assert!(closed_packages
+            .iter()
+            .any(|package| package.package_name == "tzdata"));
+        assert!(closed_packages
+            .iter()
+            .any(|package| package.package_name == "systemd"));
+        assert!(!closed_packages
+            .iter()
+            .any(|package| package.package_name == "nginx"));
+    }
+
+    #[test]
+    fn skip_uploading_correct_packages() {
+        let mut spdx = SPDX::new("test_spdx");
+        let mut packages: Vec<PackageInformation> = vec![
+            PackageInformation {
+                package_name: "nginx".to_string(),
+                package_version: Some("1.16.1".to_string()),
+                declared_license: SPDXExpression("MIT".to_string()),
+                ..Default::default()
+            },
+            PackageInformation {
+                package_name: "tzdata".to_string(),
+                package_version: Some("2021a".to_string()),
+                declared_license: SPDXExpression("CLOSED".to_string()),
+                ..Default::default()
+            },
+            PackageInformation {
+                package_name: "systemd".to_string(),
+                package_version: Some("1_244.5".to_string()),
+                declared_license: SPDXExpression("MIT AND CLOSED AND Apache-2.0".to_string()),
+                ..Default::default()
+            },
+        ];
+
+        spdx.package_information.append(&mut packages);
+
+        let closed_packages: Vec<&PackageInformation> =
+            get_packages_with_closed_license(&spdx.package_information);
+
+        let nginx_path = Path::new("nginx-1.16.1-40.tar.bz2");
+        let systemd_path = Path::new("systemd-1_244.5-r0.tar");
+        let tzdata_path = Path::new("tzdata-2021a-r0.tar.bz2");
+
+        assert!(!skip_package_upload(&nginx_path, &closed_packages));
+        assert!(skip_package_upload(&systemd_path, &closed_packages));
+        assert!(skip_package_upload(&tzdata_path, &closed_packages));
     }
 }
