@@ -14,6 +14,7 @@ use std::path::PathBuf;
 
 // use policy_engine::PolicyEngine;
 mod commands;
+mod doubleopen;
 mod utilities;
 
 /// Command line options.
@@ -62,6 +63,16 @@ enum FossologyAction {
         /// ID of the folder in Fossology to upload the source to.
         #[clap(short, long)]
         folder: i32,
+
+        /// Path to the SPDX Document to get the packages that should be skipped. Packages with
+        /// CLOSED in their declared license won't be uploaded.
+        #[clap(long, parse(from_os_str), value_hint = ValueHint::FilePath)]
+        spdx: PathBuf,
+
+        /// Don't actually upload the packages, but print packages that would be uploaded and
+        /// packages that would be skipped based on having a closed license.
+        #[clap(long)]
+        dry_run: bool,
     },
 
     /// Populate an SPDX file with license and copyritght information from Fossology.
@@ -96,9 +107,18 @@ fn main() {
                 FossologyAction::Upload {
                     source_archive_paths,
                     folder,
+                    spdx,
+                    dry_run,
                 } => {
-                    upload_missing_archives_to_fossology(source_archive_paths, &fossology, &folder)
-                        .expect("upload to work");
+                    let spdx = SPDX::from_file(&spdx).expect("SPDX to deserialize");
+                    upload_missing_archives_to_fossology(
+                        source_archive_paths,
+                        &fossology,
+                        &folder,
+                        &spdx.package_information,
+                        dry_run,
+                    )
+                    .expect("upload to work");
                 }
 
                 // Process query subcommand of Fossology.
