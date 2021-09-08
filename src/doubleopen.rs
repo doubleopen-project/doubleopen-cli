@@ -205,8 +205,12 @@ pub fn skip_package_upload<P: AsRef<Path>>(
 ) -> bool {
     let mut packages_to_skip_regex = packages_to_skip.iter().map(|package| {
         if let Some(version) = &package.package_version {
-            Regex::new(&format!("^{}.*{}.*", &package.package_name, version))
-                .expect("Regex creation to succeed")
+            Regex::new(&format!(
+                "^{}.*{}.*",
+                regex::escape(&package.package_name),
+                regex::escape(version)
+            ))
+            .expect("Regex creation to succeed")
         } else {
             Regex::new(&format!("^{}.*", &package.package_name)).expect("Regex creation to succeed")
         }
@@ -546,6 +550,12 @@ mod test_super {
                 declared_license: SPDXExpression("MIT AND CLOSED AND Apache-2.0".to_string()),
                 ..Default::default()
             },
+            PackageInformation {
+                package_name: "git_package".to_string(),
+                package_version: Some("gitAUTOINC+123".to_string()),
+                declared_license: SPDXExpression("MIT AND CLOSED AND Apache-2.0".to_string()),
+                ..Default::default()
+            },
         ];
 
         spdx.package_information.append(&mut packages);
@@ -556,9 +566,11 @@ mod test_super {
         let nginx_path = Path::new("nginx-1.16.1-40.tar.bz2");
         let systemd_path = Path::new("systemd-1_244.5-r0.tar");
         let tzdata_path = Path::new("tzdata-2021a-r0.tar.bz2");
+        let git_package_path = Path::new("git_package-gitAUTOINC+123-r0.tar.bz2");
 
         assert!(!skip_package_upload(&nginx_path, &closed_packages));
         assert!(skip_package_upload(&systemd_path, &closed_packages));
         assert!(skip_package_upload(&tzdata_path, &closed_packages));
+        assert!(skip_package_upload(&git_package_path, &closed_packages));
     }
 }
