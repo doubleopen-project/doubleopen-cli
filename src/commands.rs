@@ -29,6 +29,11 @@ pub(crate) fn upload_missing_archives_to_fossology<P: AsRef<Path>>(
         .partition(|archive| skip_package_upload(archive, &packages_to_skip));
 
     if !dry_run {
+        for path in paths_to_skip {
+            let display = path.as_ref().display();
+            info!("Will not upload {} based on its license.", display);
+        }
+
         for file in paths_to_upload {
             let sha256 = hash256_for_path(&file);
             if !fossology.file_exists(&sha256)? {
