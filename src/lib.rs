@@ -97,11 +97,17 @@ fn process_fossology_responses(
                         && findings.conclusion.contains(&"NOASSERTION".to_string())
                     {
                         file_information.license_information_in_file =
-                            license_information_to_spdx_expressions(findings.scanner.clone());
+                            license_information_to_spdx_expressions(
+                                findings.scanner.clone(),
+                                license_list,
+                            );
                         file_information.concluded_license = SPDXExpression("NONE".to_string());
                     } else {
                         file_information.license_information_in_file =
-                            license_information_to_spdx_expressions(findings.scanner.clone());
+                            license_information_to_spdx_expressions(
+                                findings.scanner.clone(),
+                                license_list,
+                            );
 
                         if !findings.conclusion.is_empty() {
                             // TODO: Transform Fossology output to SPDX expression.
@@ -171,7 +177,10 @@ fn add_license_texts_to_spdx(spdx: &mut SPDX, license_list: &LicenseList, fossol
 }
 
 /// Convert scanner hits from Fossology to vec of SPDX expressions.
-fn license_information_to_spdx_expressions(license_information: Vec<String>) -> Vec<String> {
+fn license_information_to_spdx_expressions(
+    license_information: Vec<String>,
+    license_list: &LicenseList,
+) -> Vec<String> {
     license_information
         .into_iter()
         // Remove No_license_found
@@ -184,10 +193,14 @@ fn license_information_to_spdx_expressions(license_information: Vec<String>) -> 
         .map(dolicense_to_spdx)
         // Processed DOLicenses may include spaces. Convert them to dashes.
         .map(|lic| lic.replace(" ", "-"))
-        // Add scanner identifier
-        .map(|lic| format!("Scanner-{}", lic))
         // Add LicenseRefs
-        .map(|lic| format!("LicenseRef-{}", lic))
+        .map(|lic| {
+            if license_list.includes_license(&lic) {
+                lic
+            } else {
+                format!("LicenseRef-{}", lic)
+            }
+        })
         .collect()
 }
 
@@ -317,16 +330,13 @@ mod test_super {
 
         assert_eq!(
             file_1.license_information_in_file,
-            vec!["LicenseRef-Scanner-MIT", "LicenseRef-Scanner-GPL-2.0-only"]
+            vec!["MIT", "GPL-2.0-only"]
         );
         assert_eq!(
             file_1.concluded_license,
             SPDXExpression("MIT AND GPL-2.0-only".to_string())
         );
-        assert_eq!(
-            file_2.license_information_in_file,
-            vec!["LicenseRef-Scanner-MIT", "LicenseRef-Scanner-ISC"]
-        );
+        assert_eq!(file_2.license_information_in_file, vec!["MIT", "ISC"]);
         assert_eq!(
             file_2.concluded_license,
             SPDXExpression("MIT OR ISC".to_string())
@@ -334,8 +344,8 @@ mod test_super {
         assert_eq!(
             file_3.license_information_in_file,
             vec![
-                "LicenseRef-Scanner-GPL-2.0-or-later-WITH-Autoconf-exception-2.0".to_string(),
-                "LicenseRef-Scanner-GPL-2.0-or-later".to_string()
+                "LicenseRef-GPL-2.0-or-later-WITH-Autoconf-exception-2.0".to_string(),
+                "GPL-2.0-or-later".to_string()
             ]
         );
         assert_eq!(
