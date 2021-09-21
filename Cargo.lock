@@ -195,7 +195,7 @@ dependencies = [
 
 [[package]]
 name = "doubleopen_cli"
-version = "0.1.9"
+version = "0.1.11"
 dependencies = [
  "clap",
  "env_logger",
