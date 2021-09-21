@@ -108,6 +108,13 @@ fn is_do_exception_license(license: &str) -> bool {
     license.starts_with("SPDXException-")
 }
 
+/// Sanitize string to conform to SPDX license expression spec.
+fn sanitize_spdx_expression(lic: String) -> String {
+    let lic = lic.replace(&['(', ')', '[', ']'][..], "");
+    // TODO: No need to replace + if it's the last character.
+    lic.replace("+", "-or-later")
+}
+
 /// Convert Fossology's conclusions to SPDX Expression.
 pub fn fossology_conclusions_to_spdx_expression(
     conclusions: Vec<String>,
@@ -116,6 +123,7 @@ pub fn fossology_conclusions_to_spdx_expression(
     // Convert all conclusions to be SPDX compliant.
     let conclusions: Vec<String> = conclusions
         .into_iter()
+        .map(sanitize_spdx_expression)
         .map(gpl_or_later_conversion)
         .map(|lic| {
             if license_list.includes_license(&lic)
