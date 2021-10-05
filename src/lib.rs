@@ -2,17 +2,21 @@
 //
 // SPDX-License-Identifier: MIT
 
+use std::collections::HashSet;
+
 use fossology_rs::{
     api_objects::{requests::HashQueryInput, responses::HashQueryResponse},
     Fossology, FossologyError,
 };
-use log::info;
+use log::{debug, info};
 use spdx_rs::{
     license_list::LicenseList, Algorithm, Checksum, OtherLicensingInformationDetected,
-    SPDXExpression, SPDX,
+    RelationshipType, SPDXExpression, SPDX,
 };
 
-use crate::doubleopen::{dolicense_to_spdx, fossology_conclusions_to_spdx_expression};
+use crate::doubleopen::{
+    dolicense_to_spdx, fossology_conclusions_to_spdx_expression, get_packages_with_closed_license,
+};
 
 mod doubleopen;
 
@@ -26,7 +30,44 @@ pub fn populate_spdx_document_from_fossology(
     info!("Populating SPDX from Fossology.");
 
     let sha256_values = spdx.get_unique_hashes(Algorithm::SHA256);
+    debug!(
+        "Extracted {} unique hashes from the SPDX Document.",
+        &sha256_values.len()
+    );
 
+    let closed_recipes = get_packages_with_closed_license(&spdx.package_information);
+
+    let mut closed_file_hashes: HashSet<String> = HashSet::new();
+
+    for recipe in closed_recipes {
+        let recipe_contained_files = spdx.get_files_for_package(&recipe.package_spdx_identifier);
+        let recipe_contained_hashes =
+            recipe_contained_files
+                .iter()
+                .filter_map(|&(file, relationship)| {
+                    if relationship.relationship_type == RelationshipType::Contains {
+                        Some(file.checksum(Algorithm::SHA256))
+                    } else {
+                        None
+                    }
+                });
+
+        for hash in recipe_contained_hashes.flatten() {
+            closed_file_hashes.insert(hash.to_string());
+        }
+    }
+
+    let sha256_values = sha256_values
+        .iter()
+        .filter(|&sha256| !closed_file_hashes.contains(sha256))
+        .collect::<Vec<_>>();
+
+    debug!("Filtered source files contained by CLOSED-recipes.");
+
+    debug!(
+        "Query fossology with {} unique hashes.",
+        &sha256_values.len()
+    );
     // Create input for the Fossology query.
     let input: Vec<HashQueryInput> = sha256_values
         .iter()
