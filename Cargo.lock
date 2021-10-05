@@ -274,9 +274,9 @@ dependencies = [
 
 [[package]]
 name = "fossology-rs"
-version = "0.1.0"
+version = "0.1.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "bb56df8c617ad14966481be02881ae6eb5dabc0c6f98eb9330f9c408fd65fe0d"
+checksum = "24e63420757ee4fe4869cc163e55d4cacd245bce37e0c7d2cac48eca7a1dd23c"
 dependencies = [
  "hex",
  "log",
