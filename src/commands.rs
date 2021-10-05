@@ -13,7 +13,7 @@ use crate::{
     utilities::hash256_for_path,
 };
 
-pub(crate) fn upload_missing_archives_to_fossology<P: AsRef<Path>>(
+pub fn upload_missing_archives_to_fossology<P: AsRef<Path>>(
     source_archives: Vec<P>,
     fossology: &Fossology,
     fossolody_folder: &i32,

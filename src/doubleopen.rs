@@ -13,6 +13,7 @@ pub fn parse_doubleopen_license(licenses: Vec<String>) -> String {
     let mut other_licenses_list: Vec<String> = Vec::new();
 
     for license in licenses {
+        #[allow(clippy::branches_sharing_code)]
         if is_do_license(&license) && is_or_license(&license) {
             let license = dolicense_to_spdx(license);
             or_operator_list.push(license);
@@ -146,7 +147,7 @@ pub fn fossology_conclusions_to_spdx_expression(
         || (conclusions.len() == 3 && conclusions.contains(&"Dual-license".to_string())))
         && conclusions
             .iter()
-            .any(|lic| license_list.includes_exception(&lic))
+            .any(|lic| license_list.includes_exception(lic))
     {
         let mut sorted_conclusions: Vec<String> = Vec::new();
         for lic in conclusions {
@@ -162,7 +163,7 @@ pub fn fossology_conclusions_to_spdx_expression(
         conclusions.join(" OR ")
     } else {
         let conclusions = filter_dual_license(conclusions);
-        let conclusions = add_licenserefs(conclusions, &license_list);
+        let conclusions = add_licenserefs(conclusions, license_list);
         parse_doubleopen_license(conclusions)
     };
 

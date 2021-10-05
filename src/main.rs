@@ -5,17 +5,13 @@
 //! Double Open Command Line Utility.
 
 use clap::{Clap, ValueHint};
-use commands::upload_missing_archives_to_fossology;
-use doubleopen_cli::populate_spdx_document_from_fossology;
+use doubleopen_cli::{
+    commands::upload_missing_archives_to_fossology, populate_spdx_document_from_fossology,
+};
 use env_logger::Env;
 use fossology_rs::Fossology;
 use spdx_rs::{license_list::LicenseList, SPDX};
 use std::path::PathBuf;
-
-// use policy_engine::PolicyEngine;
-mod commands;
-mod doubleopen;
-mod utilities;
 
 /// Command line options.
 #[derive(Clap, Debug)]

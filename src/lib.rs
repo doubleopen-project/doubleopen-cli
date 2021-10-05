@@ -18,7 +18,9 @@ use crate::doubleopen::{
     dolicense_to_spdx, fossology_conclusions_to_spdx_expression, get_packages_with_closed_license,
 };
 
+pub mod commands;
 mod doubleopen;
+mod utilities;
 
 /// Get scanner results and license conclusions for the files in SPDX
 /// found on the Fossology instance.
@@ -79,8 +81,8 @@ pub fn populate_spdx_document_from_fossology(
 
     let responses = fossology.licenses_for_hashes(&input)?;
 
-    process_fossology_responses(&mut spdx, responses, &license_list);
-    add_license_texts_to_spdx(&mut spdx, &license_list, &fossology);
+    process_fossology_responses(&mut spdx, responses, license_list);
+    add_license_texts_to_spdx(&mut spdx, license_list, fossology);
     Ok(())
 }
 
@@ -115,7 +117,7 @@ fn process_fossology_responses(
                     if file_information.checksum(Algorithm::MD5).is_none() {
                         file_information
                             .file_checksum
-                            .push(Checksum::new(Algorithm::MD5, &md5))
+                            .push(Checksum::new(Algorithm::MD5, md5))
                     }
                 }
 
@@ -124,7 +126,7 @@ fn process_fossology_responses(
                     if file_information.checksum(Algorithm::SHA1).is_none() {
                         file_information
                             .file_checksum
-                            .push(Checksum::new(Algorithm::SHA1, &sha1))
+                            .push(Checksum::new(Algorithm::SHA1, sha1))
                     }
                 }
 
@@ -132,32 +134,25 @@ fn process_fossology_responses(
                 if let Some(findings) = &response.findings {
                     // If scanner result is No_license_found and conlcusion is NOASSERTION
                     // conclude as NONE.
+                    file_information.license_information_in_file =
+                        license_information_to_spdx_expressions(
+                            findings.scanner.clone(),
+                            license_list,
+                        );
+
                     if findings.scanner.len() == 1
                         && findings.scanner.contains(&"No_license_found".to_string())
                         && findings.conclusion.len() == 1
                         && findings.conclusion.contains(&"NOASSERTION".to_string())
                     {
-                        file_information.license_information_in_file =
-                            license_information_to_spdx_expressions(
-                                findings.scanner.clone(),
-                                license_list,
-                            );
                         file_information.concluded_license = SPDXExpression("NONE".to_string());
-                    } else {
-                        file_information.license_information_in_file =
-                            license_information_to_spdx_expressions(
-                                findings.scanner.clone(),
+                    } else if !findings.conclusion.is_empty() {
+                        // TODO: Transform Fossology output to SPDX expression.
+                        file_information.concluded_license =
+                            fossology_conclusions_to_spdx_expression(
+                                findings.conclusion.clone(),
                                 license_list,
                             );
-
-                        if !findings.conclusion.is_empty() {
-                            // TODO: Transform Fossology output to SPDX expression.
-                            file_information.concluded_license =
-                                fossology_conclusions_to_spdx_expression(
-                                    findings.conclusion.clone(),
-                                    license_list,
-                                );
-                        };
                     }
 
                     if !findings.copyright.is_empty() {
