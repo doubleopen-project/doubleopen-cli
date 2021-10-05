@@ -275,7 +275,8 @@ dependencies = [
 [[package]]
 name = "fossology-rs"
 version = "0.1.0"
-source = "git+https://github.com/doubleopen-project/fossology-rs?branch=main#cbd9e03799de9e54fd7a8b33b0e0a1c5219176d1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "bb56df8c617ad14966481be02881ae6eb5dabc0c6f98eb9330f9c408fd65fe0d"
 dependencies = [
  "hex",
  "log",
@@ -1143,7 +1144,8 @@ dependencies = [
 [[package]]
 name = "spdx-rs"
 version = "0.1.0"
-source = "git+https://github.com/doubleopen-project/spdx-rs?branch=main#e96d3959f5e46fe273217ee850402f83a05774da"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "78e0a36a883be956ab2ca6d9f1c51e9f84b70b421bef917d16868fd30e8f5577"
 dependencies = [
  "boolean_expression",
  "chrono",
