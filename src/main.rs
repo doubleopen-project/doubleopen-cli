@@ -83,7 +83,7 @@ enum FossologyAction {
     },
 }
 
-fn main() {
+fn main() -> anyhow::Result<()> {
     // Initialize logging.
     let env = Env::default().filter_or("RUST_LOG", "info");
 
@@ -96,7 +96,7 @@ fn main() {
     match opts.subcmd {
         // Process Fossology subcommand.
         SubCommand::Fossology(fossology_arguments) => {
-            let fossology = Fossology::new(&fossology_arguments.uri, &fossology_arguments.token);
+            let fossology = Fossology::new(&fossology_arguments.uri, &fossology_arguments.token)?;
 
             match fossology_arguments.action {
                 // Process upload subcommand of Fossology.
@@ -106,26 +106,25 @@ fn main() {
                     spdx,
                     dry_run,
                 } => {
-                    let spdx = SPDX::from_file(&spdx).expect("SPDX to deserialize");
+                    let spdx = SPDX::from_file(&spdx)?;
                     upload_missing_archives_to_fossology(
                         source_archive_paths,
                         &fossology,
                         &folder,
                         &spdx.package_information,
                         dry_run,
-                    )
-                    .expect("upload to work");
+                    )?;
                 }
 
                 // Process query subcommand of Fossology.
                 FossologyAction::Query { input, output } => {
-                    let mut spdx = SPDX::from_file(&input).unwrap();
-                    let license_list = LicenseList::from_github().unwrap();
-                    populate_spdx_document_from_fossology(&fossology, &mut spdx, &license_list)
-                        .unwrap();
-                    spdx.save_as_json(&output).unwrap();
+                    let mut spdx = SPDX::from_file(&input)?;
+                    let license_list = LicenseList::from_github()?;
+                    populate_spdx_document_from_fossology(&fossology, &mut spdx, &license_list)?;
+                    spdx.save_as_json(&output)?;
                 }
             }
         }
     }
+    Ok(())
 }

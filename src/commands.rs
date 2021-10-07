@@ -2,10 +2,14 @@
 //
 // SPDX-License-Identifier: MIT
 
-use std::path::Path;
+use std::{path::Path, thread, time::Duration};
 
-use fossology_rs::{Fossology, FossologyError};
-use log::{error, info};
+use fossology_rs::{
+    job::{schedule_analysis, ScheduleAgents},
+    upload::{filesearch, get_upload_by_id, new_upload_from_file, Hash},
+    Fossology, FossologyError,
+};
+use log::info;
 use spdx_rs::PackageInformation;
 
 use crate::{
@@ -36,20 +40,60 @@ pub fn upload_missing_archives_to_fossology<P: AsRef<Path>>(
 
         for file in paths_to_upload {
             let sha256 = hash256_for_path(&file);
-            if !fossology.file_exists(&sha256)? {
-                match fossology.upload(&file, fossolody_folder) {
-                    Ok(_) => info!(
-                        "Succesfully uploaded {} to Fossology.",
+            let input = vec![Hash::from_sha256(&sha256)];
+
+            let not_on_fossology = filesearch(fossology, &input, None).unwrap().is_empty();
+
+            if not_on_fossology {
+                let upload = new_upload_from_file(fossology, *fossolody_folder, &file)?;
+
+                let ununpack_in_progress = |fossology, upload_id| -> Result<bool, FossologyError> {
+                    get_upload_by_id(fossology, upload_id).map_or_else(
+                        |err| match err {
+                            FossologyError::Other(error_string) => {
+                                if error_string.contains("Ununpack job not started") {
+                                    Ok(true)
+                                } else {
+                                    Err(FossologyError::Other(error_string))
+                                }
+                            }
+                            err => Err(err),
+                        },
+                        |res| Ok(res.is_none()),
+                    )
+                };
+
+                while ununpack_in_progress(fossology, upload.upload_id)? {
+                    info!(
+                        "Waiting for {} to be unarchived on Fossology.",
                         &file.as_ref().display()
-                    ),
-                    Err(err) => {
-                        error!(
-                            "Failed uploading {} to Fossology: {}",
-                            &file.as_ref().display(),
-                            err
-                        )
-                    }
+                    );
+                    thread::sleep(Duration::from_secs(10));
                 }
+
+                let mut analysis_input = ScheduleAgents::default();
+                analysis_input.analysis.bucket = true;
+                analysis_input.analysis.copyright_email_author = true;
+                analysis_input.analysis.ecc = true;
+                analysis_input.analysis.keyword = true;
+                analysis_input.analysis.mime = true;
+                analysis_input.analysis.monk = true;
+                analysis_input.analysis.nomos = true;
+                analysis_input.analysis.ojo = true;
+                analysis_input.analysis.package = true;
+
+                analysis_input.decider.new_scanner = true;
+                analysis_input.decider.nomos_monk = true;
+                analysis_input.decider.ojo_decider = true;
+
+                schedule_analysis(
+                    fossology,
+                    *fossolody_folder,
+                    upload.upload_id,
+                    None,
+                    &analysis_input,
+                )
+                .unwrap();
             } else {
                 info!(
                     "{} exists on Fossology, did not upload again.",

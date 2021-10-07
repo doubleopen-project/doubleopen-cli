@@ -5,7 +5,8 @@
 use std::collections::HashSet;
 
 use fossology_rs::{
-    api_objects::{requests::HashQueryInput, responses::HashQueryResponse},
+    license::get_license,
+    upload::{filesearch, FilesearchResponse, Hash},
     Fossology, FossologyError,
 };
 use log::{debug, info};
@@ -71,15 +72,25 @@ pub fn populate_spdx_document_from_fossology(
         &sha256_values.len()
     );
     // Create input for the Fossology query.
-    let input: Vec<HashQueryInput> = sha256_values
+    let input: Vec<Hash> = sha256_values
         .iter()
-        .map(|hash| HashQueryInput {
+        .map(|hash| Hash {
             sha256: Some(hash.to_string()),
             ..Default::default()
         })
         .collect();
+    let mut responses = Vec::new();
 
-    let responses = fossology.licenses_for_hashes(&input)?;
+    const CHUNK_SIZE: usize = 2000;
+
+    for (i, batch) in input.chunks(CHUNK_SIZE).enumerate() {
+        info!(
+            "Querying {} / {}.",
+            ((i + 1) * CHUNK_SIZE).min(input.len()),
+            input.len()
+        );
+        responses.extend(filesearch(fossology, batch, None)?);
+    }
 
     process_fossology_responses(&mut spdx, responses, license_list);
     add_license_texts_to_spdx(&mut spdx, license_list, fossology);
@@ -88,7 +99,7 @@ pub fn populate_spdx_document_from_fossology(
 
 fn process_fossology_responses(
     spdx: &mut SPDX,
-    mut responses: Vec<HashQueryResponse>,
+    mut responses: Vec<FilesearchResponse>,
     license_list: &LicenseList,
 ) {
     info!("Processing Fossology response");
@@ -178,7 +189,7 @@ fn add_license_texts_to_spdx(spdx: &mut SPDX, license_list: &LicenseList, fossol
             match spdx_license {
                 Some(_) => {}
                 None => {
-                    let license_data = fossology.license_by_short_name(&license);
+                    let license_data = get_license(fossology, &license, None);
                     match license_data {
                         Ok(license_data) => {
                             let license_text = if !license_data.text.is_empty() {
@@ -249,7 +260,7 @@ fn sanitize_spdx_expression(lic: String) -> String {
 
 #[cfg(test)]
 mod test_super {
-    use fossology_rs::api_objects::responses::{Findings, Hash};
+    use fossology_rs::upload::Findings;
     use spdx_rs::FileInformation;
 
     use super::*;
@@ -289,7 +300,7 @@ mod test_super {
             ..Default::default()
         });
 
-        let response_1 = HashQueryResponse {
+        let response_1 = FilesearchResponse {
             hash: Hash {
                 sha1: Some("sha1".into()),
                 md5: Some("md5".into()),
@@ -301,11 +312,11 @@ mod test_super {
                 conclusion: vec!["MIT".into(), "GPL-2.0-only".into()],
                 copyright: vec!["test copyright 1".into()],
             }),
-            uploads: None,
+            uploads: Vec::new(),
             message: None,
         };
 
-        let response_2 = HashQueryResponse {
+        let response_2 = FilesearchResponse {
             hash: Hash {
                 sha1: Some("sha1".into()),
                 md5: Some("md5".into()),
@@ -317,11 +328,11 @@ mod test_super {
                 conclusion: vec!["MIT".into(), "ISC".into(), "Dual-license".into()],
                 copyright: vec!["test copyright 2".into()],
             }),
-            uploads: None,
+            uploads: Vec::new(),
             message: None,
         };
 
-        let response_3 = HashQueryResponse {
+        let response_3 = FilesearchResponse {
             hash: Hash {
                 sha1: Some("sha1".into()),
                 md5: Some("md5".into()),
@@ -338,11 +349,11 @@ mod test_super {
                 ],
                 copyright: vec!["test copyright 3".into()],
             }),
-            uploads: None,
+            uploads: Vec::new(),
             message: None,
         };
 
-        let fossology_responses: Vec<HashQueryResponse> = vec![response_1, response_2, response_3];
+        let fossology_responses: Vec<FilesearchResponse> = vec![response_1, response_2, response_3];
 
         process_fossology_responses(&mut spdx, fossology_responses, &license_list);
 
