@@ -17,6 +17,7 @@ use spdx_rs::{
 
 use crate::doubleopen::{
     dolicense_to_spdx, fossology_conclusions_to_spdx_expression, get_packages_with_closed_license,
+    yocto_license_to_spdx,
 };
 
 pub mod commands;
@@ -31,6 +32,11 @@ pub fn populate_spdx_document_from_fossology(
     license_list: &LicenseList,
 ) -> Result<(), FossologyError> {
     info!("Populating SPDX from Fossology.");
+
+    // Update declared licenses from Yocto in SPDX to SPDX expressions.
+    for package in &mut spdx.package_information {
+        package.declared_license = yocto_license_to_spdx(&package.declared_license, license_list);
+    }
 
     let sha256_values = spdx.get_unique_hashes(Algorithm::SHA256);
     debug!(

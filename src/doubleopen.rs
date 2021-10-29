@@ -70,6 +70,124 @@ pub(crate) fn dolicense_to_spdx(license: String) -> String {
     }
 }
 
+/// Convert declared license from meta-doubleopen to SPDX expression.
+pub(crate) fn yocto_license_to_spdx(
+    license: &SPDXExpression,
+    license_list: &LicenseList,
+) -> SPDXExpression {
+    let inner = license.0.to_string();
+
+    let inner = inner
+        .replace(" & ", " AND ")
+        .replace(" | ", " OR ")
+        .replace("(", " ( ")
+        .replace(")", " ) ")
+        .replace("_", "-");
+
+    let inner = inner
+        .split_ascii_whitespace()
+        .map(|l| convert_special_yocto_licenses(l.to_string()))
+        .map(|l| {
+            if l == "AND"
+                || l == "OR"
+                || l == "NOASSERTION"
+                || l == "NONE"
+                || l == "("
+                || l == ")"
+                || license_list.includes_license(&l)
+            {
+                l
+            } else {
+                format!("LicenseRef-{}", l)
+            }
+        })
+        .collect::<Vec<_>>()
+        .join(" ");
+
+    SPDXExpression(inner)
+}
+
+fn convert_special_yocto_licenses(input: String) -> String {
+    match input.as_str() {
+        "AGPL-3" => "AGPL-3.0-only".to_string(),
+        "AGPL-3+" => "AGPL-3.0-or-later".to_string(),
+        "AGPLv3" => "AGPL-3.0-only".to_string(),
+        "AGPLv3+" => "AGPL-3.0-or-later".to_string(),
+        "AGPLv3.0" => "AGPL-3.0-only".to_string(),
+        "AGPLv3.0+" => "AGPL-3.0-or-later".to_string(),
+        "AGPL-3.0" => "AGPL-3.0-only".to_string(),
+        "AGPL-3.0+" => "AGPL-3.0-or-later".to_string(),
+        "BSD-0-Clause" => "0BSD".to_string(),
+        "GPL-1" => "GPL-1.0-only".to_string(),
+        "GPL-1+" => "GPL-1.0-or-later".to_string(),
+        "GPLv1" => "GPL-1.0-only".to_string(),
+        "GPLv1+" => "GPL-1.0-or-later".to_string(),
+        "GPLv1.0" => "GPL-1.0-only".to_string(),
+        "GPLv1.0+" => "GPL-1.0-or-later".to_string(),
+        "GPL-1.0" => "GPL-1.0-only".to_string(),
+        "GPL-1.0+" => "GPL-1.0-or-later".to_string(),
+        "GPL-2" => "GPL-2.0-only".to_string(),
+        "GPL-2+" => "GPL-2.0-or-later".to_string(),
+        "GPLv2" => "GPL-2.0-only".to_string(),
+        "GPLv2+" => "GPL-2.0-or-later".to_string(),
+        "GPLv2.0" => "GPL-2.0-only".to_string(),
+        "GPLv2.0+" => "GPL-2.0-or-later".to_string(),
+        "GPL-2.0" => "GPL-2.0-only".to_string(),
+        "GPL-2.0+" => "GPL-2.0-or-later".to_string(),
+        "GPL-3" => "GPL-3.0-only".to_string(),
+        "GPL-3+" => "GPL-3.0-or-later".to_string(),
+        "GPLv3" => "GPL-3.0-only".to_string(),
+        "GPLv3+" => "GPL-3.0-or-later".to_string(),
+        "GPLv3.0" => "GPL-3.0-only".to_string(),
+        "GPLv3.0+" => "GPL-3.0-or-later".to_string(),
+        "GPL-3.0" => "GPL-3.0-only".to_string(),
+        "GPL-3.0+" => "GPL-3.0-or-later".to_string(),
+        "LGPLv2" => "LGPL-2.0-only".to_string(),
+        "LGPLv2+" => "LGPL-2.0-or-later".to_string(),
+        "LGPLv2.0" => "LGPL-2.0-only".to_string(),
+        "LGPLv2.0+" => "LGPL-2.0-or-later".to_string(),
+        "LGPL-2.0" => "LGPL-2.0-only".to_string(),
+        "LGPL-2.0+" => "LGPL-2.0-or-later".to_string(),
+        "LGPL2.1" => "LGPL-2.1-only".to_string(),
+        "LGPL2.1+" => "LGPL-2.1-or-later".to_string(),
+        "LGPLv2.1" => "LGPL-2.1-only".to_string(),
+        "LGPLv2.1+" => "LGPL-2.1-or-later".to_string(),
+        "LGPL-2.1" => "LGPL-2.1-only".to_string(),
+        "LGPL-2.1+" => "LGPL-2.1-or-later".to_string(),
+        "LGPLv3" => "LGPL-3.0-only".to_string(),
+        "LGPLv3+" => "LGPL-3.0-or-later".to_string(),
+        "LGPL-3.0" => "LGPL-3.0-only".to_string(),
+        "LGPL-3.0+" => "LGPL-3.0-or-later".to_string(),
+        "MPL-1" => "MPL-1.0".to_string(),
+        "MPLv1" => "MPL-1.0".to_string(),
+        "MPLv1.1" => "MPL-1.1".to_string(),
+        "MPLv2" => "MPL-2.0".to_string(),
+        "MIT-X" => "MIT".to_string(),
+        "MIT-style" => "MIT".to_string(),
+        "openssl" => "OpenSSL".to_string(),
+        "PSF" => "PSF-2.0".to_string(),
+        "PSFv2" => "PSF-2.0".to_string(),
+        "Python-2" => "Python-2.0".to_string(),
+        "Apachev2" => "Apache-2.0".to_string(),
+        "Apache-2" => "Apache-2.0".to_string(),
+        "Artisticv1" => "Artistic-1.0".to_string(),
+        "Artistic-1" => "Artistic-1.0".to_string(),
+        "AFL-2" => "AFL-2.0".to_string(),
+        "AFL-1" => "AFL-1.2".to_string(),
+        "AFLv2" => "AFL-2.0".to_string(),
+        "AFLv1" => "AFL-1.2".to_string(),
+        "CDDLv1" => "CDDL-1.0".to_string(),
+        "CDDL-1" => "CDDL-1.0".to_string(),
+        "EPLv1.0" => "EPL-1.0".to_string(),
+        "FreeType" => "FTL".to_string(),
+        "Nauman" => "Naumen".to_string(),
+        "tcl" => "TCL".to_string(),
+        "vim" => "Vim".to_string(),
+        "SGIv1" => "SGI-1".to_string(),
+        _ => input,
+    }
+}
+
 /// Convert deprecated license ids.
 pub fn gpl_or_later_conversion(license: String) -> String {
     license
@@ -581,5 +699,40 @@ mod test_super {
         assert!(skip_package_upload(&systemd_path, &closed_packages));
         assert!(skip_package_upload(&tzdata_path, &closed_packages));
         assert!(skip_package_upload(&git_package_path, &closed_packages));
+    }
+
+    #[test]
+    fn license_from_yocto_simple_spdx() {
+        let license_list = LicenseList::from_github().unwrap();
+        let input = SPDXExpression("Zlib".into());
+        let converted = yocto_license_to_spdx(&input, &license_list);
+        assert_eq!(converted, SPDXExpression("Zlib".into()));
+    }
+
+    #[test]
+    fn license_from_yocto_gpl() {
+        let license_list = LicenseList::from_github().unwrap();
+        let input = SPDXExpression("GPLv2".into());
+        let converted = yocto_license_to_spdx(&input, &license_list);
+        assert_eq!(converted, SPDXExpression("GPL-2.0-only".into()));
+    }
+
+    #[test]
+    fn license_from_yocto_closed() {
+        let license_list = LicenseList::from_github().unwrap();
+        let input = SPDXExpression("CLOSED".into());
+        let converted = yocto_license_to_spdx(&input, &license_list);
+        assert_eq!(converted, SPDXExpression("LicenseRef-CLOSED".into()));
+    }
+
+    #[test]
+    fn license_from_yocto_dual_gpl() {
+        let license_list = LicenseList::from_github().unwrap();
+        let input = SPDXExpression("GPLv2 & GPLv2+".into());
+        let converted = yocto_license_to_spdx(&input, &license_list);
+        assert_eq!(
+            converted,
+            SPDXExpression("GPL-2.0-only AND GPL-2.0-or-later".into())
+        );
     }
 }
