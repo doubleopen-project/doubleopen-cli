@@ -236,6 +236,7 @@ fn license_information_to_spdx_expressions(
 ) -> Vec<String> {
     license_information
         .into_iter()
+        .filter(|lic| !lic.starts_with("DOLicense"))
         // Remove No_license_found
         .filter(|lic| lic != "No_license_found")
         // Remove Dual-license
@@ -396,10 +397,7 @@ mod test_super {
         );
         assert_eq!(
             file_3.license_information_in_file,
-            vec![
-                "LicenseRef-GPL-2.0-or-later-WITH-Autoconf-exception-2.0".to_string(),
-                "GPL-2.0-or-later".to_string()
-            ]
+            vec!["GPL-2.0-or-later".to_string()]
         );
         assert_eq!(
             file_3.concluded_license,
