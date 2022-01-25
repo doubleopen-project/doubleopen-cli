@@ -4,7 +4,7 @@
 
 //! Double Open Command Line Utility.
 
-use clap::{Clap, ValueHint};
+use clap::{Parser, ValueHint};
 use doubleopen_cli::{
     commands::upload_missing_archives_to_fossology, populate_spdx_document_from_fossology,
 };
@@ -14,7 +14,7 @@ use spdx_rs::{license_list::LicenseList, SPDX};
 use std::path::PathBuf;
 
 /// Command line options.
-#[derive(Clap, Debug)]
+#[derive(Parser, Debug)]
 #[clap(author, about, version)]
 struct Opts {
     /// Subcommand to run.
@@ -23,7 +23,7 @@ struct Opts {
 }
 
 /// Interact with Fossology and process SPDX document with the data.
-#[derive(Clap, Debug)]
+#[derive(Parser, Debug)]
 enum SubCommand {
     /// Interact with Fossology.
     #[clap(author, version)]
@@ -31,7 +31,7 @@ enum SubCommand {
 }
 
 /// Arguments for the Fossology subcommand.
-#[derive(Clap, Debug)]
+#[derive(Parser, Debug)]
 struct FossologyArguments {
     /// URL of the Fossology instance to use.
     /// Example: `http://localhost/repo/api/v1`.
@@ -48,7 +48,7 @@ struct FossologyArguments {
 }
 
 /// Sub(sub)commands for the Fossology subcommands.
-#[derive(Clap, Debug)]
+#[derive(Parser, Debug)]
 enum FossologyAction {
     /// Upload source archives to Fossology.
     Upload {
