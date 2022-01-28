@@ -249,7 +249,9 @@ fn license_information_to_spdx_expressions(
         .map(|lic| lic.replace(" ", "-"))
         // Add LicenseRefs
         .map(|lic| {
-            if license_list.includes_license(&lic.replace("+", "")) {
+            if license_list.includes_license(&lic.replace("+", ""))
+                || lic.starts_with("LicenseRef-")
+            {
                 lic
             } else {
                 format!("LicenseRef-{}", lic)
