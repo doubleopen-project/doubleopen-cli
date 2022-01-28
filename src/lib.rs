@@ -260,9 +260,7 @@ fn license_information_to_spdx_expressions(
 
 /// Sanitize string to conform to SPDX license expression spec.
 fn sanitize_spdx_expression(lic: String) -> String {
-    let lic = lic.replace(&['(', ')', '[', ']'][..], "");
-    // TODO: No need to replace + if it's the last character.
-    lic.replace("+", "-or-later")
+    lic.replace(&['(', ')', '[', ']'][..], "")
 }
 
 #[cfg(test)]
