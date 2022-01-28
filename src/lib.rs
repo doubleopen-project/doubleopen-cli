@@ -186,7 +186,7 @@ fn add_license_texts_to_spdx(spdx: &mut SPDX, license_list: &LicenseList, fossol
     let licenses = spdx.get_license_ids();
 
     for license in licenses {
-        if !license_list.includes_license(&license) {
+        if !license_list.includes_license(&license.replace("+", "")) {
             let spdx_license = spdx
                 .other_licensing_information_detected
                 .iter()
@@ -249,7 +249,7 @@ fn license_information_to_spdx_expressions(
         .map(|lic| lic.replace(" ", "-"))
         // Add LicenseRefs
         .map(|lic| {
-            if license_list.includes_license(&lic) {
+            if license_list.includes_license(&lic.replace("+", "")) {
                 lic
             } else {
                 format!("LicenseRef-{}", lic)
