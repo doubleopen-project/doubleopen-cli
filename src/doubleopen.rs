@@ -229,9 +229,7 @@ fn is_do_exception_license(license: &str) -> bool {
 
 /// Sanitize string to conform to SPDX license expression spec.
 fn sanitize_spdx_expression(lic: String) -> String {
-    let lic = lic.replace(&['(', ')', '[', ']'][..], "");
-    // TODO: No need to replace + if it's the last character.
-    lic.replace("+", "-or-later")
+    lic.replace(&['(', ')', '[', ']'][..], "")
 }
 
 /// Convert Fossology's conclusions to SPDX Expression.
