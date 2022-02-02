@@ -4,6 +4,7 @@
 
 use std::collections::HashSet;
 
+use doubleopen::gpl_or_later_conversion;
 use fossology_rs::{
     license::get_license,
     upload::{filesearch, FilesearchResponse, Hash},
@@ -16,7 +17,7 @@ use spdx_rs::{
 };
 
 use crate::doubleopen::{
-    dolicense_to_spdx, fossology_conclusions_to_spdx_expression, get_packages_with_closed_license,
+    fossology_conclusions_to_spdx_expression, get_packages_with_closed_license,
     yocto_license_to_spdx,
 };
 
@@ -241,12 +242,11 @@ fn license_information_to_spdx_expressions(
         .filter(|lic| lic != "No_license_found")
         // Remove Dual-license
         .filter(|lic| lic != "Dual-license")
+        .map(gpl_or_later_conversion)
         // Sanitize characters
         .map(sanitize_spdx_expression)
-        // Process DOLicenses in scanner findings.
-        .map(dolicense_to_spdx)
-        // Processed DOLicenses may include spaces. Convert them to dashes.
-        .map(|lic| lic.replace(" ", "-"))
+        // Remove `+` signs as they're not currently used, and are problematic in later steps.
+        .map(|lic| lic.replace("+", ""))
         // Add LicenseRefs
         .map(|lic| {
             if license_list.includes_license(&lic.replace("+", ""))
