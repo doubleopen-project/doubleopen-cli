@@ -29,7 +29,7 @@ mod utilities;
 /// found on the Fossology instance.
 pub fn populate_spdx_document_from_fossology(
     fossology: &Fossology,
-    mut spdx: &mut SPDX,
+    spdx: &mut SPDX,
     license_list: &LicenseList,
 ) -> Result<(), FossologyError> {
     info!("Populating SPDX from Fossology.");
@@ -99,8 +99,8 @@ pub fn populate_spdx_document_from_fossology(
         responses.extend(filesearch(fossology, batch, None)?);
     }
 
-    process_fossology_responses(&mut spdx, responses, license_list);
-    add_license_texts_to_spdx(&mut spdx, license_list, fossology);
+    process_fossology_responses(spdx, responses, license_list);
+    add_license_texts_to_spdx(spdx, license_list, fossology);
     Ok(())
 }
 
