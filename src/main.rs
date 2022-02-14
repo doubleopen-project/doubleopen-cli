@@ -53,7 +53,6 @@ enum FossologyAction {
     /// Upload source archives to Fossology.
     Upload {
         /// Source archives to upload to Fossology. Use pattern matching to upload multiple files.
-        #[clap(short, long, parse(from_os_str), value_hint = ValueHint::FilePath)]
         source_archive_paths: Vec<PathBuf>,
 
         /// ID of the folder in Fossology to upload the source to.
