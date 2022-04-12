@@ -245,8 +245,7 @@ pub fn skip_package_upload<P: AsRef<Path>>(
 }
 
 #[cfg(test)]
-mod test_super {
-
+mod tests {
     use spdx_rs::models::SPDX;
 
     use super::*;

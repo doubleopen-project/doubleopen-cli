@@ -284,7 +284,7 @@ fn sanitize_spdx_expression(lic: String) -> String {
 }
 
 #[cfg(test)]
-mod test_super {
+mod tests {
     use std::fs::read_to_string;
 
     use crate::utilities::deserialize_spdx;
