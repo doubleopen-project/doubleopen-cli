@@ -8,17 +8,16 @@ use doubleopen::gpl_or_later_conversion;
 use fossology_rs::{
     license::get_license,
     upload::{filesearch, FilesearchResponse, Hash},
-    Fossology, FossologyError,
+    Fossology,
 };
 use log::{debug, info};
-use spdx_rs::{
-    license_list::LicenseList, Algorithm, Checksum, OtherLicensingInformationDetected,
-    RelationshipType, SPDXExpression, SPDX,
+use spdx_rs::models::{
+    Algorithm, Checksum, OtherLicensingInformationDetected, RelationshipType, SpdxExpression, SPDX,
 };
+use spdx_toolkit::license_list::LicenseList;
 
 use crate::doubleopen::{
-    fossology_conclusions_to_spdx_expression, get_packages_with_closed_license,
-    yocto_license_to_spdx,
+    fossology_conclusions_to_spdx_expression, get_packages_with_closed_license, is_do_license,
 };
 
 pub mod commands;
@@ -29,14 +28,32 @@ mod utilities;
 /// found on the Fossology instance.
 pub fn populate_spdx_document_from_fossology(
     fossology: &Fossology,
-    spdx: &mut SPDX,
+    spdx: &mut spdx_rs::models::SPDX,
     license_list: &LicenseList,
-) -> Result<(), FossologyError> {
+) -> Result<(), anyhow::Error> {
     info!("Populating SPDX from Fossology.");
 
-    // Update declared licenses from Yocto in SPDX to SPDX expressions.
+    // Update declared licenses to valid SPDX.
     for package in &mut spdx.package_information {
-        package.declared_license = yocto_license_to_spdx(&package.declared_license, license_list);
+        let mut lic = package.declared_license.to_string();
+        let identifiers = package.declared_license.identifiers();
+
+        for identifier in identifiers {
+            if license_list.includes_license(&identifier.replace('+', ""))
+                || license_list.includes_exception(&identifier)
+                || is_do_license(&identifier)
+                || identifier.starts_with("LicenseRef-")
+                || identifier == "Dual-license"
+                || identifier == "NOASSERTION"
+                || identifier == "NONE"
+            {
+                continue;
+            } else {
+                lic = lic.replace(&identifier, &format!("LicenseRef-{}", identifier));
+            }
+        }
+
+        package.declared_license = SpdxExpression::parse(&lic)?;
     }
 
     let sha256_values = spdx.get_unique_hashes(Algorithm::SHA256);
@@ -163,7 +180,8 @@ fn process_fossology_responses(
                         && findings.conclusion.len() == 1
                         && findings.conclusion.contains(&"NOASSERTION".to_string())
                     {
-                        file_information.concluded_license = SPDXExpression("NONE".to_string());
+                        file_information.concluded_license =
+                            SpdxExpression::parse("NONE").expect("Should never fail");
                     } else if !findings.conclusion.is_empty() {
                         // TODO: Transform Fossology output to SPDX expression.
                         file_information.concluded_license =
@@ -268,7 +286,7 @@ fn sanitize_spdx_expression(lic: String) -> String {
 #[cfg(test)]
 mod test_super {
     use fossology_rs::upload::Findings;
-    use spdx_rs::FileInformation;
+    use spdx_rs::models::FileInformation;
 
     use super::*;
 
@@ -388,12 +406,12 @@ mod test_super {
         );
         assert_eq!(
             file_1.concluded_license,
-            SPDXExpression("MIT AND GPL-2.0-only".to_string())
+            SpdxExpression::parse("MIT AND GPL-2.0-only").unwrap()
         );
         assert_eq!(file_2.license_information_in_file, vec!["MIT", "ISC"]);
         assert_eq!(
             file_2.concluded_license,
-            SPDXExpression("MIT OR ISC".to_string())
+            SpdxExpression::parse("MIT OR ISC").unwrap()
         );
         assert_eq!(
             file_3.license_information_in_file,
@@ -401,7 +419,7 @@ mod test_super {
         );
         assert_eq!(
             file_3.concluded_license,
-            SPDXExpression("GPL-2.0-or-later WITH Autoconf-exception-2.0".to_string())
+            SpdxExpression::parse("GPL-2.0-or-later WITH Autoconf-exception-2.0").unwrap()
         );
     }
 }
