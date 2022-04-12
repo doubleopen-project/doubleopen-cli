@@ -2,18 +2,16 @@
 //
 // SPDX-License-Identifier: MIT
 
-use std::{
-    fs::{self, read_to_string},
-    path::PathBuf,
-};
+use std::path::PathBuf;
 
 use clap::{Parser, ValueHint};
 use fossology_rs::Fossology;
-use spdx_rs::models::SPDX;
 use spdx_toolkit::license_list::LicenseList;
 
 use crate::{
-    doubleopen::upload_missing_archives_to_fossology, populate_spdx_document_from_fossology,
+    doubleopen::upload_missing_archives_to_fossology,
+    populate_spdx_document_from_fossology,
+    utilities::{deserialize_spdx, serialize_spdx},
 };
 
 /// Arguments for the Fossology subcommand.
@@ -81,8 +79,7 @@ pub struct UploadArguments {
 }
 
 pub fn upload(arguments: UploadArguments, fossology: &Fossology) -> anyhow::Result<()> {
-    let file_contents = read_to_string(&arguments.spdx)?;
-    let spdx: SPDX = serde_json::from_str(&file_contents)?;
+    let spdx = deserialize_spdx(&arguments.spdx)?;
 
     upload_missing_archives_to_fossology(
         arguments.source_archive_paths,
@@ -107,11 +104,12 @@ pub struct QueryArguments {
 }
 
 pub fn query(arguments: QueryArguments, fossology: &Fossology) -> anyhow::Result<()> {
-    let file_contents = read_to_string(&arguments.input)?;
-    let mut spdx: SPDX = serde_json::from_str(&file_contents)?;
+    let mut spdx = deserialize_spdx(&arguments.input)?;
+
     let license_list = LicenseList::from_github()?;
     populate_spdx_document_from_fossology(fossology, &mut spdx, &license_list)?;
-    let json_string = serde_json::to_string_pretty(&spdx)?;
-    fs::write(&arguments.output, json_string)?;
+
+    serialize_spdx(arguments.output, spdx)?;
+
     Ok(())
 }
