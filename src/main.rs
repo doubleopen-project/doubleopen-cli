@@ -10,8 +10,12 @@ use doubleopen_cli::{
 };
 use env_logger::Env;
 use fossology_rs::Fossology;
-use spdx_rs::{license_list::LicenseList, SPDX};
-use std::path::PathBuf;
+use spdx_rs::models::SPDX;
+use spdx_toolkit::license_list::LicenseList;
+use std::{
+    fs::{self, read_to_string},
+    path::PathBuf,
+};
 
 /// Command line options.
 #[derive(Parser, Debug)]
@@ -105,7 +109,8 @@ fn main() -> anyhow::Result<()> {
                     spdx,
                     dry_run,
                 } => {
-                    let spdx = SPDX::from_file(&spdx)?;
+                    let file_contents = read_to_string(&spdx)?;
+                    let spdx: SPDX = serde_json::from_str(&file_contents)?;
                     upload_missing_archives_to_fossology(
                         source_archive_paths,
                         &fossology,
@@ -117,10 +122,12 @@ fn main() -> anyhow::Result<()> {
 
                 // Process query subcommand of Fossology.
                 FossologyAction::Query { input, output } => {
-                    let mut spdx = SPDX::from_file(&input)?;
+                    let file_contents = read_to_string(&input)?;
+                    let mut spdx: SPDX = serde_json::from_str(&file_contents)?;
                     let license_list = LicenseList::from_github()?;
                     populate_spdx_document_from_fossology(&fossology, &mut spdx, &license_list)?;
-                    spdx.save_as_json(&output)?;
+                    let json_string = serde_json::to_string_pretty(&spdx)?;
+                    fs::write(&output, json_string)?;
                 }
             }
         }

@@ -10,7 +10,7 @@ use fossology_rs::{
     Fossology, FossologyError,
 };
 use log::info;
-use spdx_rs::PackageInformation;
+use spdx_rs::models::PackageInformation;
 
 use crate::{
     doubleopen::{get_packages_with_closed_license, skip_package_upload},

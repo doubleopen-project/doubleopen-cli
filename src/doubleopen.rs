@@ -1,7 +1,8 @@
 use std::path::Path;
 
 use regex::Regex;
-use spdx_rs::{license_list::LicenseList, PackageInformation, SPDXExpression};
+use spdx_rs::models::{PackageInformation, SpdxExpression};
+use spdx_toolkit::license_list::LicenseList;
 
 // SPDX-FileCopyrightText: 2020 HH Partners
 //
@@ -70,124 +71,6 @@ pub(crate) fn dolicense_to_spdx(license: String) -> String {
     }
 }
 
-/// Convert declared license from meta-doubleopen to SPDX expression.
-pub(crate) fn yocto_license_to_spdx(
-    license: &SPDXExpression,
-    license_list: &LicenseList,
-) -> SPDXExpression {
-    let inner = license.0.to_string();
-
-    let inner = inner
-        .replace(" & ", " AND ")
-        .replace(" | ", " OR ")
-        .replace("(", " ( ")
-        .replace(")", " ) ")
-        .replace("_", "-");
-
-    let inner = inner
-        .split_ascii_whitespace()
-        .map(|l| convert_special_yocto_licenses(l.to_string()))
-        .map(|l| {
-            if l == "AND"
-                || l == "OR"
-                || l == "NOASSERTION"
-                || l == "NONE"
-                || l == "("
-                || l == ")"
-                || license_list.includes_license(&l.replace("+", ""))
-            {
-                l
-            } else {
-                format!("LicenseRef-{}", l)
-            }
-        })
-        .collect::<Vec<_>>()
-        .join(" ");
-
-    SPDXExpression(inner)
-}
-
-fn convert_special_yocto_licenses(input: String) -> String {
-    match input.as_str() {
-        "AGPL-3" => "AGPL-3.0-only".to_string(),
-        "AGPL-3+" => "AGPL-3.0-or-later".to_string(),
-        "AGPLv3" => "AGPL-3.0-only".to_string(),
-        "AGPLv3+" => "AGPL-3.0-or-later".to_string(),
-        "AGPLv3.0" => "AGPL-3.0-only".to_string(),
-        "AGPLv3.0+" => "AGPL-3.0-or-later".to_string(),
-        "AGPL-3.0" => "AGPL-3.0-only".to_string(),
-        "AGPL-3.0+" => "AGPL-3.0-or-later".to_string(),
-        "BSD-0-Clause" => "0BSD".to_string(),
-        "GPL-1" => "GPL-1.0-only".to_string(),
-        "GPL-1+" => "GPL-1.0-or-later".to_string(),
-        "GPLv1" => "GPL-1.0-only".to_string(),
-        "GPLv1+" => "GPL-1.0-or-later".to_string(),
-        "GPLv1.0" => "GPL-1.0-only".to_string(),
-        "GPLv1.0+" => "GPL-1.0-or-later".to_string(),
-        "GPL-1.0" => "GPL-1.0-only".to_string(),
-        "GPL-1.0+" => "GPL-1.0-or-later".to_string(),
-        "GPL-2" => "GPL-2.0-only".to_string(),
-        "GPL-2+" => "GPL-2.0-or-later".to_string(),
-        "GPLv2" => "GPL-2.0-only".to_string(),
-        "GPLv2+" => "GPL-2.0-or-later".to_string(),
-        "GPLv2.0" => "GPL-2.0-only".to_string(),
-        "GPLv2.0+" => "GPL-2.0-or-later".to_string(),
-        "GPL-2.0" => "GPL-2.0-only".to_string(),
-        "GPL-2.0+" => "GPL-2.0-or-later".to_string(),
-        "GPL-3" => "GPL-3.0-only".to_string(),
-        "GPL-3+" => "GPL-3.0-or-later".to_string(),
-        "GPLv3" => "GPL-3.0-only".to_string(),
-        "GPLv3+" => "GPL-3.0-or-later".to_string(),
-        "GPLv3.0" => "GPL-3.0-only".to_string(),
-        "GPLv3.0+" => "GPL-3.0-or-later".to_string(),
-        "GPL-3.0" => "GPL-3.0-only".to_string(),
-        "GPL-3.0+" => "GPL-3.0-or-later".to_string(),
-        "LGPLv2" => "LGPL-2.0-only".to_string(),
-        "LGPLv2+" => "LGPL-2.0-or-later".to_string(),
-        "LGPLv2.0" => "LGPL-2.0-only".to_string(),
-        "LGPLv2.0+" => "LGPL-2.0-or-later".to_string(),
-        "LGPL-2.0" => "LGPL-2.0-only".to_string(),
-        "LGPL-2.0+" => "LGPL-2.0-or-later".to_string(),
-        "LGPL2.1" => "LGPL-2.1-only".to_string(),
-        "LGPL2.1+" => "LGPL-2.1-or-later".to_string(),
-        "LGPLv2.1" => "LGPL-2.1-only".to_string(),
-        "LGPLv2.1+" => "LGPL-2.1-or-later".to_string(),
-        "LGPL-2.1" => "LGPL-2.1-only".to_string(),
-        "LGPL-2.1+" => "LGPL-2.1-or-later".to_string(),
-        "LGPLv3" => "LGPL-3.0-only".to_string(),
-        "LGPLv3+" => "LGPL-3.0-or-later".to_string(),
-        "LGPL-3.0" => "LGPL-3.0-only".to_string(),
-        "LGPL-3.0+" => "LGPL-3.0-or-later".to_string(),
-        "MPL-1" => "MPL-1.0".to_string(),
-        "MPLv1" => "MPL-1.0".to_string(),
-        "MPLv1.1" => "MPL-1.1".to_string(),
-        "MPLv2" => "MPL-2.0".to_string(),
-        "MIT-X" => "MIT".to_string(),
-        "MIT-style" => "MIT".to_string(),
-        "openssl" => "OpenSSL".to_string(),
-        "PSF" => "PSF-2.0".to_string(),
-        "PSFv2" => "PSF-2.0".to_string(),
-        "Python-2" => "Python-2.0".to_string(),
-        "Apachev2" => "Apache-2.0".to_string(),
-        "Apache-2" => "Apache-2.0".to_string(),
-        "Artisticv1" => "Artistic-1.0".to_string(),
-        "Artistic-1" => "Artistic-1.0".to_string(),
-        "AFL-2" => "AFL-2.0".to_string(),
-        "AFL-1" => "AFL-1.2".to_string(),
-        "AFLv2" => "AFL-2.0".to_string(),
-        "AFLv1" => "AFL-1.2".to_string(),
-        "CDDLv1" => "CDDL-1.0".to_string(),
-        "CDDL-1" => "CDDL-1.0".to_string(),
-        "EPLv1.0" => "EPL-1.0".to_string(),
-        "FreeType" => "FTL".to_string(),
-        "Nauman" => "Naumen".to_string(),
-        "tcl" => "TCL".to_string(),
-        "vim" => "Vim".to_string(),
-        "SGIv1" => "SGI-1".to_string(),
-        _ => input,
-    }
-}
-
 /// Convert deprecated license ids.
 pub fn gpl_or_later_conversion(license: String) -> String {
     license
@@ -236,7 +119,7 @@ fn sanitize_spdx_expression(lic: String) -> String {
 pub fn fossology_conclusions_to_spdx_expression(
     conclusions: Vec<String>,
     license_list: &LicenseList,
-) -> SPDXExpression {
+) -> SpdxExpression {
     // Convert all conclusions to be SPDX compliant.
     let conclusions: Vec<String> = conclusions
         .into_iter()
@@ -283,7 +166,7 @@ pub fn fossology_conclusions_to_spdx_expression(
         parse_doubleopen_license(conclusions)
     };
 
-    SPDXExpression(expression)
+    SpdxExpression::parse(&expression).expect("should not fail")
 }
 
 /// Filter Fossology's Dual-license from the list of licenses.
@@ -319,7 +202,7 @@ pub fn get_packages_with_closed_license(
 ) -> Vec<&PackageInformation> {
     package_information
         .iter()
-        .filter(|package| package.declared_license.0.contains("CLOSED"))
+        .filter(|package| package.declared_license.to_string().contains("CLOSED"))
         .collect()
 }
 
@@ -355,7 +238,8 @@ pub fn skip_package_upload<P: AsRef<Path>>(
 
 #[cfg(test)]
 mod test_super {
-    use spdx_rs::SPDX;
+
+    use spdx_rs::models::SPDX;
 
     use super::*;
 
@@ -379,17 +263,17 @@ mod test_super {
             let result4 = fossology_conclusions_to_spdx_expression(input4, &license_list);
             let result5 = fossology_conclusions_to_spdx_expression(input5, &license_list);
 
-            assert_eq!(result1, SPDXExpression("MIT".to_string()));
+            assert_eq!(result1, SpdxExpression::parse("MIT").unwrap());
             assert_eq!(
                 result2,
-                SPDXExpression("LicenseRef-CustomLicense".to_string())
+                SpdxExpression::parse("LicenseRef-CustomLicense").unwrap()
             );
             assert_eq!(
                 result3,
-                SPDXExpression("LicenseRef-Autoconf-exception-2.0".to_string())
+                SpdxExpression::parse("LicenseRef-Autoconf-exception-2.0").unwrap()
             );
-            assert_eq!(result4, SPDXExpression("NONE".to_string()));
-            assert_eq!(result5, SPDXExpression("NOASSERTION".to_string()));
+            assert_eq!(result4, SpdxExpression::parse("NONE").unwrap());
+            assert_eq!(result5, SpdxExpression::parse("NOASSERTION").unwrap());
         }
 
         #[test]
@@ -404,14 +288,17 @@ mod test_super {
             let result2 = fossology_conclusions_to_spdx_expression(input2, &license_list);
             let result3 = fossology_conclusions_to_spdx_expression(input3, &license_list);
 
-            assert_eq!(result1, SPDXExpression("MIT AND Apache-2.0".to_string()));
+            assert_eq!(
+                result1,
+                SpdxExpression::parse("MIT AND Apache-2.0").unwrap()
+            );
             assert_eq!(
                 result2,
-                SPDXExpression("LicenseRef-CustomLicense AND MIT".to_string())
+                SpdxExpression::parse("LicenseRef-CustomLicense AND MIT").unwrap()
             );
             assert_eq!(
                 result3,
-                SPDXExpression("MIT WITH Autoconf-exception-2.0".to_string())
+                SpdxExpression::parse("MIT WITH Autoconf-exception-2.0").unwrap()
             );
         }
 
@@ -439,14 +326,14 @@ mod test_super {
             let result2 = fossology_conclusions_to_spdx_expression(input2, &license_list);
             let result3 = fossology_conclusions_to_spdx_expression(input3, &license_list);
 
-            assert_eq!(result1, SPDXExpression("MIT OR Apache-2.0".to_string()));
+            assert_eq!(result1, SpdxExpression::parse("MIT OR Apache-2.0").unwrap());
             assert_eq!(
                 result2,
-                SPDXExpression("LicenseRef-CustomLicense OR MIT".to_string())
+                SpdxExpression::parse("LicenseRef-CustomLicense OR MIT").unwrap()
             );
             assert_eq!(
                 result3,
-                SPDXExpression("MIT WITH Autoconf-exception-2.0".to_string())
+                SpdxExpression::parse("MIT WITH Autoconf-exception-2.0").unwrap()
             );
         }
 
@@ -472,11 +359,12 @@ mod test_super {
 
             assert_eq!(
                 result1,
-                SPDXExpression("MIT AND Apache-2.0 AND ISC".to_string())
+                SpdxExpression::parse("MIT AND Apache-2.0 AND ISC").unwrap()
             );
             assert_eq!(
                 result2,
-                SPDXExpression("LicenseRef-CustomLicense AND MIT AND GPL-2.0-or-later".to_string())
+                SpdxExpression::parse("LicenseRef-CustomLicense AND MIT AND GPL-2.0-or-later")
+                    .unwrap()
             );
         }
 
@@ -490,7 +378,7 @@ mod test_super {
                 "MIT".to_string(),
                 "DOLicense-BSD-3-Clause-AND-GPL-2.0-OR".to_string(),
             ];
-            let expected_1 = SPDXExpression("LGPL-2.1 AND Zlib OR BSD-3-Clause AND GPL-2.0 OR GPL-2.0-or-later WITH Autoconf-exception AND MIT".to_string());
+            let expected_1 = SpdxExpression::parse("LGPL-2.1 AND Zlib OR BSD-3-Clause AND GPL-2.0 OR GPL-2.0-or-later WITH Autoconf-exception AND MIT").unwrap();
             assert_eq!(
                 fossology_conclusions_to_spdx_expression(input_1, &license_list),
                 expected_1
@@ -501,7 +389,7 @@ mod test_super {
                 "BSD-3-Clause".to_string(),
                 "MIT".to_string(),
             ];
-            let expected_2 = SPDXExpression("LGPL-2.1 OR BSD-3-Clause AND MIT".to_string());
+            let expected_2 = SpdxExpression::parse("LGPL-2.1 OR BSD-3-Clause AND MIT").unwrap();
             assert_eq!(
                 fossology_conclusions_to_spdx_expression(input_2, &license_list),
                 expected_2
@@ -511,7 +399,7 @@ mod test_super {
                 "DOLicense-paro-LGPL-2.1-OR-BSD-3-Clause-parc".to_string(),
                 "MIT".to_string(),
             ];
-            let expected_3 = SPDXExpression("(LGPL-2.1 OR BSD-3-Clause) AND MIT".to_string());
+            let expected_3 = SpdxExpression::parse("(LGPL-2.1 OR BSD-3-Clause) AND MIT").unwrap();
             assert_eq!(
                 fossology_conclusions_to_spdx_expression(input_3, &license_list),
                 expected_3
@@ -530,11 +418,11 @@ mod test_super {
 
             assert_eq!(
                 result1,
-                SPDXExpression("GPL-3.0-or-later WITH Bison-exception-2.2".to_string())
+                SpdxExpression::parse("GPL-3.0-or-later WITH Bison-exception-2.2").unwrap()
             );
             assert_eq!(
                 result2,
-                SPDXExpression("GPL-3.0-or-later WITH Bison-exception-2.2".to_string())
+                SpdxExpression::parse("GPL-3.0-or-later WITH Bison-exception-2.2").unwrap()
             );
         }
     }
@@ -619,19 +507,19 @@ mod test_super {
             PackageInformation {
                 package_name: "nginx".to_string(),
                 package_version: Some("1.16.1".to_string()),
-                declared_license: SPDXExpression("MIT".to_string()),
+                declared_license: SpdxExpression::parse("MIT").unwrap(),
                 ..Default::default()
             },
             PackageInformation {
                 package_name: "tzdata".to_string(),
                 package_version: Some("2021a".to_string()),
-                declared_license: SPDXExpression("CLOSED".to_string()),
+                declared_license: SpdxExpression::parse("CLOSED").unwrap(),
                 ..Default::default()
             },
             PackageInformation {
                 package_name: "systemd".to_string(),
                 package_version: Some("1_244.5".to_string()),
-                declared_license: SPDXExpression("MIT AND CLOSED AND Apache-2.0".to_string()),
+                declared_license: SpdxExpression::parse("MIT AND CLOSED AND Apache-2.0").unwrap(),
                 ..Default::default()
             },
         ];
@@ -660,25 +548,25 @@ mod test_super {
             PackageInformation {
                 package_name: "nginx".to_string(),
                 package_version: Some("1.16.1".to_string()),
-                declared_license: SPDXExpression("MIT".to_string()),
+                declared_license: SpdxExpression::parse("MIT").unwrap(),
                 ..Default::default()
             },
             PackageInformation {
                 package_name: "tzdata".to_string(),
                 package_version: Some("2021a".to_string()),
-                declared_license: SPDXExpression("CLOSED".to_string()),
+                declared_license: SpdxExpression::parse("CLOSED").unwrap(),
                 ..Default::default()
             },
             PackageInformation {
                 package_name: "systemd".to_string(),
                 package_version: Some("1_244.5".to_string()),
-                declared_license: SPDXExpression("MIT AND CLOSED AND Apache-2.0".to_string()),
+                declared_license: SpdxExpression::parse("MIT AND CLOSED AND Apache-2.0").unwrap(),
                 ..Default::default()
             },
             PackageInformation {
                 package_name: "git_package".to_string(),
                 package_version: Some("gitAUTOINC+123".to_string()),
-                declared_license: SPDXExpression("MIT AND CLOSED AND Apache-2.0".to_string()),
+                declared_license: SpdxExpression::parse("MIT AND CLOSED AND Apache-2.0").unwrap(),
                 ..Default::default()
             },
         ];
@@ -697,40 +585,5 @@ mod test_super {
         assert!(skip_package_upload(&systemd_path, &closed_packages));
         assert!(skip_package_upload(&tzdata_path, &closed_packages));
         assert!(skip_package_upload(&git_package_path, &closed_packages));
-    }
-
-    #[test]
-    fn license_from_yocto_simple_spdx() {
-        let license_list = LicenseList::from_github().unwrap();
-        let input = SPDXExpression("Zlib".into());
-        let converted = yocto_license_to_spdx(&input, &license_list);
-        assert_eq!(converted, SPDXExpression("Zlib".into()));
-    }
-
-    #[test]
-    fn license_from_yocto_gpl() {
-        let license_list = LicenseList::from_github().unwrap();
-        let input = SPDXExpression("GPLv2".into());
-        let converted = yocto_license_to_spdx(&input, &license_list);
-        assert_eq!(converted, SPDXExpression("GPL-2.0-only".into()));
-    }
-
-    #[test]
-    fn license_from_yocto_closed() {
-        let license_list = LicenseList::from_github().unwrap();
-        let input = SPDXExpression("CLOSED".into());
-        let converted = yocto_license_to_spdx(&input, &license_list);
-        assert_eq!(converted, SPDXExpression("LicenseRef-CLOSED".into()));
-    }
-
-    #[test]
-    fn license_from_yocto_dual_gpl() {
-        let license_list = LicenseList::from_github().unwrap();
-        let input = SPDXExpression("GPLv2 & GPLv2+".into());
-        let converted = yocto_license_to_spdx(&input, &license_list);
-        assert_eq!(
-            converted,
-            SPDXExpression("GPL-2.0-only AND GPL-2.0-or-later".into())
-        );
     }
 }
