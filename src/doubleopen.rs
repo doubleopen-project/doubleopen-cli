@@ -126,7 +126,7 @@ pub fn fossology_conclusions_to_spdx_expression(
         .map(sanitize_spdx_expression)
         .map(gpl_or_later_conversion)
         .map(|lic| {
-            if license_list.includes_license(&lic.replace("+", ""))
+            if license_list.includes_license(&lic.replace('+', ""))
                 || license_list.includes_exception(&lic)
                 || is_do_license(&lic)
                 || lic.starts_with("LicenseRef-")
@@ -182,7 +182,7 @@ fn add_licenserefs(conclusions: Vec<String>, license_list: &LicenseList) -> Vec<
     conclusions
         .into_iter()
         .map(|lic| {
-            if license_list.includes_license(&lic.replace("+", ""))
+            if license_list.includes_license(&lic.replace('+', ""))
                 || lic.starts_with("LicenseRef-")
                 || is_do_license(&lic)
                 || lic == "NOASSERTION"
