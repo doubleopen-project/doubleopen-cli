@@ -109,7 +109,7 @@ pub fn query(arguments: QueryArguments, fossology: &Fossology) -> anyhow::Result
     let license_list = LicenseList::from_github()?;
     populate_spdx_document_from_fossology(fossology, &mut spdx, &license_list)?;
 
-    serialize_spdx(arguments.output, spdx)?;
+    serialize_spdx(arguments.output, &spdx)?;
 
     Ok(())
 }

@@ -14,7 +14,7 @@ license = "MIT"
 
 [dependencies]
 fossology-rs = "0.2.2"
-spdx-rs = "0.4"
+spdx-rs = "0.4.1"
 spdx-toolkit = "0.2"
 clap = { version = "3.0", features = ["derive"] }
 env_logger = "0.8"

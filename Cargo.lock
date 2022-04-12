@@ -182,7 +182,7 @@ dependencies = [
  "regex",
  "serde_json",
  "sha2",
- "spdx-rs 0.4.0",
+ "spdx-rs 0.4.1",
  "spdx-toolkit",
 ]
 
@@ -1274,9 +1274,9 @@ dependencies = [
 
 [[package]]
 name = "spdx-rs"
-version = "0.4.0"
+version = "0.4.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6ef7690eb2e57bbba6bf8efada1d6ab511d48e4fd0464fc6700478a683a92b28"
+checksum = "ef6247251a5f6419b497ad7e07c3310b599410db82169668d5bacb9af0c48e68"
 dependencies = [
  "chrono",
  "log",

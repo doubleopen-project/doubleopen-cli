@@ -285,141 +285,31 @@ fn sanitize_spdx_expression(lic: String) -> String {
 
 #[cfg(test)]
 mod test_super {
-    use fossology_rs::upload::Findings;
-    use spdx_rs::models::FileInformation;
+    use std::fs::read_to_string;
+
+    use crate::utilities::deserialize_spdx;
 
     use super::*;
 
     #[test]
     fn correctly_process_fossology_responses() {
-        let mut spdx = SPDX::new("Test SPDX");
+        let mut spdx = deserialize_spdx("tests/data/fossology/test_spdx.json").unwrap();
         let license_list = LicenseList::from_github().unwrap();
 
-        spdx.file_information.push(FileInformation {
-            file_name: "test_file_1".into(),
-            file_spdx_identifier: "SPDXRef-File-1".into(),
-            file_checksum: vec![Checksum {
-                algorithm: Algorithm::SHA256,
-                value: "checksum1".into(),
-            }],
-            ..Default::default()
-        });
+        let mut response1: Vec<FilesearchResponse> =
+            serde_json::from_str(&read_to_string("tests/data/fossology/response1.json").unwrap())
+                .unwrap();
 
-        spdx.file_information.push(FileInformation {
-            file_name: "test_file_2".into(),
-            file_spdx_identifier: "SPDXRef-File-2".into(),
-            file_checksum: vec![Checksum {
-                algorithm: Algorithm::SHA256,
-                value: "checksum2".into(),
-            }],
-            ..Default::default()
-        });
+        let response2: Vec<FilesearchResponse> =
+            serde_json::from_str(&read_to_string("tests/data/fossology/response2.json").unwrap())
+                .unwrap();
 
-        spdx.file_information.push(FileInformation {
-            file_name: "test_file_3".into(),
-            file_spdx_identifier: "SPDXRef-File-3".into(),
-            file_checksum: vec![Checksum {
-                algorithm: Algorithm::SHA256,
-                value: "checksum3".into(),
-            }],
-            ..Default::default()
-        });
+        response1.extend(response2);
 
-        let response_1 = FilesearchResponse {
-            hash: Hash {
-                sha1: Some("sha1".into()),
-                md5: Some("md5".into()),
-                sha256: Some("checksum1".into()),
-                size: Some(100),
-            },
-            findings: Some(Findings {
-                scanner: vec!["MIT".into(), "GPL-2.0-only".into()],
-                conclusion: vec!["MIT".into(), "GPL-2.0-only".into()],
-                copyright: vec!["test copyright 1".into()],
-            }),
-            uploads: Vec::new(),
-            message: None,
-        };
+        process_fossology_responses(&mut spdx, response1, &license_list);
 
-        let response_2 = FilesearchResponse {
-            hash: Hash {
-                sha1: Some("sha1".into()),
-                md5: Some("md5".into()),
-                sha256: Some("checksum2".into()),
-                size: Some(100),
-            },
-            findings: Some(Findings {
-                scanner: vec!["MIT".into(), "ISC".into(), "Dual-license".into()],
-                conclusion: vec!["MIT".into(), "ISC".into(), "Dual-license".into()],
-                copyright: vec!["test copyright 2".into()],
-            }),
-            uploads: Vec::new(),
-            message: None,
-        };
+        let expected = deserialize_spdx("tests/data/fossology/expected.json").unwrap();
 
-        let response_3 = FilesearchResponse {
-            hash: Hash {
-                sha1: Some("sha1".into()),
-                md5: Some("md5".into()),
-                sha256: Some("checksum3".into()),
-                size: Some(100),
-            },
-            findings: Some(Findings {
-                scanner: vec![
-                    "DOLicense-SPDXException-GPL-2.0-or-later-with-Autoconf-exception-2.0".into(),
-                    "GPL-2.0-or-later".into(),
-                ],
-                conclusion: vec![
-                    "DOLicense-SPDXException-GPL-2.0-or-later-with-Autoconf-exception-2.0".into(),
-                ],
-                copyright: vec!["test copyright 3".into()],
-            }),
-            uploads: Vec::new(),
-            message: None,
-        };
-
-        let fossology_responses: Vec<FilesearchResponse> = vec![response_1, response_2, response_3];
-
-        process_fossology_responses(&mut spdx, fossology_responses, &license_list);
-
-        let file_1 = spdx
-            .file_information
-            .iter()
-            .find(|file| file.file_spdx_identifier == "SPDXRef-File-1")
-            .unwrap();
-
-        let file_2 = spdx
-            .file_information
-            .iter()
-            .find(|file| file.file_spdx_identifier == "SPDXRef-File-2")
-            .unwrap();
-
-        let file_3 = spdx
-            .file_information
-            .iter()
-            .find(|file| file.file_spdx_identifier == "SPDXRef-File-3")
-            .unwrap();
-
-        assert_eq!(
-            file_1.license_information_in_file,
-            vec!["MIT", "GPL-2.0-only"]
-        );
-        assert_eq!(
-            file_1.concluded_license,
-            SpdxExpression::parse("MIT AND GPL-2.0-only").unwrap()
-        );
-        assert_eq!(file_2.license_information_in_file, vec!["MIT", "ISC"]);
-        assert_eq!(
-            file_2.concluded_license,
-            SpdxExpression::parse("MIT OR ISC").unwrap()
-        );
-        assert_eq!(
-            file_3.license_information_in_file,
-            vec!["GPL-2.0-or-later".to_string()]
-        );
-        assert_eq!(
-            file_3.concluded_license,
-            SpdxExpression::parse("GPL-2.0-or-later WITH Autoconf-exception-2.0").unwrap()
-        );
+        assert_eq!(spdx, expected);
     }
 }

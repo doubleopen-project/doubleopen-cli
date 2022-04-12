@@ -1,0 +1,23 @@
+[
+  {
+    "hash": {
+      "sha1": "sha1",
+      "md5": "md5",
+      "sha256": "checksum3",
+      "size": 100
+    },
+    "findings": {
+      "scanner": [
+        "DOLicense-SPDXException-GPL-2.0-or-later-with-Autoconf-exception-2.0",
+        "GPL-2.0-or-later"
+      ],
+      "conclusion": [
+        "DOLicense-SPDXException-GPL-2.0-or-later-with-Autoconf-exception-2.0"
+      ],
+      "copyright": [
+        "test copyright 3"
+      ]
+    },
+    "uploads": []
+  }
+]
