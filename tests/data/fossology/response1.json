@@ -1,0 +1,48 @@
+[
+  {
+    "hash": {
+      "sha1": "sha1",
+      "md5": "md5",
+      "sha256": "checksum1",
+      "size": 100
+    },
+    "findings": {
+      "scanner": [
+        "MIT",
+        "GPL-2.0-only"
+      ],
+      "conclusion": [
+        "MIT",
+        "GPL-2.0-only"
+      ],
+      "copyright": [
+        "test copyright 1"
+      ]
+    },
+    "uploads": []
+  },
+  {
+    "hash": {
+      "sha1": "sha1",
+      "md5": "md5",
+      "sha256": "checksum2",
+      "size": 100
+    },
+    "findings": {
+      "scanner": [
+        "MIT",
+        "ISC",
+        "Dual-license"
+      ],
+      "conclusion": [
+        "MIT",
+        "ISC",
+        "Dual-license"
+      ],
+      "copyright": [
+        "test copyright 2"
+      ]
+    },
+    "uploads": []
+  }
+]

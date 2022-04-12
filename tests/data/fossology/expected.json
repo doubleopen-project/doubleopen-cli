@@ -1,0 +1,93 @@
+{
+  "spdxVersion": "SPDX-2.2",
+  "dataLicense": "CC0-1.0",
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "name": "Test SPDX",
+  "documentNamespace": "http://spdx.org/spdxdocs/Test SPDX-dff09ca6-defb-4427-93d5-00def9353dfd",
+  "creationInfo": {
+    "creators": [
+      "Person: Jane Doe ()",
+      "Organization: ExampleCodeInspect ()",
+      "Tool: LicenseFind-1.0"
+    ],
+    "created": "2022-04-12T18:14:32.684096778Z"
+  },
+  "packages": [],
+  "hasExtractedLicensingInfos": [],
+  "files": [
+    {
+      "fileName": "test_file_1",
+      "SPDXID": "SPDXRef-File-1",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "checksum1"
+        },
+        {
+          "algorithm": "MD5",
+          "checksumValue": "md5"
+        },
+        {
+          "algorithm": "SHA1",
+          "checksumValue": "sha1"
+        }
+      ],
+      "licenseConcluded": "MIT AND GPL-2.0-only",
+      "licenseInfoInFiles": [
+        "MIT",
+        "GPL-2.0-only"
+      ],
+      "copyrightText": "test copyright 1"
+    },
+    {
+      "fileName": "test_file_2",
+      "SPDXID": "SPDXRef-File-2",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "checksum2"
+        },
+        {
+          "algorithm": "MD5",
+          "checksumValue": "md5"
+        },
+        {
+          "algorithm": "SHA1",
+          "checksumValue": "sha1"
+        }
+      ],
+      "licenseConcluded": "MIT OR ISC",
+      "licenseInfoInFiles": [
+        "MIT",
+        "ISC"
+      ],
+      "copyrightText": "test copyright 2"
+    },
+    {
+      "fileName": "test_file_3",
+      "SPDXID": "SPDXRef-File-3",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "checksum3"
+        },
+        {
+          "algorithm": "MD5",
+          "checksumValue": "md5"
+        },
+        {
+          "algorithm": "SHA1",
+          "checksumValue": "sha1"
+        }
+      ],
+      "licenseConcluded": "GPL-2.0-or-later WITH Autoconf-exception-2.0",
+      "licenseInfoInFiles": [
+        "GPL-2.0-or-later"
+      ],
+      "copyrightText": "test copyright 3"
+    }
+  ],
+  "snippets": [],
+  "relationships": [],
+  "annotations": []
+}

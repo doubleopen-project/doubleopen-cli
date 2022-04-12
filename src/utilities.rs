@@ -27,7 +27,7 @@ pub fn deserialize_spdx<P: AsRef<Path>>(path_to_spdx: P) -> anyhow::Result<SPDX>
 }
 
 /// Serialize [`SPDX`] to a file path.
-pub fn serialize_spdx<P: AsRef<Path>>(output_path: P, spdx: SPDX) -> anyhow::Result<()> {
+pub fn serialize_spdx<P: AsRef<Path>>(output_path: P, spdx: &SPDX) -> anyhow::Result<()> {
     let json_string = serde_json::to_string_pretty(&spdx)?;
     write(&output_path, json_string)?;
     Ok(())
