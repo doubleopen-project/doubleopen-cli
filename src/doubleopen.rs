@@ -602,7 +602,7 @@ pub fn upload_missing_archives_to_fossology<P: AsRef<Path>>(
     fossolody_folder: &i32,
     spdx_packages: &[PackageInformation],
     dry_run: bool,
-) -> Result<(), FossologyError> {
+) -> anyhow::Result<()> {
     info!("Uploading missing archives to Fossology.",);
 
     let packages_to_skip = get_packages_with_closed_license(spdx_packages);
@@ -618,7 +618,7 @@ pub fn upload_missing_archives_to_fossology<P: AsRef<Path>>(
         }
 
         for file in paths_to_upload {
-            let sha256 = hash256_for_path(&file);
+            let sha256 = hash256_for_path(&file)?;
             let input = vec![Hash::from_sha256(&sha256)];
 
             let not_on_fossology = filesearch(fossology, &input, None).unwrap().is_empty();
@@ -671,8 +671,7 @@ pub fn upload_missing_archives_to_fossology<P: AsRef<Path>>(
                     upload.upload_id,
                     None,
                     &analysis_input,
-                )
-                .unwrap();
+                )?;
             } else {
                 info!(
                     "{} exists on Fossology, did not upload again.",
