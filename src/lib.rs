@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: 2020 HH Par hash: (), findings: (), uploads: (), message: ()  hash: (), findings: (), uploads: (), message: () tners
+// SPDX-FileCopyrightText: 2020 HH Partners
 //
 // SPDX-License-Identifier: MIT
 
