@@ -13,7 +13,7 @@ license = "MIT"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-fossology-rs = "0.2.2"
+fossology-rs = "0.2.3"
 spdx-rs = "0.4.1"
 spdx-toolkit = "0.2"
 clap = { version = "3.0", features = ["derive"] }
