@@ -9,8 +9,9 @@ use fossology_rs::Fossology;
 use spdx_toolkit::license_list::LicenseList;
 
 use crate::{
-    doubleopen::upload_missing_archives_to_fossology,
-    populate_spdx_document_from_fossology,
+    fossology::processors::{
+        populate_spdx_document_from_fossology, upload_missing_archives_to_fossology,
+    },
     utilities::{deserialize_spdx, serialize_spdx},
 };
 
