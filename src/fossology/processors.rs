@@ -19,8 +19,11 @@ use spdx_rs::models::{
 use spdx_toolkit::license_list::LicenseList;
 
 use crate::{
-    fossology::doubleopen_licenses::{
-        get_packages_with_closed_license, is_do_license, skip_package_upload,
+    fossology::{
+        doubleopen_licenses::{
+            get_packages_with_closed_license, is_do_license, skip_package_upload,
+        },
+        queries::filesearch_for_file_information,
     },
     utilities::hash256_for_path,
 };
@@ -90,37 +93,19 @@ pub fn populate_spdx_document_from_fossology(
         }
     }
 
-    let sha256_values = sha256_values
+    let files = &spdx
+        .file_information
         .iter()
-        .filter(|&sha256| !closed_file_hashes.contains(sha256))
+        .filter(|&file| match file.checksum(Algorithm::SHA256) {
+            Some(checksum) => !closed_file_hashes.contains(checksum),
+            None => true,
+        })
+        .cloned()
         .collect::<Vec<_>>();
 
     debug!("Filtered source files contained by CLOSED-recipes.");
 
-    debug!(
-        "Query fossology with {} unique hashes.",
-        &sha256_values.len()
-    );
-    // Create input for the Fossology query.
-    let input: Vec<Hash> = sha256_values
-        .iter()
-        .map(|hash| Hash {
-            sha256: Some(hash.to_string()),
-            ..Default::default()
-        })
-        .collect();
-    let mut responses = Vec::new();
-
-    const CHUNK_SIZE: usize = 2000;
-
-    for (i, batch) in input.chunks(CHUNK_SIZE).enumerate() {
-        info!(
-            "Querying {} / {}.",
-            ((i + 1) * CHUNK_SIZE).min(input.len()),
-            input.len()
-        );
-        responses.extend(filesearch(fossology, batch, None)?);
-    }
+    let responses = filesearch_for_file_information(files, fossology)?;
 
     process_fossology_responses(spdx, responses, license_list);
     add_license_texts_to_spdx(spdx, license_list, fossology);

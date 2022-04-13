@@ -7,3 +7,4 @@
 mod convert_licenses;
 mod doubleopen_licenses;
 pub mod processors;
+mod queries;
