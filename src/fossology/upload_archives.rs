@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2022 HH Partners
+//
+// SPDX-License-Identifier: MIT
+
 use std::{path::Path, thread::sleep, time::Duration};
 
 use fossology_rs::{

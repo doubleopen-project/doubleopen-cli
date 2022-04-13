@@ -1,3 +1,7 @@
+// SPDX-FileCopyrightText: 2022 HH Partners
+//
+// SPDX-License-Identifier: MIT
+
 use std::collections::HashSet;
 
 use fossology_rs::{license::get_license, upload::FilesearchResponse, Fossology};
@@ -9,7 +13,8 @@ use spdx_rs::models::{
 use spdx_toolkit::license_list::LicenseList;
 
 use crate::fossology::{
-    doubleopen_licenses::{get_packages_with_closed_license, is_do_license},
+    convert_licenses::update_license_to_valid_spdx,
+    doubleopen_licenses::get_packages_with_closed_license,
     queries::filesearch_for_file_information,
 };
 
@@ -29,25 +34,8 @@ pub fn populate_spdx_document_from_fossology(
 
     // Update declared licenses to valid SPDX.
     for package in &mut spdx.package_information {
-        let mut lic = package.declared_license.to_string();
-        let identifiers = package.declared_license.identifiers();
-
-        for identifier in identifiers {
-            if license_list.includes_license(&identifier.replace('+', ""))
-                || license_list.includes_exception(&identifier)
-                || is_do_license(&identifier)
-                || identifier.starts_with("LicenseRef-")
-                || identifier == "Dual-license"
-                || identifier == "NOASSERTION"
-                || identifier == "NONE"
-            {
-                continue;
-            } else {
-                lic = lic.replace(&identifier, &format!("LicenseRef-{}", identifier));
-            }
-        }
-
-        package.declared_license = SpdxExpression::parse(&lic)?;
+        package.declared_license =
+            update_license_to_valid_spdx(&package.declared_license, license_list)?;
     }
 
     let sha256_values = spdx.get_unique_hashes(Algorithm::SHA256);
