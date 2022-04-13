@@ -80,7 +80,7 @@ pub fn populate_spdx_document_from_fossology(
 
     let responses = filesearch_for_file_information(files, fossology)?;
 
-    process_fossology_responses(spdx, responses, license_list);
+    process_fossology_responses(spdx, responses, license_list)?;
     add_license_texts_to_spdx(spdx, license_list, fossology);
     Ok(())
 }
@@ -89,7 +89,7 @@ fn process_fossology_responses(
     spdx: &mut SPDX,
     mut responses: Vec<FilesearchResponse>,
     license_list: &LicenseList,
-) {
+) -> anyhow::Result<()> {
     info!("Processing Fossology response");
 
     // Sort response by sha256 to enable binary search.
@@ -111,10 +111,12 @@ fn process_fossology_responses(
             {
                 let response = &responses[response];
 
-                update_file_from_fossology_response(file_information, response, license_list);
+                update_file_from_fossology_response(file_information, response, license_list)?;
             }
         }
     }
+
+    Ok(())
 }
 
 fn add_license_texts_to_spdx(spdx: &mut SPDX, license_list: &LicenseList, fossology: &Fossology) {
@@ -170,7 +172,7 @@ fn update_file_from_fossology_response(
     file: &mut FileInformation,
     response: &FilesearchResponse,
     license_list: &LicenseList,
-) {
+) -> anyhow::Result<()> {
     // Add MD5 to the file in SPDX.
     if let Some(md5) = &response.hash.md5 {
         if file.checksum(Algorithm::MD5).is_none() {
@@ -193,12 +195,14 @@ fn update_file_from_fossology_response(
             &findings.scanner,
             &findings.conclusion,
             license_list,
-        );
+        )?;
 
         if !findings.copyright.is_empty() {
             file.copyright_text = findings.copyright.join("\n");
         }
     }
+
+    Ok(())
 }
 
 /// Update the concluded license and license info in file of [`FileInformation`] based on
@@ -208,11 +212,11 @@ fn update_file_licenses_from_fossology_response(
     scanner_findings: &[String],
     conclusions: &[String],
     license_list: &LicenseList,
-) {
+) -> anyhow::Result<()> {
     // If scanner result is No_license_found and conlcusion is NOASSERTION
     // conclude as NONE.
     file.license_information_in_file =
-        license_information_to_spdx_expressions(scanner_findings, license_list);
+        license_information_to_spdx_expressions(scanner_findings, license_list)?;
 
     if scanner_findings.len() == 1
         && scanner_findings.contains(&"No_license_found".to_string())
@@ -224,6 +228,8 @@ fn update_file_licenses_from_fossology_response(
         file.concluded_license =
             fossology_conclusions_to_spdx_expression(conclusions, license_list);
     }
+
+    Ok(())
 }
 
 #[cfg(test)]
@@ -251,7 +257,7 @@ mod tests {
 
         response1.extend(response2);
 
-        process_fossology_responses(&mut spdx, response1, &license_list);
+        process_fossology_responses(&mut spdx, response1, &license_list).unwrap();
 
         let expected = deserialize_spdx("tests/data/fossology/expected.json").unwrap();
 
@@ -275,7 +281,7 @@ mod tests {
             serde_json::from_str(&read_to_string("tests/data/fossology/response3.json").unwrap())
                 .unwrap();
 
-        update_file_from_fossology_response(&mut file, &response, &license_list);
+        update_file_from_fossology_response(&mut file, &response, &license_list).unwrap();
 
         assert_eq!(file, expected);
     }

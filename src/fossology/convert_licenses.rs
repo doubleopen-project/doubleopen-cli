@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: MIT
 
-use spdx_rs::models::SpdxExpression;
+use spdx_rs::models::{SimpleExpression, SpdxExpression};
 use spdx_toolkit::license_list::LicenseList;
 
 use super::doubleopen_licenses::{gpl_or_later_conversion, is_do_license};
@@ -11,7 +11,7 @@ use super::doubleopen_licenses::{gpl_or_later_conversion, is_do_license};
 pub fn license_information_to_spdx_expressions(
     license_information: &[String],
     license_list: &LicenseList,
-) -> Vec<String> {
+) -> anyhow::Result<Vec<SimpleExpression>> {
     license_information
         .iter()
         .cloned()
@@ -35,7 +35,8 @@ pub fn license_information_to_spdx_expressions(
                 format!("LicenseRef-{}", lic)
             }
         })
-        .collect()
+        .map(|lic| SimpleExpression::parse(&lic).map_err(anyhow::Error::new))
+        .collect::<anyhow::Result<Vec<SimpleExpression>>>()
 }
 
 /// Sanitize string to conform to SPDX license expression spec.
