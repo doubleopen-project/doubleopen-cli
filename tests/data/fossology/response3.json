@@ -1,0 +1,22 @@
+{
+  "hash": {
+    "sha1": "checksumSHA1",
+    "md5": "checksumMD5",
+    "sha256": "checksumSHA256",
+    "size": 500
+  },
+  "findings": {
+    "scanner": [
+      "MIT",
+      "GPL-2.0-only"
+    ],
+    "conclusion": [
+      "MIT",
+      "GPL-2.0-or-later"
+    ],
+    "copyright": [
+      "2022 HH Partners"
+    ]
+  },
+  "uploads": []
+}

@@ -1,0 +1,13 @@
+{
+  "fileName": "filename.txt",
+  "SPDXID": "SPDXRef-File-1",
+  "checksums": [
+    {
+      "algorithm": "SHA256",
+      "checksumValue": "checksumSHA256"
+    }
+  ],
+  "licenseConcluded": "NOASSERTION",
+  "licenseInfoInFiles": [],
+  "copyrightText": "NOASSERTION"
+}

@@ -117,12 +117,13 @@ fn sanitize_spdx_expression(lic: String) -> String {
 
 /// Convert Fossology's conclusions to SPDX Expression.
 pub fn fossology_conclusions_to_spdx_expression(
-    conclusions: Vec<String>,
+    conclusions: &[String],
     license_list: &LicenseList,
 ) -> SpdxExpression {
     // Convert all conclusions to be SPDX compliant.
     let conclusions: Vec<String> = conclusions
-        .into_iter()
+        .iter()
+        .cloned()
         .map(sanitize_spdx_expression)
         .map(gpl_or_later_conversion)
         .map(|lic| {
@@ -256,11 +257,11 @@ mod tests {
 
             let license_list = LicenseList::from_github().unwrap();
 
-            let result1 = fossology_conclusions_to_spdx_expression(input1, &license_list);
-            let result2 = fossology_conclusions_to_spdx_expression(input2, &license_list);
-            let result3 = fossology_conclusions_to_spdx_expression(input3, &license_list);
-            let result4 = fossology_conclusions_to_spdx_expression(input4, &license_list);
-            let result5 = fossology_conclusions_to_spdx_expression(input5, &license_list);
+            let result1 = fossology_conclusions_to_spdx_expression(&input1, &license_list);
+            let result2 = fossology_conclusions_to_spdx_expression(&input2, &license_list);
+            let result3 = fossology_conclusions_to_spdx_expression(&input3, &license_list);
+            let result4 = fossology_conclusions_to_spdx_expression(&input4, &license_list);
+            let result5 = fossology_conclusions_to_spdx_expression(&input5, &license_list);
 
             assert_eq!(result1, SpdxExpression::parse("MIT").unwrap());
             assert_eq!(
@@ -283,9 +284,9 @@ mod tests {
 
             let license_list = LicenseList::from_github().unwrap();
 
-            let result1 = fossology_conclusions_to_spdx_expression(input1, &license_list);
-            let result2 = fossology_conclusions_to_spdx_expression(input2, &license_list);
-            let result3 = fossology_conclusions_to_spdx_expression(input3, &license_list);
+            let result1 = fossology_conclusions_to_spdx_expression(&input1, &license_list);
+            let result2 = fossology_conclusions_to_spdx_expression(&input2, &license_list);
+            let result3 = fossology_conclusions_to_spdx_expression(&input3, &license_list);
 
             assert_eq!(
                 result1,
@@ -321,9 +322,9 @@ mod tests {
 
             let license_list = LicenseList::from_github().unwrap();
 
-            let result1 = fossology_conclusions_to_spdx_expression(input1, &license_list);
-            let result2 = fossology_conclusions_to_spdx_expression(input2, &license_list);
-            let result3 = fossology_conclusions_to_spdx_expression(input3, &license_list);
+            let result1 = fossology_conclusions_to_spdx_expression(&input1, &license_list);
+            let result2 = fossology_conclusions_to_spdx_expression(&input2, &license_list);
+            let result3 = fossology_conclusions_to_spdx_expression(&input3, &license_list);
 
             assert_eq!(result1, SpdxExpression::parse("MIT OR Apache-2.0").unwrap());
             assert_eq!(
@@ -353,8 +354,8 @@ mod tests {
 
             let license_list = LicenseList::from_github().unwrap();
 
-            let result1 = fossology_conclusions_to_spdx_expression(input1, &license_list);
-            let result2 = fossology_conclusions_to_spdx_expression(input2, &license_list);
+            let result1 = fossology_conclusions_to_spdx_expression(&input1, &license_list);
+            let result2 = fossology_conclusions_to_spdx_expression(&input2, &license_list);
 
             assert_eq!(
                 result1,
@@ -379,7 +380,7 @@ mod tests {
             ];
             let expected_1 = SpdxExpression::parse("LGPL-2.1 AND Zlib OR BSD-3-Clause AND GPL-2.0 OR GPL-2.0-or-later WITH Autoconf-exception AND MIT").unwrap();
             assert_eq!(
-                fossology_conclusions_to_spdx_expression(input_1, &license_list),
+                fossology_conclusions_to_spdx_expression(&input_1, &license_list),
                 expected_1
             );
 
@@ -390,7 +391,7 @@ mod tests {
             ];
             let expected_2 = SpdxExpression::parse("LGPL-2.1 OR BSD-3-Clause AND MIT").unwrap();
             assert_eq!(
-                fossology_conclusions_to_spdx_expression(input_2, &license_list),
+                fossology_conclusions_to_spdx_expression(&input_2, &license_list),
                 expected_2
             );
 
@@ -400,7 +401,7 @@ mod tests {
             ];
             let expected_3 = SpdxExpression::parse("(LGPL-2.1 OR BSD-3-Clause) AND MIT").unwrap();
             assert_eq!(
-                fossology_conclusions_to_spdx_expression(input_3, &license_list),
+                fossology_conclusions_to_spdx_expression(&input_3, &license_list),
                 expected_3
             );
         }
@@ -412,8 +413,8 @@ mod tests {
 
             let license_list = LicenseList::from_github().unwrap();
 
-            let result1 = fossology_conclusions_to_spdx_expression(input1, &license_list);
-            let result2 = fossology_conclusions_to_spdx_expression(input2, &license_list);
+            let result1 = fossology_conclusions_to_spdx_expression(&input1, &license_list);
+            let result2 = fossology_conclusions_to_spdx_expression(&input2, &license_list);
 
             assert_eq!(
                 result1,

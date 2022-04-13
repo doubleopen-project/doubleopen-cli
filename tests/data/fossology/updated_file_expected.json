@@ -1,0 +1,24 @@
+{
+  "fileName": "filename.txt",
+  "SPDXID": "SPDXRef-File-1",
+  "checksums": [
+    {
+      "algorithm": "SHA256",
+      "checksumValue": "checksumSHA256"
+    },
+    {
+      "algorithm": "MD5",
+      "checksumValue": "checksummd5"
+    },
+    {
+      "algorithm": "SHA1",
+      "checksumValue": "checksumsha1"
+    }
+  ],
+  "licenseConcluded": "MIT AND GPL-2.0-or-later",
+  "licenseInfoInFiles": [
+    "MIT",
+    "GPL-2.0-only"
+  ],
+  "copyrightText": "2022 HH Partners"
+}

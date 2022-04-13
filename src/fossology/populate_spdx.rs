@@ -111,7 +111,7 @@ fn process_fossology_responses(
             {
                 let response = &responses[response];
 
-                add_file_response(file_information, response, license_list);
+                update_file_from_fossology_response(file_information, response, license_list);
             }
         }
     }
@@ -164,7 +164,9 @@ fn add_license_texts_to_spdx(spdx: &mut SPDX, license_list: &LicenseList, fossol
         }
     }
 }
-fn add_file_response(
+
+/// Update [`FileInformation`] based on Fossology's [`FilesearchResponse`].
+fn update_file_from_fossology_response(
     file: &mut FileInformation,
     response: &FilesearchResponse,
     license_list: &LicenseList,
@@ -186,22 +188,12 @@ fn add_file_response(
 
     // Add license findings to the file in SPDX.
     if let Some(findings) = &response.findings {
-        // If scanner result is No_license_found and conlcusion is NOASSERTION
-        // conclude as NONE.
-        file.license_information_in_file =
-            license_information_to_spdx_expressions(findings.scanner.clone(), license_list);
-
-        if findings.scanner.len() == 1
-            && findings.scanner.contains(&"No_license_found".to_string())
-            && findings.conclusion.len() == 1
-            && findings.conclusion.contains(&"NOASSERTION".to_string())
-        {
-            file.concluded_license = SpdxExpression::parse("NONE").expect("Should never fail");
-        } else if !findings.conclusion.is_empty() {
-            // TODO: Transform Fossology output to SPDX expression.
-            file.concluded_license =
-                fossology_conclusions_to_spdx_expression(findings.conclusion.clone(), license_list);
-        }
+        update_file_licenses_from_fossology_response(
+            file,
+            &findings.scanner,
+            &findings.conclusion,
+            license_list,
+        );
 
         if !findings.copyright.is_empty() {
             file.copyright_text = findings.copyright.join("\n");
@@ -209,9 +201,36 @@ fn add_file_response(
     }
 }
 
+/// Update the concluded license and license info in file of [`FileInformation`] based on
+/// scanner findings and conclusions from [`FilesearchResponse`].
+fn update_file_licenses_from_fossology_response(
+    file: &mut FileInformation,
+    scanner_findings: &[String],
+    conclusions: &[String],
+    license_list: &LicenseList,
+) {
+    // If scanner result is No_license_found and conlcusion is NOASSERTION
+    // conclude as NONE.
+    file.license_information_in_file =
+        license_information_to_spdx_expressions(scanner_findings, license_list);
+
+    if scanner_findings.len() == 1
+        && scanner_findings.contains(&"No_license_found".to_string())
+        && conclusions.len() == 1
+        && conclusions.contains(&"NOASSERTION".to_string())
+    {
+        file.concluded_license = SpdxExpression::parse("NONE").expect("Should never fail");
+    } else if !conclusions.is_empty() {
+        file.concluded_license =
+            fossology_conclusions_to_spdx_expression(conclusions, license_list);
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use std::fs::read_to_string;
+
+    use pretty_assertions::assert_eq;
 
     use crate::utilities::deserialize_spdx;
 
@@ -237,5 +256,27 @@ mod tests {
         let expected = deserialize_spdx("tests/data/fossology/expected.json").unwrap();
 
         assert_eq!(spdx, expected);
+    }
+
+    #[test]
+    fn update_file_from_fossology_response_correctly() {
+        let license_list = LicenseList::from_github().unwrap();
+
+        let mut file: FileInformation =
+            serde_json::from_str(&read_to_string("tests/data/fossology/file_input.json").unwrap())
+                .unwrap();
+
+        let expected: FileInformation = serde_json::from_str(
+            &read_to_string("tests/data/fossology/updated_file_expected.json").unwrap(),
+        )
+        .unwrap();
+
+        let response: FilesearchResponse =
+            serde_json::from_str(&read_to_string("tests/data/fossology/response3.json").unwrap())
+                .unwrap();
+
+        update_file_from_fossology_response(&mut file, &response, &license_list);
+
+        assert_eq!(file, expected);
     }
 }

@@ -9,11 +9,12 @@ use super::doubleopen_licenses::{gpl_or_later_conversion, is_do_license};
 
 /// Convert scanner hits from Fossology to vec of SPDX expressions.
 pub fn license_information_to_spdx_expressions(
-    license_information: Vec<String>,
+    license_information: &[String],
     license_list: &LicenseList,
 ) -> Vec<String> {
     license_information
-        .into_iter()
+        .iter()
+        .cloned()
         .filter(|lic| !lic.starts_with("DOLicense"))
         // Remove No_license_found
         .filter(|lic| lic != "No_license_found")
