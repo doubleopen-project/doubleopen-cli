@@ -20,10 +20,17 @@ pub fn hash256_for_path<P: AsRef<Path>>(path: P) -> anyhow::Result<String> {
     Ok(hex::encode_upper(hash))
 }
 
-/// Deserialize [`SPDX`] from a file path.
+/// Deserialize [`SPDX`] from a file path. Accepts JSON and YAML.
 pub fn deserialize_spdx<P: AsRef<Path>>(path_to_spdx: P) -> anyhow::Result<SPDX> {
-    let file_contents = read_to_string(path_to_spdx)?;
-    Ok(serde_json::from_str::<SPDX>(&file_contents)?)
+    let file_contents = read_to_string(&path_to_spdx)?;
+    match path_to_spdx.as_ref().extension() {
+        Some(extension) => match extension.to_str() {
+            Some("json") => Ok(serde_json::from_str::<SPDX>(&file_contents)?),
+            Some("yml") | Some("yaml") => Ok(serde_yaml::from_str::<SPDX>(&file_contents)?),
+            _ => Err(anyhow::anyhow!("invalid file extension")),
+        },
+        None => Err(anyhow::anyhow!("invalid file extension")),
+    }
 }
 
 /// Serialize [`SPDX`] to a file path.

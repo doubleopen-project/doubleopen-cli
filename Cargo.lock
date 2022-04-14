@@ -207,6 +207,7 @@ dependencies = [
  "pretty_assertions",
  "regex",
  "serde_json",
+ "serde_yaml",
  "sha2",
  "spdx-rs 0.5.0",
  "spdx-toolkit",
