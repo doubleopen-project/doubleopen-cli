@@ -6,41 +6,25 @@ name: Release
 
 on:
   push:
-    tags:
-      - 'v*'
+    branches:
+      - main
 
 jobs:
-  test:
+  Release:
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/cache@v2
+      - uses: google-github-actions/release-please-action@v3
+        id: release
         with:
-          path: |
-            ~/.cargo/registry
-            ~/.cargo/git
-            target
-          key: ${{ runner.os }}-cargo-${{ hashFiles('Cargo.lock') }}
-      - name: Build
-        run: cargo build --verbose
-      - name: Run tests
-        run: cargo test --verbose
-
-  reuse:
-    runs-on: ubuntu-latest
-
-    steps:
+          release-type: rust
+          package-name: doubleopen_cli
+          bump-minor-pre-major: true
+          bump-patch-for-minor-pre-major: true
+          pull-request-title-pattern: "chore: release ${version}"
       - uses: actions/checkout@v2
-      - name: REUSE Compliance Check
-        uses: fsfe/reuse-action@v1
-
-  deploy:
-    needs: [test, reuse]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
+        if: ${{ steps.release.outputs.release_created }}
       - uses: actions/cache@v2
+        if: ${{ steps.release.outputs.release_created }}
         with:
           path: |
             ~/.cargo/registry
@@ -48,14 +32,21 @@ jobs:
             target
           key: ${{ runner.os }}-cargo-${{ hashFiles('Cargo.lock') }}
       - uses: actions-rs/toolchain@v1
+        if: ${{ steps.release.outputs.release_created }}
         with:
           toolchain: stable
       - uses: actions-rs/cargo@v1
+        if: ${{ steps.release.outputs.release_created }}
         with:
           command: build
           args: --release
-      - uses: softprops/action-gh-release@v1
-        with:
-          files: target/release/doubleopen_cli
+      - name: Upload release binary
+        if: ${{ steps.release.outputs.release_created }}
+        uses: actions/upload-release-asset@v1.0.2
         env:
-          GITHUB_TOKEN : ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.release.outputs.upload_url }}
+          asset_path: ./target/release/doubleopen_cli
+          asset_name: doubleopen_cli
+          asset_content_type: application/x-binary
