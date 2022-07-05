@@ -17,7 +17,7 @@ fossology-rs = "0.2.3"
 spdx-rs = "0.5.0"
 spdx-toolkit = "0.2"
 clap = { version = "3.0", features = ["derive"] }
-env_logger = "0.8"
+env_logger = "0.9"
 log = "0.4"
 sha2 = "0.9"
 hex = "0.4"
