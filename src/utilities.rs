@@ -14,8 +14,7 @@ pub fn hash256_for_path<P: AsRef<Path>>(path: P) -> anyhow::Result<String> {
     let mut file = File::open(path)?;
     let mut sha256 = Sha256::new();
     io::copy(&mut file, &mut sha256)?;
-    let hash: sha2::digest::generic_array::GenericArray<u8, <Sha256 as Digest>::OutputSize> =
-        sha256.finalize();
+    let hash = sha256.finalize();
 
     Ok(hex::encode_upper(hash))
 }
@@ -47,7 +46,8 @@ mod tests {
     #[test]
     fn test_sha256_for_path() {
         let actual_hash = hash256_for_path("LICENSE").unwrap();
-        let expected_hash = String::from("E53CC20D66C471D974F1264DB690B2ED2660816DA7624E75DF744D0D77BA3728");
+        let expected_hash =
+            String::from("E53CC20D66C471D974F1264DB690B2ED2660816DA7624E75DF744D0D77BA3728");
         assert_eq!(actual_hash, expected_hash);
     }
 }
