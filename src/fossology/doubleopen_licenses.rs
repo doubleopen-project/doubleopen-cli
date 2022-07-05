@@ -255,7 +255,7 @@ mod tests {
             let input4 = vec!["NONE".to_string()];
             let input5 = vec!["NOASSERTION".to_string()];
 
-            let license_list = LicenseList::from_github().unwrap();
+            let license_list = LicenseList::from_github(None).unwrap();
 
             let result1 = fossology_conclusions_to_spdx_expression(&input1, &license_list);
             let result2 = fossology_conclusions_to_spdx_expression(&input2, &license_list);
@@ -282,7 +282,7 @@ mod tests {
             let input2 = vec!["CustomLicense".to_string(), "MIT".to_string()];
             let input3 = vec!["Autoconf-exception-2.0".to_string(), "MIT".to_string()];
 
-            let license_list = LicenseList::from_github().unwrap();
+            let license_list = LicenseList::from_github(None).unwrap();
 
             let result1 = fossology_conclusions_to_spdx_expression(&input1, &license_list);
             let result2 = fossology_conclusions_to_spdx_expression(&input2, &license_list);
@@ -320,7 +320,7 @@ mod tests {
                 "Dual-license".to_string(),
             ];
 
-            let license_list = LicenseList::from_github().unwrap();
+            let license_list = LicenseList::from_github(None).unwrap();
 
             let result1 = fossology_conclusions_to_spdx_expression(&input1, &license_list);
             let result2 = fossology_conclusions_to_spdx_expression(&input2, &license_list);
@@ -352,7 +352,7 @@ mod tests {
                 "GPL-2.0-or-later".to_string(),
             ];
 
-            let license_list = LicenseList::from_github().unwrap();
+            let license_list = LicenseList::from_github(None).unwrap();
 
             let result1 = fossology_conclusions_to_spdx_expression(&input1, &license_list);
             let result2 = fossology_conclusions_to_spdx_expression(&input2, &license_list);
@@ -370,7 +370,7 @@ mod tests {
 
         #[test]
         fn doubleopen_license_is_converted_correctly() {
-            let license_list = LicenseList::from_github().unwrap();
+            let license_list = LicenseList::from_github(None).unwrap();
 
             let input_1 = vec![
                 "DOLicense-LGPL-2.1-AND-Zlib-OR".to_string(),
@@ -411,7 +411,7 @@ mod tests {
             let input1 = vec!["Bison-exception-2.2".to_string(), "GPL-3.0+".to_string()];
             let input2 = vec!["GPL-3.0+".to_string(), "Bison-exception-2.2".to_string()];
 
-            let license_list = LicenseList::from_github().unwrap();
+            let license_list = LicenseList::from_github(None).unwrap();
 
             let result1 = fossology_conclusions_to_spdx_expression(&input1, &license_list);
             let result2 = fossology_conclusions_to_spdx_expression(&input2, &license_list);

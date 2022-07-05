@@ -78,7 +78,7 @@ mod tests {
     fn update_licenseref_to_valid_spdx() {
         let original = SpdxExpression::parse("CLOSED").unwrap();
 
-        let license_list = LicenseList::from_github().unwrap();
+        let license_list = LicenseList::from_github(None).unwrap();
         let actual = update_license_to_valid_spdx(&original, &license_list).unwrap();
 
         let expected = SpdxExpression::parse("LicenseRef-CLOSED").unwrap();
@@ -90,7 +90,7 @@ mod tests {
     fn do_not_update_valid_spdx() {
         let original = SpdxExpression::parse("MIT").unwrap();
 
-        let license_list = LicenseList::from_github().unwrap();
+        let license_list = LicenseList::from_github(None).unwrap();
         let actual = update_license_to_valid_spdx(&original, &license_list).unwrap();
 
         let expected = SpdxExpression::parse("MIT").unwrap();

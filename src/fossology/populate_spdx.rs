@@ -245,7 +245,7 @@ mod tests {
     #[test]
     fn correctly_process_fossology_responses() {
         let mut spdx = deserialize_spdx("tests/data/fossology/test_spdx.json").unwrap();
-        let license_list = LicenseList::from_github().unwrap();
+        let license_list = LicenseList::from_github(None).unwrap();
 
         let mut response1: Vec<FilesearchResponse> =
             serde_json::from_str(&read_to_string("tests/data/fossology/response1.json").unwrap())
@@ -266,7 +266,7 @@ mod tests {
 
     #[test]
     fn update_file_from_fossology_response_correctly() {
-        let license_list = LicenseList::from_github().unwrap();
+        let license_list = LicenseList::from_github(None).unwrap();
 
         let mut file: FileInformation =
             serde_json::from_str(&read_to_string("tests/data/fossology/file_input.json").unwrap())
