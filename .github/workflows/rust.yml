@@ -1,8 +1,8 @@
-# SPDX-FileCopyrightText: 2020 HH Partners
+# SPDX-FileCopyrightText: 2021 HH Partners
 #
 # SPDX-License-Identifier: MIT
 
-name: CI
+name: Rust
 
 on:
   push:
@@ -14,26 +14,46 @@ env:
   CARGO_TERM_COLOR: always
 
 jobs:
-  test:
+  Test:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/cache@v2
+        name: Checkout
+      - uses: Swatinem/rust-cache@v1
         with:
-          path: |
-            ~/.cargo/registry
-            ~/.cargo/git
-            target
-          key: ${{ runner.os }}-cargo-${{ hashFiles('Cargo.lock') }}
-      - name: Build
-        run: cargo build --verbose
-      - name: Run tests
-        run: cargo test --verbose
-  reuse:
-    runs-on: ubuntu-latest
+          sharedKey: rust
+      - uses: actions-rs/cargo@v1
+        name: Cargo test
+        with:
+          command: test
+          args: -- --include-ignored
 
+  Clippy:
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: REUSE Compliance Check
-        uses: fsfe/reuse-action@v1
+        name: Checkout
+      - uses: Swatinem/rust-cache@v1
+        with:
+          sharedKey: rust
+      - uses: actions-rs/cargo@v1
+        name: Cargo clippy
+        id: clippy
+        with:
+          command: clippy
+          args: -- -D warnings
+
+  Format:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        name: Checkout
+      - uses: Swatinem/rust-cache@v1
+        with:
+          sharedKey: rust
+      - uses: actions-rs/cargo@v1
+        name: Cargo fmt
+        id: format
+        with:
+          command: fmt
+          args: --all -- --check
