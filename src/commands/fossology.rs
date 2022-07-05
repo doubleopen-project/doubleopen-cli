@@ -105,7 +105,7 @@ pub struct QueryArguments {
 pub fn query(arguments: QueryArguments, fossology: &Fossology) -> anyhow::Result<()> {
     let mut spdx = deserialize_spdx(&arguments.input)?;
 
-    let license_list = LicenseList::from_github()?;
+    let license_list = LicenseList::from_github(None)?;
     populate_spdx_document_from_fossology(fossology, &mut spdx, &license_list)?;
 
     serialize_spdx(arguments.output, &spdx)?;
