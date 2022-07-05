@@ -39,3 +39,15 @@ pub fn serialize_spdx<P: AsRef<Path>>(output_path: P, spdx: &SPDX) -> anyhow::Re
     write(&output_path, json_string)?;
     Ok(())
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_sha256_for_path() {
+        let actual_hash = hash256_for_path("LICENSE").unwrap();
+        let expected_hash = String::from("E53CC20D66C471D974F1264DB690B2ED2660816DA7624E75DF744D0D77BA3728");
+        assert_eq!(actual_hash, expected_hash);
+    }
+}
